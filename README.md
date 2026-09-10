@@ -1,10 +1,10 @@
 # Projet IHM — Suivi d’entraînements sportifs
 
-> Nom provisoire : **SportLog IHM**
+> Nom provisoire : **IHM-workout-app**
 
 ## Contexte
 
-Projet universitaire mené par une équipe de quatre personnes. Il porte sur la conception d’une interface homme-machine permettant de suivre et de saisir des entraînements sportifs.
+Projet universitaire. Il porte sur la conception d’une interface homme-machine permettant de suivre et de saisir des entraînements sportifs.
 
 ## Objectif
 
@@ -45,7 +45,6 @@ Les hypothèses, décisions et résultats sont consignés au plus près de leur 
 
 - Markdown et Git pour les documents et les décisions ;
 - Figma pour les sketches, wireframes, maquettes et prototypes ;
-- un outil de visioconférence ou de prise de notes choisi par l’équipe pour les réunions et évaluations.
 
 ## Fonctionnement de l’équipe
 
