@@ -5,6 +5,8 @@
 
 ## Hevy
 
+https://play.google.com/store/apps/details?id=com.hevy&utm_source=emea_Med
+
 ### Initialisation
 
 - Inscription obligatoire pour l'utilisation
@@ -14,7 +16,7 @@
 - Date de naissance
 - Poids, taille, objectif (Build muscle, Gain strength, Fat loss) et expérience (Beginner (0-1 years), Intermediate (1-3 years), Advanced (+3 years))
 - Créer ses propres séances ou être guidé
-- Énormément d'étapes inutiles (amis, mails, paiement et autres — 6 minimum)
+- Plusieurs étapes supplémentaires avant utilisation (amis, mails, paiement et autres — 6 minimum)
 
 ### Utilisation
 
@@ -29,7 +31,7 @@ Trois menus navigables par un bandeau en bas de l'écran :
         - Possibilité d'ajout de séries (bouton plus/moins), choix kilos/temps/distance et nombre de répétitions par saisie
         - Entraînement créé sur le moment
     - Nouvelle routine :
-        - Créer un programme que l'on peut ensuite commencer : permet de prévoir, mais manque de logique
+        - Créer un programme que l'on peut ensuite commencer, permettant de prévoir les séances à l'avance
         - Une fois lancée, la routine calcule le temps ; possibilité de valider ou non une série (non modifiable ensuite). Possibilité de rajouter une série
         - Possibilité d'ajout de série ou d'exercice
         - Possibilité d'ajout d'une note
@@ -41,68 +43,61 @@ Trois menus navigables par un bandeau en bas de l'écran :
 
 ### Avantages / Inconvénients
 
-**Avantages**
-- Connexion possible à Health Connect
-- Possibilité de créer ses propres séances ou d'être guidé
-- Ajout d'exercices via liste avec recherche, ou par création
-- Ajout flexible de séries/exercices pendant l'entraînement (bouton plus/moins)
-- Calcul automatique du temps pendant une routine
-- Résumé des statistiques, mesures et séances via un calendrier dans le profil
-- Volet social : suivi d'athlètes ou d'amis
+**Avantages (avis Google Play)**
+- Note moyenne élevée (autour de 4,8-4,9/5) sur un très grand nombre d'avis
+- Interface saluée comme simple, minimaliste et agréable à utiliser
+- Application jugée stable, avec peu de bugs signalés
+- Fonctionnalités jugées complètes pour le suivi de la musculation
 
-**Inconvénients**
-- Inscription obligatoire, avec énormément d'étapes inutiles (6 minimum : amis, mails, paiement...)
-- Création de routine permettant de prévoir mais jugée peu logique
-- Série non modifiable une fois validée pendant une routine
-- Abandon d'un entraînement réinitialise tout : aucune possibilité d'indiquer un entraînement raté
+**Inconvénients (avis Google Play)**
+- Fonctionnalités avancées (statistiques détaillées, routines illimitées) réservées à l'abonnement payant Hevy Pro
+- Absence de suivi pour les activités cardio (tapis de course, elliptique)
+- Suivi du poids jugé parfois peu clair par certains utilisateurs
 
 ## Lyfta
+
+https://play.google.com/store/apps/details?id=com.lyfta&utm_source=emea_Med
 
 ### Initialisation
 
 - Choix du genre (homme, femme)
 - Choix de l'objectif (prise de muscle, devenir plus fort, perdre du poids, fondamentaux, condition physique, sport)
-- Écran inutile
 - Choix de la zone à travailler (sélection multiple) : pecs, abdos, dos, bras, jambes, etc.
 - Comment en avez-vous entendu parler ?
 - Pourquoi enregistrer ses entraînements ?
-- Écran inutile
 - Choix de l'expérience
-- Écran inutile
 - Combien de jours par semaine ?
 - Sur combien de temps s'engager (1 an, 3 mois, 1 mois)
-- Écran inutile
 - Quels équipements sont disponibles ?
-- Écran inutile
 - Poids (très précis, à 0,1 kg près)
 - Code de parrainage
 - Création de compte obligatoire
-- Écran inutile
-- Écran inutile
-- Écran inutile
 - Paiement obligatoire
-
-"Écran inutile" désigne un écran ne donnant aucune information et ne possédant qu'un bouton "Continuer", ce qui constitue un frein à l'utilisation.
 
 ### Avantages / Inconvénients
 
-**Avantages**
-- Personnalisation très fine du profil dès l'inscription (objectif, zones à travailler, expérience, équipement, engagement dans le temps)
+**Avantages (avis Google Play)**
+- Note moyenne élevée (autour de 4,7/5) sur plus de 56 000 avis
+- Bibliothèque d'exercices très fournie, avec possibilité d'ajouter des exercices personnalisés (y compris avec images)
+- Possibilité d'enregistrer les exercices unilatéraux séparément, fonctionnalité peu courante saluée par les utilisateurs
 
-**Inconvénients**
-- Onboarding très long et redondant, avec de nombreux écrans inutiles (uniquement un bouton "Continuer", sans information)
-- Création de compte et paiement obligatoires dès l'inscription
-- Aucune information notée sur l'utilisation de l'app une fois l'inscription passée
+**Inconvénients (avis Google Play)**
+- Bug signalé après une mise à jour : les séances ne se réinitialisent pas, les exercices apparaissant déjà cochés
+- Problèmes de connexion rapportés par certains utilisateurs (erreurs au chargement)
+- Synchronisation avec les trackers d'activité (Apple Watch, Health) jugée peu fiable
+- Demande récurrente d'un chronomètre par série, actuellement absent
+- Au moins une plainte concernant un renouvellement d'abonnement non désiré
+- Application seulement partiellement traduite en français
 
 ## RepCount
+
+https://play.google.com/store/apps/details?id=sp.repcount&utm_source=emea_Med
 
 ### Initialisation
 
 - Comment en avez-vous entendu parler ?
 - Objectif (soulever plus lourd, prendre du muscle, devenir sec, perdre du poids)
-- Écran inutile
 - Expérience (débutant, 1-3 ans, 3 ans et plus)
-- Écran inutile
 - Création de compte non obligatoire
 
 ### Utilisation
@@ -126,25 +121,27 @@ Trois menus navigables par un bandeau en bas de l'écran :
 
 ### Avantages / Inconvénients
 
-**Avantages**
-- Création de compte non obligatoire
-- Nombreux paramètres disponibles par série (kilos, répétitions, note par série)
-- Recherche d'exercice possible
-- Possibilité d'ajouter notes et horaires (début/fin) sur une séance
+**Avantages (avis Google Play)**
+- Note moyenne élevée (autour de 4,8/5)
+- Interface jugée intuitive et épurée par les utilisateurs
+- Version gratuite jugée généreuse et suffisante par de nombreux avis
+- Affichage des performances de la séance précédente avant chaque série, apprécié pour suivre sa progression
 
-**Inconvénients**
-- Contenu dupliqué à 4 reprises (parties du corps, exercices, routines) : navigation confuse et répétitive
-- Pas de suivi en direct pendant l'entraînement, uniquement un enregistrement après coup
-- Statistiques inaccessibles hors version payante
+**Inconvénients (avis Google Play)**
+- Absence d'option pour créer des supersets ou tri-sets, jugée manquante par plusieurs utilisateurs
+- Pas de bouton dédié pour clôturer une séance
+- Demandes récurrentes de compatibilité Apple Watch et d'une bibliothèque d'exercices plus large
 
 ## Entraînement en salle de sport
+
+https://play.google.com/store/apps/details?id=gymworkout.gym.gymlog.gymtrainer&utm_source=emea_Med
 
 ### Initialisation
 
 - Choix du sexe
 - Choix de l'objectif
 - Choix des zones à travailler (sélection multiple)
-- Choix de la taille via un mètre qui bouge (peu ergonomique), précision à 0,1
+- Choix de la taille via un mètre qui bouge, précision à 0,1
 - Choix du poids via le même système, précision à 0,1, avec affichage de l'IMC à la validation
 - Objectif de poids de l'utilisateur (avertissement si trop bas ou trop haut par rapport à l'IMC)
 - Choix de l'expérience
@@ -183,14 +180,12 @@ Deux bandeaux de navigation : un bandeau supérieur (Entraînement ou Programme)
 
 ### Avantages / Inconvénients
 
-**Avantages**
-- Séance créée automatiquement, modifiable ensuite
-- Affichage du temps et de la série en cours pendant l'entraînement, avec passage à la série suivante en un clic
-- Estimation du 1RM à l'inscription
-- Bibliothèque d'exercices avec explications, recherche et ajout d'exercices personnalisés
-- Rapport complet : nombre d'entraînements, temps total, volume soulevé, historique des séances et suivi du poids en graphique
-- Avertissement si le poids visé est trop bas ou trop haut par rapport à l'IMC
+**Avantages (avis Google Play)**
+- Note moyenne très élevée (environ 4,8/5) sur plus de 220 000 avis
+- Génération automatique du programme d'entraînement appréciée par les utilisateurs
 
-**Inconvénients**
-- Choix de la taille via un "mètre qui bouge", jugé peu ergonomique
-- Onboarding long, avec plusieurs questions ouvertes (préférence de lieu, plus grand défi, façon de s'entraîner)
+**Inconvénients (avis Google Play)**
+- Nombreuses publicités signalées, certaines provoquant des blocages de l'application
+- Abonnement annuel jugé cher comparé à un modèle sans publicité ou à paiement unique
+- Choix d'exercices jugé limité par certains utilisateurs
+- Impossible de suivre le temps passé sur les machines cardio (elliptique, tapis de course)
