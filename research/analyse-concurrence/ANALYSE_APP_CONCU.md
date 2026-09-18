@@ -39,6 +39,23 @@ Trois menus navigables par un bandeau en bas de l'écran :
 - **Profil**
     - Résumé des statistiques, exercices, mesures ou séances via un calendrier
 
+### Avantages / Inconvénients
+
+**Avantages**
+- Connexion possible à Health Connect
+- Possibilité de créer ses propres séances ou d'être guidé
+- Ajout d'exercices via liste avec recherche, ou par création
+- Ajout flexible de séries/exercices pendant l'entraînement (bouton plus/moins)
+- Calcul automatique du temps pendant une routine
+- Résumé des statistiques, mesures et séances via un calendrier dans le profil
+- Volet social : suivi d'athlètes ou d'amis
+
+**Inconvénients**
+- Inscription obligatoire, avec énormément d'étapes inutiles (6 minimum : amis, mails, paiement...)
+- Création de routine permettant de prévoir mais jugée peu logique
+- Série non modifiable une fois validée pendant une routine
+- Abandon d'un entraînement réinitialise tout : aucune possibilité d'indiquer un entraînement raté
+
 ## Lyfta
 
 ### Initialisation
@@ -66,6 +83,16 @@ Trois menus navigables par un bandeau en bas de l'écran :
 - Paiement obligatoire
 
 "Écran inutile" désigne un écran ne donnant aucune information et ne possédant qu'un bouton "Continuer", ce qui constitue un frein à l'utilisation.
+
+### Avantages / Inconvénients
+
+**Avantages**
+- Personnalisation très fine du profil dès l'inscription (objectif, zones à travailler, expérience, équipement, engagement dans le temps)
+
+**Inconvénients**
+- Onboarding très long et redondant, avec de nombreux écrans inutiles (uniquement un bouton "Continuer", sans information)
+- Création de compte et paiement obligatoires dès l'inscription
+- Aucune information notée sur l'utilisation de l'app une fois l'inscription passée
 
 ## RepCount
 
@@ -96,6 +123,19 @@ Trois menus navigables par un bandeau en bas de l'écran :
     - Routines déjà existantes, possibilité d'en ajouter de nouvelles (là encore, tout est dupliqué 4 fois)
 - **Statistiques**
     - Inaccessibles, réservées à la version payante
+
+### Avantages / Inconvénients
+
+**Avantages**
+- Création de compte non obligatoire
+- Nombreux paramètres disponibles par série (kilos, répétitions, note par série)
+- Recherche d'exercice possible
+- Possibilité d'ajouter notes et horaires (début/fin) sur une séance
+
+**Inconvénients**
+- Contenu dupliqué à 4 reprises (parties du corps, exercices, routines) : navigation confuse et répétitive
+- Pas de suivi en direct pendant l'entraînement, uniquement un enregistrement après coup
+- Statistiques inaccessibles hors version payante
 
 ## Entraînement en salle de sport
 
@@ -140,3 +180,17 @@ Deux bandeaux de navigation : un bandeau supérieur (Entraînement ou Programme)
         - Volume en kg soulevé
     - Historique des séances (date et heure de début, durée et volume soulevé)
     - Suivi du poids sur le mois (graphique)
+
+### Avantages / Inconvénients
+
+**Avantages**
+- Séance créée automatiquement, modifiable ensuite
+- Affichage du temps et de la série en cours pendant l'entraînement, avec passage à la série suivante en un clic
+- Estimation du 1RM à l'inscription
+- Bibliothèque d'exercices avec explications, recherche et ajout d'exercices personnalisés
+- Rapport complet : nombre d'entraînements, temps total, volume soulevé, historique des séances et suivi du poids en graphique
+- Avertissement si le poids visé est trop bas ou trop haut par rapport à l'IMC
+
+**Inconvénients**
+- Choix de la taille via un "mètre qui bouge", jugé peu ergonomique
+- Onboarding long, avec plusieurs questions ouvertes (préférence de lieu, plus grand défi, façon de s'entraîner)
