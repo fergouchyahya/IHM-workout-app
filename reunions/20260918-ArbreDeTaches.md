@@ -63,6 +63,6 @@ Matthieu : T1
 
 Sami : T5
 
-Yahya : T2 et T3
+Yahya : T2 et T3 + personna du troisième âge + git
 
-Marie : T4
+Marie : T4 + prototype (voir slide)
