@@ -1,28 +1,12 @@
 # 04 — Analyse des tâches
 
-Analyser les objectifs et sous-tâches nécessaires à la réalisation d’une activité. Cette analyse décrit l’activité, pas encore l’interface : les clics, taps et gestes physiques ne doivent pas être décrits à ce niveau.
+Ces modèles décrivent ce que les personnes cherchent à faire, dans quel ordre et avec quelles informations. Les écrans et gestes d'interface seront définis plus tard.
 
-## Premier exemple d’arbre des tâches
+Le [compte rendu du 18 septembre](../../reunions/20260918-ArbreDeTaches.md) propose une première organisation T1–T5. Les modèles ci-dessous l'appliquent aux personas et scénarios existants.
 
-```text
-Effectuer un entraînement
-├── Préparer l’entraînement
-│   ├── Sélectionner une séance
-│   └── Consulter les exercices
-├── Réaliser l’entraînement
-│   ├── Réaliser un exercice
-│   │   ├── Consulter l’objectif
-│   │   ├── Réaliser une série
-│   │   ├── Enregistrer le résultat
-│   │   └── Se reposer
-│   └── Passer à l’exercice suivant
-└── Terminer l’entraînement
-    ├── Vérifier la séance
-    └── Enregistrer la séance
-```
+| Travail | Fichiers |
+| --- | --- |
+| Réaliser et documenter une séance (T2) | [Modèles de Greg, Thomas et Camille](T2/README.md) |
+| Analyser les résultats (T3) | [Modèles de Greg, Thomas et Camille](T3/README.md) |
 
-Ajouter ensuite les variantes, règles d’enchaînement et difficultés identifiées pour chaque tâche importante.
-
-## Travail en cours
-
-Le [compte rendu du 18 septembre 2026](../../reunions/20260918-ArbreDeTaches.md) recense les tâches et propose une première organisation T1–T5. Il reste à confronter cette proposition aux personas et scénarios, puis à préciser les variantes et l’enchaînement des tâches. Les pistes de navigation et de synchronisation qui y figurent sont des besoins ou hypothèses à valider, pas des choix d’interface arrêtés.
+Les six fichiers suivent les mêmes huit sections pour être comparés en réunion. Les personas et les réponses données en jeu de rôle sont des hypothèses : noter leur provenance, puis les confronter à des personnes réelles. Après cette revue, l'équipe pourra retenir les tâches communes et créer un modèle K-MADe de synthèse.
