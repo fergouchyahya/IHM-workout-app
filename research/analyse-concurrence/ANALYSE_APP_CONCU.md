@@ -3,6 +3,8 @@
 **Auteur :** Matthieu
 **Reviewer :** ...
 
+Les observations d'interface proviennent d'une exploration des applications ; les avantages et inconvénients ajoutés ci-dessous résument des avis Google Play. Les notes, volumes d'avis et fonctionnalités peuvent évoluer : vérifier leur date et leur valeur avant de les citer dans un livrable final.
+
 ## Hevy
 
 https://play.google.com/store/apps/details?id=com.hevy&utm_source=emea_Med

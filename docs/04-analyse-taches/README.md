@@ -22,3 +22,7 @@ Effectuer un entraînement
 ```
 
 Ajouter ensuite les variantes, règles d’enchaînement et difficultés identifiées pour chaque tâche importante.
+
+## Travail en cours
+
+Le [compte rendu du 18 septembre 2026](../../reunions/20260918-ArbreDeTaches.md) recense les tâches et propose une première organisation T1–T5. Il reste à confronter cette proposition aux personas et scénarios, puis à préciser les variantes et l’enchaînement des tâches. Les pistes de navigation et de synchronisation qui y figurent sont des besoins ou hypothèses à valider, pas des choix d’interface arrêtés.
