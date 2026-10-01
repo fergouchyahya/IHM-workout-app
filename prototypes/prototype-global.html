@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prototype global — squelette de l'application</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E9ECF0; --paper:#FFFFFF; --ink:#17222E; --muted:#56646F; --line:#D3D9E0;
+  --soft:#F4F6F8; --blue:#1E5BB8; --blue-soft:#E4EDFA; --danger:#B3261E; --danger-soft:#FBE9E7;
+  --font-head:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --font-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.45}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+
+/* Page */
+.top{max-width:1100px;margin:0 auto;padding:24px 20px 8px}
+.top h1{font-family:var(--font-head);font-weight:700;font-size:34px;line-height:1.05;margin:0 0 6px}
+.top p{margin:0;color:var(--muted);max-width:68ch}
+.persona-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:16px}
+.persona-bar span{color:var(--muted)}
+.seg{display:inline-flex;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px}
+.seg button{border:0;background:transparent;padding:8px 16px;border-radius:999px;cursor:pointer;min-height:40px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.stage{max-width:1100px;margin:0 auto;padding:12px 20px 40px;display:grid;grid-template-columns:420px 1fr;gap:32px;align-items:start}
+
+/* Phone */
+.phone{position:relative;width:410px;height:790px;background:var(--paper);border:10px solid var(--ink);border-radius:44px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 18px 40px rgba(23,34,46,.18)}
+.screen{flex:1;min-height:0;display:flex;flex-direction:column}
+.body{flex:1;overflow-y:auto;padding:20px 18px 18px}
+.bar{display:flex;gap:10px;padding:12px 18px;border-top:1px solid var(--line);background:var(--paper)}
+.bar .btn{flex:1}
+.tabs{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);background:var(--soft)}
+.tabs button{border:0;background:transparent;padding:12px 8px 14px;cursor:pointer;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;min-height:56px}
+.tabs button[aria-current="page"]{color:var(--blue);font-weight:700;box-shadow:inset 0 3px 0 var(--blue)}
+.tabs svg{width:22px;height:22px}
+
+/* Type */
+h2.title{font-family:var(--font-head);font-weight:700;font-size:30px;line-height:1.05;margin:4px 0 6px}
+h3{font-family:var(--font-head);font-weight:600;font-size:21px;line-height:1.15;margin:0}
+.lead{color:var(--muted);margin:0 0 16px}
+.label{display:block;font-weight:700;margin:20px 0 6px}
+.help{color:var(--muted);font-size:14px;margin:4px 0 0}
+
+/* Header / stepper */
+.head{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.icon-btn{border:1px solid var(--line);background:var(--paper);width:44px;height:44px;border-radius:12px;display:grid;place-items:center;cursor:pointer;flex:none}
+.icon-btn svg{width:22px;height:22px}
+.stepper{flex:1}
+.stepper .txt{font-size:14px;color:var(--muted);margin-bottom:5px}
+.stepper .segs{display:grid;gap:4px}
+.stepper .segs i{height:5px;border-radius:3px;background:var(--line)}
+.stepper .segs i.on{background:var(--blue)}
+
+/* Buttons */
+.btn{min-height:48px;padding:10px 16px;border-radius:10px;border:2px solid var(--line);background:var(--paper);font-weight:700;cursor:pointer}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.danger{background:var(--danger);border-color:var(--danger);color:#fff}
+.btn.quiet{border-color:var(--blue);color:var(--blue)}
+.btn.block{width:100%}
+.btn.small{min-height:40px;padding:6px 14px;font-weight:700}
+
+/* Cards */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.card .row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.kind{font-size:14px;color:var(--muted)}
+.meta{color:var(--muted);font-size:15px;margin:2px 0 12px}
+.panel{border-radius:14px;padding:14px;margin-bottom:12px}
+.panel.ok{background:var(--blue-soft)}
+.panel.priv{background:var(--soft);border:1px dashed #AEB8C2}
+.panel h3{margin-bottom:8px}
+.ul{list-style:none;margin:0;padding:0}
+.ul li{display:flex;gap:10px;align-items:flex-start;padding:5px 0}
+.ul svg{width:20px;height:20px;flex:none;margin-top:2px}
+.opt{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;cursor:pointer}
+.opt input{width:22px;height:22px;margin:2px 0 0;flex:none;accent-color:var(--blue)}
+.opt b{display:block}
+
+/* Form */
+input[type=text],textarea{width:100%;border:2px solid var(--line);border-radius:10px;padding:11px 12px;background:var(--paper);min-height:48px}
+textarea{min-height:110px;resize:vertical}
+.err-field{border-color:var(--danger)!important}
+.err-msg{color:var(--danger);font-size:14px;margin-top:4px;font-weight:700}
+.summary{background:var(--danger-soft);border:2px solid var(--danger);border-radius:12px;padding:12px 14px;margin-bottom:12px}
+.summary b{display:block;margin-bottom:4px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border-radius:999px;border:2px solid var(--line);background:var(--paper);cursor:pointer}
+.chip[aria-checked="true"]{border-color:var(--blue);background:var(--blue-soft);font-weight:700}
+.chip svg{width:16px;height:16px}
+.dot{width:12px;height:12px;border-radius:50%;flex:none}
+.switch{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;text-align:left;border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--paper);cursor:pointer;min-height:56px}
+.switch .track{width:46px;height:26px;border-radius:13px;background:#9AA7B3;position:relative;flex:none;transition:background .15s}
+.switch .track::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .15s}
+.switch[aria-checked="true"] .track{background:var(--blue)}
+.switch[aria-checked="true"] .track::after{transform:translateX(20px)}
+.radio{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;border:2px solid var(--line);border-radius:12px;padding:12px;background:var(--paper);cursor:pointer;margin-bottom:8px}
+.radio[aria-checked="true"]{border-color:var(--blue);background:var(--blue-soft)}
+.radio .rd{width:20px;height:20px;border-radius:50%;border:2px solid var(--muted);flex:none;margin-top:2px;display:grid;place-items:center}
+.radio[aria-checked="true"] .rd{border-color:var(--blue)}
+.radio[aria-checked="true"] .rd::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--blue)}
+
+/* Preview */
+.banner{background:var(--ink);color:#fff;border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:15px}
+.pv{border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--paper)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:14px;padding:3px 10px;border-radius:999px;background:var(--soft);border:1px solid var(--line)}
+.pv p.desc{margin:6px 0 12px}
+.pv p.empty{color:var(--muted);font-style:italic}
+.pv h4{margin:14px 0 4px;font-size:16px}
+.lines{margin:0;padding-left:20px}
+.lines li{padding:2px 0}
+.vis{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:15px}
+
+/* Shares */
+.share{width:100%;text-align:left;cursor:pointer}
+.empty-state{text-align:center;padding:40px 10px;color:var(--muted)}
+.empty-state h3{color:var(--ink);margin-bottom:6px}
+.cm{border-top:1px solid var(--line);padding:12px 0}
+.cm b{display:block}
+.cm .reply{margin:8px 0 0 14px;padding-left:10px;border-left:3px solid var(--line)}
+.inline{display:flex;gap:8px;margin-top:8px}
+.inline input{flex:1}
+
+/* Overlay + toast */
+.overlay{position:absolute;inset:0;background:rgba(23,34,46,.55);display:flex;align-items:flex-end;z-index:5}
+.sheet{background:var(--paper);width:100%;border-radius:22px 22px 0 0;padding:20px 18px 18px}
+.sheet .btns{display:flex;gap:10px;margin-top:16px}
+.sheet .btns .btn{flex:1}
+.toast{position:absolute;left:18px;right:18px;bottom:84px;background:var(--ink);color:#fff;padding:12px 16px;border-radius:12px;opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .2s,transform .2s;z-index:6}
+.toast.on{opacity:1;transform:none}
+
+/* Notes */
+.notes{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px}
+.notes h2{font-family:var(--font-head);font-size:24px;margin:0 0 4px}
+.notes h3{font-size:18px;margin:16px 0 6px}
+.notes ul{margin:0;padding-left:20px}
+.notes li{margin:4px 0}
+.notes .ids{display:flex;flex-wrap:wrap;gap:6px}
+.notes .ids span{background:var(--blue-soft);color:var(--blue);font-weight:700;border-radius:8px;padding:2px 10px;font-size:14px}
+.notes .demo{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.notes .demo .btn{margin:4px 8px 0 0}
+
+
+/* Squelette global */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 18px 4px}
+.topbar h2.title{margin:0;font-size:28px}
+.util{display:flex;gap:8px;align-items:center}
+.syncchip{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 12px;border:1px solid var(--line);border-radius:999px;background:var(--paper);font-size:13px;cursor:pointer}
+.dot2{width:9px;height:9px;border-radius:50%;background:#2E8B57;flex:none}
+.dot2.off{background:transparent;border:2px solid #56646F}
+.ph{border:2px dashed #9AA7B3;border-radius:14px;padding:14px;margin:12px 0;background:var(--soft)}
+.ph .tag-ph{font-size:14px;font-weight:700;color:var(--muted);margin-bottom:2px}
+.ph h3{margin-bottom:4px}
+.ph ul{margin:8px 0;padding-left:20px}
+.seg2{display:flex;background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:3px;margin-bottom:14px}
+.seg2 button{flex:1;border:0;background:transparent;border-radius:9px;min-height:44px;cursor:pointer;font-weight:700;color:var(--muted)}
+.seg2 button[aria-pressed="true"]{background:var(--paper);color:var(--ink);box-shadow:0 1px 3px rgba(23,34,46,.18)}
+.tabs{grid-template-columns:repeat(4,1fr)}
+.tabs button{font-size:13px;padding:10px 2px 12px}
+.conv{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+
+@media (max-width:960px){
+  .stage{grid-template-columns:1fr;justify-items:center}
+  .notes{width:100%;max-width:410px}
+}
+@media (max-width:480px){
+  .phone{width:100%;height:calc(100dvh - 24px);border-width:6px;border-radius:30px}
+  .stage{padding:8px 8px 24px}
+  .top{padding:16px 12px 4px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Prototype global : squelette de l'application</h1>
+  <p>Squelette cliquable de toute l'application : navigation, éléments transverses (T5) et conventions communes. Le module T4 (partager un programme) est déjà branché. Les espaces en pointillés sont réservés aux autres tâches. Données fictives, rien n'est enregistré.</p>
+  <div class="persona-bar" role="group" aria-label="Choisir l'utilisateur simulé">
+    <span>Voir comme :</span>
+    <div class="seg" id="personaSeg"></div>
+  </div>
+</header>
+
+<main class="stage">
+  <div class="phone" id="phone">
+    <div class="screen" id="screen"></div>
+    <nav class="tabs" aria-label="Navigation principale" id="tabs"></nav>
+    <div id="overlay"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+  <aside class="notes" id="notes" aria-label="Notes de conception"></aside>
+</main>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- Données fictives ---------- */
+var LEVELS=["Débutant","Intermédiaire","Avancé"];
+var LEVEL_COLOR={"Débutant":"#2E8B57","Intermédiaire":"#D9A400","Avancé":"#C8372D"};
+var ZONES=["Corps entier","Haut du corps","Jambes","Squat","Développé couché","Soulevé de terre","Cardio"];
+
+var DATA={
+  thomas:{name:"Thomas",level:"Débutant",items:[
+    {name:"Full Body débutant",type:"Bloc",meta:"4 semaines · 3 séances par semaine",zone:"Corps entier",linesTitle:"Semaine type (7 jours)",
+     lines:["Lundi : Full Body","Mardi : Repos","Mercredi : Jambes","Jeudi : Repos","Vendredi : Haut du corps","Samedi : Repos actif","Dimanche : Repos"]},
+    {name:"Séance Jambes",type:"Séance",meta:"5 exercices · environ 50 min",zone:"Jambes",linesTitle:"Exercices",
+     lines:["Presse à cuisses : 3 × 12","Squat guidé : 3 × 10","Leg curl : 3 × 12","Extension jambes : 3 × 12","Mollets debout : 3 × 15"]}
+  ],comments:[
+    {who:"Inès",text:"Bien équilibré pour débuter. Pense à ajouter un échauffement avant Jambes."},
+    {who:"Mathias",text:"Le repos actif du samedi est une bonne idée, garde-le."}]},
+  camille:{name:"Camille",level:"Intermédiaire",items:[
+    {name:"Haut du corps",type:"Séance",meta:"5 exercices · environ 55 min",zone:"Haut du corps",linesTitle:"Exercices",
+     lines:["Développé couché : 4 × 8","Rowing barre : 4 × 8","Développé militaire : 3 × 10","Tractions : 3 × 8","Curl biceps : 3 × 12"]},
+    {name:"Bas du corps",type:"Séance",meta:"5 exercices · environ 60 min",zone:"Jambes",linesTitle:"Exercices",
+     lines:["Squat : 4 × 8","Soulevé de terre roumain : 3 × 10","Fentes : 3 × 10","Leg curl : 3 × 12","Mollets : 4 × 12"]}
+  ],comments:[
+    {who:"Inès",text:"Merci, je l'ai importée. Tu fais quoi comme échauffement avant le développé ?"},
+    {who:"Mathias",text:"Bonne base. J'ajouterais un travail d'épaules en fin de séance."}]},
+  greg:{name:"Greg",level:"Avancé",items:[
+    {name:"Cycle squat, 10 semaines",type:"Bloc",meta:"10 semaines · 5 séances par semaine",zone:"Squat",linesTitle:"Organisation du cycle",rpe:true,reglages:true,
+     lines:["Semaines 1 à 4 : volume, RPE cible 7","Semaines 5 à 8 : intensité, RPE cible 8","Semaine 9 : pic, RPE cible 9","Semaine 10 : décharge, RPE cible 6","Accessoires : fentes bulgares, good morning, gainage"]},
+    {name:"Développé couché, séance lourde",type:"Séance",meta:"4 exercices · environ 90 min",zone:"Développé couché",linesTitle:"Exercices",rpe:true,reglages:true,
+     lines:["Développé couché pause : 5 × 3, RPE 8","Développé prise serrée : 4 × 6, RPE 7","Tractions lestées : 4 × 6","Face pull : 3 × 15"]}
+  ],comments:[
+    {who:"Inès",text:"Tu prévois la décharge en semaine 10 plutôt qu'en semaine 5. Pourquoi ce choix ?"},
+    {who:"Mathias",text:"Intéressant, le pic en semaine 9 passe bien avec un RPE 9."}]}
+};
+
+/* ---------- Icônes ---------- */
+function svg(path,extra){return '<svg viewBox="0 0 24 24" fill="none" stroke="'+(extra||"currentColor")+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+path+'</svg>';}
+var I={
+  back:svg('<path d="M15 5l-7 7 7 7"/>'),
+  check:svg('<path d="M5 12.5l4.5 4.5L19 7.5"/>',"#1E5BB8"),
+  checkSm:svg('<path d="M5 12.5l4.5 4.5L19 7.5"/>',"#1E5BB8"),
+  lock:svg('<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/>',"#56646F"),
+  list:svg('<path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/>'),
+  play:svg('<path d="M8 5v14l11-7z"/>'),
+  chart:svg('<path d="M3 20h18M6 20v-6M11 20V6M16 20v-9"/>'),
+  people:svg('<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 5a3.2 3.2 0 010 6.4M18 14.4c2.2.6 3.5 2.6 3.5 5.6"/>'),
+  search:svg('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>')
+};
+
+/* ---------- État ---------- */
+var S;
+function fresh(persona){
+  return {persona:persona||"thomas",screen:"root",tab:"programmes",comSeg:"partages",item:null,mode:"create",form:null,
+          include:{charges:false,reglages:false},errors:[],shares:[],openShare:null,dialog:null,replyOpen:null,
+          lastKey:null,online:true};
+}
+S=fresh("thomas");
+
+function esc(t){return String(t).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function P(){return DATA[S.persona];}
+function initForm(item){
+  S.form={title:item.name,level:P().level,zone:item.zone,desc:"",comments:true,visibility:"public"};
+  S.include={charges:false,reglages:false};
+  S.errors=[];
+}
+function visLabel(v){return v==="public"?"Tout le monde":"Mes contacts";}
+function verb(v){return v==="public"?"Publier":"Partager";}
+function pendingCount(){return S.shares.filter(function(s){return s.status==="pending";}).length;}
+function viewKey(){
+  if(S.screen!=="root")return S.screen;
+  if(S.tab==="communaute")return S.comSeg==="decouvrir"?"decouvrir":"partages";
+  return S.tab;
+}
+
+/* ---------- Notes de conception ---------- */
+var NOTES={
+  programmes:{t:"Programmes (espace T1)",ids:["T1","T4.1.1"],owner:"Matthieu (T1)",
+    c:["Guidage : « Partager » est visible sur chaque programme, sans menu.","Le contenu en pointillés est à définir par T1 : création, bibliothèque, calendrier."],
+    q:"T1 gardera-t-il ce bouton « Partager » sur chaque programme, ou le déplacera-t-il dans un menu ?"},
+  seance:{t:"Séance (espace T2)",ids:["T2"],owner:"Yahya (T2)",
+    c:["Espace réservé : les arbres T2-Thomas, T2-Camille et T2-Greg existent déjà dans le dépôt.","Doit respecter les conventions communes (ci-dessous)."],
+    q:"Comment démarre-t-on une séance : depuis Programmes ou depuis cet onglet ?"},
+  progres:{t:"Progrès (espace T3)",ids:["T3"],owner:"Yahya (T3)",
+    c:["Espace réservé : historique des séances et graphiques de progression.","Les persona divergent : Thomas veut des records visibles, Mireille un suivi lié à son autonomie."],
+    q:"Faut-il un seul écran de progrès ou plusieurs vues selon le niveau ?"},
+  decouvrir:{t:"Découvrir (espace T1.1)",ids:["T1.1"],owner:"Matthieu (T1.1)",
+    c:["Espace réservé : explorer la bibliothèque et importer les programmes publiés par d'autres.","C'est le pendant de T4 : ce que l'un publie, l'autre l'importe."],
+    q:"Où l'utilisateur importe-t-il un programme : ici ou depuis la bibliothèque de l'onglet Programmes ?"},
+  partages:{t:"Mes partages (T4.4)",ids:["T4.4.1","T4.4.2"],owner:"Marie (T4)",
+    c:["Guidage : l'état vide explique quoi faire pour commencer.","Gestion des erreurs : hors ligne, la publication est mise en attente et son état est visible."],
+    q:"T4.4 reste-t-il dans T4 ? Les contacts, eux, relèvent de qui ?"},
+  check:{t:"Vérifier ce qui est partagé",ids:["T4.1.2"],owner:"Marie (T4)",
+    c:["Contrôle explicite : ce qui sort et ce qui reste privé sont visibles avant d'avancer.","Parcours en étapes : la navigation principale est masquée pour rester concentré."],
+    q:"Charges prévues et réglages du matériel sont exclus par défaut. À valider avec Greg et Yahya."},
+  form:{t:"Présenter le programme",ids:["T4.2.1","T4.2.2","T4.2.3","T4.2.4"],owner:"Marie (T4)",
+    c:["Charge de travail : titre, niveau et zone sont préremplis.","Adaptabilité : description et retours sont facultatifs.","Gestion des erreurs : un message dit quel champ corriger."],
+    q:"Visibilité par défaut : « Tout le monde » ou « Mes contacts » ?"},
+  preview:{t:"Contrôler l'aperçu",ids:["T4.3.1"],owner:"Marie (T4)",
+    c:["Contrôle explicite : l'aperçu montre la fiche telle que les autres la verront.","Homogénéité : le bouton garde le nom de l'action jusqu'au message de confirmation."],
+    q:"L'aperçu doit-il montrer aussi la fiche vue par un lecteur qui importe (lien avec T1.1) ?"},
+  detail:{t:"Suivre un programme partagé",ids:["T4.4.1","T4.4.2"],owner:"Marie (T4)",
+    c:["Contrôle explicite : modifier et retirer sont séparés, et retirer demande une confirmation.","La confirmation explique ce qui arrive aux personnes qui ont déjà importé le programme."],
+    q:"Que devient la copie importée quand l'auteur met à jour son programme ?"}
+};
+var CONVENTIONS=[
+  "Navigation : quatre onglets en bas (Programmes, Séance, Progrès, Communauté). La recherche (T5.1) et l'état de synchronisation (T5.2) restent en haut.",
+  "Parcours en plusieurs étapes : onglets masqués, indicateur « Étape x sur n », Retour à gauche et action principale à droite.",
+  "Un seul bouton principal (bleu) par écran. Les actions destructrices sont en rouge.",
+  "Le verbe du bouton est repris dans la confirmation (Publier, puis « Programme publié »).",
+  "Vocabulaire : programme = séance ou bloc ; « retirer » un contenu partagé ; « partager » ou « publier » selon la visibilité.",
+  "Les niveaux s'affichent avec une pastille de couleur et du texte (vert Débutant, jaune Intermédiaire, rouge Avancé).",
+  "Action irréversible ou visible par d'autres : feuille de confirmation qui explique la conséquence.",
+  "Cibles tactiles d'au moins 44 px, textes en phrases (pas de majuscules)."
+];
+
+/* ---------- Composants ---------- */
+function topbar(title){
+  var pend=pendingCount();
+  var lab=S.online?"Synchronisé":(pend?"Hors ligne · "+pend+" en attente":"Hors ligne");
+  return '<div class="topbar"><h2 class="title">'+esc(title)+'</h2><div class="util">'+
+    '<button class="icon-btn" data-a="openSearch" data-f="srch" aria-label="Rechercher">'+I.search+'</button>'+
+    '<button class="syncchip" data-a="openSync" data-f="sync" aria-label="État de la synchronisation : '+esc(lab)+'"><span class="dot2'+(S.online?"":" off")+'"></span>'+esc(lab)+'</button></div></div>';
+}
+function placeholder(id,title,owner,subs,note){
+  return '<section class="ph"><div class="tag-ph">Espace réservé</div><h3>'+esc(id)+' '+esc(title)+'</h3><p class="help" style="margin:0">Responsable : '+esc(owner)+'</p><ul>'+
+    subs.map(function(s){return '<li>'+esc(s)+'</li>';}).join("")+'</ul><p class="help" style="margin:0">'+esc(note)+'</p></section>';
+}
+function stepper(){
+  var steps=S.mode==="create"?["Vérifier","Présenter","Aperçu"]:["Présenter","Aperçu"];
+  var idx={check:0,form:S.mode==="create"?1:0,preview:S.mode==="create"?2:1}[S.screen];
+  var segs=steps.map(function(_,i){return '<i class="'+(i<=idx?"on":"")+'"></i>';}).join("");
+  return '<div class="stepper"><div class="txt">Étape '+(idx+1)+' sur '+steps.length+' : '+steps[idx]+'</div><div class="segs" style="grid-template-columns:repeat('+steps.length+',1fr)">'+segs+'</div></div>';
+}
+function head(backAction){
+  return '<div class="head"><button class="icon-btn" data-a="'+backAction+'" aria-label="Retour">'+I.back+'</button>'+stepper()+'</div>';
+}
+
+/* ---------- Vues ---------- */
+var VIEWS={
+  programmes:function(){
+    var cards=P().items.map(function(it,i){
+      return '<article class="card"><div class="kind">'+esc(it.type)+'</div><h3>'+esc(it.name)+'</h3><p class="meta">'+esc(it.meta)+'</p>'+
+             '<button class="btn quiet block" data-a="share" data-i="'+i+'" data-f="share'+i+'" aria-label="Partager '+esc(it.name)+'">Partager</button></article>';
+    }).join("");
+    return {top:topbar("Programmes"),body:'<p class="lead">Vos séances et blocs.</p>'+cards+
+      placeholder("T1","Préparer et organiser l'entraînement","Matthieu",
+        ["T1.1 Créer ou acquérir un programme (créer, paramétrer, explorer la bibliothèque)","T1.2 Gérer le calendrier sportif (placer, déplacer, copier, éditer)"],
+        "Le reste de l'espace Programmes est à définir par T1.")};
+  },
+  seance:function(){
+    return {top:topbar("Séance"),body:placeholder("T2","Réaliser et documenter une séance","Yahya",
+      ["T2.1 Saisir les données d'effort (répétitions, charge, repos, ressenti ou RPE)","T2.2 Enrichir la séance (photos, vidéos, notes)"],
+      "Les modèles T2-Thomas, T2-Camille et T2-Greg détaillent déjà ces tâches.")};
+  },
+  progres:function(){
+    return {top:topbar("Progrès"),body:placeholder("T3","Analyser et évaluer les résultats","Yahya",
+      ["T3.1 Consulter le passé (historique des séances et des cycles)","T3.2 Visualiser la progression (graphiques, records, corrélations)"],
+      "À définir une fois l'arbre T3 découpé.")};
+  },
+  decouvrir:function(){
+    return {top:topbar("Communauté"),body:communauteSeg()+placeholder("T1.1","Importer un programme publié par d'autres","Matthieu",
+      ["Explorer les programmes de la communauté par niveau et zone ciblée","Importer un programme dans ses programmes"],
+      "C'est ici que l'on retrouve ce que d'autres utilisateurs publient avec T4.")};
+  },
+  partages:function(){
+    var body=communauteSeg();
+    if(!S.shares.length){
+      body+='<div class="empty-state"><h3>Vous n\'avez encore rien partagé</h3><p>Choisissez un programme pour le proposer à la communauté.</p><button class="btn primary" data-a="tab" data-v="programmes">Choisir un programme</button></div>';
+    }else{
+      body+='<p class="lead">Retrouvez ce que vous avez partagé et les retours reçus.</p>'+S.shares.map(function(s,i){
+        var n=s.comments.length, meta;
+        if(s.status==="pending")meta="En attente de connexion";
+        else meta=s.form.comments?(n===0?"Aucun commentaire pour le moment":n+(n>1?" commentaires":" commentaire")):"Commentaires fermés";
+        return '<button class="card share" data-a="openShare" data-i="'+i+'" data-f="sh'+i+'"><div class="kind">'+esc(s.item.type)+' · '+visLabel(s.form.visibility)+'</div><h3>'+esc(s.form.title)+'</h3><p class="meta" style="margin:4px 0 0">'+meta+'</p></button>';
+      }).join("");
+    }
+    return {top:topbar("Communauté"),body:body};
+  },
+  check:function(){
+    var it=S.item, vis=["Les exercices, séries et répétitions prévus"];
+    if(it.type==="Bloc")vis.unshift("L'organisation des séances sur la période");
+    if(it.rpe)vis.push("Les RPE cibles");
+    var li=function(icon,t){return '<li>'+icon+'<span>'+esc(t)+'</span></li>';};
+    var priv=["Vos résultats, records et ressentis","Vos notes, photos et vidéos","Votre état du jour : sommeil, fatigue, douleurs"];
+    var opts='<label class="opt"><input type="checkbox" data-a="opt" data-k="charges" data-f="optc" '+(S.include.charges?"checked":"")+'><span><b>Inclure mes charges prévues</b><span class="help">Elles montrent votre niveau. Les autres pourront les modifier.</span></span></label>';
+    if(it.reglages)opts+='<label class="opt"><input type="checkbox" data-a="opt" data-k="reglages" data-f="optr" '+(S.include.reglages?"checked":"")+'><span><b>Inclure les réglages du matériel</b><span class="help">Hauteur de rack, de banc, de poulie. Ils dépendent de votre morphologie.</span></span></label>';
+    return {
+      body:head("backRoot")+'<h2 class="title">Ce qui sera partagé</h2><p class="lead">'+esc(it.type)+' : '+esc(it.name)+'</p>'+
+        '<section class="panel ok" aria-labelledby="h-vis"><h3 id="h-vis">Les autres verront</h3><ul class="ul">'+vis.map(function(t){return li(I.check,t);}).join("")+'</ul></section>'+
+        '<section class="panel priv" aria-labelledby="h-priv"><h3 id="h-priv">Reste privé</h3><ul class="ul">'+priv.map(function(t){return li(I.lock,t);}).join("")+'</ul></section>'+
+        '<span class="label" style="margin-top:8px">Facultatif</span>'+opts,
+      bar:'<button class="btn" data-a="backRoot">Retour</button><button class="btn primary" data-a="toForm" data-f="next">Continuer</button>'
+    };
+  },
+  form:function(){
+    var f=S.form, e=S.errors;
+    var has=function(k){return e.some(function(x){return x.k===k;});};
+    var summary=e.length?'<div class="summary" role="alert" tabindex="-1" id="summary"><b>Complétez ces champs pour continuer :</b><ul class="ul" style="padding-left:18px;list-style:disc">'+e.map(function(x){return '<li style="display:list-item">'+esc(x.m)+'</li>';}).join("")+'</ul></div>':"";
+    var chip=function(group,val,sel,dot){
+      return '<button type="button" role="radio" aria-checked="'+sel+'" class="chip" data-a="'+group+'" data-v="'+esc(val)+'" data-f="'+group+esc(val)+'">'+(dot?'<span class="dot" style="background:'+dot+'"></span>':"")+esc(val)+(sel?I.checkSm:"")+'</button>';
+    };
+    var back=S.mode==="create"?"backCheck":"backDetail";
+    return {
+      body:head(back)+'<h2 class="title">Présenter le programme</h2><p class="lead">Aidez les autres à comprendre à qui il s\'adresse.</p>'+summary+
+        '<label class="label" for="f-title" style="margin-top:4px">Titre</label>'+
+        '<input type="text" id="f-title" data-in="title" maxlength="60" value="'+esc(f.title)+'" '+(has("title")?'class="err-field" aria-invalid="true" aria-describedby="e-title"':"")+'>'+
+        (has("title")?'<div class="err-msg" id="e-title">Le titre doit contenir au moins 3 caractères.</div>':"")+
+        '<span class="label" id="l-level">Niveau</span><div class="chips" role="radiogroup" aria-labelledby="l-level">'+LEVELS.map(function(l){return chip("level",l,f.level===l,LEVEL_COLOR[l]);}).join("")+'</div>'+
+        (has("level")?'<div class="err-msg">Choisissez un niveau.</div>':"")+
+        '<span class="label" id="l-zone">Zone ciblée</span><div class="chips" role="radiogroup" aria-labelledby="l-zone">'+ZONES.map(function(z){return chip("zone",z,f.zone===z);}).join("")+'</div>'+
+        (has("zone")?'<div class="err-msg">Choisissez une zone ciblée.</div>':"")+
+        '<label class="label" for="f-desc">Description <span style="font-weight:400;color:var(--muted)">(facultatif)</span></label>'+
+        '<textarea id="f-desc" data-in="desc" maxlength="300" placeholder="Exemple : à qui s\'adresse ce programme, et quel avis attendez-vous ?">'+esc(f.desc)+'</textarea>'+
+        '<div class="help" id="count">'+f.desc.length+' sur 300 caractères</div>'+
+        '<span class="label">Retours</span>'+
+        '<button type="button" role="switch" class="switch" aria-checked="'+f.comments+'" data-a="toggleComments" data-f="sw"><span><b>Demander des retours</b><span class="help" style="display:block">Les autres pourront commenter ce programme.</span></span><span class="track" aria-hidden="true"></span></button>'+
+        '<span class="label" id="l-vis">Qui peut le voir</span><div role="radiogroup" aria-labelledby="l-vis">'+
+        ['public','contacts'].map(function(v){
+          var d=v==="public"?"Visible dans la bibliothèque, importable par tous.":"Visible seulement par les personnes de vos contacts.";
+          return '<button type="button" role="radio" class="radio" aria-checked="'+(f.visibility===v)+'" data-a="vis" data-v="'+v+'" data-f="vis'+v+'"><span class="rd"></span><span><b>'+visLabel(v)+'</b><span class="help" style="display:block">'+d+'</span></span></button>';
+        }).join("")+'</div>',
+      bar:'<button class="btn" data-a="'+back+'">Retour</button><button class="btn primary" data-a="toPreview" data-f="next">Voir l\'aperçu</button>'
+    };
+  },
+  preview:function(){
+    var f=S.form, it=S.item, update=S.mode==="edit";
+    var lines=it.lines.map(function(l){return '<li>'+esc(l)+'</li>';}).join("");
+    var extra=[];
+    extra.push(S.include.charges?"Charges prévues incluses":"Charges prévues non incluses");
+    if(it.reglages)extra.push(S.include.reglages?"Réglages du matériel inclus":"Réglages du matériel non inclus");
+    var action=update?"Mettre à jour":verb(f.visibility);
+    return {
+      body:head("backForm")+'<div class="banner" role="note">Aperçu : voici ce que les autres verront.</div>'+
+        '<article class="pv"><div class="kind">'+esc(it.type)+'</div><h2 class="title" style="margin-top:2px">'+esc(f.title)+'</h2>'+
+        '<div class="tags"><span class="tag"><span class="dot" style="background:'+LEVEL_COLOR[f.level]+'"></span>'+esc(f.level)+'</span><span class="tag">'+esc(f.zone)+'</span><span class="tag">'+esc(it.meta.split(" · ")[0])+'</span></div>'+
+        (f.desc.trim()?'<p class="desc">'+esc(f.desc)+'</p>':'<p class="desc empty">Aucune description.</p>')+
+        '<h4>'+esc(it.linesTitle)+'</h4><ul class="lines">'+lines+'</ul>'+
+        '<div class="vis">Visible par : '+visLabel(f.visibility)+'<br>'+(f.comments?"Retours demandés : les autres peuvent commenter":"Commentaires fermés")+'<br>'+extra.join(" · ")+'</div></article>',
+      bar:'<button class="btn" data-a="backForm">Modifier</button><button class="btn primary" data-a="publish" data-f="next">'+action+'</button>'
+    };
+  },
+  detail:function(){
+    var s=S.shares[S.openShare], f=s.form, pend=s.status==="pending";
+    var cm=s.comments.map(function(c,i){
+      var rep=c.replies.map(function(r){return '<div class="reply"><b>Vous</b>'+esc(r)+'</div>';}).join("");
+      var box=S.replyOpen===i?'<div class="inline"><input type="text" data-in="reply" aria-label="Votre réponse à '+esc(c.who)+'" maxlength="200" id="reply-in"><button class="btn small primary" data-a="sendReply" data-i="'+i+'">Envoyer</button></div>':
+        '<button class="btn small" style="margin-top:8px" data-a="openReply" data-i="'+i+'" data-f="rp'+i+'">Répondre</button>';
+      return '<div class="cm"><b>'+esc(c.who)+'</b>'+esc(c.text)+rep+box+'</div>';
+    }).join("");
+    var retours=pend?'<p class="lead" style="margin-top:8px">Ce programme sera publié dès le retour de la connexion. Les retours arriveront ensuite ici.</p>':
+      (s.comments.length?cm:'<p class="lead" style="margin-top:8px">Aucun retour pour le moment.</p>');
+    return {
+      body:'<div class="head"><button class="icon-btn" data-a="backShares" aria-label="Retour à mes partages">'+I.back+'</button></div>'+
+        '<h2 class="title">'+esc(f.title)+'</h2>'+
+        '<div class="tags"><span class="tag">'+(pend?"En attente de connexion":"Publié")+'</span><span class="tag">'+visLabel(f.visibility)+'</span><span class="tag">'+(f.comments?"Commentaires ouverts":"Commentaires fermés")+'</span></div>'+
+        '<h3 style="margin-top:18px">Retours</h3>'+retours,
+      bar:'<button class="btn danger" data-a="askRemove">Retirer</button><button class="btn primary" data-a="editShare">Modifier</button>'
+    };
+  }
+};
+function communauteSeg(){
+  return '<div class="seg2" role="group" aria-label="Sections de la communauté"><button data-a="seg" data-v="decouvrir" aria-pressed="'+(S.comSeg==="decouvrir")+'">Découvrir</button><button data-a="seg" data-v="partages" aria-pressed="'+(S.comSeg==="partages")+'">Mes partages</button></div>';
+}
+
+/* ---------- Rendu ---------- */
+var screenEl=document.getElementById("screen"),overlayEl=document.getElementById("overlay"),
+    tabsEl=document.getElementById("tabs"),notesEl=document.getElementById("notes"),
+    toastEl=document.getElementById("toast"),segEl=document.getElementById("personaSeg");
+
+function renderDialog(){
+  if(!S.dialog){overlayEl.innerHTML="";return;}
+  var d=S.dialog, html="";
+  if(d==="publish"){
+    var v=S.form.visibility, pub=v==="public";
+    html='<h3 id="dlg-t">'+(pub?"Publier à tout le monde ?":"Partager avec vos contacts ?")+'</h3>'+
+      '<p>'+(pub?"Tout le monde pourra voir et importer ce programme.":"Vos contacts pourront voir et importer ce programme.")+' Vos résultats et vos notes restent privés.</p>'+
+      '<p class="help">'+(S.online?"":"Vous êtes hors ligne : la publication partira dès le retour de la connexion. ")+'Vous pourrez le retirer à tout moment. Les personnes qui l\'ont déjà importé en gardent une copie.</p>'+
+      '<div class="btns"><button class="btn" data-a="closeDialog">Annuler</button><button class="btn primary" data-a="confirmPublish" data-f="dlgok">'+verb(v)+'</button></div>';
+  }else if(d==="remove"){
+    html='<h3 id="dlg-t">Retirer ce programme ?</h3><p>Il ne sera plus visible dans la bibliothèque.</p><p class="help">Les personnes qui l\'ont déjà importé en gardent une copie.</p>'+
+      '<div class="btns"><button class="btn" data-a="closeDialog">Annuler</button><button class="btn danger" data-a="confirmRemove" data-f="dlgok">Retirer</button></div>';
+  }else if(d==="search"){
+    html='<h3 id="dlg-t">Recherche</h3><div class="ph" style="margin:8px 0"><div class="tag-ph">Espace réservé</div><p style="margin:0">T5.1, responsable : Sami. Accéder rapidement à la page qui intéresse l\'utilisateur, par recherche, raccourcis ou menu.</p></div>'+
+      '<div class="btns"><button class="btn primary" data-a="closeDialog" data-f="dlgok">Fermer</button></div>';
+  }else if(d==="sync"){
+    var pend=pendingCount();
+    html='<h3 id="dlg-t">'+(S.online?"Données synchronisées":"Vous êtes hors ligne")+'</h3>'+
+      '<p>'+(S.online?"Tout est à jour.":(pend?pend+" publication"+(pend>1?"s":"")+" en attente d'envoi.":"Aucune modification en attente."))+'</p>'+
+      '<div class="ph" style="margin:8px 0"><div class="tag-ph">Espace réservé</div><p style="margin:0">T5.2, responsable : Sami. Hypothèse testée ici : hors ligne, une publication est mise en attente, puis envoyée au retour du réseau.</p></div>'+
+      '<div class="btns"><button class="btn primary" data-a="closeDialog" data-f="dlgok">Fermer</button></div>';
+  }
+  overlayEl.innerHTML='<div class="overlay"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="dlg-t">'+html+'</div></div>';
+  var b=overlayEl.querySelector("[data-f=dlgok]"); if(b)b.focus();
+}
+function renderTabs(){
+  var flow=S.screen==="check"||S.screen==="form"||S.screen==="preview";
+  tabsEl.hidden=flow;
+  var t=[["programmes","Programmes",I.list],["seance","Séance",I.play],["progres","Progrès",I.chart],["communaute","Communauté",I.people]];
+  tabsEl.innerHTML=t.map(function(x){return '<button data-a="tab" data-v="'+x[0]+'" '+(S.tab===x[0]?'aria-current="page"':"")+'>'+x[2]+'<span>'+x[1]+'</span></button>';}).join("");
+}
+function renderNotes(){
+  var n=NOTES[viewKey()];
+  notesEl.innerHTML='<h2>'+esc(n.t)+'</h2><div class="ids" aria-label="Tâches couvertes">'+n.ids.map(function(i){return '<span>'+i+'</span>';}).join("")+'</div>'+
+    '<p class="help" style="margin:8px 0 0">Responsable : '+esc(n.owner)+'</p>'+
+    '<h3>Critères et remarques</h3><ul>'+n.c.map(function(c){return '<li>'+esc(c)+'</li>';}).join("")+'</ul>'+
+    '<h3>Question pour l\'équipe</h3><p style="margin:0">'+esc(n.q)+'</p>'+
+    '<div class="demo"><h3 style="margin-top:0">Outils de démonstration</h3><p class="help" style="margin:0 0 6px">Simulent ce qu\'un vrai système ferait (principe du Magicien d\'Oz).</p>'+
+    '<button class="btn small" data-a="simComment">Simuler un commentaire reçu</button>'+
+    '<button class="btn small" data-a="toggleOnline">'+(S.online?"Passer hors ligne":"Revenir en ligne")+'</button>'+
+    '<button class="btn small" data-a="reset">Recommencer</button></div>'+
+    '<div class="conv"><h3 style="margin-top:0">Conventions communes</h3><ul>'+CONVENTIONS.map(function(c){return '<li>'+esc(c)+'</li>';}).join("")+'</ul></div>';
+}
+function render(){
+  var ae=document.activeElement, f=ae&&ae.dataset?ae.dataset.f:null;
+  var key=viewKey();
+  var old=document.getElementById("body"), st=(old&&S.lastKey===key)?old.scrollTop:0;
+  var v=VIEWS[key]();
+  screenEl.innerHTML=(v.top||"")+'<div class="body" id="body">'+v.body+'</div>'+(v.bar?'<div class="bar">'+v.bar+'</div>':"");
+  var nb=document.getElementById("body"); nb.scrollTop=st; S.lastKey=key;
+  if(S.errors.length&&S.screen==="form"){var sm=document.getElementById("summary"); if(sm){sm.focus();nb.scrollTop=0;}}
+  else if(f){var el=screenEl.querySelector('[data-f="'+f+'"]'); if(el)el.focus();}
+  renderTabs();renderNotes();renderDialog();
+}
+function go(screen){S.screen=screen;render();var b=document.getElementById("body");if(b&&!S.errors.length)b.scrollTop=0;}
+function goRoot(tab,seg){S.screen="root";S.tab=tab;if(seg)S.comSeg=seg;S.dialog=null;S.replyOpen=null;S.errors=[];render();var b=document.getElementById("body");if(b)b.scrollTop=0;}
+var toastTimer;
+function toast(msg){toastEl.textContent=msg;toastEl.classList.add("on");clearTimeout(toastTimer);toastTimer=setTimeout(function(){toastEl.classList.remove("on");},3600);}
+function renderPersonas(){
+  segEl.innerHTML=Object.keys(DATA).map(function(k){return '<button data-a="persona" data-v="'+k+'" aria-pressed="'+(S.persona===k)+'">'+DATA[k].name+'</button>';}).join("");
+}
+
+/* ---------- Actions ---------- */
+function validate(){
+  var e=[],f=S.form;
+  if(f.title.trim().length<3)e.push({k:"title",m:"Titre : au moins 3 caractères"});
+  if(!f.level)e.push({k:"level",m:"Niveau : choisissez une valeur"});
+  if(!f.zone)e.push({k:"zone",m:"Zone ciblée : choisissez une valeur"});
+  return e;
+}
+var A={
+  persona:function(el){S=fresh(el.dataset.v);renderPersonas();render();},
+  tab:function(el){var v=el.dataset.v;goRoot(v,v==="communaute"?"partages":null);},
+  seg:function(el){S.comSeg=el.dataset.v;render();},
+  openSearch:function(){S.dialog="search";renderDialog();},
+  openSync:function(){S.dialog="sync";renderDialog();},
+  share:function(el){S.item=P().items[+el.dataset.i];S.mode="create";initForm(S.item);go("check");},
+  backRoot:function(){goRoot("programmes");},
+  opt:function(el){S.include[el.dataset.k]=el.checked;},
+  toForm:function(){go("form");},
+  backCheck:function(){S.errors=[];go("check");},
+  backDetail:function(){S.errors=[];go("detail");},
+  backShares:function(){goRoot("communaute","partages");},
+  level:function(el){S.form.level=el.dataset.v;S.errors=S.errors.filter(function(x){return x.k!=="level";});render();},
+  zone:function(el){S.form.zone=el.dataset.v;S.errors=S.errors.filter(function(x){return x.k!=="zone";});render();},
+  vis:function(el){S.form.visibility=el.dataset.v;render();},
+  toggleComments:function(){S.form.comments=!S.form.comments;render();},
+  toPreview:function(){S.errors=validate();if(S.errors.length){render();return;}go("preview");},
+  backForm:function(){go("form");},
+  publish:function(){
+    if(S.mode==="edit"){
+      var s=S.shares[S.openShare];s.form=Object.assign({},S.form);s.include=Object.assign({},S.include);
+      S.mode="create";
+      toast(S.online?"Programme mis à jour":"Hors ligne : la mise à jour partira au retour de la connexion");
+      S.tab="communaute";go("detail");return;
+    }
+    S.dialog="publish";renderDialog();
+  },
+  closeDialog:function(){S.dialog=null;renderDialog();},
+  confirmPublish:function(){
+    var v=S.form.visibility;
+    S.shares.unshift({item:S.item,form:Object.assign({},S.form),include:Object.assign({},S.include),comments:[],cursor:0,status:S.online?"published":"pending"});
+    S.dialog=null;
+    toast(S.online?(v==="public"?"Programme publié":"Programme partagé"):"Hors ligne : la publication partira au retour de la connexion");
+    goRoot("communaute","partages");
+  },
+  openShare:function(el){S.openShare=+el.dataset.i;S.replyOpen=null;S.tab="communaute";go("detail");},
+  editShare:function(){var s=S.shares[S.openShare];S.mode="edit";S.item=s.item;S.form=Object.assign({},s.form);S.include=Object.assign({},s.include);S.errors=[];go("form");},
+  askRemove:function(){S.dialog="remove";renderDialog();},
+  confirmRemove:function(){S.shares.splice(S.openShare,1);S.openShare=null;S.dialog=null;toast("Programme retiré");goRoot("communaute","partages");},
+  openReply:function(el){S.replyOpen=+el.dataset.i;render();var i=document.getElementById("reply-in");if(i)i.focus();},
+  sendReply:function(el){
+    var i=document.getElementById("reply-in"),txt=i?i.value.trim():"";
+    if(!txt){toast("Écrivez une réponse avant d'envoyer");return;}
+    S.shares[S.openShare].comments[+el.dataset.i].replies.push(txt);S.replyOpen=null;toast("Réponse envoyée");render();
+  },
+  simComment:function(){
+    var s=S.shares.filter(function(x){return x.status==="published"&&x.form.comments;})[0];
+    if(!s){toast("Publiez d'abord un programme avec les retours ouverts");return;}
+    var pool=P().comments;if(s.cursor>=pool.length){toast("Plus de commentaire à simuler");return;}
+    s.comments.push({who:pool[s.cursor].who,text:pool[s.cursor].text,replies:[]});s.cursor++;
+    toast("Un nouveau commentaire est arrivé");render();
+  },
+  toggleOnline:function(){
+    S.online=!S.online;
+    if(S.online){
+      var n=pendingCount();
+      S.shares.forEach(function(s){if(s.status==="pending")s.status="published";});
+      toast(n?"Connexion rétablie : "+n+" programme"+(n>1?"s":"")+" publié"+(n>1?"s":""):"Connexion rétablie");
+    }else{toast("Vous êtes hors ligne");}
+    render();
+  },
+  reset:function(){S=fresh(S.persona);render();}
+};
+
+document.addEventListener("click",function(e){
+  var el=e.target.closest("[data-a]");if(!el||el.disabled)return;
+  if(el.tagName==="INPUT")return;
+  var fn=A[el.dataset.a];if(fn)fn(el);
+});
+document.addEventListener("change",function(e){
+  var el=e.target;if(el.dataset&&el.dataset.a==="opt")A.opt(el);
+});
+document.addEventListener("input",function(e){
+  var k=e.target.dataset&&e.target.dataset.in;if(!k)return;
+  if(k==="title"){S.form.title=e.target.value;}
+  if(k==="desc"){S.form.desc=e.target.value;var c=document.getElementById("count");if(c)c.textContent=e.target.value.length+" sur 300 caractères";}
+});
+document.addEventListener("keydown",function(e){
+  if(e.key==="Escape"&&S.dialog){S.dialog=null;renderDialog();}
+});
+
+renderPersonas();render();
+})();
+</script>
+</body>
+</html>
