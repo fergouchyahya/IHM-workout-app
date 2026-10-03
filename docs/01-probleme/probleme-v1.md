@@ -1,8 +1,8 @@
 # Problème — V1
 
 **Auteur :** Matthieu  
-**Reviewer :** ...  
-**Doc :** [reunions/20260911-IDEATION.md](../../reunions/20260911-IDEATION.md)
+**Reviewer :** toute l'équipe  
+**Doc :** [reunions/2026-09-11-ideation.md](../../reunions/2026-09-11-ideation.md)
 
 ## Contexte d'usage
 
@@ -41,10 +41,12 @@ Cette absence d'outil adapté à plusieurs conséquences pour l'utilisateur :
 
 ## Objectifs du projet
 
+Voir l’[objectif du projet](../../README.md#objectif) : construire et justifier une proposition d’IHM adaptée aux besoins utilisateurs, avec une démarche de conception documentée.
+
 ## Contraintes et hypothèses
 
 - Cible : application mobile, dédiée uniquement au suivi de l'entraînement de musculation (le volet diététique est explicitement exclu).
 - Hypothèse : les utilisateurs ont des niveaux d'expérience très différents (débutant, avancé et confirmé), (cf. personas dans `docs/02-utilisateurs-personas/`).
 - Hypothèse : la modification d'une séance doit pouvoir, au choix de l'utilisateur, se répercuter ou non sur les séances suivantes du même cycle.
 
-## Critères de Réussite
+

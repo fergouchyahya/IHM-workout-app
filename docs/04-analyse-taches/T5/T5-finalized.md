@@ -1,6 +1,6 @@
 # T5-finalized — Accéder aux informations et préserver ses données
 
-**Responsable prévu :** Sami · **Statut :** cadrage de synthèse à compléter ; aucun modèle détaillé T5 présent dans le dépôt.
+**Responsable :** Sami · **Statut :** synthèse validée par toute l’équipe le 2 octobre 2026.
 
 ## Vue d’ensemble
 
@@ -12,16 +12,13 @@
 | --- | --- |
 | T2 et T3 de Camille | Résultats conservés malgré une connexion faible et historique disponible. |
 | T4 de Camille | Savoir si la publication a abouti malgré une mauvaise connexion. |
-| Prototype global | Recherche et état de synchronisation en haut ; éléments encore réservés. |
-| Prototype T4 | Publication mise en attente hors ligne ; hypothèse à valider. |
+| Prototype global | Recherche et état de synchronisation en haut ; éléments encore réservés dans le prototype. |
+| Prototype T4 | État de publication en attente hors ligne à intégrer au parcours commun. |
 
-**Résultat visé :** information retrouvée et état de conservation ou d’envoi compréhensible. Les mécanismes de synchronisation ne sont pas encore spécifiés.
+**Résultat visé :** information retrouvée et état de conservation ou d’envoi compréhensible. La conservation locale précède la transmission ; l’état de synchronisation reste visible.
 
-## À définir pour le livrable final
+## Arbre commun
 
-- Produire le modèle détaillé : acteurs, préconditions, sous-tâches et relations temporelles.
-- Préciser les informations recherchées, les accès prioritaires et les variantes par persona, dont Mireille.
-- Définir les états hors ligne, en attente, synchronisé et en erreur, la reprise et les éventuelles modifications concurrentes.
-- Compléter les questions d’entretien T5 et valider les dépendances avec T1–T4.
+Le [diagramme T5](../../../assets/diagrammes/arbre-taches-t5.png) distingue la recherche d’information, la conservation locale et la synchronisation. Ces branches sont reprises dans [tache.md](../tache.md), consolidé par Sami pour la revue du 9 octobre. Les détails de synchronisation seront traités dans cette revue ; les questions d’entretien restent un travail distinct dans le [guide](../../../research/entretiens/questions-entretien-par-profil.md).
 
-**Sources :** [réunion du 18 septembre](../../../reunions/20260918-ArbreDeTaches.md), [T2-Camille](../T2/T2-Camille.md), [T3-Camille](../T3/T3-Camille.md), [T4-Camille](../T4/T4-Camille.md), [squelette du prototype](../../../prototypes/squelette-global.md).
+**Sources :** [réunion du 18 septembre](../../../reunions/2026-09-18-arbre-des-taches.md), [T2-Camille](../T2/T2-Camille.md), [T3-Camille](../T3/T3-Camille.md), [T4-Camille](../T4/T4-Camille.md), [squelette du prototype](../../../prototypes/squelette-global.md).

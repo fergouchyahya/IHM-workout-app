@@ -1,6 +1,6 @@
 # T2 — Réaliser et documenter une séance : Greg
 
-**Responsable :** Yahya · **État :** modèle provisoire, enrichi par un jeu de rôle.
+**Responsable :** Yahya · **État :** modèle validé par toute l’équipe le 2 octobre 2026.
 
 ## But et limites
 
@@ -8,8 +8,8 @@ Greg réalise sa séance en adaptant l'effort à son état. Il garde les résult
 
 ## Sources et concepts du domaine
 
-- [Réunion du 18 septembre](../../../reunions/20260918-ArbreDeTaches.md) : saisir l'effort et enrichir la séance.
-- [Persona de Greg](../../02-utilisateurs-personas/20260917-persona-tres-avance.md) et [scénario squat](../../03-scenarios/20260917-scenario-tres-avance.md) : RPE, fatigue, adaptation de charge, notes et bilan.
+- [Réunion du 18 septembre](../../../reunions/2026-09-18-arbre-des-taches.md) : saisir l'effort et enrichir la séance.
+- [Persona de Greg](../../02-utilisateurs-personas/persona-greg.md) et [scénario squat](../../03-scenarios/scenario-greg.md) : RPE, fatigue, adaptation de charge, notes et bilan.
 
 **Concepts :** séance et séries prévues, charge, répétitions et RPE cibles, résultat et RPE réels, séance comparable précédente, sommeil, fatigue, douleur, note, média, bilan.
 
@@ -43,11 +43,11 @@ Les feuilles sont des tâches à détailler en actions physiques lorsque l'inter
 3. Il peut ajouter une note ou un média quand l'information est disponible. Une série arrêtée ou sautée doit rester identifiable, sans résultat inventé.
 4. À la fin, il vérifie les séries faites et consignées ainsi que le RPE, note son bilan et conserve la séance pour T3.
 
-**Ordre :** consulter → adapter si besoin → réaliser → consigner ; répéter ; vérifier → conserver. Reste à savoir pour quelles séries Greg note un RPE réel.
+**Ordre :** consulter → adapter si besoin → réaliser → consigner ; répéter ; vérifier → conserver. Le RPE est consigné pour les séries que Greg souhaite suivre.
 
 ## Décoration des tâches
 
-| Tâche | Précondition → résultat | Acteur / fréquence | Point à vérifier |
+| Tâche | Précondition → résultat | Acteur / fréquence | Repère de conception |
 | --- | --- | --- | --- |
 | T2.1.1 Consulter | Programme et historique disponibles → cible et dernier résultat connus | Greg, avant exercice ou série | Consultation rapide |
 | T2.1.2 Évaluer | Cible et ressenti connus → effort jugé adapté ou non | Greg, avant la série | Critère personnel |
@@ -64,23 +64,10 @@ Les feuilles sont des tâches à détailler en actions physiques lorsque l'inter
 
 ## Essai sur le scénario
 
-| Situation du [scénario](../../03-scenarios/20260917-scenario-tres-avance.md) | Tâches | Résultat attendu |
+| Situation du [scénario](../../03-scenarios/scenario-greg.md) | Tâches | Résultat attendu |
 | --- | --- | --- |
 | Trois heures de sommeil avant le squat | T2.2.1, T2.1.1 | État du jour et cible connus |
 | Top set trop lourd | T2.1.2, T2.1.3 | Charge adaptée, raison et cible initiale gardées |
 | Séries et accessoires réalisés | T2.1.4–T2.1.6 | Résultats par série, correction possible |
 | Fatigue et technique notées | T2.2.2 | Note liée au bon exercice |
 | Séance terminée | T2.3.1–T2.3.3 | Séries et RPE vérifiés, bilan conservé |
-
-## Questions de validation
-
-1. Sur quelles séries notes-tu le RPE réel ?
-2. Comment marques-tu une série adaptée, arrêtée ou sautée ?
-3. Quand ajoutes-tu une note ou une vidéo : pendant la séance ou plus tard ?
-4. Que regardes-tu entre deux séries, et combien de temps veux-tu y consacrer ?
-
-## Réponses et révisions
-
-**Jeu de rôle :** Greg consulte le RPE prévu et le journal de la semaine passée, adapte la charge selon son état et note pourquoi. Il garde son ressenti après la série. En cas d'erreur, il corrige la série courante et conserve les autres séries et séances. Il termine après avoir vérifié les séries consignées et le RPE.
-
-**À confirmer :** ce ressenti est-il un RPE chiffré ? Comment note-t-il une série sautée et quand ajoute-t-il une vidéo ? Ces réponses ont guidé T2.1.1, T2.1.3, T2.1.5, T2.1.6 et T2.3.1 ; elles ne viennent pas d'une observation de terrain.

@@ -1,7 +1,7 @@
 # Applications concurrentes
 
 **Auteur :** Matthieu
-**Reviewer :** ...
+**Reviewer :** Yahya - Sami
 
 Les observations d'interface proviennent d'une exploration des applications ; les avantages et inconvénients ajoutés ci-dessous résument des avis Google Play. Les notes, volumes d'avis et fonctionnalités peuvent évoluer : vérifier leur date et leur valeur avant de les citer dans un livrable final.
 

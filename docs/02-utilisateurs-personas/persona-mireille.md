@@ -4,7 +4,8 @@
 
 ## Statut du persona
 
-Persona fictif et provisoire construit à partir de notre échange. Ses besoins restent à vérifier auprès de personnes concernées ; l'âge seul ne permet pas de déduire ses capacités ou son aisance numérique.
+**Auteur :** Yahya · **Création :** 2026-09-24  
+**Statut :** persona fictif validé par toute l’équipe le 2026-10-02.
 
 ## Profil
 
@@ -22,15 +23,15 @@ Mireille vient à la musculation pour entretenir sa force et rester autonome. El
 ## Objectifs
 
 - Garder la force nécessaire aux activités de tous les jours et rester indépendante aussi longtemps que possible.
-- Prendre confiance dans les exercices et apprendre à les faire correctement.
+- Prendre confiance dans les exercices, suivre son ressenti et apprendre à les faire correctement.
 - Voir si sa pratique régulière l'aide à accomplir plus facilement ce qui compte pour elle.
 
 ## Besoins
 
 - Retrouver facilement la séance du jour et savoir quel exercice vient ensuite.
-- Voir une explication simple de l'exécution sur son téléphone, puis pouvoir demander au personnel si elle hésite encore.
+- Voir une explication simple de l'exécution en images sur son téléphone, puis pouvoir demander au personnel si elle hésite encore.
 - Retrouver la charge et les répétitions utilisées la dernière fois, sans avoir à tout mémoriser.
-- Noter un exercice non fait ou une difficulté rencontrée, sans devoir remplir de nombreux champs.
+- Noter un exercice non fait, une remarque sur l'exécution ou le ressenti après une série, sans devoir remplir de nombreux champs.
 - Comprendre sa progression avec des repères clairs, liés aussi à ses activités quotidiennes.
 
 ## Habitudes et contexte d'usage
@@ -60,7 +61,7 @@ Mireille vient à la musculation pour entretenir sa force et rester autonome. El
 
 ## Scénario principal
 
-Mireille arrive seule à la salle et retrouve une séance simple. Avant un exercice qu'elle connaît peu, elle regarde la démonstration sur son téléphone. Elle n'est pas certaine de son placement et demande au personnel de lui montrer le mouvement. Elle réalise ensuite ses séries et note ce qu'elle a vraiment fait. Si elle saute un exercice, elle le laisse indiqué comme non fait. En fin de séance, elle retrouve son bilan et voit comment ses efforts s'inscrivent dans la durée, au regard de son objectif de rester autonome.
+Voir le [scénario de Mireille](../03-scenarios/scenario-mireille.md).
 
 ## Conséquences pour la conception
 
@@ -69,14 +70,3 @@ Mireille arrive seule à la salle et retrouve une séance simple. Avant un exerc
 3. Garder la saisie et la correction simples, y compris pour un exercice non réalisé.
 4. Présenter une progression compréhensible sans réduire la réussite à un nouveau record de charge.
 5. Permettre à Mireille d'apprendre l'application avec l'aide de sa fille sans lui retirer le contrôle de ses données.
-
-## Points à vérifier
-
-
-- Le type de démonstration l'aide le plus : images.
-- Que souhaite-t-elle noter après une série ou lorsqu'un mouvement lui semble difficile ?
-    - Des notes pour l'execution de l'exo et le ressenti après la série
-- Quel changement concret lui ferait dire qu'elle progresse dans sa vie quotidienne ?
-    - le renssenti et la prise de comfiance lors des exos 
-- Dans quelles situations demande-t-elle de l'aide au personnel ou à sa fille ?
-    - comment utiliser l'application la première fois à sa fille et plus d'explication sur les exo pour le personnel

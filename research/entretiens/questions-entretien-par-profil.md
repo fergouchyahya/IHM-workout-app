@@ -1,6 +1,20 @@
 # Questions d'entretien par profil
 
-Les questions sont à poser dans l'ordre du tableau : contexte, puis T2, T3, T4. T1 et T5 seront ajoutées plus tard par Matthieu et Sami. Les questions T3 sont déduites des personas : à aligner avec le travail de Yahya.
+**Statut :** à faire — compléter et organiser le guide pour la réunion du 9 octobre 2026.
+
+Les personas et les tâches ont été validés par l’équipe le 2 octobre. Ce guide sert à préparer les entretiens utilisateurs.
+
+## Travail à faire
+
+| Travail | Responsable |
+| --- | --- |
+| Ajouter les questions T1 | Matthieu |
+| Harmoniser les questions T2 et T3 avec l’arbre commun | Yahya |
+| Harmoniser les questions T4 | Marie |
+| Ajouter les questions T5 | Sami |
+| Prévoir une variante Mireille centrée sur la lisibilité et la simplicité des visuels | Toute l’équipe |
+
+Ordre visé : contexte → T1 → T2 → T3 → T4 → T5. Les tableaux existants restent la base de travail.
 
 ## Thomas (débutant)
 

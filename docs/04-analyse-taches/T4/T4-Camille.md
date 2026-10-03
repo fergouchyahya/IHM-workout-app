@@ -1,6 +1,6 @@
 # T4 — Partager une séance ou un bloc avec la communauté : Camille
 
-**Responsable :** Marie · **État :** modèle provisoire fondé sur le persona, à valider par jeu de rôle.
+**Responsable :** Marie · **État :** modèle validé par toute l’équipe le 2 octobre 2026.
 
 ## 1. But et limites
 
@@ -8,12 +8,12 @@ Camille publie une séance ou un bloc qu'elle a construit et qu'elle réutilise,
 
 T4 commence quand une séance ou un bloc existe (T1) et finit quand il est publié, avec éventuellement la lecture des retours. Importer le programme d'un autre utilisateur relève de T1.1, la comparaison de ses propres performances de T3, la synchronisation et le fonctionnement hors-ligne de T5.
 
-**Attention :** le persona de Camille ne mentionne pas le partage. Ce modèle est une hypothèse : elle partagerait une structure de séance qu'elle reprend depuis longtemps, à condition que cela lui prenne très peu de temps.
+**Variante retenue :** Camille partage une structure de séance habituelle, avec une saisie courte.
 
 ## 2. Sources et concepts du domaine
 
-- [Réunion du 18 septembre](../../../reunions/20260918-ArbreDeTaches.md) : T4.1 Diffuser son contenu (partager ou publier une séance / un bloc).
-- [Persona et scénario de Camille](../../02-utilisateurs-personas/persona-camille-intermediaire.md) : intermédiaire autonome, structure de séance réutilisée avec des charges qui varient, saisie abandonnée si elle prend plus de quelques secondes, besoin de ne pas transformer le suivi en tâche administrative, connexion de salle parfois mauvaise.
+- [Réunion du 18 septembre](../../../reunions/2026-09-18-arbre-des-taches.md) : T4.1 Diffuser son contenu (partager ou publier une séance / un bloc).
+- [Persona de Camille](../../02-utilisateurs-personas/persona-camille.md) et [scénario](../../03-scenarios/scenario-camille.md) : intermédiaire autonome, structure de séance réutilisée avec des charges qui varient, saisie abandonnée si elle prend plus de quelques secondes, besoin de ne pas transformer le suivi en tâche administrative, connexion de salle parfois mauvaise.
 
 **Concepts :** séance, bloc, structure réutilisée, programme prévu (exercices, séries, répétitions), données personnelles à exclure (charges réelles, notes), titre, niveau, zone ciblée, description, commentaires, aperçu, publication.
 
@@ -31,12 +31,12 @@ T4 Partager une séance ou un bloc avec la communauté
 ├── T4.3 Publier
 │   ├── T4.3.1 Contrôler l'aperçu tel que la communauté le verra
 │   └── T4.3.2 Confirmer la publication
-└── T4.4 Suivre le contenu publié (à valider)
+└── T4.4 Suivre le contenu publié
     ├── T4.4.1 Lire et répondre aux commentaires reçus
     └── T4.4.2 Modifier ou retirer la publication
 ```
 
-Les feuilles sont des tâches à détailler en actions physiques quand l'interface sera définie. T4.2.3 et T4.4 sont facultatives. La réunion ne cite que « Diffuser son contenu » : l'équipe doit décider si T4.4 reste dans T4.
+Les feuilles sont des tâches à détailler en actions physiques quand l'interface sera définie. T4.2.3 et T4.4 sont facultatives. Le suivi T4.4 est repris dans l’arbre commun.
 
 ## 4. Procédure et relations temporelles
 
@@ -47,16 +47,16 @@ Les feuilles sont des tâches à détailler en actions physiques quand l'interfa
 
 **Ordre :** sélectionner → vérifier → (titre | niveau et zone | description | commentaires, sans ordre) → aperçu → confirmer ; boucle : lire les retours → modifier.
 
-Cas ouverts : publication avec une connexion faible (voir T5), séance dupliquée puis modifiée (laquelle partager ?), retrait d'un contenu déjà importé par d'autres, choix de la visibilité (partager avec des contacts ou publier à tous), absent du persona et à valider.
+Les modalités de partage, de connexion et de gestion des copies sont regroupées dans [l’arbre commun](../tache.md).
 
 ## 5. Décoration des tâches
 
-| Tâche | Précondition → résultat | Acteur / fréquence | Point à vérifier |
+| Tâche | Précondition → résultat | Acteur / fréquence | Repère de conception |
 | --- | --- | --- | --- |
 | T4.1.1 Sélectionner | Séance ou bloc existant → contenu à partager choisi | Camille, occasionnelle | Accès direct depuis la séance qu'elle reprend |
 | T4.1.2 Vérifier | Contenu choisi → programme complet, sans charge réelle ni note | Camille et outil, à chaque partage | Exclusion automatique des données personnelles |
 | T4.2.1 Titre, niveau, zone | Contenu vérifié → titre, niveau et zone ciblée renseignés | Camille, à chaque partage | Champs préremplis à partir de la séance |
-| T4.2.2 Rédiger la description | Fiche renseignée → description de l'objectif et du public visé | Camille, à chaque partage | Durée de saisie, description facultative ? |
+| T4.2.2 Rédiger la description | Fiche renseignée → description de l'objectif et du public visé | Camille, à chaque partage | Saisie courte, description facultative |
 | T4.2.3 Ouvrir les commentaires | Description en cours → commentaires ouverts ou fermés | Camille, à chaque partage | Valeur par défaut, charge de modération |
 | T4.3.1 Contrôler l'aperçu | Présentation prête → aperçu public vu | Camille et outil, à chaque partage | Aucune donnée personnelle visible |
 | T4.3.2 Confirmer | Aperçu validé → contenu publié | Camille et outil, à chaque partage | Connexion faible ; voir T5 |
@@ -65,7 +65,7 @@ Cas ouverts : publication avec une connexion faible (voir T5), séance dupliqué
 
 ## 6. Essai sur le scénario
 
-Le scénario actuel de Camille ne parle pas de partage. **Prolongement hypothétique** : une collègue débutante lui demande son programme. Camille décide de publier sa séance « Haut du corps », qu'elle duplique chaque semaine, pour que d'autres puissent la reprendre.
+Le scénario actuel de Camille ne parle pas de partage. **Situation de partage retenue** : une collègue débutante lui demande son programme. Camille décide de publier sa séance « Haut du corps », qu'elle duplique chaque semaine, pour que d'autres puissent la reprendre.
 
 | Situation | Tâches | Résultat attendu |
 | --- | --- | --- |
@@ -77,19 +77,3 @@ Le scénario actuel de Camille ne parle pas de partage. **Prolongement hypothét
 | Elle répond à une question d'un débutant | T4.4.1 | Réponse envoyée |
 
 Cet essai montre que Camille partage plus volontiers à froid, hors de la salle, mais seulement si le geste est court et si les données personnelles sont exclues automatiquement. T4 doit donc partir de la séance existante et préremplir un maximum de champs.
-
-## 7. Questions de validation
-
-Répondre comme Camille, avec un exemple concret.
-
-1. Dans quel cas voudrais-tu partager une de tes séances ou un de tes blocs ? Quand le ferais-tu : à la salle ou chez toi ?
-2. Voudrais-tu la donner à quelques personnes (collègues, amis) ou la publier à tout le monde ? Pourquoi ?
-3. Combien de temps es-tu prête à y consacrer, et que veux-tu ne pas avoir à saisir ?
-4. Qu'est-ce qui ne doit surtout pas être partagé (charges, notes, historique) ?
-5. Ouvrirais-tu les commentaires ? Que ferais-tu des questions et des critiques reçues ?
-6. Avec une mauvaise connexion, comment saurais-tu que ta publication est bien faite ?
-7. Si tu modifies ensuite ta séance, veux-tu que la version publiée change aussi ?
-
-## 8. Réponses et révisions
-
-**À remplir par l'équipe :** noter le répondant et la date. Le jeu de rôle donnera des pistes ; un entretien avec une pratiquante intermédiaire réelle devra les confirmer.

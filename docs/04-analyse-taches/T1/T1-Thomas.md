@@ -1,6 +1,6 @@
 # T1 — Préparer et organiser l'entraînement : Thomas
 
-**Responsable :** Matthieu · **État :** modèle provisoire fondé sur le persona.
+**Responsable :** Matthieu · **État :** modèle validé par toute l’équipe le 2 octobre 2026.
 
 ## But et limites
 
@@ -8,9 +8,9 @@ Thomas veut un programme clair sans avoir à le concevoir. Il choisit un bloc pr
 
 ## Sources et concepts du domaine
 
-- [Réunion du 18 septembre](../../../reunions/20260918-ArbreDeTaches.md) : accéder à des blocs prédéfinis par niveau et zone cible, placer une séance dans le temps, déplacer une séance.
-- [Persona et scénario de Thomas](../../02-utilisateurs-personas/PersonaProvisoire_Debutant_ThomasDubois.md) : bibliothèque dès l'accueil, bloc de 4 semaines, sous-bloc de 7 jours nommé (« Full Body », « Repos », « Jambes »).
-- [Analyse de la concurrence](../../../research/analyse-concurrence/ANALYSE_APP_CONCU.md) : questionnaires d'accueil (objectif, expérience, jours par semaine) qui précèdent le choix d'un programme.
+- [Réunion du 18 septembre](../../../reunions/2026-09-18-arbre-des-taches.md) : accéder à des blocs prédéfinis par niveau et zone cible, placer une séance dans le temps, déplacer une séance.
+- [Persona de Thomas](../../02-utilisateurs-personas/persona-thomas.md) et [scénario](../../03-scenarios/scenario-thomas.md) : bibliothèque dès l'accueil, bloc de 4 semaines, sous-bloc de 7 jours nommé (« Full Body », « Repos », « Jambes »).
+- [Analyse de la concurrence](../../../research/analyse-concurrence/analyse-applications-concurrentes.md) : questionnaires d'accueil (objectif, expérience, jours par semaine) qui précèdent le choix d'un programme.
 
 **Concepts :** niveau, objectif, zone ciblée, nombre de séances par semaine, bloc prédéfini, semaine, sous-bloc de 7 jours, séance nommée, jour de repos, exercice, séries, répétitions, charge de départ.
 
@@ -31,7 +31,7 @@ T1 Préparer et organiser l'entraînement
     └── T1.3.2 Consulter les exercices prévus et leurs consignes
 ```
 
-Thomas ne crée ni ne paramètre de programme : la création de zéro, la périodicité et le choix des champs (T1.1 de la réunion) ne le concernent pas pour l'instant. T1.3.2 touche à T2 (consulter un exercice pendant la séance) ; la frontière est à discuter.
+Thomas ne crée ni ne paramètre de programme : la création de zéro, la périodicité et le choix des champs (T1.1 de la réunion) ne le concernent pas pour l'instant. T1.3.2 décrit la consultation avant la séance ; la consultation pendant l’effort relève de T2.
 
 ## Procédure et relations temporelles
 
@@ -44,10 +44,10 @@ Thomas ne crée ni ne paramètre de programme : la création de zéro, la pério
 
 ## Décoration des tâches
 
-| Tâche | Précondition → résultat | Acteur / fréquence | Point à vérifier |
+| Tâche | Précondition → résultat | Acteur / fréquence | Repère de conception |
 | --- | --- | --- | --- |
 | T1.1.1 Se décrire | Aucun programme → profil connu | Thomas, une fois | Nombre de questions acceptable |
-| T1.1.2 Parcourir | Profil connu → blocs adaptés affichés | Thomas et outil, une fois par bloc | Trop de choix ? |
+| T1.1.2 Parcourir | Profil connu → blocs adaptés affichés | Thomas et outil, une fois par bloc | Choix limité et compréhensible |
 | T1.1.3 Comprendre le bloc | Bloc repéré → durée et séances comprises | Thomas, avant de choisir | Vocabulaire simple |
 | T1.1.4 Démarrer | Bloc compris → bloc en cours | Thomas, une fois par bloc | Changer d'avis ensuite |
 | T1.2.1 Associer aux jours | Bloc en cours → séances datées | Thomas et outil, début de bloc | Jours fixes ou variables |
@@ -57,23 +57,9 @@ Thomas ne crée ni ne paramètre de programme : la création de zéro, la pério
 
 ## Essai sur le scénario
 
-| Situation du [scénario](../../02-utilisateurs-personas/PersonaProvisoire_Debutant_ThomasDubois.md) | Tâches | Résultat attendu |
+| Situation du [scénario](../../03-scenarios/scenario-thomas.md) | Tâches | Résultat attendu |
 | --- | --- | --- |
 | Thomas s'inscrit et ne sait pas quoi faire | T1.1.1–T1.1.4 | Bloc débutant démarré en quelques choix |
 | Il consulte son bloc (semaine 1 sur 4) | T1.3.1 | « Full Body », « Repos », « Jambes » visibles |
 | Il voit que c'est le jour « Jambes » | T1.3.1–T1.3.2 | Séance du jour et exercices connus avant T2 |
 | Il a manqué la séance de lundi | T1.2.2 | Séance décalée sans casser le repos |
-
-## Questions de validation
-
-Répondre comme Thomas, avec un exemple concret.
-
-1. Comment as-tu choisi ton programme actuel ? Qu'est-ce qui t'aurait aidé ?
-2. Combien de questions acceptes-tu de remplir avant de commencer ?
-3. Quand tu regardes un programme, que veux-tu savoir avant de le choisir ?
-4. Viens-tu à la salle des jours fixes ? Que fais-tu si tu rates une séance ?
-5. Le nom « Jambes » ou « Repos » t'aide-t-il à comprendre ta semaine ?
-
-## Réponses et révisions
-
-**À remplir par l'équipe :** noter le répondant et la date. Confirmer ensuite les réponses auprès d'un débutant réel.
