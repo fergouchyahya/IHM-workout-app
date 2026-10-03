@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FEF2F2">
+  <title>Connexion — Propotype 1</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../02-questions-rapides/styles.css">
+  <link rel="stylesheet" href="../commun/styles.css">
+  <script defer src="../commun/parcours.js"></script>
+  <script defer src="../03-decouverte/seances.js"></script>
+  <script defer src="../03-decouverte/decouverte.js"></script>
+  <script defer src="../04-mes-entrainements/gabarits.js"></script>
+  <script defer src="../04-mes-entrainements/entrainements.js"></script>
+  <script defer src="../02-questions-rapides/01-niveau/niveau.js"></script>
+  <script defer src="../02-questions-rapides/02-objectif/objectif.js"></script>
+  <script defer src="../02-questions-rapides/03-materiel/materiel.js"></script>
+  <script defer src="../02-questions-rapides/questions.js"></script>
+  <script defer src="connexion.js"></script>
+</head>
+<body>
+  <aside class="demo-note" aria-label="Cadre de démonstration">
+    <p id="demo-screen">Prototype · Connexion</p>
+    <p>Données fictives · aucune authentification réelle</p>
+  </aside>
+
+  <main id="access-page" class="access-page">
+    <div class="sport-mark" aria-hidden="true">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M8 9v14M4 12v8m20-11v14m4-11v8M8 16h16"/>
+        <path class="mark-accent" d="M14 16h4"/>
+      </svg>
+    </div>
+
+    <div id="access-tabs" class="mode-tabs" role="tablist" aria-label="Accès au compte">
+      <button id="login-tab" type="button" role="tab" aria-selected="true" aria-controls="login-panel" tabindex="0">Connexion</button>
+      <button id="signup-tab" type="button" role="tab" aria-selected="false" aria-controls="signup-panel" tabindex="-1">Créer un compte</button>
+    </div>
+
+    <section id="login-panel" role="tabpanel" aria-labelledby="login-tab">
+      <h1>Connexion</h1>
+      <p class="intro">Retrouve tes entraînements.</p>
+      <form id="login-form" novalidate>
+        <div class="field">
+          <label for="login-identifier">E-mail ou nom d’utilisateur</label>
+          <input id="login-identifier" name="identifier" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="thomas.dubois" required aria-describedby="login-identifier-error">
+          <p id="login-identifier-error" class="error" aria-live="polite" hidden></p>
+        </div>
+        <div class="field">
+          <label for="login-password">Mot de passe</label>
+          <div class="password-field">
+            <input id="login-password" name="password" type="password" autocomplete="off" required aria-describedby="login-password-error">
+            <button type="button" class="password-toggle" data-password="login-password" aria-controls="login-password" aria-pressed="false" aria-label="Afficher le mot de passe">Afficher</button>
+          </div>
+          <p id="login-password-error" class="error" aria-live="polite" hidden></p>
+        </div>
+        <button id="forgot-password" class="text-action recovery-link" type="button" aria-haspopup="dialog" aria-controls="recovery-dialog">Mot de passe oublié ?</button>
+        <button class="primary-action" type="submit">Se connecter</button>
+      </form>
+    </section>
+
+    <section id="signup-panel" role="tabpanel" aria-labelledby="signup-tab" hidden>
+      <h1>Créer un compte</h1>
+      <p class="intro">Prépare ton premier entraînement.</p>
+      <form id="signup-form" novalidate>
+        <div class="field">
+          <label for="signup-email">E-mail</label>
+          <input id="signup-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="thomas@example.com" required aria-describedby="signup-email-error">
+          <p id="signup-email-error" class="error" aria-live="polite" hidden></p>
+        </div>
+        <div class="field">
+          <label for="signup-username">Nom d’utilisateur</label>
+          <input id="signup-username" name="username" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="thomas.dubois" required aria-describedby="signup-username-error">
+          <p id="signup-username-error" class="error" aria-live="polite" hidden></p>
+        </div>
+        <div class="field">
+          <label for="signup-password">Mot de passe</label>
+          <div class="password-field">
+            <input id="signup-password" name="password" type="password" autocomplete="off" required aria-describedby="signup-password-error">
+            <button type="button" class="password-toggle" data-password="signup-password" aria-controls="signup-password" aria-pressed="false" aria-label="Afficher le mot de passe">Afficher</button>
+          </div>
+          <p id="signup-password-error" class="error" aria-live="polite" hidden></p>
+        </div>
+        <button class="primary-action signup-submit" type="submit">Créer mon compte</button>
+      </form>
+    </section>
+
+    <noscript><p>Active JavaScript pour essayer les interactions de cette maquette.</p></noscript>
+  </main>
+
+  <main id="questions-page" class="questions-page" hidden>
+    <section id="question-panel" aria-labelledby="question-title">
+      <div class="question-navigation">
+        <button id="question-back" class="question-back" type="button" aria-label="Revenir à la connexion">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12"/></svg>
+        </button>
+        <button id="skip-questions" class="text-action" type="button">Passer le reste</button>
+      </div>
+      <p id="question-number" class="question-progress-label" role="status" aria-live="polite"></p>
+      <div id="question-progress" class="question-progress" role="progressbar" aria-labelledby="question-number" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1">
+        <span></span><span></span><span></span>
+      </div>
+      <p id="question-greeting" class="question-greeting"></p>
+      <h1 id="question-title" class="question-title" tabindex="-1"></h1>
+      <div id="question-choices" class="question-choices" role="group" aria-labelledby="question-title" aria-describedby="question-help"></div>
+      <p id="question-help" class="question-help">Choisis une réponse pour continuer.</p>
+    </section>
+  </main>
+
+  <main id="landing-page" class="landing-page" hidden></main>
+  <nav id="landing-navigation" aria-label="Navigation principale" hidden></nav>
+  <p id="landing-notice" role="status" aria-live="polite"></p>
+
+  <dialog id="filters-dialog" aria-labelledby="filters-title">
+    <h2 id="filters-title">Filtres</h2>
+    <div id="filters-options" class="landing-stack landing-section"></div>
+    <button id="clear-filters" type="button" class="text-action">Effacer les filtres</button>
+    <button id="close-filters" type="button" class="primary-action">Fermer les filtres</button>
+  </dialog>
+
+  <dialog id="recap-dialog" aria-labelledby="recap-title">
+    <h2 id="recap-title"></h2>
+    <p id="recap-meta" class="recap-meta"></p>
+    <p id="recap-description" class="recap-description"></p>
+    <h3>Exercices prévus</h3>
+    <ol id="recap-exercises" class="recap-exercises"></ol>
+    <p class="landing-hint">Exemple de récapitulatif. Les cibles détaillées seront précisées à la prochaine étape.</p>
+    <div class="recap-actions">
+      <button id="plan-session" type="button" class="primary-action">Ajouter à ma semaine</button>
+      <button id="toggle-favorite" type="button" class="landing-button" aria-pressed="false">Ajouter aux favoris</button>
+      <button id="save-session" type="button" class="landing-button">Ajouter à mes entraînements</button>
+    </div>
+    <form id="week-form" class="landing-section" novalidate hidden>
+      <label for="week-day">Jour de ma semaine</label>
+      <select id="week-day" name="day" required aria-describedby="week-day-error">
+        <option value="">Choisir un jour</option>
+        <option>Lundi</option><option>Mardi</option><option>Mercredi</option><option>Jeudi</option><option>Vendredi</option><option>Samedi</option><option>Dimanche</option>
+      </select>
+      <p id="week-day-error" class="error" hidden>Choisis un jour avant d’ajouter la séance.</p>
+      <button type="submit" class="primary-action landing-section">Confirmer le placement</button>
+      <button id="cancel-week" type="button" class="text-action">Annuler le placement</button>
+    </form>
+    <p id="recap-notice" class="landing-hint landing-section" role="status" aria-live="polite"></p>
+    <button id="recap-open-mine" class="text-action" type="button" hidden>Voir mes entraînements</button>
+    <button id="close-recap" type="button" class="text-action dialog-return">Retour à la liste</button>
+  </dialog>
+
+  <dialog id="draft-dialog" aria-labelledby="draft-title">
+    <span class="landing-tag">À compléter</span>
+    <h2 id="draft-title" class="landing-section"></h2>
+    <p class="landing-hint landing-section">Base personnelle conservée, sans exercices ni résultats inventés.</p>
+    <dl id="draft-facts" class="draft-facts"></dl>
+    <p id="draft-structure" class="landing-hint"></p>
+    <p id="draft-next" class="landing-hint landing-section"></p>
+    <button id="close-draft" type="button" class="text-action dialog-return">Revenir à mes entraînements</button>
+  </dialog>
+
+  <dialog id="recovery-dialog" aria-labelledby="recovery-title" aria-describedby="recovery-description">
+    <h2 id="recovery-title">Réinitialiser le mot de passe</h2>
+    <p id="recovery-description" class="intro">Indique l’e-mail associé à ton compte.</p>
+    <form id="recovery-form" novalidate>
+      <div class="field">
+        <label for="recovery-email">E-mail</label>
+        <input id="recovery-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="thomas@example.com" required aria-describedby="recovery-email-error" autofocus>
+        <p id="recovery-email-error" class="error" aria-live="polite" hidden></p>
+      </div>
+      <button class="primary-action" type="submit">Envoyer le lien</button>
+    </form>
+    <p id="recovery-confirmation" class="recovery-confirmation" role="status" hidden>Simulation : aucun e-mail n’a été envoyé.</p>
+    <button id="close-recovery" class="text-action dialog-return" type="button">Revenir à la connexion</button>
+  </dialog>
+</body>
+</html>
