@@ -40,4 +40,6 @@ Les responsables de tâches ci-dessus reprennent la répartition existante ; les
 
 | Action / livrable | Responsable | Reviewer | Échéance | Critère de fin |
 | --- | --- | --- | --- | --- |
-| À compléter pendant la réunion | À définir | À définir | À fixer | À définir |
+| resumer de l'etude de concurrance | matthieu | À définir | À fixer | À définir |
+reprise du prototype yahya marie
+finalsation des taches  sami 

@@ -14,7 +14,7 @@ Persona fictif et provisoire construit à partir de notre échange. Ses besoins 
 | Âge | 68 ans |
 | Activité | Retraitée |
 | Niveau sportif | Débutante en musculation |
-| Pratique | S'entraîne seule en salle ; fréquence à préciser |
+| Pratique | S'entraîne seule en salle ; fréquence 2 à 3 fois par semaine |
 | Aisance numérique | Utilise son smartphone pour certaines tâches ; sa fille l'a aidée à apprendre |
 
 Mireille vient à la musculation pour entretenir sa force et rester autonome. Elle n'a pas besoin de battre des records : elle veut pouvoir porter ses courses ou ses petits-enfants, marcher, monter les escaliers et se relever sans difficulté. Elle s'entraîne seule, mais demande de l'aide au personnel de la salle quand elle ne sait pas utiliser un appareil.
@@ -72,8 +72,11 @@ Mireille arrive seule à la salle et retrouve une séance simple. Avant un exerc
 
 ## Points à vérifier
 
-- Quelle fréquence d'entraînement Mireille vise-t-elle, et quels exercices connaît-elle déjà ?
-- Quel type de démonstration l'aide le plus : images, courte vidéo ou explication écrite ?
+
+- Le type de démonstration l'aide le plus : images.
 - Que souhaite-t-elle noter après une série ou lorsqu'un mouvement lui semble difficile ?
+    - Des notes pour l'execution de l'exo et le ressenti après la série
 - Quel changement concret lui ferait dire qu'elle progresse dans sa vie quotidienne ?
+    - le renssenti et la prise de comfiance lors des exos 
 - Dans quelles situations demande-t-elle de l'aide au personnel ou à sa fille ?
+    - comment utiliser l'application la première fois à sa fille et plus d'explication sur les exo pour le personnel
