@@ -162,4 +162,10 @@ Ouvrir le [parcours depuis la connexion](../01-connexion/index.html), choisir Av
 
 Vérifié dans le navigateur : état vide, navigation, copies et favoris, création de séance/semaine/mésocycle, champs obligatoires, nombres entiers positifs, annulation sans création et changement d’organisation sans réutiliser les champs masqués. Affichage contrôlé à 320, 390 et 1280 px de largeur.
 
-Limites : les bases créées sont marquées « À compléter », sans exercices inventés. L’éditeur, le calendrier détaillé et Progrès restent à concevoir. Le contenu personnel reste uniquement en mémoire et disparaît au rechargement.
+Les semaines et mésocycles ouvrent maintenant [Organiser ma semaine](../05-organisation-semaine/README.md) : séances nommées, repos, déplacement, duplication et répétition de la répartition. Les jours d’entraînement et les séances seules ouvrent [Configurer une séance](../06-configuration-seance/README.md) pour ajouter des exercices, leurs objectifs et les champs de suivi.
+
+Limites : les bases créées sont marquées « À compléter », sans exercices inventés. La réalisation, le calendrier daté et Progrès restent à concevoir. Le contenu personnel est désormais conservé dans le stockage local du navigateur, avec les préférences et les exercices personnels.
+
+## Simplification du parcours
+
+L’objectif et le matériel connus sont préremplis dans une section repliée « Objectif et matériel ». Le formulaire inachevé est mémorisé pour la reprise. Une connexion de démonstration avec la même identité reprend le profil connu sans redemander les questions rapides. Les mots de passe ne sont jamais conservés.

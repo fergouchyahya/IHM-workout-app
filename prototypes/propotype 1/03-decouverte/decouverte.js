@@ -21,11 +21,11 @@ window.Decouverte = {
     const workouts = this.filtered();
     const profile = window.Parcours.state.profile;
     const personal = Object.values(profile).some(Boolean);
-    return `<div class="results-heading"><h2>${personal ? 'Séances pour toi' : 'Séances pour commencer'}</h2><p>Les plus courtes en premier.</p></div><div class="landing-stack">${workouts.length ? workouts.map(workout => this.card(workout)).join('') : '<div class="empty-content"><h2>Aucune séance avec ces critères</h2><p>Essaie d’élargir la recherche ou les filtres.</p><button class="landing-button" type="button" data-clear-search>Effacer recherche et filtres</button></div>'}</div><p class="landing-hint landing-section" role="status">${workouts.length} séance${workouts.length !== 1 ? 's' : ''}</p>`;
+    return `<div class="results-heading"><h2>${personal ? 'Séances pour toi' : 'Séances pour commencer'}</h2></div><div class="landing-stack">${workouts.length ? workouts.map(workout => this.card(workout)).join('') : '<div class="empty-content"><h2>Aucune séance avec ces critères</h2><p>Essaie d’élargir la recherche ou les filtres.</p><button class="landing-button" type="button" data-clear-search>Effacer recherche et filtres</button></div>'}</div><p class="landing-hint landing-section" role="status">${workouts.length} séance${workouts.length !== 1 ? 's' : ''}</p>`;
   },
   render() {
     const p = window.Parcours;
-    return `${p.greeting()}<h1 tabindex="-1">Découvrir</h1><p class="landing-lead">Trouve une séance et garde-la pour plus tard.</p><label for="search-session">Rechercher une séance</label><input id="search-session" type="search" placeholder="Full Body, jambes…" value="${p.escape(p.state.search)}"><div class="filter-toolbar"><button id="open-filters" class="landing-button" type="button" aria-haspopup="dialog">Filtres</button></div><div id="active-filters" class="active-filters"></div><div class="library-sections" aria-label="Bibliothèques"><button type="button" data-source="starter" aria-pressed="${p.state.source === 'starter'}">Pour commencer</button><button type="button" data-source="community" aria-pressed="${p.state.source === 'community'}">Communauté</button></div><div id="library-results">${this.results()}</div>`;
+    return `${p.greeting()}<h1 tabindex="-1">Découvrir</h1><label for="search-session">Rechercher une séance</label><input id="search-session" type="search" placeholder="Full Body, jambes…" value="${p.escape(p.state.search)}"><div class="filter-toolbar"><button id="open-filters" class="landing-button" type="button" aria-haspopup="dialog">Filtres</button></div><div id="active-filters" class="active-filters"></div><div class="library-sections" aria-label="Bibliothèques"><button type="button" data-source="starter" aria-pressed="${p.state.source === 'starter'}">Pour commencer</button><button type="button" data-source="community" aria-pressed="${p.state.source === 'community'}">Communauté</button></div><div id="library-results">${this.results()}</div>`;
   },
   refresh() {
     const results = document.querySelector('#library-results');
@@ -100,6 +100,7 @@ window.Decouverte = {
     document.querySelector('#save-session').textContent = saved ? 'Déjà dans mes entraînements' : 'Ajouter à mes entraînements';
   },
   confirm(message) {
+    window.Parcours.persist();
     document.querySelector('#recap-notice').textContent = message;
     this.updateRecapButtons();
     this.refresh();

@@ -73,6 +73,8 @@ Ces choix sont confirmés dans l’échange de conception. Leur présentation co
 | [02-questions-rapides/README.md](02-questions-rapides/README.md) | Règles communes et trois dossiers : niveau, objectif, matériel | Documentation validée ; parcours cliquable vérifié |
 | [03-decouverte/README.md](03-decouverte/README.md) | Arrivée débutant/intermédiaire : suggestions, filtres et récapitulatif | Documentation validée ; code vérifié |
 | [04-mes-entrainements/README.md](04-mes-entrainements/README.md) | Arrivée avancée : contenu personnel et création par organisation/gabarit | Documentation validée ; code vérifié |
+| [05-organisation-semaine/README.md](05-organisation-semaine/README.md) | Répartir les séances nommées et repos ; répéter une semaine dans un cycle | Proposition validée ; aperçu implémenté |
+| [06-configuration-seance/README.md](06-configuration-seance/README.md) | Bibliothèque d’exercices, objectifs et champs de suivi | Conception validée ; écran implémenté |
 
 Le dossier questions rapides contient un README commun et un sous-dossier avec README pour chaque question. Les trois écrans sont documentés séparément ; leur implémentation suit la validation de ces documents. Les autres dossiers seront ajoutés au fur et à mesure, après discussion du parcours ; aucun écran supplémentaire n’est rempli par anticipation.
 
@@ -124,10 +126,16 @@ Décrire les parcours à essayer et les résultats observables attendus. Vérifi
 
 - Évaluation du [premier écran de connexion](01-connexion/README.md) et des questions rapides.
 - Évaluation des [trois questions rapides](02-questions-rapides/README.md) et des deux pages d’arrivée implémentées.
-- Relecture des [suggestions et filtres](03-decouverte/README.md) et de la [création avancée](04-mes-entrainements/README.md) ; détail de la fiche, de la semaine et de l’éditeur à concevoir ensuite.
+- Relecture des [suggestions et filtres](03-decouverte/README.md) et de la [création avancée](04-mes-entrainements/README.md) ; évaluation de la semaine et de l’éditeur de séance ; réalisation à concevoir ensuite.
 - Placement et visibilité des options de portée d’une adaptation.
 - Visuels d’aide aux exercices, présentation des saisies et fonctionnement précis du repos.
 - Présentation du bilan, des comparaisons et des éventuels records.
 - Style visuel et libellés de chaque écran.
 
 La palette confirmée pour cette première page est `#B91C1C`, `#F87171`, `#111827`, `#FEF2F2`, avec un style très sobre et au plus un petit symbole sportif. Son application concrète est décrite dans le README de connexion. Le nom de l’interface, la durée du repos et les comportements techniques de l’ancienne proposition ne sont pas considérés comme validés ; ils seront décidés lorsque nous traiterons les écrans concernés.
+
+## Mémorisation et simplification
+
+Le prototype conserve localement les préférences, entraînements, exercices personnels et le formulaire de création inachevé. Pour la même identité de démonstration, les questions rapides ne sont pas répétées. Les nouvelles séances reprennent les derniers champs de suivi choisis ; les exercices reprennent leurs derniers objectifs, toujours modifiables. Les mots de passe ne sont pas enregistrés.
+
+Le choix d’exercice utilise une recherche par nom, un menu déroulant et une illustration SVG locale à côté. Les rappels génériques sont retirés des écrans de préparation ; les unités, erreurs et conséquences de remplacement restent visibles.

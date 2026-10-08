@@ -8,7 +8,7 @@ const recoveryDialog = document.querySelector('#recovery-dialog');
 const emailFormat = document.createElement('input');
 emailFormat.type = 'email';
 emailFormat.required = true;
-let previousIdentity = null;
+let previousIdentity = window.Parcours.state.identity || null;
 
 function validEmail(value) {
   emailFormat.value = value.trim();
@@ -115,11 +115,17 @@ function openQuestions(mode) {
   const identity = `${isEmail ? 'email' : 'username'}:${isEmail ? identifier.toLowerCase() : identifier}`;
   const reset = identity !== previousIdentity;
   previousIdentity = identity;
+  window.Parcours.state.identity = identity;
+  if (reset) window.Parcours.state.onboardingComplete = false;
   clearPasswords();
   loginForm.reset();
   signupForm.reset();
   document.querySelector('#access-page').hidden = true;
   document.querySelector('#demo-screen').textContent = 'Prototype · Questions rapides';
+  if (!reset && window.Parcours.state.onboardingComplete) {
+    window.Parcours.start({name:isEmail ? identifier.split('@')[0] : identifier,answers:window.Parcours.state.profile,reset:false});
+    return;
+  }
   window.QuestionsRapides.start({
     name: isEmail ? identifier.split('@')[0] : identifier,
     reset,
@@ -173,7 +179,7 @@ recoveryDialog.addEventListener('close', () => {
 
 document.addEventListener('input', event => {
   const input = event.target;
-  if (input instanceof HTMLInputElement && input.getAttribute('aria-invalid') === 'true') {
+  if (input instanceof HTMLInputElement && input.closest('#login-form, #signup-form, #recovery-form') && input.getAttribute('aria-invalid') === 'true') {
     showFieldError(input, validationMessage(input));
   }
 });
