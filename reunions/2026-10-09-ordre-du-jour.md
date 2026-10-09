@@ -2,7 +2,7 @@
 
 **Date :** 2026-10-09 · **Participants :** toute l’équipe (Yahya, Marie, Sami et Matthieu)  
 **Objectif :** relire l’arbre commun, la synthèse concurrentielle et le nouveau prototype, puis organiser les entretiens.  
-**Statut :** préparation.
+**Statut :** rendu.
 
 ## Préparation
 
@@ -22,14 +22,21 @@ Les personas et l’organisation globale des tâches sont déjà validés. Cette
 
 ## Décisions prises
 
-À renseigner pendant la réunion.
 
 | Sujet | Décision | Responsable |
 | --- | --- | --- |
+|Relire le grand arbre T1–T5 | A revoir | Sami|
+| Synthèse des applications concurrentes| Fini | Matthieu|
+| Prototype| Fini | Yahya|
+| Guide entretien~| Fini | toute l'équipe|
 
 ## Actions suivantes
 
-À renseigner pendant la réunion.
 
 | Action / livrable | Responsable | Reviewer | Échéance | Critère de fin |
 | --- | --- | --- | --- | --- |
+|transformer tache.md en graph un mermaid ou png | Sami  | Yahya | - | le graph |
+|LA T4 | Yahya - Marie  | Marie | - | la/les pages du prototype |
+|La visualization après entrainement et données à renseigner | Yahya - Marie  | Marie | - | la/les pages du prototype |*
+
+
