@@ -16,6 +16,7 @@ Les personas et les tâches ont été validés par l’équipe le 2 octobre. Ce 
 
 Ordre visé : contexte → T1 → T2 → T3 → T4 → T5. Les tableaux existants restent la base de travail.
 
+
 ## Thomas (débutant)
 
 | Question | Tâche |
@@ -35,12 +36,14 @@ Ordre visé : contexte → T1 → T2 → T3 → T4 → T5. Les tableaux existant
 | Sais-tu pourquoi on repose un muscle ? Qu'est-ce qui t'aiderait à le comprendre ? | T3 |
 | As-tu déjà montré tes séances à quelqu'un ou demandé un avis ? Comment ? | T4 |
 | Dans quel cas voudrais-tu partager un de tes blocs ou une de tes séances ? Que veux-tu en retirer ? | T4 |
-| Voudrais-tu le montrer à quelques personnes ou à tout le monde ? Pourquoi ? | T4 |
-| Qu'écrirais-tu pour demander de l'aide ? | T4 |
+| Si tu partageais un programme, lequel choisirais-tu et que voudrais-tu que les autres puissent en comprendre ? | T4 |
+| Quelles informations voudrais-tu montrer ? Y en a-t-il que tu ne voudrais pas partager, comme tes résultats ou tes notes personnelles ? | T4 |
+| À qui voudrais-tu le partager : à des personnes précises ou à tout le monde ? Qu'est-ce qui guiderait ton choix ? | T4 |
+| Que voudrais-tu ajouter pour expliquer ton programme ou demander un avis ? | T4 |
 | Qu'est-ce qui te ferait hésiter à publier ? | T4 |
-| Que voudrais-tu voir avant de publier ? | T4 |
-| Comment voudrais-tu retrouver les conseils reçus ? Que ferais-tu d'un avis contradictoire ? | T4 |
-| Si tu regrettes d'avoir publié, que voudrais-tu pouvoir faire ? | T4 |
+| Avant de confirmer le partage, que voudrais-tu vérifier sur l'aperçu et sur les personnes qui pourront le voir ? | T4 |
+| Comment voudrais-tu savoir si le partage a bien été effectué et retrouver les éventuels retours ? | T4 |
+| Si tu voulais ensuite corriger ou retirer le programme, que voudrais-tu pouvoir faire ? | T4 |
 
 ## Camille (intermédiaire)
 
@@ -61,12 +64,14 @@ Ordre visé : contexte → T1 → T2 → T3 → T4 → T5. Les tableaux existant
 | Aimes-tu recevoir des recommandations ? Qui doit décider au final ? | T3 |
 | As-tu déjà donné ou reçu une séance ? Comment ? | T4 |
 | Dans quel cas voudrais-tu partager une de tes séances ? Le ferais-tu à la salle ou chez toi ? | T4 |
-| La donnerais-tu à quelques personnes ou à tout le monde ? Pourquoi ? | T4 |
-| Combien de temps es-tu prête à y consacrer, et que veux-tu ne pas avoir à saisir ? | T4 |
-| Qu'est-ce qui ne doit surtout pas être partagé ? | T4 |
-| Ouvrirais-tu les commentaires ? Que ferais-tu des questions et des critiques ? | T4 |
-| Avec une mauvaise connexion, comment saurais-tu que ta publication est bien faite ? | T4 |
-| Si tu modifies ensuite ta séance, la version publiée doit-elle changer ? | T4 |
+| Quelle séance ou structure choisirais-tu ? Quelles informations faudrait-il reprendre automatiquement pour que le partage soit rapide ? | T4 |
+| Quelles informations voudrais-tu inclure ou exclure, notamment parmi tes charges, notes ou résultats personnels ? | T4 |
+| À qui voudrais-tu la partager : à des personnes précises ou à tout le monde ? Pourquoi ? | T4 |
+| Que voudrais-tu expliquer à son sujet, et combien de temps accepterais-tu d'y consacrer ? | T4 |
+| Que voudrais-tu pouvoir régler concernant les commentaires ? Dans quelles situations les lirais-tu ou y répondrais-tu ? | T4 |
+| Avant de confirmer, que voudrais-tu vérifier dans l'aperçu et concernant sa visibilité ? | T4 |
+| Comment voudrais-tu savoir si le partage est effectué ou en attente, par exemple si la connexion est mauvaise ? | T4 |
+| Si tu modifies ensuite ta séance, voudrais-tu mettre à jour ou retirer aussi le contenu partagé ? Qu'adviendrait-il des copies déjà importées ? | T4 |
 
 ## Greg (très avancé)
 
@@ -87,8 +92,9 @@ Ordre visé : contexte → T1 → T2 → T3 → T4 → T5. Les tableaux existant
 | Que veux-tu qu'on te rappelle de ta dernière séance semblable, et que ne veux-tu surtout pas recevoir ? | T3 |
 | As-tu déjà partagé ou reçu un programme (coach, partenaires, forums) ? Comment ? | T4 |
 | Que partagerais-tu : une séance, un bloc, un cycle entier ? À quel moment ? | T4 |
-| Quelle différence fais-tu entre partager avec des contacts et publier à tout le monde ? Qui sont tes contacts ? | T4 |
-| Qu'inclus-tu dans le programme partagé : charges prévues, RPE cibles, accessoires, réglages du matériel ? | T4 |
-| Qu'est-ce qui ne doit jamais sortir : records, sommeil, douleurs, vidéos, notes ? | T4 |
-| Ouvrirais-tu les commentaires ? Que cherches-tu : apprendre d'autres pratiquants avancés, aider des débutants ? | T4 |
-| Si tu modifies ton cycle après l'avoir publié, que doit-il se passer pour ceux qui l'ont importé ? | T4 |
+| Quelles informations du programme voudrais-tu partager, par exemple les charges prévues, RPE cibles, accessoires ou réglages ? Lesquelles garderais-tu privées ? | T4 |
+| À qui le partagerais-tu : à certains contacts ou à toute la communauté ? Qui considères-tu comme tes contacts et qu'est-ce qui différencie ces publics pour toi ? | T4 |
+| Quelle présentation ou demande de conseils ajouterais-tu ? Souhaiterais-tu autoriser les commentaires, et pourquoi ? | T4 |
+| Avant de confirmer, que voudrais-tu vérifier dans l'aperçu, notamment sur les informations visibles et le public choisi ? | T4 |
+| Comment voudrais-tu savoir que le partage est effectué, et retrouver les commentaires ou réponses ? | T4 |
+| Si tu fais évoluer ton cycle, voudrais-tu mettre à jour ou retirer le contenu partagé ? Que devrait-il arriver aux copies déjà importées ? | T4 |
