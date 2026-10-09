@@ -1,0 +1,21 @@
+.week-heading { margin:20px 0 12px; }
+.week-summary { padding:16px; border:1px solid var(--border); border-radius:8px; margin-bottom:20px; }
+.week-summary p + p { margin-top:8px; }
+.week-days { list-style:none; padding:0; display:grid; gap:10px; }
+.week-day { display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; text-align:left; padding:16px; min-height:76px; border:1px dashed var(--border); border-radius:8px; background:var(--background); }
+.week-day.is-session { border-style:solid; border-left:4px solid var(--primary); }
+.week-day.is-rest { border-style:solid; }
+.week-day strong,.week-day small { display:block; }
+.week-day small { font-size:14px; margin-top:6px; overflow-wrap:anywhere; }
+.week-day span:last-child { font-size:12px; flex-shrink:0; }
+.week-cycle { border-top:1px solid var(--border); padding-top:20px; }
+.week-cycle p { margin-bottom:12px; }
+.week-editor label { display:block; margin-top:16px; }
+.week-editor input,.week-editor select { margin-top:8px; }
+.week-editor .week-check { display:flex; align-items:start; gap:10px; font-size:14px; }
+.week-editor .week-check input { width:20px; height:20px; margin:0; flex-shrink:0; }
+.week-editor h2 { overflow-wrap:anywhere; }
+.week-actions { display:grid; gap:10px; margin-top:24px; }
+.week-day:focus-visible { outline:2px solid var(--primary); outline-offset:3px; }
+
+.day-exercises { margin-top:6px; font-size:14px; color:var(--primary); }
