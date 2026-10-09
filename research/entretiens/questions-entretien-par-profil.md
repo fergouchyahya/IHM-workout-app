@@ -8,7 +8,7 @@ Les personas et les tâches ont été validés par l’équipe le 2 octobre. Ce 
 
 | Travail | Responsable |
 | --- | --- |
-| Ajouter les questions T1 | Matthieu |
+| Harmoniser les questions T1 | Matthieu |
 | Harmoniser les questions T2 et T3 avec l’arbre commun | Yahya |
 | Harmoniser les questions T4 | Marie |
 | Ajouter les questions T5 | Sami |
@@ -25,6 +25,13 @@ Ordre visé : contexte → T1 → T2 → T3 → T4 → T5. Les tableaux existant
 | Raconte ta dernière séance, de l'arrivée jusqu'au départ. | Contexte |
 | Comment notes-tu ce que tu fais ? Peux-tu me montrer ? | Contexte |
 | Qu'est-ce qui t'intimide ou te perd le plus à la salle ? | Contexte |
+| Comment as-tu choisi ce que tu fais à la salle : programme trouvé en ligne, conseil d'un proche, coach, au feeling ? | T1 |
+| Si une application te posait quelques questions avant de te proposer un programme, lesquelles accepterais-tu ? Combien au maximum ? | T1 |
+| Devant plusieurs programmes proposés, que veux-tu savoir pour en choisir un : durée, nombre de séances, zone travaillée, difficulté ? | T1 |
+| Utiliserais-tu un programme partagé par quelqu'un d'autre ? Qu'est-ce qui te donnerait confiance ? | T1 |
+| Viens-tu à la salle des jours fixes ou cela change-t-il chaque semaine ? Comment voudrais-tu placer tes séances ? | T1 |
+| Quand tu rates une séance, la décales-tu ou la sautes-tu ? | T1 |
+| Avant de partir à la salle, que veux-tu savoir sur la séance du jour ? | T1 |
 | Avant une série, qu'as-tu besoin de voir pour savoir quoi faire ? | T2 |
 | Quand tu ne connais pas une machine, ou qu'elle est occupée, que fais-tu ? Donne un exemple récent. | T2 |
 | Que notes-tu après une série ? Comment corriges-tu une erreur ? | T2 |
@@ -53,6 +60,15 @@ Ordre visé : contexte → T1 → T2 → T3 → T4 → T5. Les tableaux existant
 | Raconte ta dernière séance. Qu'as-tu regardé ou noté entre les séries ? | Contexte |
 | Comment notes-tu tes performances aujourd'hui ? Peux-tu me montrer ? | Contexte |
 | Qu'est-ce qui te fait abandonner la saisie ? | Contexte |
+| Comment prépares-tu une séance aujourd'hui : la veille, sur place, pas du tout ? Combien de temps y consacres-tu ? | T1 |
+| As-tu des séances types que tu répètes ? Comment les as-tu construites et où les gardes-tu ? | T1 |
+| Importerais-tu une séance partagée par quelqu'un d'autre ? Que voudrais-tu vérifier avant de l'utiliser ? | T1 |
+| Planifies-tu ta semaine à l'avance ou décides-tu le jour même ? | T1 |
+| Quand ton emploi du temps te fait rater une séance, que fais-tu ? Voudrais-tu un rappel ? | T1 |
+| En arrivant à la salle, comment retrouves-tu ta dernière séance du même type ? Combien de temps es-tu prête à y passer ? | T1 |
+| Quand tu reprends une ancienne séance, que veux-tu retrouver et que veux-tu changer ? | T1 |
+| Quand tu t'entraînes chez toi ou manques de temps, comment adaptes-tu la séance ? Ce changement doit-il modifier ta séance type ? | T1 |
+| Quand tu décides d'augmenter la difficulté, comment l'appliques-tu à la séance suivante ? | T1 |
 | Quelle valeur de la dernière séance regardes-tu avant de choisir ta charge ? | T2 |
 | Que notes-tu après une série, et combien de temps peux-tu y passer ? | T2 |
 | Si tu saisis une mauvaise valeur, que veux-tu corriger ou annuler ? | T2 |
@@ -81,6 +97,14 @@ Ordre visé : contexte → T1 → T2 → T3 → T4 → T5. Les tableaux existant
 | Quels outils utilises-tu aujourd'hui et que consignes-tu dedans ? Peux-tu me montrer ? | Contexte |
 | Comment retiens-tu les réglages de racks, bancs et machines ? | Contexte |
 | Qu'est-ce qui te fait perdre le plus de temps dans ton suivi ? | Contexte |
+| Comment décides-tu du focus et de la durée d'un nouveau cycle dans ton macrocycle ? | T1 |
+| Comment reprends-tu les points notés à la fin du cycle précédent ? | T1 |
+| Peux-tu me dire comment tu composes une semaine type ? Qu'est-ce qui te prend le plus de temps ? | T1 |
+| T'arrive-t-il de partir d'un programme écrit par quelqu'un d'autre ? Comment l'adaptes-tu ? | T1 |
+| Quels champs veux-tu suivre selon les exercices (RPE, sommeil, douleur…), et lesquels remplis-tu vraiment ? | T1 |
+| Comment rattaches-tu les réglages du matériel à tes exercices ? Changent-ils d'une salle à l'autre ? | T1 |
+| Comment reproduis-tu ta semaine type sur tout le cycle, et comment fais-tu évoluer les cibles d'une semaine à l'autre ? | T1 |
+| Juste avant une séance, que vérifies-tu ? | T1 |
 | Sur quelles séries notes-tu le RPE réel ? Est-ce un RPE chiffré ? | T2 |
 | Comment marques-tu une série adaptée, arrêtée ou sautée ? | T2 |
 | Quand ajoutes-tu une note ou une vidéo : pendant la séance ou plus tard ? | T2 |
