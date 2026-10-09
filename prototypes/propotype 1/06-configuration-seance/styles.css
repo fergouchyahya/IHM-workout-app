@@ -1,0 +1,33 @@
+.session-add { margin:16px 0; }
+.session-exercises { list-style:none; padding:0; display:grid; gap:14px; }
+.session-card { border:1px solid var(--border); border-radius:8px; padding:16px; }
+.exercise-edit { display:grid; gap:10px; width:100%; border:0; background:none; padding:0; text-align:left; min-height:60px; }
+.exercise-edit strong { font-size:17px; overflow-wrap:anywhere; }
+.exercise-edit span { font-size:14px; }
+.exercise-edit small { color:var(--primary); font-size:13px; }
+.exercise-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+.exercise-actions .text-action { min-height:44px; padding:8px; }
+.exercise-actions button:disabled { opacity:.45; cursor:default; }
+.tracking-fixed { font-size:14px; margin:16px 0; }
+.tracking-choice { display:flex; gap:12px; align-items:center; min-height:48px; font-size:14px; }
+.tracking-choice input { width:20px; height:20px; margin:0; flex-shrink:0; }
+.tracking-choices details { margin-top:12px; }
+.tracking-choices summary,.exercise-dialog summary { min-height:44px; padding:12px 0; cursor:pointer; font-size:14px; }
+.exercise-dialog { max-height:85dvh; overflow-y:auto; }
+.exercise-dialog textarea { width:100%; margin-top:8px; padding:10px; border:1px solid var(--border); border-radius:8px; background:var(--background); color:var(--ink); font:inherit; resize:vertical; }
+.reps-range { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.reps-range label { min-width:0; }
+.reps-range input { min-width:0; }
+@media (max-width:360px) { .reps-range { grid-template-columns:1fr; gap:0; } }
+.exercise-picker { display:grid; grid-template-columns:minmax(0,1fr) 120px; gap:16px; align-items:center; margin:24px 0 16px; }
+.exercise-picker-controls { min-width:0; }
+.exercise-picker-controls label + label { margin-top:16px; }
+.exercise-picker-controls input,.exercise-picker-controls select { margin-top:8px; }
+.exercise-preview { margin:0; min-width:0; }
+.exercise-preview img { display:block; width:100%; height:120px; object-fit:contain; border-radius:10px; }
+.exercise-preview figcaption { font-size:12px; line-height:1.5; margin-top:8px; }
+.exercise-picker-controls .landing-hint { margin-top:10px; }
+#new-exercise-form input[type="file"] { padding:8px; font-size:13px; }
+@media (max-width:360px) { .exercise-picker { grid-template-columns:minmax(0,1fr) 86px; gap:10px; } .exercise-preview img { height:94px; } }
+
+.creation-preferences summary { min-height:44px; padding:12px 0; cursor:pointer; font-size:14px; }
