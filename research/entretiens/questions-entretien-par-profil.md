@@ -11,7 +11,7 @@ Les personas et les tâches ont été validés par l’équipe le 2 octobre. Ce 
 | Harmoniser les questions T1 | Matthieu |
 | Harmoniser les questions T2 et T3 avec l’arbre commun | Yahya |
 | Harmoniser les questions T4 | Marie |
-| Ajouter les questions T5 | Sami |
+| Questions T5 ajoutées dans la partie commune | Sami |
 | Prévoir une variante Mireille centrée sur la lisibilité et la simplicité des visuels | Toute l’équipe |
 
 Ordre visé : contexte → T1 → T2 → T3 → T4 → T5. Les tableaux existants restent la base de travail.
@@ -122,3 +122,16 @@ Ordre visé : contexte → T1 → T2 → T3 → T4 → T5. Les tableaux existant
 | Avant de confirmer, que voudrais-tu vérifier dans l'aperçu, notamment sur les informations visibles et le public choisi ? | T4 |
 | Comment voudrais-tu savoir que le partage est effectué, et retrouver les commentaires ou réponses ? | T4 |
 | Si tu fais évoluer ton cycle, voudrais-tu mettre à jour ou retirer le contenu partagé ? Que devrait-il arriver aux copies déjà importées ? | T4 |
+
+## T5 — Questions communes à tous les profils
+
+À poser après les questions T4 du profil interrogé.
+
+| Question | Tâche |
+| --- | --- |
+| Comment retrouves-tu une séance, un exercice ou un ancien résultat ? | T5.1 |
+| Qu’est-ce qui te pose problème quand tu cherches une information ? | T5.1 |
+| T’est-il déjà arrivé de perdre des notes ou des résultats d’entraînement ? Raconte. | T5.2 |
+| Quand tu reprends ton suivi après une interruption, qu’as-tu besoin de retrouver pour continuer ? | T5 |
+| Quelles informations aimerais-tu avoir directement sous la main pendant une séance ? | T5.1 |
+| As-tu déjà changé d’application ou de téléphone ? Comment as-tu récupéré ton historique d’entraînement ? | T5.2 |
