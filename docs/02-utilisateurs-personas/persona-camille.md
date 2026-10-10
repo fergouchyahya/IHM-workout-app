@@ -4,7 +4,8 @@
 
 ## Statut du persona
 
-Persona provisoire construit à partir d'hypothèses de conception. Il devra être confronté à des entretiens ou à des observations avant d'être considéré comme validé.
+**Auteur :** Sami · **Création :** 2026-09-17  
+**Statut :** persona fictif validé par toute l’équipe le 2026-10-02.
 
 ## Profil
 
@@ -67,7 +68,7 @@ Camille connaît les principaux exercices et sait organiser une séance sans acc
 
 ## Scénario principal
 
-En arrivant à la salle, Camille ouvre sa dernière séance du même type et la duplique. Avant chaque exercice, elle consulte la charge utilisée la semaine précédente. Pendant ses temps de repos, elle renseigne ses séries et ajuste une valeur si nécessaire. À la fin, elle enregistre la séance et vérifie en quelques secondes si elle a progressé.
+Voir le [scénario de Camille](../03-scenarios/scenario-camille.md).
 
 ## Conséquences pour la conception
 

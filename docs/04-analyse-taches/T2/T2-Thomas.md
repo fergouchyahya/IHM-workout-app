@@ -1,6 +1,6 @@
 # T2 — Réaliser et documenter une séance : Thomas
 
-**Responsable :** Yahya · **État :** modèle provisoire fondé sur le persona.
+**Responsable :** Yahya · **État :** modèle validé par toute l’équipe le 2 octobre 2026.
 
 ## But et limites
 
@@ -8,8 +8,8 @@ Thomas suit sa séance, comprend les exercices nouveaux et garde une trace des s
 
 ## Sources et concepts du domaine
 
-- [Réunion du 18 septembre](../../../reunions/20260918-ArbreDeTaches.md) : réaliser et consigner l'effort.
-- [Persona et scénario de Thomas](../../02-utilisateurs-personas/PersonaProvisoire_Debutant_ThomasDubois.md) : séance « Jambes », presse à cuisses peu connue, saisie après la série et ressenti final.
+- [Réunion du 18 septembre](../../../reunions/2026-09-18-arbre-des-taches.md) : réaliser et consigner l'effort.
+- [Persona de Thomas](../../02-utilisateurs-personas/persona-thomas.md) et [scénario](../../03-scenarios/scenario-thomas.md) : séance « Jambes », presse à cuisses peu connue, saisie après la série et ressenti final.
 
 **Concepts :** séance, exercice, consigne, séries et valeurs prévues, charge et répétitions réelles, ressenti, bilan.
 
@@ -37,13 +37,13 @@ La consigne n'est utile que si Thomas hésite. Les feuilles restent au niveau de
 
 1. Thomas repère l'exercice et la prochaine série. S'il ne connaît pas le mouvement, il consulte la consigne avant de commencer.
 2. Il réalise la série, note charge et répétitions réelles, puis vérifie sa saisie. Il répète ces étapes pour les autres séries.
-3. À la fin, il vérifie ce qu'il a fait, note son ressenti et conserve la séance. Le scénario ne dit pas comment il gère une machine occupée, une série interrompue ou une erreur : ces cas restent ouverts.
+3. À la fin, il vérifie ce qu'il a fait, note son ressenti et conserve la séance. Une série interrompue ou non faite reste identifiable ; une erreur peut être corrigée.
 
 **Ordre :** comprendre → réaliser → consigner et vérifier ; répéter ; faire le bilan → conserver.
 
 ## Décoration des tâches
 
-| Tâche | Précondition → résultat | Acteur / fréquence | Point à vérifier |
+| Tâche | Précondition → résultat | Acteur / fréquence | Repère de conception |
 | --- | --- | --- | --- |
 | T2.1.1 Repérer | Séance ouverte → exercice et séries connus | Thomas, chaque exercice | Repérage facile |
 | T2.1.2 Comprendre | Exercice connu → cible de la série comprise | Thomas, chaque série | Mots compris par un débutant |
@@ -57,23 +57,9 @@ La consigne n'est utile que si Thomas hésite. Les feuilles restent au niveau de
 
 ## Essai sur le scénario
 
-| Situation du [scénario](../../02-utilisateurs-personas/PersonaProvisoire_Debutant_ThomasDubois.md) | Tâches | Résultat attendu |
+| Situation du [scénario](../../03-scenarios/scenario-thomas.md) | Tâches | Résultat attendu |
 | --- | --- | --- |
 | Thomas ouvre « Jambes » | T2.1.1–T2.1.2 | Prochaine série comprise |
 | Il hésite devant la presse à cuisses | T2.1.3 | Consigne consultée avant l'effort |
 | Il finit une série et saisit la charge | T2.2.1–T2.2.3 | Résultat lié à la bonne série |
 | Il note son ressenti et termine | T2.3.1–T2.3.3 | Bilan conservé pour T3 |
-
-## Questions de validation
-
-Répondre comme Thomas, avec un exemple concret.
-
-1. Avant une série, qu'as-tu besoin de voir pour savoir quoi faire ?
-2. Si tu ne connais pas la machine ou qu'elle est occupée, que fais-tu ?
-3. Que notes-tu après une série ? Comment corriges-tu une erreur ?
-4. Comment indiques-tu une série arrêtée ou non faite ?
-5. Que vérifies-tu avant de terminer ?
-
-## Réponses et révisions
-
-**À remplir par l'équipe :** noter le répondant et la date. Le jeu de rôle donnera des pistes ; un entretien ou une observation avec un débutant devra les confirmer.

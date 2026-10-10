@@ -2,9 +2,9 @@
 
 **Rédaction :** Marie Yu-Barreau
 
-**Participants :** non précisés
+**Participants :** toute l'équipe
 
-**Échéance des actions :** prochaine séance (date non précisée)
+**Échéance des actions :** prochaine séance 
 
 Ce document rassemble les tâches envisagées à partir des personas. Cette première proposition reste à confronter aux scénarios et à la recherche utilisateur.
 
