@@ -18,7 +18,7 @@ Le [persona Greg](../../../docs/02-utilisateurs-personas/persona-greg.md) organi
 - Accès secondaire « Explorer des séances » vers Découvrir.
 - Après Créer, proposer des informations pour préparer l’entraînement, dont organisation par semaine ou mésocycle.
 - Proposer des gabarits de répartition tels que PPL et Upper/Lower, à enrichir.
-- Navigation conservée : Découvrir / Mes entraînements / Progrès ; pas de quatrième onglet.
+- Navigation commune : Découvrir / Mes entraînements / Progrès. Le module T4 ajoute l’accès Partages sans modifier les écrans de cet espace.
 
 Les champs, bases de gabarits et étapes précises ci-dessous ont été validés avant code. Ils ne constituent pas une programmation sportive prescrite.
 
@@ -31,7 +31,7 @@ De haut en bas :
 3. Si du contenu existe, liste de ses séances, semaines types et mésocycles, avec leur type clairement indiqué.
 4. Si aucun contenu n’existe, texte court « Crée ton premier entraînement » puis « Choisis une structure, puis ajoute tes exercices. ». La même action Créer reste disponible, sans doublon décoratif.
 5. Lien secondaire « Explorer des séances ».
-6. Barre des trois onglets, avec Mes entraînements actif.
+6. Barre de navigation principale, avec Mes entraînements actif.
 
 La page est une liste personnelle, pas un tableau de bord rempli de graphiques. Le défilement est permis lorsqu’il existe plusieurs entraînements. Le bouton Créer reste facile à repérer au début ; il n’est pas remplacé par un bouton flottant qui masque du contenu.
 

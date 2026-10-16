@@ -28,7 +28,7 @@ Le parcours de découverte complète le scénario d’une séance déjà planifi
 - Persona prioritaire : Thomas.
 - Format mobile ; prototype cliquable avec des données d’exemple.
 - Parcours prioritaire : découvrir → adapter → réaliser.
-- Trois espaces : **Découvrir**, **Mes entraînements**, **Progrès**.
+- Espaces principaux : **Découvrir**, **Mes entraînements**, **Partages** (T4) et **Progrès**. Partages réutilise les entraînements créés dans Mes entraînements ; il ne crée ni ne modifie leur contenu.
 - Arrivée selon le niveau renseigné : Débutant / Intermédiaire → Découvrir ; Avancé → Mes entraînements ; niveau absent → suggestions de Découvrir. Cette orientation ne bloque pas l’accès aux autres espaces.
 - Découvrir : séances personnalisées de la bibliothèque de départ, filtres et accès séparé à la communauté.
 - Mes entraînements : copies personnelles enregistrées, à ouvrir, adapter ou démarrer.
@@ -75,6 +75,7 @@ Ces choix sont confirmés dans l’échange de conception. Leur présentation co
 | [04-mes-entrainements/README.md](04-mes-entrainements/README.md) | Arrivée avancée : contenu personnel et création par organisation/gabarit | Documentation validée ; code vérifié |
 | [05-organisation-semaine/README.md](05-organisation-semaine/README.md) | Répartir les séances nommées et repos ; répéter une semaine dans un cycle | Proposition validée ; aperçu implémenté |
 | [06-configuration-seance/README.md](06-configuration-seance/README.md) | Bibliothèque d’exercices, objectifs et champs de suivi | Conception validée ; écran implémenté |
+| [07-partages/README.md](07-partages/README.md) | Partager un programme existant et suivre les retours (T4) | Parcours implémenté ; communauté simulée localement |
 
 Le dossier questions rapides contient un README commun et un sous-dossier avec README pour chaque question. Les trois écrans sont documentés séparément ; leur implémentation suit la validation de ces documents. Les autres dossiers seront ajoutés au fur et à mesure, après discussion du parcours ; aucun écran supplémentaire n’est rempli par anticipation.
 

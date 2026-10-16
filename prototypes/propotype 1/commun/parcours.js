@@ -56,7 +56,7 @@ window.Parcours = {
     this.view = view;
     const page = document.querySelector('#landing-page');
     page.onclick = null;
-    const labels = { discover:'Découvrir', mine:'Mes entraînements', create:'Créer un entraînement', week:'Organiser ma semaine', workout:'Configurer une séance', progress:'Progrès' };
+    const labels = { discover:'Découvrir', mine:'Mes entraînements', create:'Créer un entraînement', week:'Organiser ma semaine', workout:'Configurer une séance', progress:'Progrès', sharing:'Partages' };
     document.title = `${labels[view]} — Propotype 1`;
     document.querySelector('#demo-screen').textContent = `Prototype · ${labels[view]}`;
     page.innerHTML = view === 'discover' ? window.Decouverte.render()
@@ -64,15 +64,17 @@ window.Parcours = {
       : view === 'create' ? window.Entrainements.renderCreate()
       : view === 'week' ? window.Semaine.render()
       : view === 'workout' ? window.ConfigurationSeance.render()
+      : view === 'sharing' ? window.Partages.render()
       : '<h1 tabindex="-1">Progrès</h1><p class="landing-lead">Tes séances terminées et leurs résultats apparaîtront ici.</p><p class="landing-hint">Aucun résultat dans cette démonstration.</p>';
     if (view === 'discover') window.Decouverte.bind();
     else if (view === 'mine') window.Entrainements.bind();
     else if (view === 'create') window.Entrainements.bindCreate();
     else if (view === 'week') window.Semaine.bind();
     else if (view === 'workout') window.ConfigurationSeance.bind();
+    else if (view === 'sharing') window.Partages.bind();
     const nav = document.querySelector('#landing-navigation');
     nav.hidden = view === 'create' || view === 'week' || view === 'workout';
-    nav.innerHTML = [['discover','Découvrir','◈'],['mine','Mes entraînements','▤'],['progress','Progrès','↗']].map(([id,label,icon]) => `<button type="button" data-page="${id}" ${view === id ? 'aria-current="page"' : ''}><span aria-hidden="true">${icon}</span>${label}</button>`).join('');
+    nav.innerHTML = [['discover','Découvrir','◈'],['mine','Mes entraînements','▤'],['sharing','Partages','↗'],['progress','Progrès','↗']].map(([id,label,icon]) => `<button type="button" data-page="${id}" ${view === id ? 'aria-current="page"' : ''}><span aria-hidden="true">${icon}</span>${label}</button>`).join('');
     page.querySelector('h1').focus({ preventScroll:true });
     window.scrollTo(0,view === 'discover' ? this.state.scroll : 0);
   },
