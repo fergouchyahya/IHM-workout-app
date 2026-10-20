@@ -113,10 +113,9 @@ function openQuestions(mode) {
   const identifier = (mode === 'signup' ? signupForm.elements.username.value : loginForm.elements.identifier.value).trim();
   const isEmail = mode !== 'signup' && identifier.includes('@');
   const identity = `${isEmail ? 'email' : 'username'}:${isEmail ? identifier.toLowerCase() : identifier}`;
-  const reset = identity !== previousIdentity;
+  window.Parcours.switchIdentity(identity);
+  const reset = !window.Parcours.state.onboardingComplete;
   previousIdentity = identity;
-  window.Parcours.state.identity = identity;
-  if (reset) window.Parcours.state.onboardingComplete = false;
   clearPasswords();
   loginForm.reset();
   signupForm.reset();
@@ -193,3 +192,5 @@ function openStandaloneQuestions() {
 }
 window.addEventListener('hashchange', openStandaloneQuestions);
 openStandaloneQuestions();
+
+if (window.Parcours.state.identity) loginForm.elements.identifier.value = window.Parcours.state.identity.slice(window.Parcours.state.identity.indexOf(':')+1);

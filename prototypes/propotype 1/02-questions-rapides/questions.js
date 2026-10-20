@@ -12,7 +12,8 @@ window.QuestionsRapides = (() => {
   let name = '';
   let returnToLogin;
   let nextTimer;
-  let guardUntil = 0;
+  let editing = false;
+  let editingField = null;
   let newProfile = true;
 
   function cancelAdvance() {
@@ -23,6 +24,8 @@ window.QuestionsRapides = (() => {
   function render() {
     cancelAdvance();
     questionPanel.hidden = false;
+    document.querySelector('#skip-questions').textContent = editing ? 'Conserver mes réponses' : 'Passer le reste';
+    document.querySelector('#skip-one-question').hidden = editing;
     const question = window.questionsDefinitions[current];
     document.title = `Question ${current + 1} sur 3 — Propotype 1`;
     document.querySelector('#question-number').textContent = `Question ${current + 1} sur 3`;
@@ -56,15 +59,16 @@ window.QuestionsRapides = (() => {
 
   function finish() {
     cancelAdvance();
-    window.Parcours.start({name, answers, reset:newProfile});
+    if (editing) { window.Parcours.state.profile = {...answers}; if (current === 0) window.Parcours.state.filters.level = answers.level || ''; if (current === 2) window.Parcours.state.filters.equipment = answers.equipment || ''; document.querySelector('#questions-page').hidden = true; document.querySelector('#landing-page').hidden = false; window.Parcours.route('mine'); window.Parcours.notify('Préférences enregistrées · entraînements conservés'); }
+    else window.Parcours.start({name, answers, reset:newProfile});
     newProfile = false;
   }
 
   choices.addEventListener('click', event => {
     const button = event.target.closest('[data-choice]');
     // Un double appui ne doit pas répondre à deux questions à la même position.
-    if (!button || nextTimer || event.detail > 1 || performance.now() < guardUntil) return;
-    guardUntil = performance.now() + 350;
+    if (!button || nextTimer || event.detail > 1) return;
+
     answers[window.questionsDefinitions[current].field] = button.dataset.choice;
     choices.querySelectorAll('button').forEach(option => {
       const selected = option === button;
@@ -73,29 +77,33 @@ window.QuestionsRapides = (() => {
     });
     nextTimer = setTimeout(() => {
       nextTimer = null;
-      if (current === 2) finish();
+      if (editing || current === 2) finish();
       else { current++; render(); }
     }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 120);
   });
 
   back.addEventListener('click', () => {
     cancelAdvance();
-    guardUntil = 0;
+    if (editing) { page.hidden = true; returnToLogin(); return; }
     if (current === 0) {
       page.hidden = true;
       returnToLogin();
     } else { current--; render(); }
   });
   document.querySelector('#skip-questions').addEventListener('click', finish);
+  document.querySelector('#skip-one-question').addEventListener('click',() => { cancelAdvance(); if (editing || current === 2) finish(); else { current++; render(); } });
 
   return {
     start(options) {
       if (options.reset) answers = {};
+      editing = !!options.editing;
+      editingField = options.field ?? null;
+      if (options.answers) answers = {...options.answers};
       newProfile = options.reset;
       name = options.name || '';
       returnToLogin = options.returnToLogin;
-      current = 0;
-      guardUntil = 0;
+      current = editingField ?? 0;
+
       page.hidden = false;
       document.querySelector('#landing-page').hidden = true;
       document.querySelector('#landing-navigation').hidden = true;

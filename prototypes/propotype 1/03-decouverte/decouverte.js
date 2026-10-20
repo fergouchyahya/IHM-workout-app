@@ -9,7 +9,7 @@ window.Decouverte = {
       && (!filters.group || workout.groups.includes(filters.group))
       && (!filters.equipment || workout.equipment === filters.equipment)
       && (!filters.duration || workout.duration <= Number(filters.duration))
-      && workout.name.toLocaleLowerCase('fr').includes(search.toLocaleLowerCase('fr')))
+      && window.Ergonomie.normalize(workout.name).includes(window.Ergonomie.normalize(search)))
       .sort((a,b) => a.duration-b.duration);
   },
   card(workout) {
@@ -85,6 +85,7 @@ window.Decouverte = {
     document.querySelector('#week-form').hidden = true;
     document.querySelector('#week-form').reset();
     document.querySelector('#week-day-error').hidden = true;
+    document.querySelector('#week-day-error').textContent = 'Choisis une date avant d’ajouter la séance.';
     document.querySelector('#week-day').removeAttribute('aria-invalid');
     document.querySelector('#recap-open-mine').hidden = true;
     this.updateRecapButtons();
@@ -97,7 +98,8 @@ window.Decouverte = {
     const button = document.querySelector('#toggle-favorite');
     button.textContent = favorite ? 'Retirer des favoris' : 'Ajouter aux favoris';
     button.setAttribute('aria-pressed',String(favorite));
-    document.querySelector('#save-session').textContent = saved ? 'Déjà dans mes entraînements' : 'Ajouter à mes entraînements';
+    document.querySelector('#save-session').textContent = saved ? 'Ouvrir ma séance enregistrée' : 'Enregistrer dans mes entraînements';
+    document.querySelector('#recap-notice').textContent ||= 'Favori : retrouver facilement · Enregistrer : garder une copie · Planifier : choisir une date.';
   },
   confirm(message) {
     window.Parcours.persist();
@@ -123,12 +125,15 @@ document.querySelector('#toggle-favorite').addEventListener('click', () => {
   window.Decouverte.confirm(index === -1 ? 'Séance ajoutée aux favoris.' : 'Séance retirée des favoris.');
 });
 document.querySelector('#save-session').addEventListener('click', () => {
+  const existing = window.Parcours.state.saved.find(item => item.sourceId === window.Decouverte.current.id);
+  if (existing) { document.querySelector('#recap-dialog').close(); window.ConfigurationSeance.open(existing); return; }
   window.Parcours.ensureCopy(window.Decouverte.current);
   window.Decouverte.confirm('Copie personnelle conservée.');
   document.querySelector('#recap-open-mine').hidden = false;
 });
 document.querySelector('#plan-session').addEventListener('click', () => {
   document.querySelector('#week-form').hidden = false;
+  document.querySelector('#week-day').value = window.Calendrier.selected;
   document.querySelector('#week-day').focus();
 });
 document.querySelector('#cancel-week').addEventListener('click', () => { document.querySelector('#week-form').hidden = true; });
@@ -137,17 +142,26 @@ document.querySelector('#week-form').addEventListener('submit', event => {
   const day = document.querySelector('#week-day');
   const error = document.querySelector('#week-day-error');
   if (!day.value) {
+    error.textContent = 'Choisis une date avant d’ajouter la séance.';
     error.hidden = false; day.setAttribute('aria-invalid','true'); day.focus(); return;
   }
   error.hidden = true; day.removeAttribute('aria-invalid');
-  const copy = window.Parcours.ensureCopy(window.Decouverte.current);
-  const week = window.Parcours.state.week;
-  const exists = week.some(item => item.copyId === copy.id && item.day === day.value);
-  if (!exists) week.push({copyId:copy.id,day:day.value});
-  window.Decouverte.confirm(exists ? 'Cette séance est déjà prévue ce jour-là.' : `Séance ajoutée : ${day.value}.`);
-  document.querySelector('#week-form').hidden = true;
-  document.querySelector('#recap-open-mine').hidden = false;
-  document.querySelector('#plan-session').focus();
+  const date = day.value;
+  const rests = window.Calendrier.entries(date).filter(item => item.type === 'rest');
+  const place = () => {
+    const p = window.Parcours;
+    p.state.calendar = p.state.calendar.filter(item => !rests.some(rest => rest.id === item.id));
+    const copy = p.ensureCopy(window.Decouverte.current);
+    const entry = window.Calendrier.addSession(copy,date);
+    window.Calendrier.selected = window.Calendrier.cursor = date;
+    window.Decouverte.confirm(`Séance ajoutée au calendrier : ${window.Calendrier.label(date)}.`);
+    window.Calendrier.undoPlacement(rests,[entry.id],'Séance ajoutée au calendrier');
+    document.querySelector('#week-form').hidden = true;
+    document.querySelector('#recap-open-mine').hidden = false;
+    document.querySelector('#plan-session').focus();
+  };
+  if (rests.length) window.Ergonomie.confirm('Remplacer le repos ?', 'Cette date est marquée comme repos. La séance remplacera ce repos.',place,'Remplacer par la séance');
+  else place();
 });
 document.querySelector('#close-recap').addEventListener('click', () => document.querySelector('#recap-dialog').close());
 document.querySelector('#recap-open-mine').addEventListener('click', () => {

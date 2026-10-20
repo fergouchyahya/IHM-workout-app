@@ -1,0 +1,104 @@
+:root { --border:#d1d5db; }
+body { font-size:16px; }
+.landing-page { max-width:760px; padding:20px 20px 160px; }
+.landing-page h1 { font-size:26px; }
+.demo-note { display:flex; flex-wrap:wrap; justify-content:center; gap:4px 10px; padding:8px 16px; color:#4b5563; font-size:11px; border-bottom:1px solid #f3e4e4; }
+.demo-note p:first-child { margin:0; }
+.landing-card,.session-card,.t4-card,.t4-preview { background:#fff; border-color:#e5e7eb; border-radius:12px; }
+.landing-card { padding:16px; }
+.landing-card p,.landing-hint,.form-help,.prepared-details,.set-status { font-size:13px; }
+.landing-card .card-origin,.calendar-eyebrow,.agenda-card small,.completion-label { font-size:12px; letter-spacing:0; }
+button { touch-action:manipulation; }
+.landing-button,.primary-action,.text-action { min-height:44px; }
+button:disabled { cursor:default; opacity:.5; }
+input,textarea,select { font-size:16px; scroll-margin-block:100px 180px; }
+input[aria-invalid="true"],textarea[aria-invalid="true"],select[aria-invalid="true"] { border:2px solid #b91c1c; background:#fff1f2; }
+.numeric-error { display:block; font-size:12px; margin-top:4px; }
+.numeric-error:empty { display:none; }
+.picker-results { display:grid; gap:8px; margin:16px 0; }
+.picker-result { display:flex; align-items:center; gap:12px; width:100%; min-height:56px; padding:12px; border:1px solid #e5e7eb; border-radius:10px; background:#fff; color:var(--ink); text-align:left; }
+.picker-result > span:first-of-type { flex:1; min-width:0; }
+.picker-result strong { display:block; font-size:15px; overflow-wrap:anywhere; }
+.picker-result small { display:block; margin-top:4px; color:#4b5563; font-size:12px; }
+.picker-result img { object-fit:contain; flex:0 0 52px; }
+.picker-result > span:last-child:not(:first-child) { font-size:13px; color:var(--primary); }
+.review-empty,.draft-status { margin:12px 0; font-size:13px; color:#4b5563; }
+.ready-status { display:inline-block; padding:6px 10px; margin:4px 0 12px; border:1px solid #e5e7eb; border-radius:8px; background:#fff; font-size:13px; }
+.preparation-subtitle { margin-bottom:12px; }
+.preparation-actions { margin:16px 0; }
+.preparation-exercise-heading img { width:60px; height:60px; flex-basis:60px; }
+.preparation-exercise-heading { gap:10px; margin-bottom:10px; }
+.preparation-card { padding:14px; }
+.preparation-card.is-incomplete { border-color:#b91c1c; background:#fff1f2; }
+.preparation-card .exercise-instruction { margin-bottom:12px; }
+.prepared-details { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.prepared-details div + div { margin-top:0; }
+.prepared-details dd { font-size:13px; }
+.preparation-footer { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:min(760px,100%); z-index:3; display:flex; flex-wrap:wrap; gap:8px; padding:10px 20px max(10px,env(safe-area-inset-bottom)); margin:0; background:#fff; border-top:1px solid #e5e7eb; box-shadow:0 -4px 16px #11182708; }
+.preparation-footer > .primary-action { flex:1 1 100%; }
+.preparation-footer > .landing-button { flex:1; }
+.preparation-footer > .text-action { padding:8px; font-size:12px; }
+.expert-tools { padding:12px; margin:12px 0; border:1px solid #e5e7eb; border-radius:10px; background:#fff; font-size:13px; }
+.expert-tools summary { min-height:44px; padding:10px 0; cursor:pointer; font-weight:600; }
+.expert-tools p { margin:8px 0; }
+.bulk-exercise-check { margin:0; flex:0 0 22px; }
+.bulk-exercise-check input { width:22px; height:22px; margin:0; }
+.batch-days { display:flex; flex-wrap:wrap; gap:8px; padding:8px; border:0; }
+.batch-days label { display:flex; align-items:center; gap:6px; min-height:44px; border:1px solid #d1d5db; border-radius:8px; padding:6px 9px; font-size:13px; }
+.batch-days input { width:20px; height:20px; margin:0; }
+.agenda-row { position:relative; }
+.resume-workout { display:block; width:100%; margin-top:6px; background:#fff; color:var(--primary); font-weight:600; }
+.preference-link { float:right; font-size:12px; }
+.calendar-heading { clear:both; margin:8px 0 16px; }
+.calendar-toolbar { margin-bottom:12px; }
+.calendar-period { margin-bottom:12px; }
+.calendar-legend { margin:10px 0 18px; font-size:12px; }
+.calendar-switch button { font-size:14px; }
+.calendar-weekday { font-size:12px; padding:8px 0; }
+.calendar-cell { position:relative; padding:40px 3px 6px; min-height:78px; }
+.calendar-date { position:absolute; inset:0; z-index:1; min-height:44px; display:flex; justify-content:center; align-items:flex-start; padding-top:6px; }
+.calendar-date span { font-size:13px; }
+.calendar-markers { position:relative; pointer-events:none; }
+.calendar-chip { font-size:11px; min-height:18px; cursor:default; }
+.calendar-overflow { display:block; text-align:center; font-size:11px; color:#4b5563; }
+.calendar-grid.is-week .calendar-cell { min-height:62px; }
+.calendar-grid.is-week .calendar-chip { min-height:5px; }
+.training-title { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:8px 0; }
+.training-title h1 { font-size:22px; }
+.training-exercise { margin:12px 0 16px; }
+.training-exercise-heading { display:flex; align-items:center; gap:12px; }
+.training-exercise-heading img { flex:0 0 62px; width:62px; height:62px; margin:0; }
+.training-exercise-heading h2 { font-size:18px; margin:0; }
+.training-exercise-heading p { font-size:13px; margin:6px 0 0; }
+.training-exercise > p { margin:8px 0; font-size:13px; }
+.training-context { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.training-context p { margin:0; font-size:12px; }
+.training-series { gap:10px; margin:12px 0; }
+.training-set { padding:10px 12px; }
+.training-result-fields { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.training-result-fields:has([data-result-key="rpe"]) { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.training-result-fields input { padding:8px; }
+.set-tools { display:flex; align-items:center; flex-wrap:wrap; justify-content:space-between; gap:6px; }
+.set-status { margin-top:6px; font-size:12px; }
+.repeat-result { font-size:12px; padding:6px 0; }
+.training-navigation { position:sticky; bottom:8px; background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:8px; }
+#landing-notice { pointer-events:auto; bottom:148px; max-height:160px; overflow:auto; display:flex; align-items:center; gap:12px; font-size:13px; }
+#landing-notice:empty { display:none; }
+#landing-notice .text-action { flex-shrink:0; }
+#storage-status { position:fixed; z-index:9; top:0; left:0; right:0; background:#fff1f2; color:#991b1b; border-bottom:2px solid #b91c1c; font-size:13px; padding:10px 16px; }
+#storage-status:empty { display:none; }
+dialog { max-width:520px; border-color:#e5e7eb; padding:20px; }
+dialog h2 { margin-bottom:16px; font-size:21px; }
+dialog > p { font-size:14px; margin:12px 0; }
+.sharing-content { background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:14px; margin:16px 0; font-size:13px; }
+.sharing-content h2 { font-size:17px; }
+.sharing-content ol { padding-left:20px; }
+#landing-navigation { width:min(760px,100%); }
+#landing-navigation button { font-size:12px; }
+@media (max-width:600px) {
+  dialog { position:fixed; inset:auto 0 0; margin:0; width:100%; max-width:none; max-height:88dvh; border-radius:18px 18px 0 0; padding-bottom:max(20px,env(safe-area-inset-bottom)); }
+  .landing-page,.landing-page.has-calendar { padding:16px 16px 160px; }
+  .question-navigation { flex-wrap:wrap; gap:8px; }
+}
+@media (max-width:350px) { .training-result-fields:has([data-result-key="rpe"]) { grid-template-columns:repeat(2,minmax(0,1fr)); } .prepared-details,.training-context { grid-template-columns:1fr; gap:6px; } }
+.bulk-exercise-check { flex-basis:44px; width:44px; min-height:44px; display:grid; place-items:center; }

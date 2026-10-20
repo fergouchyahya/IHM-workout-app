@@ -1,63 +1,49 @@
-# Configurer une séance
+# Préparer ou adapter une séance — T1.3
 
-**État :** conception validée le 8 octobre 2026 ; écran implémenté.
+**État :** évolution validée dans l’échange du 16 octobre 2026. Le parcours s’arrête à [l’écran d’entraînement T2](../08-entrainement/README.md), avant le bilan et l’analyse T3. Références : [arbre commun des tâches](../../../docs/04-analyse-taches/tache.md), [T1](../../../docs/04-analyse-taches/T1/T1-finalized.md) et [T3](../../../docs/04-analyse-taches/T3/T3-finalized.md).
 
-## Objectif et contexte
+## Parcours et présentation
 
-Préparer le contenu d’un jour d’entraînement ou d’une séance seule. Référence : [T1.1.5](../../../docs/04-analyse-taches/tache.md) pour les exercices, séries, répétitions, charges, RPE et champs utiles ; [T1 Greg](../../../docs/04-analyse-taches/T1/T1-Greg.md) pour les réglages et champs de suivi ; [T2](../../../docs/04-analyse-taches/T2/T2-finalized.md) pour distinguer cibles et résultats réels.
+Le calendrier ouvre un aperçu de la séance datée. Les créations et bases vides ouvrent directement l’adaptation. Chaque carte blanche affiche illustration, nom, séries, répétitions, charge cible, RPE lorsqu’il est renseigné, consigne du mouvement, consigne personnelle et réglage du matériel. Adapter rend les champs modifiables directement dans les cartes, sans fenêtre d’objectifs. Ajouter, Remplacer, Retirer et Monter/Descendre restent accessibles au clavier.
 
-Le brouillon de conception a été validé avant code. La réalisation de l’entraînement reste une prochaine étape.
+Le repère Séance prête est intégré à l’aperçu ; Commencer la séance ouvre directement T2, ou Reprendre retrouve une exécution existante. Les séries ou répétitions manquantes donnent une carte et des champs rouges, avec « À compléter ». Cela ne bloque ni l’enregistrement ni l’entrée dans T2. Charge, RPE et texte sont facultatifs ; une valeur saisie invalide reste à corriger (nombre négatif, séries fractionnaires, maximum inférieur au minimum). 0 kg signifie sans charge ajoutée.
 
-## Entrées, sorties et organisation de l’écran
+## Adaptation et portée à l’enregistrement
 
-Depuis une semaine, « Configurer les exercices » ouvre la séance du jour. Une base de type Séance seule ouvre directement cet écran. En haut : retour, jour/nom, titre et explication des objectifs prévus. Puis liste ordonnée d’exercices et bouton « Ajouter un exercice ». En bas : informations à suivre et « Terminer ». Les rappels génériques ont été retirés ; les erreurs et conséquences des actions restent explicites.
+Les modifications sont un brouillon séparé de la séance enregistrée. Annuler les modifications restaure celle-ci ; quitter conserve le brouillon pour retrouver la saisie à la réouverture. Ajouter et remplacer ne changent pas la séance enregistrée avant Enregistrer. Les alternatives sollicitant le même muscle sont proposées d’abord. Un remplacement commence avec des objectifs et réglages vides, même si cet exercice a déjà été utilisé.
 
-Chaque carte montre le nom, les objectifs résumés et une action « Configurer les objectifs ». Les actions Monter, Descendre, Remplacer et Retirer sont accessibles sans glisser-déposer. Le déplacement dans la liste replace le focus sur l’exercice déplacé. Retirer ouvre une confirmation nommant le mouvement et la perte de ses objectifs.
+Par défaut, l’enregistrement concerne cette date uniquement. Pour une occurrence identifiée dans un mésocycle, l’action distincte « Étendre au mésocycle… » ouvre un aperçu des dates concernées avant confirmation. Enregistrer cette séance reste une action directe. Seules les différences d’exercices sont appliquées aux occurrences ultérieures correspondantes de ce cycle planifié : les autres jours, cycles et dates passées restent conservés. Le programme enregistré ne change pas. Les cibles futures non modifiées sont préservées ; remplacer un exercice reprend les nouveaux objectifs, éventuellement vides. Les occurrences déjà commencées dans T2 et celles avec un autre brouillon de préparation sont exclues de la propagation.
 
-## Choisir ou créer un exercice
+Les séances seules, semaines types et anciens placements sans identité de cycle restent limités à cette séance. Aucune correspondance n’est déduite du seul nom. La préparation affiche le nom du mésocycle et la semaine ; un ancien placement apparaît comme indépendant. Replanifier le mésocycle crée les liens nécessaires. Les exercices ont une identité de position stable pour distinguer plusieurs occurrences du même mouvement. Les copies de séance ou semaine deviennent indépendantes du cycle d’origine.
 
-Recherche par nom insensible aux accents et à la casse, puis menu déroulant natif des résultats. Une illustration vectorielle du mouvement sélectionné apparaît à côté, avec groupe, matériel et repère court. Les illustrations identifient les mouvements ; elles ne sont pas des démonstrations techniques. Le remplacement propose d’abord le même groupe musculaire.
+Une création depuis le calendrier conserve son premier contenu dans Mes entraînements lors de l’enregistrement initial. Une adaptation ultérieure de l’occurrence ne modifie plus cet entraînement. Les préférences de suivi et objectifs globaux ne sont pas réécrits par une adaptation ponctuelle. Modifier directement une base personnelle configure cette base ; modifier une date adapte son occurrence.
 
-« Créer un exercice » reprend le nom recherché et propose des détails facultatifs : groupe, matériel, consigne et image PNG/JPEG/WebP (500 Ko maximum). Le matériel connu est prérempli. Sans image, une silhouette neutre est utilisée. Un nom déjà présent réutilise l’exercice existant. Le mouvement personnel rejoint le menu et est conservé localement.
+## Bibliothèque et informations de suivi
 
-Ajouter ou remplacer ouvre les objectifs. Les derniers objectifs enregistrés pour ce mouvement sont repris et restent modifiables. Sans historique, aucun volume ou charge n’est inventé. Annuler laisse les objectifs inchangés ; un exercice ajouté peut rester à compléter.
+Recherche sans accents ni différence de casse, liste de résultats illustrés avec groupe musculaire ; toucher un résultat le choisit directement. Créer un exercice reprend le nom recherché ; groupe, matériel, consigne et image PNG/JPEG/WebP (500 Ko maximum) sont facultatifs. Les nouveaux mouvements rejoignent la bibliothèque personnelle. Annuler la préparation ne supprime pas un mouvement explicitement créé dans cette bibliothèque.
 
-## Configuration des objectifs
+Séries et répétitions acceptent des entiers positifs ou une valeur vide ; maximum ≥ minimum lorsqu’ils sont renseignés. Charge : positive ou nulle, facultative. RPE : de 1 à 10 par demi-point, facultatif. Consigne personnelle et réglage : 500 caractères maximum chacun. Les informations à suivre (RPE par série, ressenti final, sommeil, énergie, douleur, notes) préparent les champs de T2 ; cette évolution n’implémente que la saisie de charge, répétitions et RPE dans l’écran d’entraînement.
 
-| Champ | Règle |
-| --- | --- |
-| Séries | Entier positif requis pour enregistrer les objectifs |
-| Répétitions minimum / maximum | Entiers positifs ; maximum ≥ minimum ; même nombre pour une cible fixe |
-| Charge cible (kg) | Facultative, positive ou nulle ; 0 = sans charge ajoutée |
-| Effort visé (RPE) | Facultatif, de 1 à 10 par demi-point ; aide dans le formulaire |
-| Consigne personnelle | Facultative, 500 caractères maximum |
-| Réglage du matériel | Facultatif, 500 caractères maximum |
+## Points à revoir issus de T3
 
-Les valeurs initiales proviennent uniquement des derniers objectifs saisis pour ce mouvement. Les réglages facultatifs sont regroupés dans un panneau dépliable pour limiter la charge visuelle. Erreurs près du champ, focus sur la première erreur, valeurs conservées. Enregistrer met à jour la carte ; fermer ou Échap laisse les objectifs précédents inchangés.
+Le panneau reprend T3.3.2 de l’arbre fourni : texte conservé pour la prochaine préparation, date/source, exercice, notes et réglages associés lorsqu’ils existent. Les résultats comparables, leurs limites, les records, tendances et médias relèvent de T3.1/T3.2 et restent hors périmètre. Aucun résultat ou conseil automatique n’est inventé.
 
-## Informations à suivre pendant l’entraînement
+Contrat d’entrée : `Parcours.state.reviewPoints` contient `id`, `workoutId` (entraînement enregistré), `exerciseId` facultatif, `text`, `createdAt`, `note` et `setting` facultatifs. Un point lié à un exercice est affiché seulement si le mouvement figure dans la séance. Sans données : « Aucun point à revoir pour cette séance ». L’interface d’analyse et de conservation des points dans T3 reste à implémenter.
 
-Charge et répétitions réelles toujours disponibles. Cases facultatives : effort ressenti par série et ressenti global final. Ce dernier est proposé au premier usage. Les derniers choix de suivi deviennent les valeurs initiales des nouvelles séances ; les séances déjà configurées conservent leurs propres choix. Sommeil, énergie/fatigue, douleur et notes sont regroupés dans « Options complémentaires ».
+## Conservation et fichiers
 
-Ces cases configurent les futurs champs de T2 ; elles ne saisissent aucun ressenti actuel. Les choix sont conservés dès modification avec un message explicite.
+`seance.js` gère aperçu, adaptation, validation, portée et séance prête ; `exercices.js` reste le catalogue ; `styles.css` définit cartes, champs et états incomplets. `preparationDrafts` conserve une copie indépendante par clé de séance, y compris les saisies brutes à corriger. Ouvrir une autre séance conserve les autres brouillons. L’ancien `preparationDraft` est migré à la lecture. Aucun mot de passe n’est enregistré ; l’échec du stockage utilise le message commun.
 
-## Justifications IHM
+## Vérifié
 
-- Liste compacte et éditeur d’un exercice à la fois : conserver la vue d’ensemble sans afficher tous les champs simultanément.
-- Recherche et filtres : retrouver un mouvement sans parcourir tout le catalogue.
-- Unités et distinction prévu/réalisé : éviter la confusion entre programmation et historique.
-- Libellés textuels, boutons d’au moins 44 px, dialogue natif et champs étiquetés : navigation tactile et clavier.
-- Répétitions en deux champs, repli vertical sur petit écran : rendre la plage explicite et éviter une saisie ambiguë.
-- Possibilité de conserver un brouillon partiel : reprendre la préparation sans imposer de finir immédiatement.
+Depuis la racine du dépôt : `node tests/preparation.test.cjs`. Sept tests déterministes couvrent isolation du brouillon, sélection des dates du cycle, conservation des cibles futures et remplacement/retrait de mouvements répétés.
 
-## Conservation et limites
+Dans Chromium : aperçu avec consignes/réglages et points T3 de démonstration, alternatives du même muscle, remplacement à blanc, annulation sans modification enregistrée, valeurs négatives refusées, portée date seule puis cycle, conservation des objectifs futurs non modifiés, des dates passées et des autres cycles, restauration du brouillon après rechargement, création personnelle et sauvegarde initiale, réorganisation/retrait/annulation, préparation malgré des cibles manquantes. Aperçu et adaptation contrôlés à 320, 390 et 1280 px sans débordement horizontal.
 
-Les exercices et champs de suivi appartiennent à chaque séance. Renommer un jour les conserve ; déplacer transporte le contenu ; dupliquer et répéter le cycle créent des copies indépendantes. Passer un jour contenant des exercices à Repos/À définir demande de confirmer leur retrait. Modifier la semaine de référence signale que les copies du cycle ne sont pas actualisées.
+Les points T3 de vérification sont injectés uniquement dans le profil de test. L’analyse T3, le bilan et les gestes sur téléphone physique ne sont pas vérifiés dans cette évolution.
 
-Les séances copiées depuis Découvrir conservent leur récapitulatif existant ; cet écran couvre les bases créées personnellement. Pas de démarrage, résultats, bilan, médias, dates ni adaptations individuelles des semaines du cycle. Conservation dans le stockage local du navigateur : séances, préférences de suivi, derniers objectifs, exercices personnels et formulaire de création. Aucun mot de passe enregistré. Si ce stockage est indisponible ou plein, un message indique que la conservation reste limitée à la visite.
+## Simplification ergonomique validée
 
-## Organisation du code et vérification
+Le contexte date/programme/semaine est compact. Sans point T3, une seule ligne reste visible ; les consignes et réglages renseignés sont immédiatement accessibles. Le choix Répétitions fixes n’affiche qu’une valeur ; Fourchette affiche minimum et maximum. Les actions groupées appliquent séries/répétitions aux seuls exercices cochés et gardent leurs charges indépendantes. Retirer un exercice propose Annuler, sans confirmation intermédiaire.
 
-`exercices.js` : catalogue de démonstration et chemins des illustrations SVG locales dans `images/`. `seance.js` : écran, bibliothèque et éditeur des objectifs. `styles.css` : styles propres à cette page. Le routeur commun assure l’entrée et le retour.
-
-Vérification de syntaxe et essai court dans Chromium à 390 px : recherche par nom sans accents, menu, chargement de l’illustration, création d’un exercice personnel avec reprise du nom, réutilisation des objectifs et restauration après rechargement. Aucun débordement horizontal constaté sur l’écran de séance. Pas de suite de tests ajoutée ni dépendance installée.
+Les virgules décimales sont acceptées pour charge et effort visé (RPE). Le clavier numérique, la sélection du nombre courant et Entrée vers le champ suivant réduisent la saisie. Une valeur invalide est gardée pour correction et distinguée des objectifs simplement manquants. Les champs facultatifs vides restent ordinaires. Le retour du stockage distingue brouillon conservé et modifications appliquées ; un échec local reste visible.

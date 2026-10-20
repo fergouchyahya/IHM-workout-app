@@ -64,3 +64,5 @@ L’objectif de mise en page reste de montrer la progression, les trois réponse
 ## Code
 
 [objectif.js](objectif.js) définit le titre et les trois options de cet écran. La structure, les styles et les interactions sont partagés dans le [parcours commun](../README.md#code-ouverture-et-vérification).
+
+La navigation propose de passer cette question ou toutes les restantes. La modification ultérieure d’un seul choix est décrite dans le [parcours commun](../README.md#simplification-ergonomique-validée).
