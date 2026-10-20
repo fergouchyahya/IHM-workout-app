@@ -94,7 +94,7 @@ Le champ e-mail utilise le clavier adapté. Le nom d’utilisateur utilise un cl
 
 Cette première maquette n’ajoute pas de champ de confirmation du mot de passe : la commande Afficher permet déjà de vérifier la saisie, et le formulaire reste court. Elle n’introduit pas de politique de mot de passe réelle ou de vérification d’unicité des comptes. Ces règles appartiendraient à un système d’authentification complet, absent de cette version.
 
-Changer de mode garde les valeurs e-mail et nom d’utilisateur en mémoire pour cette visite si elles sont déjà saisies. Le mot de passe est vidé et de nouveau masqué ; les erreurs du mode quitté sont effacées. Aucun champ n’est transmis ou enregistré durablement.
+Changer de mode garde les valeurs e-mail et nom d’utilisateur en mémoire pour cette visite si elles sont déjà saisies. Le mot de passe est vidé et de nouveau masqué ; les erreurs du mode quitté sont effacées. Aucun champ n’est transmis. Le dernier identifiant de démonstration est conservé localement et prérempli ; les mots de passe ne sont jamais enregistrés. Chaque identité retrouve ses préférences, entraînements, exercices personnels et partages locaux.
 
 ## 6. Mot de passe oublié
 

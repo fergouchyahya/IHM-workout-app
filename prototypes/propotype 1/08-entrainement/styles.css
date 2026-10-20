@@ -1,0 +1,18 @@
+.training-status { padding:12px; border-radius:8px; background:#fff; font-size:12px; margin-bottom:24px; }
+.training-exercise { margin:24px 0; }
+.training-exercise img { display:block; margin:0 auto 18px; object-fit:contain; }
+.training-exercise h2 { margin-bottom:16px; }
+.training-exercise p { font-size:14px; margin:12px 0; overflow-wrap:anywhere; }
+.training-targets { border:1px solid #d1d5db; border-radius:8px; background:#fff; padding:14px; font-size:13px; }
+.training-targets.is-incomplete { border-color:#b91c1c; background:#fff1f2; }
+.training-targets p { margin-top:6px; }
+.training-series { display:grid; gap:16px; margin:20px 0; }
+.training-set { min-width:0; margin:0; padding:14px; border:1px solid #d1d5db; border-radius:8px; background:#fff; }
+.training-set legend { font-weight:600; font-size:13px; }
+.training-result-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.training-result-fields label { font-size:12px; }
+.training-result-fields input { background:#fff; margin-top:6px; }
+.set-status { font-size:12px; margin-top:12px; }
+.training-navigation { display:flex; gap:10px; margin-top:24px; }
+.training-navigation button { flex:1; min-width:0; font-size:12px; }
+.training-navigation button:disabled { opacity:.45; }

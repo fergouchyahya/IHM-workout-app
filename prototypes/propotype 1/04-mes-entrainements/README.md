@@ -90,7 +90,7 @@ Ce sont des espaces de rédaction ; aucune option vide n’apparaîtra dans la m
 
 ## 6. Après les informations initiales
 
-Action proposée : **« Créer la base »**. Elle vérifie le nom, l’organisation et, si applicable, le nombre de semaines. Elle conserve une base personnelle clairement identifiée comme « À compléter », puis ouvre l’étape suivante de configuration.
+Action proposée : **« Créer la séance / Créer le programme »**. Elle vérifie le nom, l’organisation et, si applicable, le nombre de semaines. Elle conserve une base personnelle clairement identifiée comme « À compléter », puis ouvre l’étape suivante de configuration.
 
 | Organisation | Destination proposée après création de la base |
 | --- | --- |
@@ -110,8 +110,8 @@ La page d’arrivée et le formulaire initial ne prétendent pas finaliser le pr
 | + Créer | Ouvrir les informations de base | Créer un entraînement | Repères du profil ; aucun programme créé avant confirmation |
 | Changer l’organisation | Afficher seulement les champs pertinents | Même formulaire | Valeurs déjà saisies ; seules celles pertinentes sont retenues à la confirmation |
 | Choisir un gabarit | Préparer une structure modifiable | Même formulaire | Nom et autres champs |
-| Annuler ou retourner avant Créer la base | Revenir sans enregistrer de programme | Mes entraînements | Contenu personnel existant inchangé |
-| Créer la base avec champs valides | Enregistrer un brouillon personnel | Configuration adaptée à l’organisation | Nom, organisation, gabarit et informations fournies |
+| Annuler ou retourner avant Créer la séance / Créer le programme | Revenir sans enregistrer de programme | Mes entraînements | Contenu personnel existant inchangé |
+| Créer la séance / Créer le programme avec champs valides | Enregistrer un brouillon personnel | Configuration adaptée à l’organisation | Nom, organisation, gabarit et informations fournies |
 | Ouvrir un entraînement existant | Consulter sa structure | Récapitulatif personnel, à documenter | Référence de l’entraînement |
 | Explorer des séances / onglet Découvrir | Accéder à la bibliothèque | [Découvrir](../03-decouverte/README.md) | Préférences et entraînements existants |
 | Onglet Progrès | Accéder au suivi | Progrès, à concevoir | Historique disponible |
@@ -149,9 +149,9 @@ Les libellés accompagnent les symboles. Les types Séance, Semaine type et Més
 
 ## 10. Validation avant code
 
-À relire : page vide et liste personnelle, bouton Créer, distinction entre semaine/mésocycle et gabarit, champs obligatoires ou facultatifs, catalogue initial et destination après Créer la base.
+À relire : page vide et liste personnelle, bouton Créer, distinction entre semaine/mésocycle et gabarit, champs obligatoires ou facultatifs, catalogue initial et destination après Créer la séance / Créer le programme.
 
-Après validation, vérifier l’arrivée avec Avancé même si les questions suivantes sont passées ; l’accès aux suggestions ; le formulaire conditionnel ; un nom et une durée de cycle manquants ; la création d’une base sans exercices ou résultats inventés ; le retour avant confirmation sans programme enregistré. Les étapes de configuration doivent être documentées et validées avant leur implémentation complète.
+Après validation, vérifier l’arrivée avec Avancé même si les questions suivantes sont passées ; l’accès aux suggestions ; le formulaire conditionnel ; un nom et une durée de cycle manquants ; la création d’une base sans exercices ou résultats inventés ; le retour avant confirmation sans programme enregistré. Les étapes de configuration implémentées sont documentées dans leurs dossiers respectifs.
 
 **Validation reçue :** documentation et limites approuvées avant implémentation.
 
@@ -162,10 +162,20 @@ Ouvrir le [parcours depuis la connexion](../01-connexion/index.html), choisir Av
 
 Vérifié dans le navigateur : état vide, navigation, copies et favoris, création de séance/semaine/mésocycle, champs obligatoires, nombres entiers positifs, annulation sans création et changement d’organisation sans réutiliser les champs masqués. Affichage contrôlé à 320, 390 et 1280 px de largeur.
 
-Les semaines et mésocycles ouvrent maintenant [Organiser ma semaine](../05-organisation-semaine/README.md) : séances nommées, repos, déplacement, duplication et répétition de la répartition. Les jours d’entraînement et les séances seules ouvrent [Configurer une séance](../06-configuration-seance/README.md) pour ajouter des exercices, leurs objectifs et les champs de suivi.
+Les semaines et mésocycles ouvrent maintenant [Organiser ma semaine](../05-organisation-semaine/README.md) : séances nommées, repos, déplacement, duplication et répétition de la répartition. Les jours d’entraînement et les séances seules ouvrent [Préparer ou adapter une séance](../06-configuration-seance/README.md) pour ajouter des exercices, leurs objectifs et les champs de suivi.
 
-Limites : les bases créées sont marquées « À compléter », sans exercices inventés. La réalisation, le calendrier daté et Progrès restent à concevoir. Le contenu personnel est désormais conservé dans le stockage local du navigateur, avec les préférences et les exercices personnels.
+Limites : les bases incomplètes sont marquées « À compléter », sans exercices inventés. L’écran d’entrée dans T2 est disponible directement depuis l’aperçu de préparation ; le bilan et Progrès restent à concevoir. Le calendrier daté est décrit dans le dossier Organisation de semaine. Le contenu personnel est désormais conservé dans le stockage local du navigateur, avec les préférences et les exercices personnels.
 
 ## Simplification du parcours
 
 L’objectif et le matériel connus sont préremplis dans une section repliée « Objectif et matériel ». Le formulaire inachevé est mémorisé pour la reprise. Une connexion de démonstration avec la même identité reprend le profil connu sans redemander les questions rapides. Les mots de passe ne sont jamais conservés.
+
+## Accueil calendrier validé
+
+Le calendrier Mois / Semaine remplace la liste comme contenu principal. Mes entraînements devient une liste repliable sous le calendrier, avec Créer, Explorer et Planifier pour chaque entraînement. Une création depuis la liste reste non planifiée ; une création depuis un jour reprend sa date. Lors de l’enregistrement initial, les exercices configurés sont également enregistrés dans le nouvel entraînement. Les adaptations ultérieures restent propres à la date, avec une extension facultative aux prochaines occurrences correspondantes du même mésocycle. Voir [les interactions du calendrier](../05-organisation-semaine/README.md#évolution-validée--calendrier-daté).
+
+Les séances personnelles, y compris les copies de Découvrir, ouvrent désormais le même aperçu de préparation. Adapter affiche les champs dans les cartes ; les modifications ne sont appliquées qu’à l’enregistrement. Le détail du parcours, des brouillons et de la portée figure dans [Préparer ou adapter une séance](../06-configuration-seance/README.md).
+
+## Simplification ergonomique validée
+
+Le calendrier est l’entrée principale. La liste personnelle est repliable en dessous ; ouverture et recherche sont mémorisées. Les états sont calculés à partir du contenu réel : une base vide reste À compléter, une copie est Enregistrée, ses occurrences sont Planifiées et une exécution commencée peut être Reprise. Les libellés de création suivent l’organisation choisie ; un mésocycle est expliqué comme un programme de plusieurs semaines. Mes préférences permet de changer un seul choix sans effacer le contenu personnel.

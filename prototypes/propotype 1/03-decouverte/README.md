@@ -118,12 +118,12 @@ La liste conserve recherche, filtres et position de défilement lorsque Thomas r
 
 | Action proposée dans le récapitulatif | Effet | Portée |
 | --- | --- | --- |
-| Ajouter à ma semaine | Choisir un jour, puis confirmer le placement | Créer une séance planifiée liée à une copie personnelle ; ne pas modifier la bibliothèque |
+| Ajouter au calendrier | Choisir une date, puis confirmer le placement | Créer une séance planifiée liée à une copie personnelle ; ne pas modifier la bibliothèque |
 | Ajouter aux favoris / Retirer des favoris | Marquer ou retirer un repère de consultation | Ne planifie pas une séance et ne crée pas de résultat |
 | Ajouter à mes entraînements | Conserver une copie personnelle à réutiliser | Ne planifie aucun jour automatiquement |
 | Retour | Revenir à la bibliothèque telle qu’elle était | Conserver recherche, filtres et position |
 
-Les trois actions ne sont pas équivalentes ; leurs libellés doivent expliquer la conséquence. Ajouter à la semaine propose un jour avant de confirmer, sans écraser une séance déjà prévue. Si une copie existe déjà, la réutiliser plutôt que la dupliquer silencieusement. Une confirmation courte indique le résultat et permet d’ouvrir l’élément ajouté.
+Les trois actions ne sont pas équivalentes ; leurs libellés doivent expliquer la conséquence. Ajouter au calendrier propose une date avant de confirmer, sans écraser une séance déjà prévue. Si une copie existe déjà, la réutiliser plutôt que la dupliquer silencieusement. Une confirmation courte indique le résultat et permet d’ouvrir l’élément ajouté.
 
 Favoris, copies personnelles et semaine sont des propositions concrètes pour le « favori ou autre » ; leur présentation et les cas de doublon sont à valider avec cette documentation. Les exercices et séries ne sont pas édités sur la page d’arrivée.
 
@@ -134,7 +134,7 @@ Favoris, copies personnelles et semaine sont des propositions concrètes pour le
 | Terminer ou passer les questions avec niveau Débutant, Intermédiaire ou absent | Cette page Découvrir | Nom d’affichage et réponses existantes |
 | Modifier recherche ou filtres | Résultats de cette page | Réglages courants |
 | Choisir une carte | Récapitulatif de la séance | Référence de séance et état de la liste |
-| Ajouter à la semaine depuis le récapitulatif | Choix d’un jour puis confirmation | Copie personnelle et placement choisi |
+| Ajouter au calendrier depuis le récapitulatif | Choix d’une date puis confirmation | Copie personnelle et placement choisi |
 | Ajouter aux favoris | Même récapitulatif, état favori mis à jour | Référence de la séance |
 | Ajouter à mes entraînements | Même récapitulatif, copie confirmée | Copie personnelle ; accès possible à Mes entraînements |
 | Choisir Mes entraînements | [Espace personnel](../04-mes-entrainements/README.md) | Préférences et éléments conservés |
@@ -168,8 +168,12 @@ Après validation, vérifier le routage pour débutant, intermédiaire et niveau
 
 ## Code et vérification
 
-Ouvrir le [parcours depuis la connexion](../01-connexion/index.html). [decouverte.js](decouverte.js) gère la bibliothèque, les filtres, les récapitulatifs, les favoris et le placement par jour ; [seances.js](seances.js) contient les exemples fictifs et les options de filtres. Les transitions et styles communs sont dans [parcours.js](../commun/parcours.js) et [styles.css](../commun/styles.css).
+Ouvrir le [parcours depuis la connexion](../01-connexion/index.html). [decouverte.js](decouverte.js) gère la bibliothèque, les filtres, les récapitulatifs, les favoris et le placement daté ; [seances.js](seances.js) contient les exemples fictifs et les options de filtres. Les transitions et styles communs sont dans [parcours.js](../commun/parcours.js) et [styles.css](../commun/styles.css).
 
 Vérifié dans le navigateur : arrivée selon le niveau, recherche et filtres combinés, priorité aux séances courtes, communauté séparée, résultats vides, retour conservant le défilement, favoris, copies sans doublons et placement sans écrasement.
 
-Limites : données en mémoire, réinitialisées au rechargement ; placement par jour sans calendrier daté ; récapitulatif limité aux informations de séance et noms des exercices. La fiche détaillée et l’adaptation restent à concevoir.
+Les copies personnelles et leurs placements datés sont conservés localement. Le récapitulatif reste limité aux informations de séance et aux noms des exercices ; ouvrir une occurrence depuis le calendrier ou sa copie depuis Mes entraînements donne accès à l’aperçu, à l’adaptation en ligne et au repère Séance prête intégré à l’aperçu et au démarrage direct de T2. Les adaptations de l’occurrence restent séparées de la bibliothèque originale. Plusieurs séances peuvent partager une date ; un repos peut être remplacé après confirmation explicite dans le panneau courant, avec Annuler ensuite.
+
+## Simplification ergonomique validée
+
+La recherche ignore accents et casse. Les filtres restent conservés dans le profil. Favori désigne un repère, Enregistré une copie personnelle et Planifié une occurrence datée. Si une copie existe, « Ouvrir la séance enregistrée » la retrouve au lieu de proposer une nouvelle copie.

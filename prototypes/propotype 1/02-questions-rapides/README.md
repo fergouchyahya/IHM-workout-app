@@ -158,6 +158,10 @@ Ouvrir le [parcours depuis la connexion](../01-connexion/index.html) ou [les que
 - [styles.css](styles.css) : composition compacte et états des questions, utilisant la palette de connexion.
 - [01-niveau/niveau.js](01-niveau/niveau.js), [02-objectif/objectif.js](02-objectif/objectif.js), [03-materiel/materiel.js](03-materiel/materiel.js) : titre et options propres à chaque écran.
 
-Les réponses sont conservées uniquement en mémoire pendant la visite, sans stockage local ni service distant. Recharger réinitialise ce parcours. La comparaison d’identité reste dans la connexion ; les questions reçoivent seulement le nom d’affichage et l’indication de commencer un nouveau profil si nécessaire.
+Les préférences d’un questionnaire terminé sont conservées localement par identité de démonstration ; les réponses d’un questionnaire encore en cours restent en mémoire pendant la visite. Une identité connue retrouve son propre profil ; une nouvelle identité commence le questionnaire. Aucun service distant n’est utilisé.
 
 Vérifications du 3 octobre 2026 : connexion par nom, par e-mail et inscription ; nom personnalisé ; passage direct et progression ; correction par retour ; passage sur les trois étapes et après retour ; maintien des réponses pour une même identité et remise à zéro pour une autre ; protection contre le double appui. Les trois options et « Passer le reste » restent visibles sans défilement à 320 × 568 et 390 × 844 px, taille de texte normale. Nom long, activation clavier, focus et réduction des animations vérifiés. Ouverture directe depuis le disque et accès isolé aux questions vérifiés ; captures relues ; aucune erreur JavaScript ni requête externe observée.
+
+## Simplification ergonomique validée
+
+Un appui sélectionne et avance ; aucun délai global ne bloque la réponse suivante. « Passer cette question » conserve les suivantes ; « Passer les questions restantes » termine ce parcours. Depuis Mes préférences, rouvrir un seul choix revient directement au calendrier après sélection, sans réinitialiser les entraînements.

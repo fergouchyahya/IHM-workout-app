@@ -11,7 +11,7 @@ window.Partages = {
   data:{items:[]},
   restore() {
     try {
-      const value = JSON.parse(localStorage.getItem(this.key) || 'null');
+      const value = window.Parcours.profiles[window.Parcours.state.identity]?.sharing || JSON.parse(localStorage.getItem(this.key) || 'null');
       if (value && Array.isArray(value.items)) {
         this.data = value;
         for (const item of this.data.items) {
@@ -24,7 +24,8 @@ window.Partages = {
   },
   persist() {
     try { localStorage.setItem(this.key,JSON.stringify(this.data)); }
-    catch { window.Parcours.notify('Stockage local indisponible : les partages ne seront gardés que pendant cette visite.'); }
+    catch { window.Parcours.storageStatus('Sauvegarde des partages indisponible · garde cette page ouverte.'); return; }
+    window.Parcours.persist();
   },
   esc(value) { return window.Parcours.escape(value); },
   sourceItems() { return window.Parcours.state.saved || []; },
@@ -48,7 +49,7 @@ window.Partages = {
     const p = window.Parcours;
     if (this.stage === 'list') return this.renderList();
     if (this.stage === 'select') return this.renderSelect();
-    if (this.stage === 'verify') return this.renderVerify();
+    if (this.stage === 'verify') return this.renderForm();
     if (this.stage === 'form') return this.renderForm();
     if (this.stage === 'preview') return this.renderPreview();
     if (this.stage === 'detail') return this.renderDetail();
@@ -56,22 +57,17 @@ window.Partages = {
   },
   renderList() {
     const items = this.data.items.map(item => `<article class="t4-card"><h2>${this.esc(item.title)}</h2><p>${this.esc(item.visibility === 'public' ? 'Communauté' : 'Mes contacts')} · ${this.esc(item.level)} · ${this.esc(item.status === 'published' ? 'Publié' : 'Retiré')}</p><button class="landing-button full" data-a="open" data-id="${item.id}">Gérer cette publication</button></article>`).join('');
-    return `${window.Parcours.greeting()}<h1 tabindex="-1">Partages</h1><p class="landing-lead">Choisis un entraînement déjà préparé, vérifie ce qui sera visible, puis confirme avant publication.</p><button class="primary-action" data-a="start">Partager un programme</button>${items ? `<section class="landing-section"><h2>Mes publications</h2><div class="landing-stack">${items}</div></section>` : '<div class="empty-content"><h2>Aucune publication</h2><p>Tes programmes restent privés tant que tu ne confirmes pas leur partage.</p></div>'}`;
+    const drafts = Object.entries(window.Parcours.state.sharingDrafts || {}).map(([key,draft]) => `<button class="picker-result" data-a="resume-share" data-id="${key}"><span><strong>${this.esc(draft.fields.title || 'Partage en préparation')}</strong><small>Brouillon conservé · ${draft.editing ? 'Modification' : 'Nouveau partage'}</small></span><span>Reprendre</span></button>`).join('');
+    return `${window.Parcours.greeting()}<h1 tabindex="-1">Partages</h1><p class="landing-lead">Choisis un entraînement déjà préparé, vérifie ce qui sera visible, puis confirme avant publication.</p><button class="primary-action" data-a="start">Partager un programme</button>${drafts ? `<section class="landing-section"><h2>Brouillons</h2>${drafts}</section>` : ''}${items ? `<section class="landing-section"><h2>Mes publications</h2><div class="landing-stack">${items}</div></section>` : '<div class="empty-content"><h2>Aucune publication</h2><p>Tes programmes restent privés tant que tu ne confirmes pas leur partage.</p></div>'}`;
   },
   renderSelect() {
     const sources = this.sourceItems();
-    return `<button class="text-action" data-a="list">← Partages</button><h1 tabindex="-1">Choisir un programme</h1><p class="landing-lead">Sélectionne une séance, une semaine ou un cycle que tu as préparé dans Mes entraînements.</p>${sources.length ? `<div class="landing-stack">${sources.map(source => `<article class="t4-card"><h2>${this.esc(source.name)}</h2><p>${this.esc(source.organization || 'Séance seule')} · ${source.kind === 'base' ? 'Programme personnel' : 'Copie personnelle'}</p><button class="landing-button full" data-a="choose" data-id="${source.id}">Vérifier ce programme</button></article>`).join('')}</div>` : '<div class="empty-content"><h2>Rien à partager pour le moment</h2><p>Crée d’abord une séance ou un bloc dans Mes entraînements.</p><button class="landing-button" data-a="mine">Mes entraînements</button></div>'}`;
-  },
-  renderVerify() {
-    const source = this.source;
-    const sessions = this.cleanProgram(source);
-    const warning = this.readiness(source);
-    const summary = sessions.map(session => `<li><strong>${this.esc(session.name)}</strong><ul>${session.exercises.map(item => `<li>${this.esc(item.name)}${item.sets ? ` · ${item.sets} séries` : ''}${item.minReps ? ` · ${item.minReps}${item.maxReps && item.maxReps !== item.minReps ? `–${item.maxReps}` : ''} répétitions` : ''}</li>`).join('')}</ul></li>`).join('');
-    return `<button class="text-action" data-a="select">← Changer de programme</button><h1 tabindex="-1">Vérifier le contenu</h1><p class="landing-lead">${this.esc(source.name)} · ${this.esc(source.organization || 'Séance seule')}</p>${warning ? `<p class="t4-error" role="alert">${this.esc(warning)}</p>` : `<p class="t4-ok" role="status">Le programme contient ${sessions.length} séance${sessions.length > 1 ? 's' : ''} et ${sessions.reduce((sum,session) => sum + session.exercises.length,0)} exercice${sessions.reduce((sum,session) => sum + session.exercises.length,0) > 1 ? 's' : ''}.</p>`}<h2>Contenu qui sera partagé</h2><ol class="t4-program">${summary}</ol><section class="t4-privacy"><h2>Ce qui reste privé</h2><ul><li>Résultats et performances réelles</li><li>Notes personnelles et données de suivi</li><li>Identifiants de compte</li></ul></section><label class="t4-check"><input id="t4-checked" type="checkbox" ${warning ? 'disabled' : ''}>J’ai vérifié que le programme est clair pour les autres.</label><button class="primary-action landing-section" data-a="to-form" ${warning ? 'disabled' : ''}>Continuer vers la présentation</button>`;
+    return `<button class="text-action" data-a="list">← Partages</button><h1 tabindex="-1">Choisir un programme</h1><p class="landing-lead">Sélectionne une séance, une semaine ou un cycle que tu as préparé dans Mes entraînements.</p>${sources.length ? `<div class="landing-stack">${sources.map(source => `<article class="t4-card"><h2>${this.esc(source.name)}</h2><p>${this.esc(source.organization || 'Séance seule')} · ${source.kind === 'base' ? 'Programme personnel' : 'Copie personnelle'}</p><button class="landing-button full" data-a="choose" data-id="${source.id}">Choisir ce programme</button></article>`).join('')}</div>` : '<div class="empty-content"><h2>Rien à partager pour le moment</h2><p>Crée d’abord une séance ou un bloc dans Mes entraînements.</p><button class="landing-button" data-a="mine">Mes entraînements</button></div>'}`;
   },
   renderForm() {
-    const d = this.draft || {};
-    return `<button class="text-action" data-a="verify">← Vérifier le programme</button><h1 tabindex="-1">Présenter le programme</h1><p class="landing-lead">Ces informations accompagnent le programme dans ${d.visibility === 'contacts' ? 'tes contacts' : 'la communauté'}.</p><form id="t4-form" class="create-form" novalidate><label for="t4-title">Titre<input id="t4-title" name="title" maxlength="100" required value="${this.esc(d.title || this.source.name)}"></label><label for="t4-level">Niveau<select id="t4-level" name="level" required><option value="">Choisir un niveau</option>${['Débutant','Intermédiaire','Avancé'].map(level => `<option ${d.level === level ? 'selected' : ''}>${level}</option>`).join('')}</select></label><label for="t4-zone">Zone ciblée<select id="t4-zone" name="zone"><option value="">Non précisée</option>${['Corps entier','Haut du corps','Jambes','Pectoraux','Dos','Épaules','Bras','Abdominaux'].map(zone => `<option ${d.zone === zone ? 'selected' : ''}>${zone}</option>`).join('')}</select></label><label for="t4-description">Description <span>(objectif et public visé)</span><textarea id="t4-description" name="description" maxlength="500" required>${this.esc(d.description || '')}</textarea></label><fieldset class="t4-fieldset"><legend>Audience</legend><label><input type="radio" name="visibility" value="public" ${d.visibility === 'contacts' ? '' : 'checked'}> Communauté</label><label><input type="radio" name="visibility" value="contacts" ${d.visibility === 'contacts' ? 'checked' : ''}> Mes contacts</label></fieldset><label class="t4-check"><input type="checkbox" name="feedback" ${d.feedback ? 'checked' : ''}>Demander des conseils sur ce programme</label><label class="t4-check"><input type="checkbox" name="commentsAllowed" ${d.commentsEnabled !== false ? 'checked' : ''}>Autoriser les commentaires</label><p id="t4-form-error" class="t4-error" role="alert"></p><button class="primary-action landing-section" type="submit">Voir l’aperçu</button></form>`;
+    const d = this.draft || {}, warning = this.readiness(this.source);
+    const content = this.cleanProgram(this.source).map(session => `<li><strong>${this.esc(session.name)}</strong><ul>${session.exercises.map(exercise => `<li>${this.esc(exercise.name)}</li>`).join('')}</ul></li>`).join('');
+    return `<button class="text-action" data-a="select">← Choisir le programme</button><h1 tabindex="-1">${this.editing ? 'Modifier la publication' : 'Nouveau partage'}</h1><p class="draft-status" role="status" id="sharing-draft-status">Brouillon · rien n’est publié avant confirmation</p><section class="sharing-content"><h2>${this.esc(this.source.name)}</h2><ol>${content}</ol><p>Résultats réels, notes personnelles et identifiants restent privés.</p>${warning ? `<p class="error" role="alert">${this.esc(warning)}</p>` : ''}</section><p class="landing-lead">Ces informations accompagnent le programme dans ${d.visibility === 'contacts' ? 'tes contacts' : 'la communauté'}.</p><form id="t4-form" class="create-form" novalidate><label for="t4-title">Titre<input id="t4-title" name="title" maxlength="100" required value="${this.esc(d.title || this.source.name)}"></label><label for="t4-level">Niveau<select id="t4-level" name="level" required><option value="">Choisir un niveau</option>${['Débutant','Intermédiaire','Avancé'].map(level => `<option ${d.level === level ? 'selected' : ''}>${level}</option>`).join('')}</select></label><label for="t4-zone">Zone ciblée<select id="t4-zone" name="zone"><option value="">Non précisée</option>${['Corps entier','Haut du corps','Jambes','Pectoraux','Dos','Épaules','Bras','Abdominaux'].map(zone => `<option ${d.zone === zone ? 'selected' : ''}>${zone}</option>`).join('')}</select></label><label for="t4-description">Description <span>(objectif et public visé)</span><textarea id="t4-description" name="description" maxlength="500" required>${this.esc(d.description || '')}</textarea></label><fieldset class="t4-fieldset"><legend>Audience</legend><label><input type="radio" name="visibility" value="public" ${d.visibility === 'contacts' ? '' : 'checked'}> Communauté</label><label><input type="radio" name="visibility" value="contacts" ${d.visibility === 'contacts' ? 'checked' : ''}> Mes contacts</label></fieldset><label class="t4-check"><input type="checkbox" name="feedback" ${d.feedback ? 'checked' : ''}>Demander des conseils sur ce programme</label><label class="t4-check"><input type="checkbox" name="commentsAllowed" ${d.commentsEnabled !== false ? 'checked' : ''}>Autoriser les commentaires</label><p id="t4-form-error" class="t4-error" role="alert"></p><button class="primary-action landing-section" type="submit" ${warning ? 'disabled' : ''}>Vérifier avant publication</button><button type="button" class="text-action" id="discard-share-draft">Abandonner ce brouillon</button></form>`;
   },
   renderPreview() {
     const d = this.draft;
@@ -92,39 +88,61 @@ window.Partages = {
       const button = event.target.closest('[data-a]');
       if (!button) return;
       const action = button.dataset.a;
-      if (action === 'start') this.go('select');
+      if (action === 'start') { this.editing = false; this.source = null; this.draft = null; this.activeId = null; this.go('select'); }
       else if (action === 'list') this.go('list');
       else if (action === 'select') this.go('select');
       else if (action === 'mine') window.Parcours.route('mine');
-      else if (action === 'choose') { this.source = this.sourceItems().find(item => item.id === button.dataset.id); if (this.source) { this.draft = null; this.go('verify'); } }
-      else if (action === 'verify') this.go('verify');
-      else if (action === 'to-form') { if (!document.querySelector('#t4-checked').checked) { window.Parcours.notify('Confirme d’abord la vérification du contenu.'); return; } this.draft = {title:this.source.name,visibility:'public',comments:true,feedback:false}; this.go('form'); }
+      else if (action === 'choose') { this.source = this.sourceItems().find(item => item.id === button.dataset.id); if (this.source) { this.editing = false; this.activeId = null; const stored = window.Parcours.state.sharingDrafts?.[`new:${this.source.id}`]; this.draft = stored?.fields || {title:this.source.name,level:this.source.level || window.Parcours.state.profile.level || '',zone:this.source.group || '',description:this.source.description || '',visibility:'public',commentsEnabled:true,feedback:false}; this.go('form'); } }
+      else if (action === 'verify') this.go('form');
       else if (action === 'form') this.go('form');
       else if (action === 'publish') this.publish();
       else if (action === 'open') { this.activeId = button.dataset.id; this.go('detail'); }
-      else if (action === 'edit') { const item = this.active(); this.source = this.sourceItems().find(source => source.id === item?.sourceId) || (item ? {id:item.sourceId,name:item.sourceName,organization:'Archive',days:(item.program || []).map(session => ({type:'session',name:session.name,exercises:session.exercises}))} : null); if (item && this.source) { this.draft = {...item}; this.editing = true; this.go('form'); } }
-      else if (action === 'refresh-program') { const item = this.active(); const source = this.sourceItems().find(entry => entry.id === item?.sourceId); if (item && source && window.confirm('Remplacer le programme visible par sa version actuelle dans Mes entraînements ?')) { const warning = this.readiness(source); if (warning) { window.Parcours.notify(warning); return; } item.sourceName = source.name; item.program = this.cleanProgram(source); this.persist(); this.go('detail'); window.Parcours.notify('Programme partagé actualisé'); } }
-      else if (action === 'withdraw') { const item = this.active(); if (item && window.confirm('Retirer cette publication ?')) { item.status = 'withdrawn'; this.persist(); this.go('detail'); } }
-      else if (action === 'republish') { const item = this.active(); if (item && window.confirm('Confirmer la republication ?')) { item.status = 'published'; this.persist(); this.go('detail'); } }
+      else if (action === 'edit') { const item = this.active(); if (item) { this.source = this.publicationSource(item); this.editing = true; this.draft = window.Parcours.state.sharingDrafts?.[`edit:${item.id}`]?.fields || this.presentation(item); this.go('form'); } }
+      else if (action === 'resume-share') {
+        const stored = window.Parcours.state.sharingDrafts[button.dataset.id];
+        if (stored) { this.editing = stored.editing; this.activeId = stored.activeId; this.source = stored.editing ? this.publicationSource(this.active()) : this.sourceItems().find(item => item.id === stored.sourceId); this.draft = stored.fields; if (this.source) this.go('form'); }
+      }
+      else if (action === 'refresh-program') { const item = this.active(), source = this.sourceItems().find(entry => entry.id === item?.sourceId); if (item && source) window.Ergonomie.confirm('Actualiser le contenu partagé ?', 'Le contenu publié sera remplacé par la version enregistrée dans Mes entraînements.',() => { const warning = this.readiness(source); if (warning) { window.Parcours.notify(warning); return; } item.sourceName = source.name; item.program = this.cleanProgram(source); this.persist(); this.go('detail'); },'Actualiser la publication'); }
+      else if (action === 'withdraw') { const item = this.active(); if (item) window.Ergonomie.confirm('Retirer la publication ?',item.title,() => { item.status = 'withdrawn'; this.persist(); this.go('detail'); },'Retirer'); }
+      else if (action === 'republish') { const item = this.active(); if (item) window.Ergonomie.confirm('Republier ?',`Audience : ${item.visibility === 'public' ? 'Communauté' : 'Mes contacts'}`,() => { item.status = 'published'; this.persist(); this.go('detail'); },'Confirmer la republication'); }
       else if (action === 'demo-comment') { const item = this.active(); if (item) { item.comments.push({author:'Camille · compte fictif',text:'La structure est claire. Comment as-tu choisi cette répartition ?'}); this.persist(); this.go('detail'); } }
     };
     const form = document.querySelector('#t4-form');
     if (form) {
-      form.onsubmit = event => { event.preventDefault(); const fields = Object.fromEntries(new FormData(form)); delete fields.commentsAllowed; const error = document.querySelector('#t4-form-error'); if (!fields.title.trim() || !fields.level || !fields.description.trim()) { error.textContent = 'Renseigne le titre, le niveau et la description.'; return; } this.draft = {...this.draft,...fields,feedback:form.elements.feedback.checked,commentsEnabled:form.elements.commentsAllowed.checked}; this.go('preview'); };
+      const remember = () => {
+        this.draft = this.presentation({...Object.fromEntries(new FormData(form)),feedback:form.elements.feedback.checked,commentsEnabled:form.elements.commentsAllowed.checked});
+        window.Parcours.state.sharingDrafts ||= {};
+        window.Parcours.state.sharingDrafts[this.draftKey()] = {sourceId:this.source.id,editing:this.editing,activeId:this.activeId,fields:{...this.draft}};
+        const saved = window.Parcours.persist(); document.querySelector('#sharing-draft-status').textContent = saved ? 'Brouillon conservé · rien n’est publié' : 'Sauvegarde indisponible';
+      };
+      form.oninput = remember; form.onchange = remember;
+      form.querySelectorAll('[required]').forEach(input => { input.onblur = () => { input.setAttribute('aria-invalid',String(!input.validity.valid || !input.value.trim())); if (!input.validity.valid || !input.value.trim()) document.querySelector('#t4-form-error').textContent = 'Renseigne les champs indiqués avant l’aperçu.'; }; });
+      document.querySelector('#discard-share-draft').onclick = () => window.Ergonomie.confirm('Abandonner ce brouillon ?', 'La publication existante reste conservée.',() => { delete window.Parcours.state.sharingDrafts[this.draftKey()]; this.draft = null; this.editing = false; this.go('list'); },'Abandonner');
+      form.onsubmit = event => {
+        event.preventDefault(); remember();
+        const first = [...form.querySelectorAll('[required]')].find(input => !input.validity.valid || !input.value.trim());
+        if (first) { first.setAttribute('aria-invalid','true'); first.focus(); document.querySelector('#t4-form-error').textContent = 'Renseigne le titre, le niveau et la description.'; return; }
+        this.go('preview');
+      };
     }
     page.querySelectorAll('[data-reply]').forEach(form => form.onsubmit = event => { event.preventDefault(); const item = this.active(); const comment = item?.comments[Number(form.dataset.reply)]; const reply = new FormData(form).get('reply').trim(); if (comment && reply) { comment.reply = reply; this.persist(); this.go('detail'); } });
   },
+  draftKey() { return this.editing ? `edit:${this.activeId}` : `new:${this.source.id}`; },
+  presentation(fields) { return {title:fields.title || '',level:fields.level || '',zone:fields.zone || '',description:fields.description || '',visibility:fields.visibility || 'public',feedback:!!fields.feedback,commentsEnabled:fields.commentsEnabled !== false}; },
+  publicationSource(item) { return item ? {id:item.sourceId,name:item.sourceName,organization:'Archive',days:(item.program || []).map(session => ({type:'session',name:session.name,exercises:session.exercises}))} : null; },
   active() { return this.data.items.find(item => item.id === this.activeId); },
   publish() {
     if (!document.querySelector('#t4-confirm')?.checked) { window.Parcours.notify('Coche la confirmation avant de publier.'); return; }
     if (this.editing) { this.saveEdit(); window.Parcours.notify('Modifications confirmées'); return; }
+    const draftKey = this.draftKey();
     this.data.items.unshift({id:crypto.randomUUID(),sourceId:this.source.id,sourceName:this.source.name,program:this.cleanProgram(this.source),...this.draft,status:'published',comments:[],createdAt:new Date().toISOString()});
+    delete window.Parcours.state.sharingDrafts?.[draftKey];
     this.persist(); this.editing = false; this.activeId = this.data.items[0].id; this.go('detail'); window.Parcours.notify('Publication confirmée dans cette démonstration.');
   },
   saveEdit() {
     const item = this.active();
     if (!item) return;
-    Object.assign(item,this.draft); this.persist(); this.editing = false; this.go('detail');
+    Object.assign(item,this.presentation(this.draft)); delete window.Parcours.state.sharingDrafts?.[this.draftKey()]; this.persist(); this.editing = false; this.go('detail');
   },
   go(stage) { this.stage = stage; window.Parcours.route('sharing'); },
 };
