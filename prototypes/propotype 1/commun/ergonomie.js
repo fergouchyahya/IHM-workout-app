@@ -2,6 +2,8 @@
 
 window.Ergonomie = {
   normalize(value) { return String(value).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('fr'); },
+  formatNumber(value) { return value == null || value === '' ? '—' : Number(value).toLocaleString('fr-FR',{useGrouping:false}); },
+  count(value,singular,plural = `${singular}s`) { return `${this.formatNumber(value)} ${value === 1 ? singular : plural}`; },
   number(input) { return input.value.trim() === '' ? null : Number(input.value.trim().replace(',','.')); },
   numeric(input) { return input.type === 'number' || input.dataset.numeric === 'true'; },
   pendingNumber(input) { return /^(?:-|\d+[.,])$/.test(input.value.trim()); },

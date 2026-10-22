@@ -1,6 +1,6 @@
 # Audit ergonomique du prototype — Cours 5 et 6
 
-Audit initial : 21 octobre 2026. Mise à jour : **22 octobre 2026 — 20 propositions livrées et vérifiées, 29 restantes**. La liste ci-dessous ne contient plus les points terminés. Les identifiants d’origine sont conservés ; les comptes rendus des deux lots figurent en sections 11 et 12.
+Audit initial : 21 octobre 2026. Mise à jour : **22 octobre 2026 — 49 propositions implémentées et vérifiées techniquement, 0 restante à implémenter**. La liste d’implémentation est close ; l’évaluation auprès d’utilisateurs reste à réaliser. Les identifiants d’origine sont conservés ; les comptes rendus des cinq lots figurent en sections 11 à 15.
 
 ## 1. Périmètre et méthode
 
@@ -72,137 +72,11 @@ Le cas témoin comporte deux exercices, quatre puis trois séries, avec charge/r
 
 Une capture pleine page peut montrer une barre fixe au milieu du document ; ce n’est pas, à elle seule, la preuve qu’une information est inaccessible. Les tests à prévoir doivent vérifier le défilement, le focus et le clavier virtuel, pas seulement l’image exportée.
 
-## 4. Les 29 améliorations restantes
+## 4. Liste d’implémentation terminée
 
-### A. Navigation, présentation et conservation transverses
+**Les 49 propositions sont implémentées. Aucun point ne reste dans la liste de développement.** Les identifiants et preuves des cinq lots restent en sections 11 à 15, sans renumérotation.
 
-**05 — Vérifier les cibles dans leurs deux dimensions et leur proximité — P1, C/V/H.**
-
-Constat : les boutons ont souvent une hauteur de 44 px, mais les dates à 320 px sont plus étroites ; les liens de série restent petits et nombreux. Proposition : viser des surfaces de commande proches de 44 × 44 px ou plus quand l’espace le permet, élargir les zones de libellé, espacer actions destructive et courante, garder les commandes de saisie près de la ligne. Pour le mois étroit, fournir aussi la vue semaine/agenda et la navigation clavier. Critères : compatibilité ; Fitts. Vérification : dimensions calculées et essais au pouce. **44 px est ici un objectif de conception, pas une mesure issue du cours ni une déclaration de conformité à une norme.**
-
-**06 — Réserver les différences visuelles aux différences de sens — P1, C/V/H.**
-
-Constat : rouge désigne à la fois marque, sélection, série active, cible facultative manquante et erreur ; les nombreux liens rouges attirent tous l’attention. Proposition : conserver les séances rouges et repos verts validés ; ajouter des mots/icônes et des traitements distincts pour actif, incomplet et invalide. Garder les cibles manquantes rouges comme demandé, mais localiser l’accent sur leur état/champ plutôt que rendre chaque carte entière urgente. Critères : groupement/distinction, similitude, signifiance. Vérification : états distinguables sans dépendre seulement de la couleur ; parcours lisible au premier regard.
-
-**07 — Stabiliser vocabulaire, unités et niveau de détail — P1, C/V.**
-
-Constat : kg/RPE, virgule/point, « série(s) », « Mes entraînements », « Calendrier », « Progrès » et « Bilans » ne sont pas encore uniformes partout. Proposition : libellés de tâche courts ; nombres français cohérents ; pluralisation naturelle ; aide locale « RPE : effort ressenti de 1 à 10 ». Les erreurs doivent nommer Charge/Répétitions plutôt que `load/reps`. Critères : signifiance, lisibilité, cohérence. Vérification : préparation, historique précédent, aperçu de partage et bilan affichent tous `22,5 kg` ; aucune clé technique dans une erreur.
-
-**08 — Corriger les contradictions des documents avant la prochaine implémentation — P1, C.**
-
-Constat : le README racine du prototype juxtapose encore « préparation documentaire », arrêt avant bilan, ancienne règle « charge vide = non faite » et clôture T2 ; des textes historiques ne sont pas toujours identifiés comme tels. Proposition : une section d’état actuel faisant foi, historique daté clairement séparé, contrats d’interface et périmètre T3 explicites. Critères : cohérence de la conception et traçabilité QOC. Vérification : README, arbre et comportement ne conduisent pas un futur développement à réintroduire l’ancienne règle de série vide. Ce travail documentaire n’a pas été appliqué dans cet audit, sauf son index.
-
-### B. Accès, questions rapides et découverte
-
-**09 — Ajouter un accès de démonstration sans mot de passe fictif — P2, C/H.**
-
-Constat : le prototype exige un mot de passe non vide sans authentification réelle. Proposition : garder les formulaires pour leur évaluation, et offrir « Essayer avec un profil de démonstration » pour les séances d’évaluation des tâches T1/T2. Ne pas appliquer ce raccourci à une future authentification réelle. Critères : actions minimales, compatibilité. Vérification : un évaluateur atteint le parcours voulu sans saisir de faux secret ; profils isolés. Gain : suppression de la saisie du mot de passe sur ce seul chemin.
-
-**10 — Reprendre les questions inachevées et rendre le retour clair — P2, C/H.**
-
-Constat : les trois réponses sont rapides et facultatives, mais leur brouillon n’est pas conservé au fil de chaque choix comme les autres formulaires ; l’avancement est automatique. Proposition : conserver les réponses partielles par profil, annoncer brièvement le choix, rendre « Réponse précédente » compréhensible. Garder le choix en un appui et les deux possibilités de passer ; ne pas ajouter un bouton Continuer à chaque écran. Critères : feedback, expérience, correction. Vérification : recharge à la deuxième question puis reprise avec la première réponse, sans réinitialiser les séances.
-
-**11 — Rendre les préférences accessibles sans détour par Calendrier — P1, C/V/H.**
-
-Constat : le bouton est dans `Entrainements.render`, et l’édition termine dans `mine`. Proposition : accès compact commun depuis les espaces principaux, puis retour à l’espace et au filtre d’origine. Critères : compatibilité, contrôle, cohérence. Vérification : depuis Découvrir, modifier un seul matériel puis retrouver la même recherche, sans parcourir Calendrier. Le changement ne doit pas réinitialiser les programmes.
-
-**12 — Expliquer la personnalisation réelle — P1, C.**
-
-Constat : « Séances pour toi » dépend de toute valeur du profil ; le filtrage des séances utilise surtout niveau/matériel/filtres, pas l’objectif sportif, et trie par durée. Proposition : dire « Selon tes filtres » et afficher les critères effectifs ; n’annoncer l’usage de l’objectif que lorsqu’un contenu compatible existe. Utiliser le budget temps comme repère ou filtre explicite. Critères : signifiance, guidage, confiance. Vérification : deux profils qui ne diffèrent que par objectif ne reçoivent pas une promesse de personnalisation inexistante.
-
-**13 — Donner un résultat de recherche global cohérent — P1, C/V/H.**
-
-Constat : la recherche annonce séances et programmes mais leurs comptes/états vides sont séparés ; un groupe « aucune séance » peut coexister avec un programme trouvé. Proposition : compteur explicite par type et total ; filtres actifs visibles ; en cas de vide, retirer un filtre précis plutôt qu’effacer obligatoirement toute la recherche. Conserver l’application immédiate des filtres, avec bouton « Voir les résultats ». Critères : feedback, brièveté, correction. Vérification : recherche ne trouvant qu’un programme, puis retrait d’un seul filtre sans perdre le texte.
-
-**14 — Donner un accès direct aux favoris dans Découvrir — P2, C/H.**
-
-Constat : les favoris se retrouvent en bas de la liste personnelle repliée. Proposition : filtre « Favoris » dans Découvrir, sans troisième méthode d’enregistrement ; garder l’état favori distinct de la copie et du placement. Critères : reconnaissance plutôt que rappel, actions minimales. Vérification : favori retrouvé sans changer d’espace ni dérouler la liste personnelle.
-
-**15 — Enregistrer puis préparer sans retour intermédiaire — P1, C/H.**
-
-Constat : un premier enregistrement dans le récapitulatif affiche un message et un accès au calendrier ; réappuyer sur le même bouton permet déjà d’ouvrir la copie. Proposition : après enregistrement, proposer clairement « Préparer ma copie » dans le même panneau, et montrer « Déjà enregistré » sur la carte. Conserver Favori/Enregistrer/Planifier comme effets distincts. Critères : guidage, actions minimales. Vérification : une seule copie, source conservée ; ouverture de l’éditeur sans rechercher à nouveau la séance. Aucun démarrage imposé depuis Découvrir.
-
-**16 — Rendre les grands aperçus de programme progressifs — P1, C/H.**
-
-Constat : `Programmes.open`, l’aperçu et le détail du partage peuvent dérouler toutes les semaines et tous les exercices ; l’action utile est en bas. Proposition : résumé semaine/durée/répartition d’abord, semaines dépliables, variations mises en évidence, action Importer/Publier toujours accessible sans masquer le contenu. Critères : densité, proximité, ICS. Vérification : un cycle long reste inspectable et sa portée est claire ; importer ne planifie toujours aucune date automatiquement.
-
-### C. Calendrier et reprise
-
-**18 — Séparer sélection d’un jour et demande d’ajout — P2, C/V/H.**
-
-Constat : un jour rempli sélectionne ; un jour vide sélectionne puis ouvre immédiatement un panneau. Proposition à comparer : un appui sélectionne toujours, le bouton + du jour ouvre l’ajout ; garder un raccourci explicite « Ajouter ici » si l’accès direct est préféré. Critères : cohérence et contrôle. Cette variante **peut ajouter un appui** sur jour vide : elle n’est à retenir que si elle réduit les ouvertures involontaires et les fermetures. Vérification : tâche « consulter une date vide », puis tâche « ajouter », avec taux d’erreurs.
-
-**19 — Accéder directement à une date éloignée — P1, C/H.**
-
-Constat : seules les flèches de période et Aujourd’hui sont proposées. Proposition : titre mois/année activable avec choix de date ; garder les flèches pour les dates proches. Critères : flexibilité ; règle de sélection GOMS proche/loin. Vérification : atteindre un mois dans six mois sans six changements de période ; conserver la date choisie au retour.
-
-### D. Création et préparation T1
-
-**24 — Alléger la création commencée depuis un jour — P1, C/H.**
-
-Constat : `creationDate` préremplit Séance seule mais laisse le formulaire complet d’organisation. Proposition : mode court « Nouvelle séance · [date] », nom et accès immédiat aux exercices ; lien secondaire pour créer un programme. Garder les autres options pour une création hors calendrier. Critères : brièveté, compatibilité, incitation. Vérification : la date n’est automatiquement choisie que depuis un jour du calendrier ; aucun autre champ n’est rempli par supposition.
-
-**25 — Configurer rapidement les jours d’une semaine — P1, C/H.**
-
-Constat : chaque jour a son dialogue, choix du contenu et sauvegarde ; copie et déplacement existent mais restent individuels. Proposition : mode « Modifier plusieurs jours », sélection puis Repos/À définir ; duplication d’une séance existante vers les jours sélectionnés, avec effet explicite et annulation. Critères : actions minimales, flexibilité. Vérification : plusieurs repos configurés en une opération ; exercices et cibles indépendants après copie ; destination occupée signalée. Garder l’édition individuelle comme méthode simple.
-
-**26 — Clarifier ce que fait un gabarit — P1, C/H.**
-
-Constat : Full Body/Upper-Lower/PPL donnent des catégories pour nommer les jours ; ils ne remplissent pas leur répartition. Ce comportement est documenté « sans jours imposés », donc ce n’est pas un générateur défaillant. Proposition : libellé « Catégories pour nommer mes séances » et aperçu des catégories ; si une répartition suggérée est souhaitée, la proposer séparément avec aperçu et confirmation, jamais automatiquement. Critères : signifiance, incitation. Vérification : l’utilisateur sait ce qu’il obtiendra avant de choisir ; aucun repos ou exercice inventé.
-
-### E. Réalisation et enrichissements T2
-
-**36 — Faciliter la recopie sans généraliser un résultat réel — P2, C/H.**
-
-Constat : « Même résultat que série 1 » recopie explicitement charge, répétitions, RPE/ressenti, ce qui est déjà rapide et annulable. Proposition : garder ce raccourci et offrir, si les essais le justifient, une reprise de charge seule pour les séries dont les répétitions ou l’effort diffèrent. Dire exactement quelles valeurs seront reprises et montrer le statut obtenu. Critères : actions minimales, contrôle. Vérification : reprendre une charge ne marque pas une série faite et ne crée ni répétitions ni RPE ; aucune recopie d’historique antérieur sans action explicite.
-
-**37 — Distinguer série sélectionnée, série renseignée et série réalisée — P1, C/H.**
-
-Constat : le focus définit la série active, et le libellé CSS ajoute « en cours » ; cela peut être lu comme un état d’exécution. Proposition : utiliser « Sélectionnée » pour le focus et une marque/étiquette distincte pour Faite/Interrompue/Non faite/Partielle. Afficher un petit bilan d’avancement de l’exercice et rendre le passage à la série suivante accessible sans déclaration automatique. Critères : signifiance, feedback, contrôle. Vérification : cliquer une ancienne série ne donne pas l’impression de recommencer son effort ; une saisie partielle reste partielle.
-
-**38 — Éviter de demander plusieurs fois le même contexte — P1, C/H.**
-
-Constat : état En forme/Fatigué/Gêne, fatigue, douleur, contexte libre et raison générale d’adaptation se superposent ; RPE, effort choisi et ressenti final sont moins clairement distingués. Proposition : choix global rapide facultatif, puis précisions dépliables ; expliciter « avant séance », « effort réel de cette série », « bilan après séance ». Un seul champ de contexte général ; raisons par série restent liées à leur cas particulier. Critères : brièveté, groupement, signifiance. Vérification : noter une nuit courte ou un matériel différent une seule fois, sans perdre l’information à la revue.
-
-**39 — Modifier un réglage utilisé à côté du réglage affiché — P1, C/H.**
-
-Constat : Notes ouvre le volet et focalise Remarque technique ; pour changer le banc, il faut ensuite atteindre le deuxième champ. Proposition : action « Réglage utilisé » près du réglage, ouvrant et focalisant ce champ ; le bouton Notes garde son rôle général. Proposer le réglage précédent comme référence, pas comme saisie réelle certaine. Critères : proximité, Fitts, actions minimales. Vérification : passer de Banc 2 à Banc 3 sans chercher dans les notes, sans modifier le programme prévu. Calcul section 5.
-
-**40 — Rendre les opérations de médias et leur annulation visibles — P1, C/H.**
-
-Constat : les limites et erreurs existent ; les écritures sont asynchrones, la confirmation finale demande d’attendre, et une annulation média peut se terminer après que l’avis commun a disparu. Proposition : état « Ajout de 2 fichiers… », succès par fichier, Réessayer sur celui en échec ; annulation conservée tant qu’elle échoue ou travaille ; compteurs explicites. Charger l’aperçu à l’ouverture des détails si cela évite du travail inutile, sans promettre un gain non mesuré. Critères : feedback, contrôle, correction. Vérification : média lent/manquant/refusé, fermeture et retour au volet ; aucun faux succès, référence et fichier restent cohérents.
-
-**41 — Proposer un repos chronométré facultatif à portée de la série — P2, C/H.**
-
-Constat : un minuteur facultatif est mentionné dans le README, mais pas livré dans le code T2. Proposition : si retenu, bouton Repos avec durée réutilisable, pause/reprise et fermeture, sans démarrage obligatoire ni changement des résultats ; aucune notification imposée. Critères : compatibilité avec l’activité, contrôle. Vérification : utilisable sans empêcher la saisie ou la consultation de consignes. C’est une petite extension fonctionnelle à valider, pas une correction nécessaire au Keystroke ni une fonction déjà présente.
-
-### F. Revue et consultation du bilan
-
-**43 — Corriger sans perdre l’endroit de la revue — P2, C/H.**
-
-Constat : le lien existant conduit déjà à la bonne série ; revenir à la revue ajoute une navigation et peut obliger à relocaliser la ligne. Proposition : conserver ce chemin et garantir le retour exact ; comparer avec une petite correction en ligne du brouillon avant confirmation, autosauvegardée. Critères : correction, actions minimales. Vérification : modifier une seule répétition conserve les autres séries, la position et les adaptations. Aucun champ modifiable ajouté au bilan déjà archivé par cette proposition.
-
-**44 — Garder une confirmation finale explicite mais concise — P1, C/H.**
-
-Constat : le libellé « Conserver avec 6 série(s) non renseignée(s) » devient long, et les catégories de compteur à zéro occupent de la place. Proposition : bouton stable « Terminer et conserver » avec avertissement adjacent « 6 séries non renseignées seront conservées ainsi » ; montrer les compteurs utiles et garder les distinctions consultables. Erreurs bloquantes et omissions autorisées restent distinctes. Critères : lisibilité, signifiance, contrôle. Vérification : aucune série vide convertie en non faite ; la fin reste une seule confirmation délibérée.
-
-**46 — Préparer une liste de bilans qui reste praticable — P2, C/H.**
-
-Constat : `renderHistory` affiche tous les bilans sans recherche ni regroupement ; pour un seul bilan cela suffit. Proposition : regroupement par date et recherche de séance avec tri explicite ; garder les filtres de comparaison et l’analyse pour la conception T3. Critères : guidage, densité, flexibilité. Vérification : retrouver une séance parmi trente, puis retour conservant la recherche. Pas de gain chiffré sans scénario et test.
-
-### G. Partages déjà présents
-
-**47 — Rendre la description facultative et corriger les erreurs dans leur champ — P1, C.**
-
-Constat : l’arbre commun T4.2.2 prévoit description/demande de conseils si utile, mais `renderForm` impose la description ; l’erreur rassemble titre/niveau/description sans détail local. Proposition : description facultative, repères titre/niveau explicites, erreur par champ avec explication et focus ; effacer le message dès correction. Mettre à jour immédiatement le résumé d’audience lorsque le choix change. Critères : brièveté, protection, feedback, cohérence. Vérification : partager sans description si l’utilisateur le souhaite ; l’aperçu conserve l’audience réellement choisie.
-
-**48 — Supprimer la confirmation redondante de publication si le test confirme sa lisibilité — P2, C/H.**
-
-Constat : aperçu, case « Je confirme » puis bouton « Confirmer la publication ». Proposition : conserver l’aperçu et une action finale explicite « Publier dans la communauté » ou « Partager avec mes contacts », sans case supplémentaire ; mise à jour et republication nommées distinctement. Critères : actions minimales **et** contrôle explicite. Vérification : compréhension de l’audience avant l’action et aucune publication au choix du programme. Si la suppression de la case augmente les publications involontaires, garder la version protégée. Calcul section 5.
-
-**49 — Faciliter le choix et la réparation du contenu à partager — P1, C/H.**
-
-Constat : choisir se fait dans une liste sans recherche ; une séance vide est bloquée ensuite, avec un message mais sans raccourci pour la compléter. Proposition : recherche si la liste grandit, indication « À compléter » sur la source, « Compléter cette séance » puis retour au brouillon de partage. Permettre un accès « Partager » depuis une préparation personnelle enregistrée si cela raccourcit le parcours, en gardant toujours l’aperçu. Critères : guidage, correction, actions minimales. Vérification : compléter le contenu ne perd pas titre/audience/description déjà saisis ; données privées toujours exclues.
+Cette clôture concerne le code et ses vérifications techniques. Les gains de temps, la compréhension, les erreurs de manipulation et la préférence pour les variantes R18/R48 ne sont pas validés auprès d’utilisateurs. Les tests nécessaires restent décrits en sections 6 et 9. L’analyse T3 reste hors périmètre.
 
 ## 5. Calculs Keystroke et limites
 
@@ -218,16 +92,16 @@ Modèle du Cours 6, diapositives 29–37. Utilisateur connaissant la méthode, t
 - Défilement, recherche visuelle, clavier virtuel, sélecteur natif, lecture, fatigue, erreurs et récupération sont décrits séparément. Ne pas leur attribuer arbitrairement la valeur de K, P ou M.
 - Pas de D ici : aucune tâche de dessin. Un glisser-déposer ne devient pas automatiquement un K unique ni un dessin D.
 
-### Quatre comparaisons de propositions
+### Quatre comparaisons issues de l’audit initial
 
-| Même but et départ | Méthode actuelle | Méthode proposée | Estimation centrale avant → après | Gain conditionnel |
+| Même but et départ | Méthode lors de l’audit initial | Variante comparée | Estimation centrale avant → après | Gain conditionnel |
 | --- | --- | --- | --- | --- |
 | Ajouter quatre exercices déjà repérés, départ éditeur, cibles non saisies | 4 × (Ajouter + choisir) = `M + 8(P+K)` | Ouvrir le choix multiple + quatre sélections + Ajouter les 4 = `M + 6(P+K)` | **11,75 → 9,15 s** | **2 activations**, soit 25 % ; **2,60 s** théoriques, plage 2,00–3,40 s selon P. Même M : les ouvertures répétées font partie de la méthode anticipée. |
 | Démarrer une séance prête, départ agenda du jour visible | Carte → aperçu → Commencer = `M + 2(P+K)` | Bouton secondaire Commencer sur carte, aperçu toujours disponible = `M + (P+K)` | **3,95 → 2,65 s** | **1 activation**, **1,30 s**, plage 1,00–1,70 s. Variante de R17 à tester ; le clic sur la carte principale continue d’ouvrir ses détails. Ne pas proposer ce raccourci si un brouillon de préparation attend l’application de modifications. |
 | Modifier le réglage utilisé, départ en-tête exercice, texte de n caractères | Notes focalise Remarque → choisir Réglage → saisir = `M + 2(P+K) + H + nK` | Action Réglage utilisé focalise directement le champ → saisir = `M + (P+K) + H + nK` | **4,35 + 0,20n → 3,05 + 0,20n s** | **1 activation**, **1,30 s** ; défilement supplémentaire actuel exclu du calcul. |
 | Confirmer une publication dont l’aperçu et l’audience ont déjà été lus | Cocher puis confirmer = `M + 2(P+K)` | Bouton explicite audience = `M + (P+K)` | **3,95 → 2,65 s** | **1 activation**, **1,30 s** ; bénéfice retenu seulement si la compréhension et le contrôle sont conservés. |
 
-Ces chiffres ne s’additionnent pas en « temps gagné par séance » : ils concernent des buts et fréquences différents. Ils ne prouvent pas que les nouvelles interfaces seront plus rapides à découvrir.
+L’ajout multiple, le réglage direct et la confirmation sans case sont désormais implémentés (lots 1, 4 et 5). Le départ direct depuis une carte d’agenda n’a pas été retenu : la carte conserve son aperçu. Ces chiffres ne s’additionnent pas en « temps gagné par séance » : ils concernent des buts et fréquences différents. Ils ne prouvent pas que les nouvelles interfaces seront plus rapides à découvrir.
 
 ### Gain déjà livré à conserver : recopier une série réellement identique
 
@@ -263,16 +137,16 @@ Cela illustre l’intérêt d’une grande cible proche. Les 40/50 px ressemblen
 | Modifier une cible | Un jour | Sauvegarde directe pour ce jour. |
 | Modifier une cible | Prochaines occurrences du mésocycle voulues | Portée explicite, dates et différences, confirmation. |
 
-## 6. QOC : compromis à valider avant développement
+## 6. QOC : compromis implémentés ou non retenus, validation utilisateur restante
 
 | Question | Options | Critères et recommandation |
 | --- | --- | --- |
 | Comment réduire la hauteur T2 ? | Tout replier ; une série unique ; lignes de toutes les séries avec détails secondaires | **Premier lot livré : séries compactes et cible commune**, avec toutes les séries accessibles. Comparer densité, lisibilité des cibles et erreurs de ligne ; pas seulement la hauteur. |
-| Que fait un appui sur une date vide ? | Ajout immédiat actuel ; sélection puis + | Comparer contrôle/prévisibilité et vitesse. Ne pas décider seulement parce que la deuxième option est plus uniforme. |
+| Que fait un appui sur une date vide ? | Ajout immédiat initial ; sélection puis + | **Lot 5 : sélection puis Ajouter ici.** Un appui supplémentaire pour ajouter, mais aucune ouverture à fermer pour consulter. Comparer erreurs/ouvertures involontaires et vitesse auprès d’utilisateurs. |
 | Comment traiter les options de suivi ? | Vraie visibilité ; affichage prioritaire ; suppression des cases sans effet | **Premier lot livré : affichage prioritaire + accès facultatif aux autres champs**, sans perte de données. Le sens des cases doit être explicite. |
 | Faut-il le bouton Commencer sur l’agenda ? | Aperçu obligatoire actuel ; raccourci facultatif et aperçu conservé | Recommander un raccourci seulement sur séance prête, sans brouillon non appliqué ; comparer vitesse et erreurs de départ. |
-| Faut-il supprimer la case de publication ? | Case + bouton ; bouton final nommant l’audience | Recommander l’essai du bouton explicite, avec aperçu maintenu. Ne le conserver que si les erreurs de diffusion n’augmentent pas. |
-| Comment corriger un bilan ? | Correction ciblée T2 actuelle ; édition en ligne avant clôture | Sécuriser d’abord le retour exact actuel. Essayer l’édition en ligne si elle réduit effectivement les détours sans confondre brouillon et archive. |
+| Faut-il supprimer la case de publication ? | Case + bouton ; bouton final nommant l’audience | **Lot 5 : une action finale nommant l’audience**, avec aperçu conservé et publication impossible depuis le formulaire. La compréhension et les activations involontaires restent à mesurer ; les seuls tests techniques ne les valident pas. |
+| Comment corriger un bilan ? | Navigation ciblée T2 ; édition sur place avant clôture | **Lot 5 : Corriger ici**, autosauvegardé dans le brouillon, avec accès avancé à la série et retour ciblé. Les archives restent en lecture seule. Comparer compréhension et erreurs en situation réelle. |
 
 ## 7. UAN : exemples simplifiés action → feedback → état
 
@@ -291,16 +165,15 @@ Ces tableaux reprennent la séparation UAN du cours, sans prétendre transcrire 
 | Conservation échoue | Message de reprise et Réessayer | Brouillon conservé ; aucun faux bilan terminé. |
 | Ouvrir une occurrence terminée | Bilan et Retour à l’origine | Lecture seule ; aucune modification des objectifs historiques par navigation ordinaire. |
 
-## 8. Ordre de réalisation conseillé pour les 29 points restants
+## 8. Suite : évaluer les usages
 
-Vingt propositions sont livrées ; les deux lots sont décrits en sections 11 et 12.
+Les 49 propositions d’implémentation sont livrées en cinq lots. Aucun nouveau point n’est ajouté artificiellement à la liste. La prochaine étape ergonomique est de réaliser les scénarios utilisateur de la section 9, puis d’ouvrir uniquement les corrections justifiées par leurs résultats.
 
-1. **Lisibilité et cohérence : R05–R08, R11–R13, R15–R16, R19, R24–R26, R37–R40, R44, R47, R49.** Cibles tactiles, codes visuels, vocabulaire, préférences, découverte, préparation et enrichissements.
-2. **Variantes à comparer : R09–R10, R14, R18, R36, R41, R43, R46, R48.** R41 ajoute une fonction ; R46 reste à coordonner avec la conception de l’analyse. Leur utilité n’est pas présentée comme déjà démontrée.
+La conception de l’analyse T3 constitue une étape fonctionnelle distincte ; elle n’est pas déclarée réalisée par la recherche dans les bilans ou leur consultation.
 
 ## 9. Évaluation nécessaire pour conclure
 
-Pas de test utilisateur réalisé pour cet audit. Les deux lots ont été vérifiés par 66 tests ciblés et des parcours Chromium (sections 11 et 12) ; ces vérifications techniques ne prouvent pas à elles seules l’ergonomie auprès des utilisateurs.
+Pas de test utilisateur réalisé pour cet audit. Les cinq lots ont été vérifiés par 104 tests ciblés et des parcours Chromium (sections 11 à 15) ; ces vérifications techniques ne prouvent pas à elles seules l’ergonomie auprès des utilisateurs.
 
 Prévoir un essai comparatif avec profils représentatifs de Thomas et Greg, sur téléphone réel et au clavier. Alterner l’ordre des variantes et proposer des tâches équivalentes pour limiter l’effet d’apprentissage. Mesurer réussite, activations, caractères, défilements, temps total, erreurs/reprises et compréhension de l’effet. Demander une explication du résultat obtenu : moins de clics avec mauvaise compréhension n’est pas une amélioration.
 
@@ -410,3 +283,95 @@ Parcours Chromium réalisés dans un profil fictif dédié :
 - Préparation et panneau de conflit à **320, 390 et 1280 px**, sans débordement horizontal ; comparaison visuelle du même cas avant/après. Aucune erreur ni avertissement console dans le parcours contrôlé.
 
 Téléphone physique, clavier virtuel réel, lecteur d’écran et évaluation auprès d’utilisateurs non réalisés. Aucun écran d’analyse de progression ajouté. Les README des parties concernées décrivent les nouveaux comportements.
+
+
+## 13. Troisième lot livré — 22 octobre 2026
+
+R05–R08, R11–R13, R15–R16 et R19 sont retirés de la liste restante : **30 propositions livrées, 19 restantes sur les 49 initiales**. Le commit `e9e1b25` conserve l’état avant ce troisième lot (T1/T2 et les deux premiers lots).
+
+| Point livré | Comportement vérifié |
+| --- | --- |
+| R05 — cibles et proximité | Commandes, actions de série et détails ont une surface minimale de 44 × 44 px. Les dates gardent cette largeur à 320 px avec un défilement dans le cadre du calendrier, sans élargir le document. Un seul jour est dans l’ordre de Tab ; flèches, Début/Fin et Page précédente/suivante déplacent sélection et focus, sans ouvrir l’ajout. Les suppressions sont séparées des actions courantes. Les dates/flèches/ajout et outils de préparation/T2 ont été mesurés aux trois largeurs ; l’usage au pouce reste à tester. |
+| R06 — codes visuels | Bleu pour focus/sélection, rouge pour séances et erreurs, vert pour repos. Le jour sélectionné est souligné ; la série sélectionnée est nommée ainsi. À compléter reste rouge mais la carte est blanche ; une erreur ajoute message, champ invalide et bordure distincte. Les libellés de réalisation restent séparés. Les actions secondaires ne sont plus toutes rouges. R37 reste ouvert pour l’avancement et le passage à la série suivante. |
+| R07 — vocabulaire et nombres | Bilans désigne les résultats conservés ; Mes entraînements reste la liste personnelle du calendrier. Préparation, cibles T2, précédent, revue et aperçu de programme/partage utilisent les décimales françaises, dont 22,5 kg et RPE 7,5/10. Les valeurs brutes de saisie restent séparées. Les quantités usuelles se pluralisent sans « (s) » ; l’aide locale explique RPE : effort ressenti de 1 à 10. Les erreurs nomment le champ. |
+| R08 — état documentaire | Le README racine présente l’état actuel, les contrats d’objets/saisie/portée, la sortie T2 et le périmètre T3 restant. Les anciennes annonces d’arrêt avant bilan et de charge vide équivalant à Non faite ne sont plus des règles actives. Les livraisons datées restent tracées dans cet audit ; le minuteur est explicitement non implémenté. Les README concernés décrivent le comportement courant. |
+| R11 — préférences sans détour | Accès commun dans Découvrir, Calendrier, Bilans et la liste Partages. Modifier un choix ou durée/disponibilités revient au même espace et à sa position. Recherche, source et filtres non concernés restent conservés ; niveau/matériel modifiés actualisent leur filtre comme auparavant. Annuler retrouve les critères d’origine. Aucun entraînement n’est réinitialisé. |
+| R12 — critères réels | « Selon tes filtres » remplace la promesse de personnalisation liée à toute réponse. Bibliothèque et filtres actifs restent visibles ; la durée croissante est annoncée pour les séances. Le budget temps est indiqué comme repère, sans appliquer un filtre silencieux. Deux profils ne différant que par objectif donnent la même présentation et les mêmes résultats. |
+| R13 — résultat global | Un compteur total donne séances et programmes. Un programme seul ne coexiste plus avec un encart d’échec des séances. En cas de vide global, chaque filtre peut être retiré séparément et le nom recherché peut être effacé sans perdre les autres critères. La recherche/les critères remplacent le contexte de la même entrée d’historique après chaque changement : le retour de préparation ne rétablit plus un filtre retiré. |
+| R15 — copie puis préparation | Une carte porte Déjà enregistré indépendamment de Favori. Après Enregistrer, le bouton du récapitulatif devient Préparer ma copie ; il ouvre la même copie sans chercher dans Calendrier, sans doublon ni démarrage. Cette clarification conserve les deux activations déjà possibles ; aucun gain de temps artificiel n’est attribué au changement de libellé. |
+| R16 — aperçus progressifs | Import, présentation/aperçu et détail de partage utilisent la répartition publique du programme. Chaque semaine présente nombre de séances/repos et présence de variations par rapport à la précédente. Déplier une semaine révèle directement ses exercices/cibles ; le contenu des séances y est déjà déplié, sans seconde activation obligatoire. Import et confirmation de publication restent accessibles dans une zone collante ; la case de publication est conservée. Les archives anciennes sans plan utilisent des séances dépliables. Les notes/réglages personnels restent exclus par la liste blanche existante. |
+| R19 — date éloignée | Le titre de période ouvre Choisir une date ; Voir cette date sélectionne et focalise le jour sans créer d’entrée ni ouvrir l’ajout. Les flèches/Aujourd’hui restent disponibles. Le clavier conserve le jour du mois si possible et le borne au dernier jour, y compris le 29 février. |
+
+### Contrôles et compromis
+
+- **77 tests ciblés réussis** : les 66 précédents et les 11 de `tests/ergonomie-lot3.test.cjs`. Ils vérifient format/absences, compteur global, objectif sans fausse personnalisation, filtres sur les deux types, copie/favori distincts, cycle long/variations, cibles publiques sans notes privées, dates valides, retour des préférences et mise à jour de l’historique de recherche.
+- Syntaxe JavaScript, `git diff --check`, comptage des 49 identifiants et liens locaux des README/audit contrôlés.
+- Chromium, profil fictif dédié : recherche ne trouvant qu’un programme, retrait d’un filtre sans perte du nom, préférences et disponibilités revenant dans Découvrir, copie puis préparation et retour avec Déjà enregistré, sans doublon/exécution créée.
+- Calendrier : choix d’une date à six mois, flèches, Début/Fin, changement de mois vers le 29 février, absence de création et d’entrée d’historique supplémentaire. Dates et commandes contrôlées : **44 px minimum dans les deux dimensions**, à 320, 390 et 1280 px.
+- Cycle fictif de **20 semaines** : consultation progressive avec variations et cibles, import accessible ; partage/ancienne archive consultables. Préparation/T2 : valeurs françaises, correction RPE/charge, états visuels, revue et commandes. Aucun débordement du document aux trois largeurs dans les écrans contrôlés ; la grille étroite défile volontairement dans son cadre.
+- Ces changements réduisent détours et défilement ou améliorent les repères. Le choix de date exige son ouverture, la saisie et une confirmation ; une semaine repliée demande une activation pour consultation. La taille accrue des commandes peut augmenter la hauteur. Aucun temps utilisateur ni gain KLM supplémentaire n’est annoncé sans scénario mesuré.
+
+Téléphone physique, clavier virtuel réel, lecteur d’écran et évaluation auprès d’utilisateurs non réalisés. L’analyse T3 reste hors périmètre. Les deux supports de cours restent ignorés par Git.
+
+
+## 14. Quatrième lot livré — 22 octobre 2026
+
+R24–R26, R37–R40, R44, R47 et R49 sont retirés de la liste restante : **40 propositions livrées et 9 restantes sur les 49 initiales**. Les modifications du troisième lot sont conservées. Aucun écran d’analyse T3 n’est ajouté.
+
+| Point livré | Comportement vérifié |
+| --- | --- |
+| R24 — création depuis une date | Nouvelle séance affiche la date et le nom à saisir, sans demander l’organisation ni recopier le budget/matériel du profil par supposition. Créer et choisir les exercices ouvre directement le sélecteur après création de l’occurrence. Créer plutôt un programme révèle le formulaire complet. Un brouillon du même contexte peut être repris ; aucune date hors calendrier n’est inventée. |
+| R25 — plusieurs jours | Modifier plusieurs jours sélectionne des destinations puis Repos, À définir ou copie d’une séance source. Les contenus et brouillons occupés sont nommés et leur remplacement confirmé. La source reste conservée ; les exercices/cibles copiés sont indépendants. Annuler restaure les seuls jours et brouillons concernés, avec refus d’écraser un travail plus récent. Les copies du mésocycle et le calendrier restent distincts ; un cycle existant est marqué à remettre à jour. |
+| R26 — catégories compréhensibles | Catégories pour nommer mes séances remplace Gabarit de répartition. L’aide affiche Full Body, Haut/Bas ou Push/Pull/Legs et dit explicitement qu’aucun jour, repos, exercice ou objectif ne sera rempli. Choisir une catégorie dans un jour reste une action explicite de nommage. |
+| R37 — avancement des séries | Un bilan par exercice distingue faites, interrompues, non faites, saisies partielles, non renseignées et invalides ; seules les catégories utiles apparaissent. Série suivante sélectionne et focalise la ligne suivante sans la remplir ni déclarer la précédente faite. Le repère sélectionné reste distinct du statut de réalisation. |
+| R38 — contexte unique | Avant la séance distingue état initial et effort prévu. Un seul texte Contexte de cette séance remplace les deux champs généraux ; les anciens textes sont réunis sans doublon et restent consultables. Sommeil/fatigue/douleur sont des précisions facultatives dépliables ; raisons par série conservées. Après la séance nomme le ressenti final. Aucun état choisi n’invente une douleur ou un niveau de fatigue. |
+| R39 — réglage au bon endroit | Renseigner ou modifier le réglage utilisé se trouve à côté des consignes/réglages et ouvre directement son champ. Notes continue à focaliser la remarque. Le réglage prévu et le précédent restent des références ; rien n’est copié automatiquement dans le résultat réel. |
+| R40 — médias et reprise | Ajout du fichier N sur M, En attente, Conservé et erreurs sont visibles par fichier. Réessayer ce fichier conserve les succès sans doublon ; une référence non sauvegardée se relance avec le même fichier/identifiant. La clôture attend toute l’opération, y compris ses phases asynchrones. Retrait échoué conserve fichier et référence. Annuler affiche Annulation… pendant le travail ; après échec, un bouton Annuler permet une nouvelle tentative. Les fichiers en échec restent disponibles pour réessai pendant la visite ; après rechargement, les fichiers non ajoutés doivent être choisis à nouveau. |
+| R44 — clôture concise | Le bouton reste Terminer et conserver, avec avertissement adjacent sur les séries non renseignées ou faites mais incomplètes. Les compteurs à zéro disparaissent ; les statuts restent visibles sur chaque série. Erreur numérique et opération média en cours bloquent la clôture ; une omission autorisée garde son état sans inventer de résultat. |
+| R47 — présentation du partage | Description facultative, titre et niveau requis. Erreurs locales liées aux champs, focus sur la première erreur, effacement après correction ; audience résumée immédiatement au changement. Le formulaire valide sans description. Aperçu et confirmation finale restent explicites ; aucune publication au choix du contenu. |
+| R49 — choisir et compléter | Recherche dans les sources personnelles, état À compléter/Prêt à partager. Compléter ce contenu ouvre son éditeur et conserve titre, audience, description et options du brouillon. Une séance propose Enregistrer et revenir au partage ; une semaine retrouve le partage par son retour. Préparer un partage est disponible depuis une séance personnelle enregistrée, avec passage obligatoire par présentation et aperçu. Les données privées restent exclues de l’instantané public. |
+
+### Vérifications et limites
+
+- **92 tests ciblés réussis** : 77 précédents et 15 de `tests/ergonomie-lot4.test.cjs`. Copies indépendantes, annulation/restauration des brouillons et protection d’un travail ultérieur ; avancement sans réalisation implicite ; contexte ancien unifié ; réglage prévu distinct ; ajout média en cours, échec partiel/reprise, métadonnées non sauvegardées, retrait échoué et annulation réessayable ; clôture sans conversion des absences ; présentation facultative et réparation d’un partage conservé.
+- Syntaxe JavaScript et `git diff --check` contrôlés ; identifiants restants/livrés et liens locaux vérifiés.
+- Chromium, profil fictif dédié : création datée sans métadonnées supposées et sélecteur immédiat, sortie vers création complète, catégories sans remplissage des jours ; copies groupées, remplacement de séance par repos avec accord et annulation restaurant les cibles.
+- Partage : recherche, signal À compléter, préparation puis retour au titre/audience conservés ; erreurs de titre/niveau, correction ciblée, audience immédiate et aperçu avec description vide. Aucun contenu de test publié.
+- T2 : un seul contexte, focus direct sur Réglage utilisé, cible T1 conservée, progression partielle puis faite et sélection de la série suivante vide ; revue et avertissement des omissions.
+- Médias : deux PNG locaux, premier ajout ralenti, second refusé ; feedback et clôture bloquée pendant l’attente, reprise du seul échec sans doublon. Retrait puis restauration refusée, nouvelle tentative ralentie avec Annulation… conservé, restauration réussie. Rechargement via le stockage natif puis clôture avec deux fichiers et séries toujours non renseignées. Retrait ralenti puis refusé pendant une navigation à la revue : référence conservée et erreur retrouvée dans la revue puis au retour sur les médias.
+- Création courte, panneau de jours groupés, formulaire de partage, semaine, T2 et médias vérifiés à **320, 390 et 1280 px** sans débordement du document. Captures de semaine et revue examinées ; aucune erreur ni avertissement console dans le parcours contrôlé.
+
+Le chemin de création datée évite le choix d’organisation et l’ouverture supplémentaire du sélecteur ; le réglage utilisé évite de focaliser d’abord Remarque puis de chercher le second champ. Les opérations groupées évitent un dialogue complet par jour. Ces réductions de détours ne constituent pas des temps utilisateur mesurés ; le coût de sélection et la confirmation des remplacements restent explicites. Tests sur téléphone physique, clavier virtuel réel, lecteur d’écran et évaluation auprès d’utilisateurs non réalisés.
+
+
+## 15. Dernier lot livré — 22 octobre 2026
+
+R09, R10, R14, R18, R36, R41, R43, R46 et R48 sont retirés de la liste restante : **49 propositions implémentées, 0 restante à implémenter**. Les lots précédents sont conservés. Les variantes sont livrées pour évaluation ; leur efficacité ergonomique auprès d’utilisateurs n’est pas déclarée prouvée.
+
+| Point livré | Comportement vérifié |
+| --- | --- |
+| R09 — accès démo | Essayer sans compte ouvre le profil local séparé `demo:local`, sans identifiant ni mot de passe à saisir. Ce profil conserve ses propres données, sans exposer/réinitialiser celles d’un profil nommé. Les formulaires simulés restent disponibles pour leur évaluation. Ce chemin n’est pas une authentification réelle. |
+| R10 — questions interrompues | Chaque choix et la position courante sont conservés par profil dans `onboardingDraft`. Après rechargement et retour au même profil, la question et les réponses sont reprises. Réponse précédente est visible ; Passer cette question et Passer le reste restent distincts. Un appui choisit et avance, sans nouveau bouton Continuer. Terminer efface ce brouillon sans réinitialiser les entraînements. Le lien autonome `#questions` utilise un profil de démonstration séparé. |
+| R14 — favoris directs | Mes favoris filtre les séances des deux bibliothèques dans Découvrir ; les autres critères explicites restent appliqués. La sélection de bibliothèque est masquée pendant ce filtre puis retrouvée à sa désactivation. Enlever un favori actualise la liste et conserve un focus utile ; copie et planification restent indépendantes. Filtre et résultats sont repris au rechargement. |
+| R18 — consulter puis ajouter | Toucher une date sélectionne toujours son jour, vide ou rempli. Ajouter ici et Ajouter ouvrent explicitement le panneau. Consulter une date vide ne déclenche aucune création ni modale. **Ajouter depuis un jour vide coûte un appui supplémentaire** par rapport à l’ouverture automatique initiale ; l’intérêt contre les ouvertures involontaires reste à comparer auprès d’utilisateurs. |
+| R36 — charge seule | Charge seule · série N recopie uniquement la charge précédente valide, y compris 0, sans répétitions/RPE/ressenti/statut/raisons/cibles inventés. Une série Non faite et une charge source invalide sont exclues. Annuler restaure uniquement l’ancienne charge et sa saisie/erreur, conserve les répétitions saisies depuis et refuse une charge modifiée entre-temps. Si des répétitions réelles existaient déjà, la complétude suit la règle habituelle ; aucune déclaration Faite n’est écrite par la recopie. La recopie intégrale reste disponible pour des résultats réellement identiques. |
+| R41 — repos facultatif | Repos… ouvre un minuteur près des séries ; il ne démarre qu’après Démarrer. Durée réutilisable de 5 à 3600 secondes, préréglages 30/60/90/120, pause/reprise, réinitialisation et Fermer et arrêter. Le temps restant est calculé depuis l’heure de fin, y compris après navigation/rechargement ; aucune notification, son, validation de série ou modification de résultat. La fin est signalée dans le panneau. Le minuteur est un état d’exécution, exclu du bilan archivé. |
+| R43 — correction sur place | Corriger ici ouvre les résultats réels dans la ligne de revue, avec autosauvegarde, valeurs brutes séparées et erreurs bloquantes. Compteurs, résultats, omissions et autorisation de clôture s’actualisent sans navigation ni reconstruction des champs. Les autres séries et les cibles restent conservées. Ouvrir dans l’entraînement reste disponible pour les adaptations et cas particuliers ; le retour retrouve la ligne. Entrée ferme la correction, sans terminer la séance. Aucune édition dans un bilan archivé. |
+| R46 — retrouver un bilan | Recherche par nom de séance, regroupement par date et tri Plus récentes/Plus anciennes. Le retour d’un bilan et le rechargement retrouvent recherche, tri et défilement. Recherche vide avec récupération explicite. Aucun filtre de performance, comparaison, record ou analyse T3 ajouté. |
+| R48 — une confirmation nommée | L’aperçu conserve contenu et audience, puis propose Publier dans la communauté ou Partager avec mes contacts. La case supplémentaire est retirée. Une modification est nommée Mettre à jour pour…, une republication reste distincte. Le code refuse la publication avant l’aperçu et vérifie encore les informations/conditions de contenu. Les échecs de stockage continuent à conserver le brouillon. Le gain d’une activation ne prouve pas la compréhension de l’audience ; cette dernière reste à évaluer. |
+
+### Vérifications réalisées
+
+- **104 tests ciblés réussis** : les 92 précédents et les 12 de `tests/ergonomie-lot5.test.cjs`. Favoris des deux bibliothèques et critères, date vide sans ajout, recopie de charge sans autres valeurs, minuteur à horloge contrôlée (bornes, pause/reprise, expiration, arrêt et absence de résultats modifiés), état du minuteur exclu de l’archive, recherche/tri sans modifier les bilans, restauration de contexte par profil, publication impossible avant aperçu et archive sans champs de correction.
+- Syntaxe de tous les modules JavaScript et `git diff --check` contrôlés. Les 49 identifiants sont présents une seule fois dans les cinq tableaux de livraison ; aucun identifiant restant. Liens locaux et ancres des documents modifiés vérifiés ; Cours5/Cours6 restent ignorés par Git.
+- Chromium, profil fictif dédié : questionnaire interrompu à la deuxième question, retour à la première réponse, question passée, nouveau rechargement à la troisième, fin conservant un entraînement préexistant. Accès démo sans saisie de mot de passe et retour au profil nommé sans mélange des données.
+- Favoris des deux bibliothèques, retrait d’un favori, focus de retour, rechargement du filtre ; date vide consultée sans modale puis ajout explicite.
+- Charge seule sur une série vide, nouvelles répétitions puis annulation ne touchant qu’à la charge. Minuteur sans démarrage implicite, pause/reprise/rechargement et fin après avancement contrôlé de l’échéance ; aucune valeur réelle changée. Durée vide rejetée, arrêt du rafraîchissement en quittant T2 et expiration retrouvée au retour.
+- Revue : charge négative bloquante, correction française 22,5/7,5 avec compteurs actualisés, autres séries/cibles conservées. Saisie inachevée `22,` conservée après rechargement et bloquante pour l’archivage, sans alerte prématurée pendant la frappe. Retour avancé vers la ligne exacte ; Entrée ferme le volet sans clôture ; archive en lecture seule.
+- Trente bilans fictifs : recherche de dix séances Jambes, tri chronologique, détail puis retour à la recherche et au défilement, rechargement du même bilan, récupération d’une recherche vide.
+- Simulation locale de partage : audience Contacts visible dans l’aperçu et le bouton, absence de publication avant cette action, publication unique puis mise à jour sans doublon. Aucune publication distante ; le serveur local de test a été relancé après une interruption, puis le scénario a été rejoué avec succès.
+- Questionnaire, minuteur, correction de revue, calendrier, historique et aperçu de partage vérifiés à **320, 390 et 1280 px**, sans débordement du document. Captures examinées. Le défilement interne de la grille étroite reste intentionnel.
+
+### Clôture et évaluation restante
+
+La liste de développement est terminée. L’analyse T3 reste à concevoir. Téléphone physique, clavier virtuel réel, lecteur d’écran et tests utilisateur ne sont pas réalisés. Les variantes R18 et R48 doivent notamment être comparées sur compréhension, activations involontaires, erreurs et accomplissement des tâches ; les comptes de clics et tests automatisés ne les remplacent pas. Les autres scénarios utilisateur de la section 9 restent également à exécuter.

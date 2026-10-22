@@ -46,7 +46,7 @@ window.Calendrier = {
     return entry;
   },
   meta(session) {
-    return [session.duration ? `≈ ${session.duration} min` : '',`${(session.exercises || []).length} exercices`,session.group || (session.groups || []).join(', '),session.equipment].filter(Boolean).join(' · ');
+    return [session.duration ? `≈ ${session.duration} min` : '',window.Ergonomie.count((session.exercises || []).length,'exercice'),session.group || (session.groups || []).join(', '),session.equipment].filter(Boolean).join(' · ');
   },
   render() {
     const p = window.Parcours;
@@ -59,13 +59,13 @@ window.Calendrier = {
     const selected = this.entries(this.selected);
     return `<div class="calendar-heading"><div><p class="calendar-eyebrow">MON PLANNING</p><h1 tabindex="-1">Calendrier</h1></div><button type="button" id="calendar-add" class="primary-action">+ Ajouter</button></div>
       <div class="calendar-toolbar"><div class="calendar-switch" aria-label="Vue du calendrier"><button type="button" data-mode="month" aria-pressed="${this.mode === 'month'}">Mois</button><button type="button" data-mode="week" aria-pressed="${this.mode === 'week'}">Semaine</button></div><button type="button" class="text-action" id="calendar-today">Aujourd’hui</button></div>
-      <button type="button" id="calendar-show-day" class="text-action calendar-day-link">Voir ${this.selected === this.today() ? 'la séance du jour' : 'le jour sélectionné'} · ${selected.length} élément${selected.length === 1 ? '' : 's'}</button><div class="calendar-period"><h2>${title}</h2><div><button type="button" class="landing-button" data-period="-1" aria-label="Période précédente">‹</button><button type="button" class="landing-button" data-period="1" aria-label="Période suivante">›</button></div></div>
-      <div class="calendar-grid ${this.mode === 'week' ? 'is-week' : ''}" aria-label="${p.escape(title)}">${['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'].map(day => `<span class="calendar-weekday">${day}</span>`).join('')}${Array.from({length:count},(_,index) => {
+      <button type="button" id="calendar-show-day" class="text-action calendar-day-link">Voir ${this.selected === this.today() ? 'la séance du jour' : 'le jour sélectionné'} · ${selected.length} élément${selected.length === 1 ? '' : 's'}</button><div class="calendar-period"><h2><button type="button" id="calendar-jump" aria-label="Choisir une date, ${p.escape(title)}">${title} <span aria-hidden="true">⌄</span></button></h2><div><button type="button" class="landing-button" data-period="-1" aria-label="Période précédente">‹</button><button type="button" class="landing-button" data-period="1" aria-label="Période suivante">›</button></div></div>
+      <p class="calendar-keyboard-help">Au clavier : flèches pour parcourir les jours ; Page précédente/suivante pour changer de mois.</p><div class="calendar-grid-scroll"><div class="calendar-grid ${this.mode === 'week' ? 'is-week' : ''}" aria-label="${p.escape(title)}">${['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'].map(day => `<span class="calendar-weekday">${day}</span>`).join('')}${Array.from({length:count},(_,index) => {
         const date = this.plus(start,index), entries = this.entries(date), milestones = this.milestones(date);
-        return `<div class="calendar-cell ${date.slice(0,7) !== this.cursor.slice(0,7) && this.mode === 'month' ? 'is-outside' : ''} ${date === this.selected ? 'is-selected' : ''}" data-drop-date="${date}"><button class="calendar-date" type="button" data-date="${date}" aria-label="${this.label(date)}${entries.length ? `, ${entries.map(entry => entry.type === 'rest' ? 'Repos' : p.escape(entry.session.name)).join(', ')}` : ''}${milestones.length ? `, ${milestones.map(item => p.escape(item.title)).join(', ')}` : ''}" aria-pressed="${date === this.selected}" ${date === this.today() ? 'aria-current="date"' : ''}><span>${this.date(date).getDate()}</span></button><div class="calendar-markers">${entries.slice(0,1).map(entry => `<span class="calendar-chip is-${entry.type}" aria-label="${p.escape(entry.type === 'rest' ? 'Repos' : entry.session.name)} · ${this.label(date)}"><span>${entry.type === 'rest' ? 'Repos' : p.escape(entry.session.name)}</span></span>`).join('')}${milestones.length ? '<span class="milestone-marker" aria-label="Échéance">⚑</span>' : ''}${entries.length > 1 ? `<span class="calendar-overflow">+${entries.length-1}</span>` : ''}</div></div>`;
-      }).join('')}</div>
+        return `<div class="calendar-cell ${date.slice(0,7) !== this.cursor.slice(0,7) && this.mode === 'month' ? 'is-outside' : ''} ${date === this.selected ? 'is-selected' : ''}" data-drop-date="${date}"><button class="calendar-date" type="button" data-date="${date}" tabindex="${date === this.selected ? 0 : -1}" aria-label="${this.label(date)}${entries.length ? `, ${entries.map(entry => entry.type === 'rest' ? 'Repos' : p.escape(entry.session.name)).join(', ')}` : ''}${milestones.length ? `, ${milestones.map(item => p.escape(item.title)).join(', ')}` : ''}" aria-pressed="${date === this.selected}" ${date === this.today() ? 'aria-current="date"' : ''}><span>${this.date(date).getDate()}</span></button><div class="calendar-markers">${entries.slice(0,1).map(entry => `<span class="calendar-chip is-${entry.type}" aria-label="${p.escape(entry.type === 'rest' ? 'Repos' : entry.session.name)} · ${this.label(date)}"><span>${entry.type === 'rest' ? 'Repos' : p.escape(entry.session.name)}</span></span>`).join('')}${milestones.length ? '<span class="milestone-marker" aria-label="Échéance">⚑</span>' : ''}${entries.length > 1 ? `<span class="calendar-overflow">+${entries.length-1}</span>` : ''}</div></div>`;
+      }).join('')}</div></div>
       <div class="calendar-legend"><span class="legend-session">Séance</span><span class="legend-rest">Repos</span><span class="legend-milestone">Échéance</span></div>
-      <section class="calendar-selected" aria-labelledby="selected-date-title"><div class="landing-row"><div><p class="calendar-eyebrow">${this.selected === this.today() ? 'AUJOURD’HUI' : 'JOUR SÉLECTIONNÉ'}</p><h2 id="selected-date-title">${this.label(this.selected)}</h2></div><button type="button" class="landing-button" id="day-add" aria-label="Ajouter au jour sélectionné">+</button></div><div class="calendar-agenda">${selected.length ? selected.map(entry => `<div class="agenda-row"><button type="button" class="agenda-card is-${entry.type}" data-entry="${entry.id}" ${this.isLocked(entry) ? '' : 'draggable="true"'}><span class="agenda-symbol" aria-hidden="true">${entry.type === 'rest' ? '☾' : '▥'}</span><span><small>${entry.type === 'rest' ? 'RÉCUPÉRATION' : p.state.completedSessions.some(record => record.executionKey === entry.id) ? 'SÉANCE TERMINÉE' : 'SÉANCE PRÉVUE'}</small><strong>${entry.type === 'rest' ? 'Repos' : p.escape(entry.session.name)}</strong>${entry.type === 'session' ? `<span>${p.escape(this.meta(entry.session))}</span><small>${this.isLocked(entry) ? 'Ouvrir la séance →' : 'Voir les exercices et les objectifs →'}</small>` : '<span>Une journée pour récupérer.</span>'}</span></button>${entry.type === 'session' && p.state.completedSessions.some(record => record.executionKey === entry.id) ? `<button class="resume-workout landing-button" type="button" data-completed-entry="${entry.id}">Voir le bilan</button>` : entry.type === 'session' && p.state.trainingDrafts[entry.id] ? `<button class="resume-workout landing-button" type="button" data-resume="${entry.id}">En cours · Reprendre</button>` : ''}</div>`).join('') : this.milestones(this.selected).length ? '' : '<p class="calendar-empty">Rien de prévu pour ce jour.<br>Ajoute une séance, un repos ou une échéance.</p>'}${this.milestoneCards(this.selected)}</div></section>
+      <section class="calendar-selected" aria-labelledby="selected-date-title"><div class="landing-row"><div><p class="calendar-eyebrow">${this.selected === this.today() ? 'AUJOURD’HUI' : 'JOUR SÉLECTIONNÉ'}</p><h2 id="selected-date-title">${this.label(this.selected)}</h2></div><button type="button" class="landing-button" id="day-add" aria-label="Ajouter au jour sélectionné">+ Ajouter ici</button></div><div class="calendar-agenda">${selected.length ? selected.map(entry => `<div class="agenda-row"><button type="button" class="agenda-card is-${entry.type}" data-entry="${entry.id}" ${this.isLocked(entry) ? '' : 'draggable="true"'}><span class="agenda-symbol" aria-hidden="true">${entry.type === 'rest' ? '☾' : '▥'}</span><span><small>${entry.type === 'rest' ? 'RÉCUPÉRATION' : p.state.completedSessions.some(record => record.executionKey === entry.id) ? 'SÉANCE TERMINÉE' : 'SÉANCE PRÉVUE'}</small><strong>${entry.type === 'rest' ? 'Repos' : p.escape(entry.session.name)}</strong>${entry.type === 'session' ? `<span>${p.escape(this.meta(entry.session))}</span><small>${this.isLocked(entry) ? 'Ouvrir la séance →' : 'Voir les exercices et les objectifs →'}</small>` : '<span>Une journée pour récupérer.</span>'}</span></button>${entry.type === 'session' && p.state.completedSessions.some(record => record.executionKey === entry.id) ? `<button class="resume-workout landing-button" type="button" data-completed-entry="${entry.id}">Voir le bilan</button>` : entry.type === 'session' && p.state.trainingDrafts[entry.id] ? `<button class="resume-workout landing-button" type="button" data-resume="${entry.id}">En cours · Reprendre</button>` : ''}</div>`).join('') : this.milestones(this.selected).length ? '' : '<p class="calendar-empty">Rien de prévu pour ce jour.<br>Ajoute une séance, un repos ou une échéance.</p>'}${this.milestoneCards(this.selected)}</div></section>
       <button type="button" class="text-action calendar-week-action" id="calendar-copy-week">Copier / déplacer cette semaine</button>
       <dialog id="calendar-dialog" class="calendar-dialog" aria-labelledby="calendar-dialog-title"><h2 id="calendar-dialog-title"></h2><div id="calendar-dialog-content"></div></dialog>`;
   },
@@ -74,7 +74,30 @@ window.Calendrier = {
     window.Parcours.route('mine');
     if (focus) document.querySelector(focus)?.focus({preventScroll:true});
   },
+  jumpTo(date) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !Number.isFinite(this.date(date).getTime()) || this.key(this.date(date)) !== date) return false;
+    this.selected = this.cursor = date;
+    this.refresh(`[data-date="${date}"]`);
+    document.querySelector(`[data-date="${date}"]`)?.scrollIntoView({block:'nearest',inline:'nearest'});
+    return true;
+  },
   bind() {
+    document.querySelector('#calendar-jump').onclick = () => {
+      const dialog = this.dialog('Choisir une date',`<form id="calendar-jump-form"><label>Date à consulter<input name="date" type="date" value="${this.selected}" required></label><p class="form-help">Consulter une date ne crée ni séance ni repos.</p><div class="week-actions"><button type="submit" class="primary-action">Voir cette date</button><button type="button" id="calendar-cancel" class="text-action">Annuler</button></div></form>`);
+      dialog.querySelector('form').onsubmit = event => { event.preventDefault(); const date = event.target.elements.date.value; if (!date) return; dialog.close(); this.jumpTo(date); };
+    };
+    document.querySelectorAll('[data-date]').forEach(button => { button.onkeydown = event => {
+      let date = button.dataset.date;
+      if (['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)) date = this.plus(date,{ArrowLeft:-1,ArrowRight:1,ArrowUp:-7,ArrowDown:7}[event.key]);
+      else if (event.key === 'Home') date = this.monday(date);
+      else if (event.key === 'End') date = this.plus(this.monday(date),6);
+      else if (['PageUp','PageDown'].includes(event.key)) {
+        const old = this.date(date), first = new Date(old.getFullYear(),old.getMonth()+(event.key === 'PageUp' ? -1 : 1),1,12);
+        const last = new Date(first.getFullYear(),first.getMonth()+1,0,12).getDate();
+        first.setDate(Math.min(old.getDate(),last)); date = this.key(first);
+      } else return;
+      event.preventDefault(); this.jumpTo(date);
+    }; });
     document.querySelector('#calendar-show-day').onclick = () => { const heading = document.querySelector('#selected-date-title'); heading.tabIndex = -1; heading.focus(); heading.scrollIntoView({block:'start'}); };
     document.querySelector('#calendar-add').onclick = () => this.choose(this.selected);
     document.querySelector('#day-add').onclick = () => this.choose(this.selected);
@@ -148,7 +171,7 @@ window.Calendrier = {
       else this.cursor = this.plus(this.cursor,step*7);
       this.selected = this.cursor; this.refresh(`[data-period="${step}"]`);
     }
-    else if (date) { this.selected = date.dataset.date; this.refresh(`[data-date="${this.selected}"]`); if (!this.entries(this.selected).length && !this.milestones(this.selected).length) this.choose(this.selected); }
+    else if (date) { this.selected = date.dataset.date; this.refresh(`[data-date="${this.selected}"]`); }
     else if (entry) this.open(entry.dataset.entry);
     else if (schedule) this.schedule(window.Parcours.state.saved.find(item => item.id === schedule.dataset.schedule));
     return !!(mode || period || date || entry || schedule);
@@ -194,7 +217,7 @@ window.Calendrier = {
       this.quickAdd(source,dates);
     };
     document.querySelector('#calendar-create').onclick = () => {
-      const create = () => { this.creationDate = date; p.state.creationDraft = {...(p.state.creationDraft || {}),organization:'Séance seule'}; document.querySelector('#calendar-dialog').close(); p.route('create'); };
+      const create = () => { p.state.ui.fullCreation = false; if (p.state.creationDraft?.creationDate !== date) p.state.creationDraft = null; this.creationDate = date; p.state.creationDraft = {...(p.state.creationDraft || {}),organization:'Séance seule'}; document.querySelector('#calendar-dialog').close(); p.route('create'); };
       const rests = this.entries(date).filter(entry => entry.type === 'rest');
       if (rests.length) window.Ergonomie.confirm('Remplacer le repos ?',`Créer une séance le ${this.label(date)} remplace le repos.`,() => { this.creationRestIds = rests.map(entry => entry.id); create(); },'Remplacer et créer'); else create();
     };
@@ -387,7 +410,7 @@ window.Calendrier = {
   copyWeek() {
     const p = window.Parcours, start = this.monday(this.selected), end = this.plus(start,7);
     const entries = p.state.calendar.filter(entry => entry.date >= start && entry.date < end);
-    const dialog = this.dialog('Copier / déplacer la semaine',`<form id="calendar-week-copy"><p class="landing-hint">Semaine du ${this.label(start)} · ${entries.length} élément(s). Les copies auront leurs propres objectifs.</p>${p.select('Action','action',[['copy','Copier et répéter'],['move','Déplacer la semaine']])}<label>Lundi de destination<input name="date" type="date" value="${this.plus(start,7)}" required></label><label id="repeat-count">Nombre de copies hebdomadaires<input name="count" type="number" min="1" max="104" step="1" value="1" required></label><p id="calendar-error" class="error" role="alert"></p><div class="week-actions"><button type="submit" class="primary-action">Appliquer</button><button id="calendar-cancel" type="button" class="text-action">Annuler</button></div></form>`);
+    const dialog = this.dialog('Copier / déplacer la semaine',`<form id="calendar-week-copy"><p class="landing-hint">Semaine du ${this.label(start)} · ${window.Ergonomie.count(entries.length,'élément')}. Les copies auront leurs propres objectifs.</p>${p.select('Action','action',[['copy','Copier et répéter'],['move','Déplacer la semaine']])}<label>Lundi de destination<input name="date" type="date" value="${this.plus(start,7)}" required></label><label id="repeat-count">Nombre de copies hebdomadaires<input name="count" type="number" min="1" max="104" step="1" value="1" required></label><p id="calendar-error" class="error" role="alert"></p><div class="week-actions"><button type="submit" class="primary-action">Appliquer</button><button id="calendar-cancel" type="button" class="text-action">Annuler</button></div></form>`);
     const form = document.querySelector('#calendar-week-copy');
     form.oninput = event => { if (!event.target.closest('#calendar-error')) this.clearPlacementResolution(); };
     form.elements.action.onchange = () => { const move = form.elements.action.value === 'move'; document.querySelector('#repeat-count').hidden = move; form.elements.count.disabled = move; };

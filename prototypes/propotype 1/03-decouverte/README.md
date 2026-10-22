@@ -19,7 +19,7 @@ Cette page correspond à T1.1.3, choisir un programme prédéfini, et T5.1, rech
 - Prévoir des listes d’options extensibles, dont les bases sont proposées plus bas.
 - Appui sur une séance → récapitulatif ; **aucun bouton Commencer ni démarrage immédiat** sur la liste ou ce récapitulatif.
 - Possibilité de conserver une séance dans la semaine ou les favoris.
-- Navigation inchangée : Découvrir / Mes entraînements / Progrès.
+- Navigation : Découvrir / Calendrier / Partages / Bilans ; Mes entraînements est la liste personnelle sous le calendrier.
 - Bibliothèque de départ et communauté restent accessibles séparément ; séances courtes prioritaires.
 
 Les libellés précis, dispositions et comportements détaillés ci-dessous sont des propositions de maquette à relire, pas une évaluation utilisateur déjà effectuée.
@@ -32,7 +32,7 @@ Après la dernière question ou « Passer le reste », utiliser le niveau **déj
 | --- | --- |
 | Nom d’affichage | Salutation courte facultative en haut ; jamais l’e-mail complet |
 | Niveau | Filtre présélectionné s’il est renseigné ; Débutant et Intermédiaire partagent cette page |
-| Objectif | Repère pour proposer des séances pertinentes ; ne pas inventer d’objectif si absent |
+| Objectif | Repère conservé dans le profil ; aucun filtrage/classement sportif par objectif dans cette version |
 | Matériel | Filtre présélectionné s’il est renseigné |
 | Groupe musculaire et durée | Aucune valeur imposée à l’arrivée ; réglages disponibles dans les filtres |
 
@@ -43,10 +43,10 @@ Les filtres restent modifiables. Le niveau décide de l’arrivée, pas d’une 
 De haut en bas :
 
 1. En-tête compact : titre « Découvrir », éventuellement « Bonjour {nom} » en ligne secondaire. Pas de grand visuel.
-2. Champ « Rechercher une séance », avec exemple « Full Body, jambes… ».
+2. Champ « Rechercher une séance ou un programme », avec exemple « Full Body, jambes… ».
 3. Action « Filtres », avec nombre de filtres actifs ; repères actifs visibles sous forme de petites étiquettes retirables.
 4. Choix « Pour commencer » / « Communauté », reprenant les deux bibliothèques séparées.
-5. Titre « Séances pour toi » si des repères existent ; « Séances pour commencer » sinon, suivi d’une courte indication « Les plus courtes en premier ».
+5. Titre « Selon tes filtres » si des repères existent ; « Séances pour commencer » sinon, suivi d’une courte indication « Les plus courtes en premier ».
 6. Liste verticale de cartes de séances, défilante, puis nombre de résultats.
 7. Barre des trois onglets, avec Découvrir actif.
 
@@ -54,7 +54,7 @@ Contrairement aux trois questions, cette page assume un défilement vertical pou
 
 ## 5. Recherche et filtres
 
-La recherche concerne le nom de la **séance**, pas le nom d’un exercice. Elle s’applique à la bibliothèque courante avec les filtres actifs. Les filtres de catégories différentes se combinent ; une séance doit satisfaire les choix renseignés.
+La recherche concerne le nom de la **séance ou du programme**, pas le nom d’un exercice. Elle s’applique à la bibliothèque courante avec les filtres actifs. Les filtres de catégories différentes se combinent ; une séance doit satisfaire les choix renseignés.
 
 Le bouton Filtres ouvre un panneau avec les quatre catégories. Proposition : sélection unique par catégorie pour cette première version, avec option « Tous » pour enlever la contrainte. Les changements actualisent les résultats sans bouton de confirmation supplémentaire. Fermer le panneau conserve les réglages ; « Effacer les filtres » retire les contraintes, sans modifier les réponses du questionnaire.
 
@@ -138,7 +138,7 @@ Favoris, copies personnelles et semaine sont des propositions concrètes pour le
 | Ajouter aux favoris | Même récapitulatif, état favori mis à jour | Référence de la séance |
 | Ajouter à mes entraînements | Même récapitulatif, copie confirmée | Copie personnelle ; accès possible à Mes entraînements |
 | Choisir Mes entraînements | [Espace personnel](../04-mes-entrainements/README.md) | Préférences et éléments conservés |
-| Choisir Progrès | Espace Progrès, à concevoir | Historique disponible, sans progression inventée |
+| Choisir Bilans | Liste et détails des bilans conservés | Résultats archivés en lecture seule, sans analyse de progression |
 
 États à représenter : suggestions avec réponses complètes ou partielles, bibliothèque générale sans réponses, filtre actif, résultats vides, contenu favori ou déjà enregistré, retour depuis une fiche. Les repères sont toujours modifiables ; l’absence de réponses n’empêche pas l’accès aux séances.
 
@@ -189,3 +189,19 @@ Les publications locales actives créées avec une structure complète apparaiss
 ## Feedback de conservation — premier lot ergonomique
 
 L’enregistrement/placement depuis le récapitulatif et l’import d’un programme distinguent maintenant une conservation réussie d’un changement seulement appliqué pour cette visite lorsque le stockage échoue. L’alerte globale propose Réessayer la sauvegarde ; la copie déjà créée en mémoire reste réutilisée, sans import supplémentaire. Voir le [compte rendu du lot](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md).
+
+
+## Troisième lot ergonomique — 22 octobre 2026
+
+Le compteur global distingue séances et programmes ; un programme trouvé seul ne provoque plus d’encart Aucune séance. Filtres retirables individuellement et effacement du seul nom permettent de corriger une recherche sans tout recommencer. La présentation annonce les critères réellement utilisés ; objectif sportif conservé sans fausse promesse, budget temps affiché comme repère facultatif. La recherche et les critères actualisent la même entrée de l’historique, pour un retour/rechargement cohérent.
+
+Déjà enregistré distingue une copie du favori. Enregistrer devient Préparer ma copie dans le récapitulatif : accès direct à la même copie, sans nouvelle copie ni entraînement démarré. L’import de programme affiche des semaines repliables, variations et cibles publiques ; ouvrir une semaine révèle directement ses exercices. L’action d’import reste accessible et ne place aucune date. Mes préférences est commun aux espaces principaux, avec retour à la recherche et à sa position.
+
+Les vérifications du lot sont dans l’[audit](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#13-troisième-lot-livré--22-octobre-2026).
+
+
+## Dernier lot ergonomique — 22 octobre 2026
+
+Mes favoris affiche les séances favorites des deux bibliothèques tout en conservant nom et filtres explicites. La sélection de bibliothèque est masquée pendant ce mode, puis retrouvée à sa désactivation. Retirer un favori actualise la liste et permet un retour de focus même si la carte disparaît. Le mode Favoris est repris après rechargement ; favori, copie et occurrence restent distincts.
+
+Vérification : 104 tests ciblés et parcours Chromium à 320, 390 et 1280 px ; [preuves, compromis et évaluations restantes](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#15-dernier-lot-livré--22-octobre-2026).

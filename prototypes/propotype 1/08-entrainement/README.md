@@ -8,7 +8,7 @@ Un exercice à la fois avec navigation entre mouvements, illustration, consignes
 
 Les saisies et la position sont conservées directement dans `Parcours.state.trainingDrafts`, par occurrence de calendrier ou séance personnelle. Quitter et reprendre retrouve le même état. Les objectifs sont copiés au démarrage et restent séparés des résultats ; modifier ensuite une préparation ne réécrit pas une exécution commencée. Les brouillons des autres dates et les résultats des autres exercices restent conservés.
 
-La séance peut maintenant être vérifiée puis conservée par T2.4. Quitter pendant la saisie reste une sortie sans terminer ; la confirmation finale crée un bilan distinct et consultable. L’analyse des progrès, records et comparaisons T3, le minuteur et la substitution d’exercice pendant l’effort restent hors de cette version.
+La séance peut maintenant être vérifiée puis conservée par T2.4. Quitter pendant la saisie reste une sortie sans terminer ; la confirmation finale crée un bilan distinct et consultable. L’analyse des progrès, records et comparaisons T3 et la substitution d’exercice pendant l’effort restent hors de cette version.
 
 ## Organisation et fichiers
 
@@ -85,7 +85,7 @@ Annuler restaure les valeurs, leurs chaînes brutes (dont virgules décimales), 
 
 Les résultats peuvent contenir, en plus de `load`, `reps`, `rpe`, `feeling`, un `outcome` explicite (`completed`, `interrupted`, `skipped` ou `null`), `adapted` et `outcomeReason`. Sans `outcome`, l’état est calculé depuis les valeurs et leurs erreurs ; les anciens brouillons sont compatibles. `outcomeDetails` ne conserve que l’ouverture du volet. Les erreurs brutes d’une série Non faite sont archivées avec celle-ci et redeviennent actives en reprenant sa saisie.
 
-Le futur bilan T2.4 devra conserver ces statuts et distinguer réalisation et complétude des valeurs. L’affichage de résultat précédent n’utilise pas les valeurs d’une série marquée interrompue ou non faite comme référence complète. Aucun brouillon n’est ajouté à `completedSessions` par T2.2. T2.3 et T2.4 sont décrits ci-dessous ; l’analyse T3 reste à construire.
+Le bilan T2.4 conserve ces statuts et distingue réalisation et complétude des valeurs. L’affichage de résultat précédent n’utilise pas les valeurs d’une série marquée interrompue ou non faite comme référence complète. Aucun brouillon n’est ajouté à `completedSessions` par T2.2. T2.3 et T2.4 sont décrits ci-dessous ; l’analyse T3 reste à construire.
 
 ### Vérifications T2.2
 
@@ -97,13 +97,13 @@ Parcours Chromium : saisie avec ressenti puis RPE, virgules décimales, statut F
 
 | Branche | Comportement |
 | --- | --- |
-| T2.3.1 | Sommeil, fatigue, douleur/gêne et raison générale d’adaptation dans État et effort du jour. Tout reste facultatif et distinct des raisons par série T2.1/T2.2. |
+| T2.3.1 | Un seul contexte général, avec sommeil, fatigue et douleur/gêne comme précisions facultatives dans Avant la séance. Tout reste facultatif et distinct des raisons par série T2.1/T2.2. |
 | T2.3.2 | Remarque technique, réglage réellement utilisé et rappel par exercice. Accès rapide Notes dans l’en-tête, ou volet Notes, réglage et médias après les séries. Saisie conservée sans validation supplémentaire. |
 | T2.3.3 | Ajout de photos/vidéos locales, aperçu, légende, association à l’exercice ou à une série, téléchargement, retrait et annulation. Aucun envoi ni publication automatique. |
 
 Le sommeil accepte 0 à 24 heures par demi-heure, avec virgule décimale. Une saisie invalide reste visible après navigation/rechargement, sans écraser la dernière valeur valide. Le lien de correction rouvre le contexte et place le focus sur le champ. Fatigue (Faible/Moyenne/Forte) et douleur/gêne (Aucune/Légère/Modérée/Importante) restent des déclarations personnelles ; aucun ajustement de charge ou conseil automatique n’est produit.
 
-Les notes, réglages et rappels acceptent 500 caractères. Ils sont associés à la position stable de l’exercice dans cette exécution, y compris pour plusieurs occurrences d’un même mouvement. Le réglage utilisé est rappelé à côté des consignes prévues, sans remplacer les réglages T1. Un futur résultat précédent pourra reprendre ce réglage réel s’il est conservé avec le bilan. Les rappels restent des notes de séance ; leur transformation en points à revoir relève de T3.
+Les notes, réglages et rappels acceptent 500 caractères. Ils sont associés à la position stable de l’exercice dans cette exécution, y compris pour plusieurs occurrences d’un même mouvement. Le réglage utilisé est rappelé à côté des consignes prévues, sans remplacer les réglages T1. Le résultat précédent peut afficher ce réglage réel lorsqu’il est conservé avec le bilan. Les rappels restent des notes de séance ; leur transformation en points à revoir relève de T3.
 
 ### Médias et conservation
 
@@ -174,3 +174,36 @@ Les messages numériques précisent désormais le champ et ses limites ; une sai
 Un bilan ouvert depuis Bilans revient à la même liste et à sa position ; depuis Calendrier, il revient au calendrier. Le même bilan peut être restauré après rechargement. Les textes visibles n’emploient plus le code de tâche T3 et ne promettent pas une analyse inexistante. Le détail reste en lecture seule.
 
 Les neuf suites totalisent **66 tests ciblés réussis**. Navigation, reprise, correction, retour de bilan et défilement sont vérifiés dans Chromium ; limites et preuves dans le [rapport du deuxième lot](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#12-deuxième-lot-livré--22-octobre-2026).
+
+
+## Troisième lot ergonomique — 22 octobre 2026
+
+Focus/sélection en bleu et série sélectionnée nommée ainsi restent distincts des statuts de réalisation et des erreurs. Les outils de série ont au moins 44 × 44 px. Les nombres affichés/préremplis utilisent la virgule française ; les saisies brutes sont conservées, 0 kg et vide restent distincts. L’aide précise RPE : effort ressenti de 1 à 10 ; les quantités se pluralisent sans « (s) ». Les préférences sont accessibles depuis Bilans et y reviennent. Les règles de clôture restent celles de T2.4.
+
+Vérification : 77 tests ciblés et parcours Chromium à 320, 390 et 1280 px ; détails et limites dans l’[audit](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#13-troisième-lot-livré--22-octobre-2026).
+
+
+## Quatrième lot ergonomique — 22 octobre 2026
+
+Le bilan d’avancement par exercice distingue faites, interrompues, non faites, partielles, non renseignées et invalides. Série suivante focalise la ligne suivante sans résultat ni statut implicite. Avant la séance distingue état initial/effort prévu ; un seul texte de contexte accepte 1 000 caractères. Les anciens textes sont réunis sans répétition ; les raisons par série restent propres à leur série. Sommeil/fatigue/douleur sont des précisions dépliables ; Après la séance nomme le ressenti final.
+
+Renseigner ou modifier le réglage utilisé ouvre directement ce champ ; Notes ouvre toujours la remarque. Les réglages prévus/précédents ne sont pas copiés automatiquement dans le réglage réel.
+
+Les ajouts de médias affichent état par fichier, progression, réussite et Réessayer ce fichier. Un échec partiel conserve les succès sans doublon ; une référence non sauvegardée reprend le même identifiant. Les fichiers en échec restent disponibles pendant la visite ; après rechargement, les fichiers non ajoutés doivent être choisis à nouveau. Une opération complète, y compris lecture/retrait/restauration, empêche la clôture pendant son exécution. Retrait échoué conserve fichier et référence. Annuler reste visible pendant l’attente et réessayable après échec.
+
+Terminer et conserver garde un libellé stable. Les omissions sont averties à côté du bouton, les compteurs à zéro sont masqués et les statuts restent visibles par série. Aucune série vide n’est convertie en Non faite. Les erreurs numériques restent bloquantes ; les omissions autorisées peuvent être archivées explicitement.
+
+Vérification : 92 tests ciblés et parcours Chromium aux trois largeurs ; [preuves et limites](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#14-quatrième-lot-livré--22-octobre-2026).
+
+
+## Dernier lot ergonomique — 22 octobre 2026
+
+Charge seule · série N recopie uniquement la charge réelle précédente valide, dont 0 kg. Répétitions, effort, statut, raison et cible ne sont pas remplis ; une source Non faite ou une charge invalide est refusée. Annuler ne restaure que la charge et sa saisie/erreur : les répétitions renseignées depuis restent conservées, et une charge modifiée depuis est protégée. La complétude continue à dépendre des valeurs réelles déjà présentes.
+
+Repos… ouvre un minuteur facultatif lié à l’exercice/série. Démarrer est explicite ; durée de 5 à 3600 secondes, préréglages, pause/reprise, réinitialisation et Fermer et arrêter. L’échéance est conservée dans l’exécution, les rafraîchissements sont libérés en quittant l’écran et le temps restant est recalculé au retour/rechargement. Aucun son, notification ni résultat créé. Le minuteur et les volets de correction ne sont pas archivés.
+
+Corriger ici ouvre les champs réels dans la revue, autosauvegardés avec valeurs brutes et validation ; cibles et autres séries restent conservées. Compteurs, omissions et autorisation de clôture sont actualisés sans reconstruire les champs. Entrée ferme le volet, sans terminer la séance. Une saisie inachevée reste bloquante et reprise au rechargement. Ouvrir dans l’entraînement reste disponible pour les cas avancés, avec retour à la ligne exacte. Les bilans archivés restent en lecture seule.
+
+Bilans propose recherche du nom de séance, regroupement par date et tri récentes/anciennes. Retour du détail et rechargement conservent recherche, tri et défilement. Aucun classement de performance ni analyse T3 n’est ajouté.
+
+Vérification : 104 tests ciblés et parcours Chromium à 320, 390 et 1280 px ; [preuves, compromis et évaluations restantes](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#15-dernier-lot-livré--22-octobre-2026).

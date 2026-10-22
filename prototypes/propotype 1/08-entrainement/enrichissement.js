@@ -1,10 +1,11 @@
 'use strict';
 
 window.EnrichissementSeance = {
-  urls:new Set(), generation:0,
+  urls:new Set(), generation:0, uploads:new Map(), tasks:new Set(),
   initialize(draft) {
     draft.enrichment ||= {};
     draft.enrichment.context ||= {sleepHours:null,fatigue:'',pain:'',adaptationReason:''};
+    if (!Object.hasOwn(draft.enrichment.context,'note')) draft.enrichment.context.note = [...new Set([draft.dayState?.note,draft.enrichment.context.adaptationReason].filter(Boolean))].join('\n');
     draft.enrichment.exercises ||= {}; draft.enrichment.rawFields ||= {}; draft.enrichment.errors ||= {};
   },
   exercise(draft,index) {
@@ -16,6 +17,7 @@ window.EnrichissementSeance = {
     const valid = key === 'sleepHours' ? value === null || Number.isFinite(value) && value >= 0 && value <= 24 && Number.isInteger(value*2)
       : key === 'fatigue' ? ['','Faible','Moyenne','Forte'].includes(value)
       : key === 'pain' ? ['','Aucune','Légère','Modérée','Importante'].includes(value)
+      : key === 'note' ? typeof value === 'string' && value.length <= 1000
       : key === 'adaptationReason' ? typeof value === 'string' && value.length <= 500 : false;
     if (!valid) return false;
     draft.enrichment.context[key] = value; return true;
@@ -29,10 +31,10 @@ window.EnrichissementSeance = {
     const p = window.Parcours, context = draft.enrichment.context, tracking = draft.session.tracking || {};
     const fields = [
       ['sleep', `<label>Sommeil, en heures (facultatif)<input type="text" data-numeric="true" data-context="sleepHours" min="0" max="24" step="0.5" value="${p.escape(draft.enrichment.rawFields.sleepHours ?? context.sleepHours ?? '')}" aria-invalid="${!!draft.enrichment.errors.sleepHours}" aria-describedby="context-sleep-error"></label><p class="error" id="context-sleep-error" role="alert">${p.escape(draft.enrichment.errors.sleepHours || '')}</p>`],
-      ['energy', p.select('Fatigue (facultatif)','fatigue',[['','Non renseignée'],...['Faible','Moyenne','Forte'].map(value => [value,value])],context.fatigue,'data-context="fatigue"')],
-      ['pain', p.select('Douleur ou gêne (facultatif)','pain',[['','Non renseignée'],...['Aucune','Légère','Modérée','Importante'].map(value => [value,value])],context.pain,'data-context="pain"')]
+      ['energy', p.select('Préciser la fatigue initiale (facultatif)','fatigue',[['','Non renseignée'],...['Faible','Moyenne','Forte'].map(value => [value,value])],context.fatigue,'data-context="fatigue"')],
+      ['pain', p.select('Préciser la douleur ou gêne initiale (facultatif)','pain',[['','Non renseignée'],...['Aucune','Légère','Modérée','Importante'].map(value => [value,value])],context.pain,'data-context="pain"')]
     ];
-    return `<div class="training-context-fields">${fields.filter(([key]) => tracking[key]).map(([,markup]) => markup).join('')}<details class="context-secondary" ${this.hasErrors(draft) ? 'open' : ''}><summary>Autres informations facultatives</summary>${fields.filter(([key]) => !tracking[key]).map(([,markup]) => markup).join('')}<label>Raison générale d’une adaptation (facultative)<textarea data-context="adaptationReason" maxlength="500" rows="2" placeholder="Ex. Nuit courte, fatigue ou matériel différent">${p.escape(context.adaptationReason)}</textarea></label></details></div>`;
+    return `<div class="training-context-fields"><label>Contexte de cette séance (facultatif)<textarea data-context="note" maxlength="1000" rows="2" placeholder="Ex. Nuit courte ou matériel différent — à noter une seule fois">${p.escape(context.note)}</textarea></label><details class="context-secondary" ${this.hasErrors(draft) || fields.some(([key]) => tracking[key]) ? 'open' : ''}><summary>Précisions sur l’état initial (facultatives)</summary>${fields.map(([,markup]) => markup).join('')}</details></div>`;
   },
   openContext() {
     document.querySelector('.training-day-state').open = true;
@@ -43,7 +45,7 @@ window.EnrichissementSeance = {
   exerciseMarkup(draft,index) {
     const p = window.Parcours, value = this.exercise(draft,index);
     const count = [value.note,value.setting,value.reminder].filter(Boolean).length;
-    return `<details id="training-enrichment" class="training-enrichment" ${(value.open ?? draft.session.tracking?.notes) ? 'open' : ''}><summary>Notes, réglage et médias <span id="enrichment-summary">${count || value.media.length ? `${count} note(s) · ${value.media.length} média(s)` : 'Facultatif'}</span></summary><p class="form-help">Liés à cet exercice et à cette séance. Les consignes prévues et le programme restent conservés.</p>${[['note','Remarque technique','Ex. Garder un mouvement plus régulier'],['setting','Réglage utilisé','Ex. Siège 3, poignée neutre'],['reminder','Rappel pour la prochaine revue','Ex. Revoir le réglage du banc']].map(([key,label,placeholder]) => `<label>${label} (facultatif)<textarea data-exercise-context="${key}" rows="2" maxlength="500" placeholder="${placeholder}">${p.escape(value[key])}</textarea></label>`).join('')}<div class="training-media-heading"><h3>Photos et vidéos</h3><label class="landing-button media-file-label">+ Ajouter une photo ou vidéo<input id="training-media-files" type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm,video/quicktime" multiple></label></div><p class="form-help">Conservés sur cet appareil, sans publication. 20 Mo par fichier, 6 médias par exercice, 60 Mo par séance.</p><p id="training-media-status" role="status" class="${value.mediaError ? 'error' : 'form-help'}">${p.escape(value.mediaError || '')}</p><div id="training-media-list">${this.mediaMarkup(draft,index)}</div></details>`;
+    return `<details id="training-enrichment" class="training-enrichment" ${(value.open ?? draft.session.tracking?.notes) ? 'open' : ''}><summary>Notes, réglage et médias <span id="enrichment-summary">${count || value.media.length ? `${count} ${count === 1 ? 'note' : 'notes'} · ${value.media.length} ${value.media.length === 1 ? 'média' : 'médias'}` : 'Facultatif'}</span></summary><p class="form-help">Liés à cet exercice et à cette séance. Les consignes prévues et le programme restent conservés.</p>${[['note','Remarque technique','Ex. Garder un mouvement plus régulier'],['setting','Réglage utilisé','Ex. Siège 3, poignée neutre'],['reminder','Rappel pour la prochaine revue','Ex. Revoir le réglage du banc']].map(([key,label,placeholder]) => `<label>${label} (facultatif)<textarea data-exercise-context="${key}" rows="2" maxlength="500" placeholder="${placeholder}">${p.escape(value[key])}</textarea></label>`).join('')}<div class="training-media-heading"><h3>Photos et vidéos</h3><label class="landing-button media-file-label">+ Ajouter une photo ou vidéo<input id="training-media-files" type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm,video/quicktime" multiple></label></div><p class="form-help">Conservés sur cet appareil, sans publication. 20 Mo par fichier, 6 médias par exercice, 60 Mo par séance.</p><p id="training-media-status" role="status" class="${value.mediaError ? 'error' : 'form-help'}">${p.escape(value.mediaError || '')}</p><div id="training-media-jobs" aria-live="polite">${this.uploadMarkup(index,window.Entrainement.key,p.state.identity)}</div><div id="training-media-list">${this.mediaMarkup(draft,index)}</div></details>`;
   },
   mediaMarkup(draft,index) {
     const p = window.Parcours, value = this.exercise(draft,index);
@@ -112,12 +114,14 @@ window.EnrichissementSeance = {
   },
   refreshMedia(draft,index,key,owner) {
     if (!this.active(draft,index,key,owner)) return;
+    this.updateOperations(draft,index,key,owner);
+    if (window.Parcours.view !== 'training' || draft.exerciseIndex !== index || !document.querySelector('#training-media-list')) return;
     this.releaseUrls(); document.querySelector('#training-media-list').innerHTML = this.mediaMarkup(draft,index);
     this.updateSummary(draft,index); this.bindMedia(draft,index,key,owner); this.hydrate(draft,index,key,owner);
   },
   updateSummary(draft,index) {
     const value = this.exercise(draft,index), count = [value.note,value.setting,value.reminder].filter(Boolean).length;
-    document.querySelector('#enrichment-summary').textContent = `${count} note(s) · ${value.media.length} média(s)`;
+    document.querySelector('#enrichment-summary').textContent = `${count} ${count === 1 ? 'note' : 'notes'} · ${value.media.length} ${value.media.length === 1 ? 'média' : 'médias'}`;
     const setting = document.querySelector('#training-actual-setting');
     if (setting) { setting.hidden = !value.setting; setting.textContent = `Réglage utilisé : ${value.setting}`; }
   },
@@ -132,35 +136,114 @@ window.EnrichissementSeance = {
       const media = value.media.find(item => item.id === select.dataset.mediaRow); if (!media) return;
       media.row = select.value === '' ? null : Number(select.value); window.Entrainement.saveStatus(p.persist());
     }; });
-    document.querySelectorAll('[data-remove-media]').forEach(button => { button.onclick = async () => {
-      const id = button.dataset.removeMedia, media = value.media.find(item => item.id === id);
-      let position;
-      if (!media || button.disabled) return;
-      button.disabled = true;
-      let blob;
-      try { blob = await this.mediaOperation('get',this.mediaKey(owner,key,id)); }
-      catch { button.disabled = false; if (this.active(draft,index,key,owner)) document.querySelector('#training-media-status').textContent = 'Le média n’a pas pu être retiré. Réessaie.'; return; }
-      if (p.state.identity !== owner || p.state.trainingDrafts[key] !== draft) return;
-      position = value.media.findIndex(item => item.id === id);
-      if (position === -1) return;
+    document.querySelectorAll('[data-remove-media]').forEach(button => { button.onclick = () => this.removeMedia(draft,index,key,owner,button.dataset.removeMedia); });
+    this.bindRetries(draft,index,key,owner);
+  },
+  busy(key,owner) { return [...this.tasks].some(task => task.key === key && task.owner === owner); },
+  uploadKey(index,key,owner) { return this.mediaKey(owner,key,`upload:${index}`); },
+  uploadMarkup(index,key,owner) {
+    const p = window.Parcours, jobs = this.uploads.get(this.uploadKey(index,key,owner)) || [];
+    return jobs.map(job => `<div class="media-upload-job"><strong>${p.escape(job.file.name)}</strong><p class="${job.status === 'error' ? 'error' : 'form-help'}">${p.escape(job.message)}</p>${job.status === 'error' ? `<button type="button" class="landing-button" data-retry-media="${job.id}" ${this.busy(key,owner) ? 'disabled' : ''}>Réessayer ce fichier</button>` : ''}</div>`).join('');
+  },
+  operationStatus(key,owner) {
+    const errors = [...this.uploads.values()].flat().filter(job => job.key === key && job.owner === owner && job.status === 'error').length;
+    const draft = window.Parcours.state.identity === owner ? window.Parcours.state.trainingDrafts[key] : null;
+    const failure = Object.values(draft?.enrichment?.exercises || {}).map(value => value.mediaError).find(Boolean) || '';
+    return this.busy(key,owner) ? 'Opération média en cours… Attends sa fin avant de terminer la séance.' : errors ? `${errors} fichier${errors === 1 ? '' : 's'} non ajouté${errors === 1 ? '' : 's'}. Reviens aux médias pour réessayer ou choisir un autre fichier.` : failure;
+  },
+  updateOperations(draft,index,key,owner) {
+    if (!this.active(draft,index,key,owner)) return;
+    const review = document.querySelector('#review-media-progress');
+    if (review) { review.textContent = this.operationStatus(key,owner); const button = document.querySelector('#confirm-training-completion'); if (button) button.disabled = this.busy(key,owner) || window.BilanSeance.issues(draft).length > 0; }
+    if (window.Parcours.view !== 'training' || draft.exerciseIndex !== index) return;
+    const jobs = document.querySelector('#training-media-jobs'); if (jobs) jobs.innerHTML = this.uploadMarkup(index,key,owner);
+    const status = document.querySelector('#training-media-status'); if (status) { status.textContent = this.exercise(draft,index).mediaError || ''; status.className = status.textContent ? 'error' : 'form-help'; }
+    const input = document.querySelector('#training-media-files'); if (input) input.disabled = this.busy(key,owner);
+    document.querySelectorAll('[data-remove-media]').forEach(button => { button.disabled = this.busy(key,owner); });
+    this.bindRetries(draft,index,key,owner);
+  },
+  bindRetries(draft,index,key,owner) {
+    document.querySelectorAll('[data-retry-media]').forEach(button => { button.onclick = () => { const job = (this.uploads.get(this.uploadKey(index,key,owner)) || []).find(item => item.id === button.dataset.retryMedia); if (job) this.uploadFiles(draft,index,key,owner,[],job); }; });
+  },
+  async uploadFiles(draft,index,key,owner,files,retry = null) {
+    const p = window.Parcours; if (p.state.identity !== owner || p.state.trainingDrafts[key] !== draft || this.busy(key,owner)) return false;
+    const queueKey = this.uploadKey(index,key,owner), jobs = retry ? [retry] : files.map(file => ({id:crypto.randomUUID(),owner,key,file,status:'queued',message:'En attente'}));
+    if (!retry) this.uploads.set(queueKey,[...(this.uploads.get(queueKey) || []),...jobs]);
+    const task = {owner,key}; this.tasks.add(task); this.updateOperations(draft,index,key,owner);
+    try {
+      for (const job of jobs) {
+        job.status = 'working'; job.message = `Ajout du fichier ${jobs.indexOf(job)+1} sur ${jobs.length}…`; this.updateOperations(draft,index,key,owner);
+        try {
+          if (p.state.identity !== owner || p.state.trainingDrafts[key] !== draft) return false;
+          const value = this.exercise(draft,index), existing = value.media.find(media => media.id === job.id);
+          if (!existing) {
+            const issue = this.mediaIssue(draft,index,job.file); if (issue) throw new Error(issue);
+            try { await this.mediaOperation('put',this.mediaKey(owner,key,job.id),job.file); } catch { throw new Error('Ce fichier n’a pas pu être conservé sur cet appareil. Réessaie.'); }
+            if (p.state.identity !== owner || p.state.trainingDrafts[key] !== draft) { await this.mediaOperation('delete',this.mediaKey(owner,key,job.id)); return false; }
+            const afterIssue = this.mediaIssue(draft,index,job.file); if (afterIssue) { await this.mediaOperation('delete',this.mediaKey(owner,key,job.id)); throw new Error(afterIssue); }
+            value.media.push({id:job.id,name:job.file.name,type:job.file.type,size:job.file.size,caption:'',row:null,createdAt:new Date().toISOString()});
+          }
+          if (!p.persist()) throw new Error('Fichier local conservé, référence non enregistrée. Réessaie la sauvegarde en gardant cette page ouverte.');
+          job.status = 'saved'; job.message = 'Conservé sur cet appareil';
+        } catch (error) { job.status = 'error'; job.message = error.message || 'Ajout impossible. Réessaie ce fichier.'; }
+        const value = this.exercise(draft,index);
+        value.mediaError = (this.uploads.get(queueKey) || []).some(job => job.status === 'error') ? 'Certains fichiers restent à ajouter ou à sauvegarder. Réessaie chaque fichier ; après rechargement, choisis à nouveau les fichiers en échec.' : '';
+        if (p.state.identity === owner && p.state.trainingDrafts[key] === draft) p.persist();
+        this.refreshMedia(draft,index,key,owner);
+      }
+      return jobs.every(job => job.status === 'saved');
+    } finally { this.tasks.delete(task); this.updateOperations(draft,index,key,owner); }
+  },
+  async removeMedia(draft,index,key,owner,id) {
+    const p = window.Parcours, value = this.exercise(draft,index), media = value.media.find(item => item.id === id);
+    if (!media || p.state.identity !== owner || p.state.trainingDrafts[key] !== draft || this.busy(key,owner)) return false;
+    const task = {owner,key}; this.tasks.add(task); this.updateOperations(draft,index,key,owner);
+    let position, blob;
+    try {
+      blob = await this.mediaOperation('get',this.mediaKey(owner,key,id));
+      if (p.state.identity !== owner || p.state.trainingDrafts[key] !== draft) return false;
+      position = value.media.findIndex(item => item.id === id); if (position === -1) return false;
       value.media.splice(position,1);
-      const saved = p.persist();
-      if (!saved) { value.media.splice(position,0,media); button.disabled = false; window.Entrainement.saveStatus(false); return; }
+      if (!p.persist()) { value.media.splice(position,0,media); throw new Error('Référence non sauvegardée'); }
       try { await this.mediaOperation('delete',this.mediaKey(owner,key,id)); }
-      catch { button.disabled = false; value.media.splice(position,0,media); if (p.state.identity === owner) p.persist(); if (this.active(draft,index,key,owner)) { document.querySelector('#training-media-status').textContent = 'Le média n’a pas pu être retiré. Réessaie.'; } return; }
-      this.refreshMedia(draft,index,key,owner);
-      if (p.state.identity !== owner) return;
-      p.notify('Média retiré',async () => {
-        await Promise.resolve();
-        if (p.state.identity !== owner || p.state.trainingDrafts[key] !== draft) return;
-        if (blob && this.mediaIssue(draft,index,blob)) { p.notify('Retire un autre média pour pouvoir rétablir celui-ci.'); return; }
-        try { if (blob) await this.mediaOperation('put',this.mediaKey(owner,key,id),blob); }
-        catch { p.notify('Le média n’a pas pu être rétabli. Réessaie de l’ajouter.'); return; }
-        if (p.state.identity !== owner || p.state.trainingDrafts[key] !== draft) { if (blob) await this.mediaOperation('delete',this.mediaKey(owner,key,id)); return; }
-        value.media.splice(Math.min(position,value.media.length),0,media); const restored = p.persist();
-        this.refreshMedia(draft,index,key,owner); window.Entrainement.saveStatus(restored);
-      });
-    }; });
+      catch (error) {
+        const stored = p.state.identity === owner ? p.state.trainingDrafts[key] : p.profiles?.[owner]?.state.trainingDrafts[key];
+        if (stored) { const restored = this.exercise(stored,index); if (!restored.media.some(item => item.id === id)) restored.media.splice(Math.min(position,restored.media.length),0,media); p.persist(); }
+        throw error;
+      }
+      value.mediaError = ''; if (p.state.identity === owner && p.state.trainingDrafts[key] === draft) p.persist();
+      for (const job of this.uploads.get(this.uploadKey(index,key,owner)) || []) if (job.id === id) { job.status = 'removed'; job.message = 'Retiré de cet exercice'; }
+      if (p.state.identity === owner) p.notify('Média retiré',() => this.restoreMedia(draft,index,key,owner,media,blob,position));
+      return true;
+    } catch {
+      value.mediaError = 'Retrait impossible. Le média et sa référence restent conservés ; réessaie.'; if (p.state.identity === owner && p.state.trainingDrafts[key] === draft) p.persist();
+      if (this.active(draft,index,key,owner)) { const status = document.querySelector('#training-media-status') || document.querySelector('#review-media-progress'); if (status) status.textContent = 'Retrait impossible. Le média et sa référence restent conservés ; réessaie.'; }
+      return false;
+    } finally { this.tasks.delete(task); this.refreshMedia(draft,index,key,owner); }
+  },
+  async restoreMedia(draft,index,key,owner,media,blob,position) {
+    const p = window.Parcours;
+    if (p.state.identity !== owner || p.state.trainingDrafts[key] !== draft || this.busy(key,owner)) return false;
+    const value = this.exercise(draft,index); if (value.media.some(item => item.id === media.id)) return true;
+    const task = {owner,key}; this.tasks.add(task); this.updateOperations(draft,index,key,owner);
+    try {
+      const issue = blob && this.mediaIssue(draft,index,blob); if (issue) throw new Error(issue);
+      if (blob) { try { await this.mediaOperation('put',this.mediaKey(owner,key,media.id),blob); } catch { throw new Error('Stockage du média indisponible'); } }
+      if (p.state.identity !== owner || p.state.trainingDrafts[key] !== draft) { if (blob) await this.mediaOperation('delete',this.mediaKey(owner,key,media.id)); return false; }
+      value.media.splice(Math.min(position,value.media.length),0,media);
+      if (!p.persist()) { value.media = value.media.filter(item => item.id !== media.id); if (blob) await this.mediaOperation('delete',this.mediaKey(owner,key,media.id)); throw new Error('Sauvegarde de la référence indisponible'); }
+      for (const job of this.uploads.get(this.uploadKey(index,key,owner)) || []) if (job.id === media.id) { job.status = 'saved'; job.message = 'Conservé sur cet appareil'; }
+      return true;
+    } catch (error) {
+      if (p.state.identity === owner) p.notify(`Rétablissement impossible : ${error.message}. Réessaie Annuler.`,() => this.restoreMedia(draft,index,key,owner,media,blob,position));
+      return false;
+    } finally { this.tasks.delete(task); this.refreshMedia(draft,index,key,owner); }
+  },
+  openField(draft,index,field) {
+    const details = document.querySelector('#training-enrichment'); if (!details) return;
+    details.open = true; this.exercise(draft,index).open = true;
+    const input = details.querySelector(`[data-exercise-context="${field}"]`); input?.focus(); input?.scrollIntoView({block:'nearest'});
+    window.Parcours.persist();
   },
   bind(draft,index,key) {
     const p = window.Parcours, owner = p.state.identity;
@@ -177,39 +260,14 @@ window.EnrichissementSeance = {
     document.querySelector('#training-context-error').onclick = () => { this.openContext(); };
     if (!draft.session.exercises[index]) return;
     const value = this.exercise(draft,index), details = document.querySelector('#training-enrichment');
-    document.querySelector('#open-training-enrichment').onclick = () => { details.open = true; details.scrollIntoView({block:'start'}); details.querySelector('textarea').focus({preventScroll:true}); };
+    document.querySelector('#open-training-enrichment').onclick = () => this.openField(draft,index,'note');
+    document.querySelector('#training-edit-setting').onclick = () => this.openField(draft,index,'setting');
     details.ontoggle = () => { value.open = details.open; p.persist(); };
     document.querySelectorAll('[data-exercise-context]').forEach(input => { input.oninput = () => {
       this.writeExercise(draft,index,input.dataset.exerciseContext,input.value); this.updateSummary(draft,index); window.Entrainement.saveStatus(p.persist());
     }; });
-    document.querySelector('#training-media-files').onchange = async event => {
-      const input = event.target, files = [...input.files]; input.value = '';
-      input.disabled = true; const errors = []; let added = 0;
-      for (const file of files) {
-        let error = this.mediaIssue(draft,index,file), stored = false;
-        if (!error) {
-          const id = crypto.randomUUID(), storageKey = this.mediaKey(owner,key,id);
-          try {
-            await this.mediaOperation('put',storageKey,file);
-            if (p.state.identity !== owner || p.state.trainingDrafts[key] !== draft) { await this.mediaOperation('delete',storageKey); break; }
-            error = this.mediaIssue(draft,index,file);
-            if (error) await this.mediaOperation('delete',storageKey);
-            else { value.media.push({id,name:file.name,type:file.type,size:file.size,caption:'',row:null,createdAt:new Date().toISOString()}); added++; stored = true; }
-          } catch { error = 'Le média n’a pas pu être conservé sur cet appareil. Réessaie ; les résultats de séance restent disponibles.'; }
-        }
-        if (error) errors.push(`${file.name} : ${error}`);
-        value.mediaError = errors.join(' ');
-        if (p.state.identity === owner && p.state.trainingDrafts[key] === draft) {
-          const saved = p.persist(); window.Entrainement.saveStatus(saved);
-          if (!saved && stored) { errors.push('Fichier conservé, mais sa référence n’a pas pu être enregistrée. Garde cette page ouverte.'); value.mediaError = errors.join(' '); }
-        }
-        if (this.active(draft,index,key,owner)) {
-          const status = document.querySelector('#training-media-status'); status.textContent = value.mediaError || `${added} média(s) conservé(s) sur cet appareil.`; status.className = value.mediaError ? 'error' : 'form-help';
-          this.refreshMedia(draft,index,key,owner);
-        }
-      }
-      input.disabled = false;
-    };
+    document.querySelector('#training-media-files').onchange = event => { const files = [...event.target.files]; event.target.value = ''; this.uploadFiles(draft,index,key,owner,files); };
+    this.updateOperations(draft,index,key,owner);
     this.bindMedia(draft,index,key,owner); this.hydrate(draft,index,key,owner);
   }
 };

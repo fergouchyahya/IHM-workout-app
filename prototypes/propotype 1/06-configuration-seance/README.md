@@ -73,3 +73,17 @@ Les erreurs numériques nomment le champ et ses limites. Les répétitions min/m
 La sauvegarde locale nomme la date ou la séance. Étendre au mésocycle présente les différences réellement propagées, les dates touchées et les exclusions motivées. Les dates passées, exécutions commencées/terminées et autres brouillons ne sont pas écrasés. Les préférences de suivi restent locales à cette préparation.
 
 Revenir à la version enregistrée permet d’annuler l’abandon et de récupérer le brouillon complet, tant qu’un nouveau travail ou une exécution ne l’a pas remplacé. Les retours retrouvent l’origine et l’historique peut restaurer cet éditeur après rechargement. Vérifications et mesure comparative (2 753 → 2 481 px sur la même séance personnelle à 390 × 844) dans le [rapport](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md).
+
+
+## Troisième lot ergonomique — 22 octobre 2026
+
+Les cartes incomplètes restent blanches avec À compléter et cibles manquantes rouges. Une valeur invalide ajoute son message, champ invalide et bordure distincte ; focus/sélection utilisent le bleu. Les actions courantes et Retirer restent séparées. Les cibles numériques s’affichent en français (22,5 kg, RPE 7,5/10), avec une aide locale sur l’effort ressenti de 1 à 10. Les valeurs brutes saisies restent distinctes du modèle valide.
+
+Vérification : 77 tests ciblés et parcours Chromium à 320, 390 et 1280 px ; détails et limites dans l’[audit](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#13-troisième-lot-livré--22-octobre-2026).
+
+
+## Quatrième lot ergonomique — 22 octobre 2026
+
+Une séance personnelle enregistrée propose Préparer un partage, sans publier. Depuis le partage d’un contenu À compléter, l’éditeur conserve son origine et propose Enregistrer et revenir au partage. La sauvegarde valide le brouillon et retrouve titre, niveau, description, audience et options déjà saisis. Les adaptations d’une occurrence datée et les séances de semaine gardent leur portée existante.
+
+Vérification : 92 tests ciblés et parcours Chromium aux trois largeurs ; [preuves et limites](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#14-quatrième-lot-livré--22-octobre-2026).

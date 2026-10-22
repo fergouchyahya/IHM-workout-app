@@ -41,6 +41,7 @@ window.Parcours = {
   },
   switchIdentity(identity) {
     if (identity === this.state.identity) return;
+    window.Entrainement?.releaseTimer();
     this.persist();
     const oldIds = new Set(this.state.customExercises.map(item => item.id));
     window.catalogueExercices = window.catalogueExercices.filter(item => !oldIds.has(item.id));
@@ -84,18 +85,26 @@ window.Parcours = {
       const identity = this.state.identity;
       button.onclick = async () => {
         if (button.disabled || this.state.identity !== identity) return;
-        button.disabled = true;
+        button.disabled = true; button.textContent = 'Annulation…';
         try {
           const result = await undo();
           if (result !== false && this.undoAction === undo) { this.undoAction = null; notice.replaceChildren(); }
           this.persist();
         } catch { this.notify('L’action n’a pas pu être annulée. Réessaie.'); }
-        finally { button.disabled = false; }
+        finally { button.disabled = false; button.textContent = 'Annuler'; }
       };
       notice.append(button);
     } else this.noticeTimer = setTimeout(() => { notice.replaceChildren(); },3500);
   },
+  returnFromPreferences(changed = false) {
+    const origin = this.preferenceOrigin || {view:'mine',identity:this.state.identity,scroll:0};
+    document.querySelector('#questions-page').hidden = true;
+    document.querySelector('#landing-page').hidden = false;
+    if (!this.restoreLocation({...origin,...(changed && origin.view === 'discover' ? {filters:{...this.state.filters}} : {})})) this.route('mine');
+    if (changed) this.notifyChange('Préférences enregistrées · entraînements conservés');
+  },
   openPreferences() {
+    this.preferenceOrigin = this.captureLocation();
     let dialog = document.querySelector('#preference-dialog');
     if (!dialog) { dialog = document.createElement('dialog'); dialog.id = 'preference-dialog'; document.body.append(dialog); }
     const definitions = [['Niveau','level',0],['Objectif','goal',1],['Matériel','equipment',2]];
@@ -103,7 +112,7 @@ window.Parcours = {
     dialog.querySelector('#open-availability').onclick = () => { dialog.close(); window.Disponibilites.open(); };
     dialog.querySelector('#close-preferences').onclick = () => dialog.close();
     dialog.querySelector('#switch-profile').onclick = () => { dialog.close(); this.persist(); document.querySelector('#landing-page').hidden = true; document.querySelector('#landing-navigation').hidden = true; document.querySelector('#access-page').hidden = false; document.querySelector('#login-identifier').focus(); };
-    dialog.querySelectorAll('[data-preference]').forEach(button => { button.onclick = () => { dialog.close(); document.querySelector('#landing-page').hidden = true; document.querySelector('#landing-navigation').hidden = true; window.QuestionsRapides.start({name:this.state.name,reset:false,answers:this.state.profile,field:Number(button.dataset.preference),returnToLogin:() => { document.querySelector('#questions-page').hidden = true; document.querySelector('#landing-page').hidden = false; this.route('mine'); },editing:true}); }; });
+    dialog.querySelectorAll('[data-preference]').forEach(button => { button.onclick = () => { dialog.close(); document.querySelector('#landing-page').hidden = true; document.querySelector('#landing-navigation').hidden = true; window.QuestionsRapides.start({name:this.state.name,reset:false,answers:this.state.profile,field:Number(button.dataset.preference),returnToLogin:() => this.returnFromPreferences(),onComplete:() => this.returnFromPreferences(true),editing:true}); }; });
     dialog.showModal();
   },
   ensureCopy(workout) {
@@ -120,11 +129,12 @@ window.Parcours = {
   captureLocation() {
     const location = {view:this.view,identity:this.state.identity,scroll:window.scrollY || 0};
     const editor = window.ConfigurationSeance;
-    if (this.view === 'discover') Object.assign(location,{search:this.state.search,filters:{...this.state.filters},source:this.state.source});
+    if (this.view === 'discover') Object.assign(location,{search:this.state.search,filters:{...this.state.filters},source:this.state.source,favoritesOnly:!!this.state.ui.favoritesOnly});
     if (this.view === 'mine') Object.assign(location,{date:window.Calendrier.selected,mode:window.Calendrier.mode,cursor:window.Calendrier.cursor});
     if (this.view === 'workout') Object.assign(location,{baseId:editor.base?.id,calendarId:editor.calendarId,dayIndex:editor.dayIndex,key:editor.key,stage:editor.stage,origin:editor.origin});
     if (this.view === 'week') Object.assign(location,{baseId:window.Semaine.base?.id,origin:window.Semaine.origin});
     if (this.view === 'training' || this.view === 'review') location.key = window.Entrainement.key;
+    if (this.view === 'progress') Object.assign(location,{historySearch:this.state.ui.historySearch || '',historyOrder:this.state.ui.historyOrder || 'desc'});
     if (this.view === 'summary') Object.assign(location,{recordId:window.BilanSeance.activeId,origin:window.BilanSeance.origin});
     if (this.view === 'create') Object.assign(location,{creationDate:window.Calendrier.creationDate,creationRestIds:window.Calendrier.creationRestIds});
     if (this.view === 'sharing') Object.assign(location,{stage:window.Partages.stage,sourceId:window.Partages.source?.id,activeId:window.Partages.activeId,editing:window.Partages.editing});
@@ -134,7 +144,7 @@ window.Parcours = {
     if (!saved || saved.identity !== this.state.identity) return false;
     const location = structuredClone(saved), p = this.state, editor = window.ConfigurationSeance;
     if (!['discover','mine','workout','week','create','training','review','summary','progress','sharing'].includes(location.view)) return false;
-    if (location.view === 'discover') { p.search = location.search || ''; p.filters = {...location.filters}; p.source = location.source || 'starter'; }
+    if (location.view === 'discover') { p.search = location.search || ''; p.filters = {...location.filters}; p.source = location.source || 'starter'; p.ui.favoritesOnly = !!location.favoritesOnly; }
     if (location.view === 'mine') { window.Calendrier.selected = location.date || window.Calendrier.today(); window.Calendrier.cursor = location.cursor || window.Calendrier.selected; window.Calendrier.mode = location.mode || p.ui.calendarMode || 'week'; }
     if (location.view === 'week') { const base = p.saved.find(item => item.id === location.baseId); if (!base?.days) return false; window.Semaine.base = base; window.Semaine.origin = location.origin; }
     if (location.view === 'workout') {
@@ -153,6 +163,7 @@ window.Parcours = {
       if (!draft) { const record = p.completedSessions.find(item => item.executionKey === location.key); if (!record) return false; location.view = 'summary'; location.recordId = record.id; }
       else { window.Entrainement.key = location.key; window.Entrainement.initialize(draft); }
     }
+    if (location.view === 'progress') { p.ui.historySearch = location.historySearch || ''; p.ui.historyOrder = location.historyOrder === 'asc' ? 'asc' : 'desc'; }
     if (location.view === 'summary') { if (!p.completedSessions.some(item => item.id === location.recordId)) return false; window.BilanSeance.activeId = location.recordId; window.BilanSeance.origin = location.origin || {view:'progress',identity:p.identity,scroll:0}; }
     if (location.view === 'create') { window.Calendrier.creationDate = location.creationDate || null; window.Calendrier.creationRestIds = location.creationRestIds || null; }
     if (location.view === 'sharing') {
@@ -171,6 +182,7 @@ window.Parcours = {
   },
   route(view,{restored = null,replace = false} = {}) {
     window.EnrichissementSeance?.releaseUrls();
+    window.Entrainement?.releaseTimer();
     const same = this.view === view;
     const previous = this.location ? {...this.location,scroll:window.scrollY || 0} : null;
     if (!restored && previous && window.history?.state?.ihmLocation?.entryId === previous.entryId) window.history.replaceState({ihmLocation:previous},'');
@@ -199,7 +211,11 @@ window.Parcours = {
       : view === 'summary' ? window.BilanSeance.renderSummary()
       : view === 'progress' ? window.BilanSeance.renderHistory()
       : view === 'sharing' ? window.Partages.render()
-      : '<h1 tabindex="-1">Progrès</h1><p class="landing-lead">Tes séances terminées et leurs résultats apparaîtront ici.</p><p class="landing-hint">Aucun résultat dans cette démonstration.</p>';
+      : '<h1 tabindex="-1">Bilans</h1><p class="landing-lead">Tes séances terminées et leurs résultats apparaîtront ici.</p><p class="landing-hint">Aucun résultat dans cette démonstration.</p>';
+    if (['discover','mine','progress'].includes(view) || view === 'sharing' && window.Partages.stage === 'list') {
+      page.insertAdjacentHTML('afterbegin','<div class="global-controls"><button id="open-preferences" class="text-action" type="button">Mes préférences</button></div>');
+      page.querySelector('#open-preferences').onclick = () => this.openPreferences();
+    }
     if (view === 'discover') window.Decouverte.bind();
     else if (view === 'mine') window.Entrainements.bind();
     else if (view === 'create') window.Entrainements.bindCreate();

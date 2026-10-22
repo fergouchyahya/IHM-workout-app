@@ -98,3 +98,26 @@ Planning, transfert et déplacement direct listent les dates et contenus en conf
 Replanifier une même source aux mêmes dates affiche Déjà planifié avant toute mutation. Ajouter quand même une autre séance permet un deuxième entraînement volontaire ; les repos identiques sont dédupliqués. Les opérations groupées et la répétition de semaine proposent Annuler : seule l’opération concernée est inversée, sans écraser les modifications ultérieures ni les exécutions protégées. Cette dernière annulation appartient à la visite courante.
 
 Retour/Suivant et le rechargement retrouvent le calendrier et son contexte. `tests/ergonomie-lot2.test.cjs` couvre les règles de conflit, doublon et annulation ; les parcours de programme, copie, déplacement partiel et transfert sont vérifiés dans Chromium. Voir le [rapport](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md).
+
+
+## Troisième lot ergonomique — 22 octobre 2026
+
+Le titre de période ouvre Choisir une date : consulter ne crée aucun élément et n’ouvre pas l’ajout. Les dates et commandes conservent au moins 44 × 44 px ; à 320 px la grille défile dans son cadre. Tab atteint un seul jour ; flèches, Début/Fin et Page précédente/suivante parcourent les dates sans ajout, avec bornage du jour lors d’un changement de mois. Sélection bleue soulignée, séances rouges et repos verts restent distingués. Mes préférences est désormais un contrôle commun, avec retour à l’origine.
+
+Vérification : 77 tests ciblés et parcours Chromium à 320, 390 et 1280 px ; détails et limites dans l’[audit](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#13-troisième-lot-livré--22-octobre-2026).
+
+
+## Quatrième lot ergonomique — 22 octobre 2026
+
+Modifier plusieurs jours sélectionne des destinations puis Repos, À définir ou copie d’une séance de la semaine. La source est conservée et ne peut pas être sa propre destination. Les jours/brouillons occupés sont décrits ; leur remplacement doit être coché explicitement. Les copies d’exercices/cibles sont indépendantes.
+
+Annuler restaure les seuls jours et brouillons remplacés ; il refuse un travail plus récent. Une opération ne modifie ni les occurrences du calendrier ni les anciennes copies du mésocycle ; un cycle déjà répété est signalé à remettre à jour. L’édition individuelle reste disponible.
+
+Vérification : 92 tests ciblés et parcours Chromium aux trois largeurs ; [preuves et limites](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#14-quatrième-lot-livré--22-octobre-2026).
+
+
+## Dernier lot ergonomique — 22 octobre 2026
+
+Toucher une date sélectionne son jour, vide ou rempli ; le panneau ne s’ouvre plus automatiquement sur un jour vide. Ajouter ici et Ajouter demandent explicitement un ajout. Cette variante ajoute un appui pour créer depuis un jour vide, mais évite l’ouverture/fermeture d’un panneau pour une simple consultation. Compréhension et ouvertures involontaires restent à comparer avec des utilisateurs.
+
+Vérification : 104 tests ciblés et parcours Chromium à 320, 390 et 1280 px ; [preuves, compromis et évaluations restantes](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#15-dernier-lot-livré--22-octobre-2026).

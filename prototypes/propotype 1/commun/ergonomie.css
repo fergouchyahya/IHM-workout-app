@@ -278,3 +278,98 @@ body:has(#storage-status:not(:empty)) { padding-top:100px; }
 .scope-changes { padding-left:20px; font-size:14px; overflow-wrap:anywhere; }
 .scope-changes li { margin:6px 0; }
 #bulk-controls > .text-action { margin-right:12px; }
+
+/* Troisième lot : surfaces tactiles, distinction des états et consultation progressive. */
+button:not(.calendar-date),.landing-page summary,dialog summary { min-width:44px; min-height:44px; }
+button { overflow-wrap:anywhere; }
+.text-action { color:#334155; }
+button:focus-visible,summary:focus-visible { outline:3px solid #2563eb; outline-offset:2px; }
+.global-controls { display:flex; justify-content:flex-end; margin-bottom:4px; }
+.global-controls button { padding:8px 4px; font-size:13px; }
+.calendar-grid-scroll { max-width:100%; overflow-x:auto; border-radius:12px; }
+.calendar-grid { min-width:317px; grid-template-columns:repeat(7,minmax(45px,1fr)); }
+.calendar-date { min-width:44px; }
+.calendar-period { align-items:flex-start; }
+.calendar-period h2 { flex:1; min-width:0; }
+.calendar-period #calendar-jump { width:100%; padding:6px 0; border:0; background:transparent; color:var(--ink); text-align:left; font:inherit; font-weight:600; text-transform:capitalize; }
+.calendar-period > div { flex-shrink:0; }
+.calendar-keyboard-help { font-size:12px; color:#4b5563; margin:8px 0; }
+.calendar-cell.is-selected { background:#eff6ff; box-shadow:inset 0 0 0 2px #2563eb; }
+.calendar-cell.is-selected .calendar-date span { font-weight:700; text-decoration:underline; text-underline-offset:4px; }
+.calendar-date[aria-current="date"] span { background:#334155; }
+.calendar-cell.is-drop-target { box-shadow:inset 0 0 0 3px #2563eb; background:#dbeafe; }
+.calendar-switch button[aria-pressed="true"],.library-sections button[aria-pressed="true"] { color:#1d4ed8; }
+.library-sections button[aria-pressed="true"] { border-bottom-color:#2563eb; }
+#landing-navigation button[aria-current="page"] { color:#1d4ed8; background:#eff6ff; border-radius:8px; }
+.preparation-card.is-incomplete { background:#fff; border-color:#d1d5db; }
+.preparation-card.is-incomplete .completion-label { color:#b91c1c; font-weight:600; }
+.preparation-card .is-missing { border-color:#b91c1c; background:#fff; }
+.preparation-card:has([aria-invalid="true"]) { border-left:4px solid #b91c1c; }
+.training-set.is-current { border-color:#2563eb; box-shadow:inset 3px 0 #2563eb; }
+.training-set legend [aria-pressed="true"]::after { content:' · sélectionnée'; color:#1d4ed8; }
+.training-series-position { color:#334155; }
+.day-state-choices [aria-pressed="true"],.set-outcome-choices [aria-pressed="true"],.picker-result[aria-pressed="true"] { color:#1d4ed8; border-color:#2563eb; background:#eff6ff; font-weight:600; }
+.text-action[data-remove],#calendar-delete-session,[data-a="withdraw"],[data-remove-media] { color:#b91c1c; }
+.exercise-actions { gap:8px; }
+.exercise-actions [data-remove] { margin-left:auto; }
+.set-tools { gap:8px; }
+.training-set legend button,.set-target .text-action,.repeat-result { padding:8px; }
+.program-week,.program-session { margin:10px 0; border:1px solid #d1d5db; border-radius:8px; padding:0 10px; min-width:0; }
+.program-week > summary,.program-session > summary { padding:12px 0; cursor:pointer; font-size:14px; font-weight:600; }
+.program-week > summary span { display:block; color:#4b5563; font-size:12px; font-weight:400; margin-top:4px; }
+.program-overview > p { margin:12px 0; font-size:14px; }
+.program-day h3 { font-size:14px; margin:12px 0 6px; }
+.program-session ul { padding-left:20px; margin-bottom:12px; font-size:13px; }
+.program-session li { margin:8px 0; }
+.program-dialog-actions { position:sticky; bottom:-20px; background:#fff; padding:12px 0 max(12px,env(safe-area-inset-bottom)); border-top:1px solid #e5e7eb; z-index:2; }
+.program-publication-actions { position:sticky; bottom:80px; padding:10px; background:#fff; border:1px solid #d1d5db; border-radius:8px; z-index:1; }
+.program-publication-actions .landing-section { margin-top:8px; }
+.program-publication-actions .t4-check { margin:0; }
+#program-import-dialog { max-height:88dvh; overflow-y:auto; }
+@media (min-width:600px) { .calendar-keyboard-help { margin-bottom:10px; } }
+input:focus-visible,select:focus-visible,textarea:focus-visible { outline:2px solid #2563eb; outline-offset:2px; border-color:#2563eb; }
+input[aria-invalid="true"]:focus-visible,select[aria-invalid="true"]:focus-visible,textarea[aria-invalid="true"]:focus-visible { border-color:#b91c1c; }
+
+/* Quatrième lot : agir sur un lot, suivre l’effort et reprendre une opération. */
+.is-quick-creation .creation-advanced { display:none; }
+.is-quick-creation #base-name { margin-top:8px; }
+#many-days-summary { margin:14px 0; font-size:14px; overflow-wrap:anywhere; }
+.training-progress-row { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px 12px; margin:10px 0; }
+.training-progress-row p { flex:1 1 150px; font-size:13px; color:#334155; }
+.training-progress-row button { font-size:13px; padding:8px; }
+.training-context-fields textarea { margin-top:6px; }
+#training-edit-setting { display:block; padding:6px 0; font-size:13px; text-align:left; }
+.media-upload-job { margin:8px 0; padding:10px; border:1px solid #d1d5db; border-radius:8px; background:#fff; overflow-wrap:anywhere; }
+.media-upload-job p { margin:6px 0; }
+#training-media-jobs:empty,#review-media-progress:empty { display:none; }
+.review-footer .review-warning { padding:6px 0; margin:0; background:transparent; }
+.review-footer { scroll-margin-bottom:20px; }
+#t4-title-error:empty,#t4-level-error:empty,#t4-description-error:empty { display:none; }
+#share-source-results { margin-top:16px; }
+#sharing-audience-summary { overflow-wrap:anywhere; }
+
+/* Dernier lot : accès direct, correction sur place et options facultatives. */
+.demo-access { margin-top:24px; border-top:1px solid #d1d5db; padding-top:20px; }
+.demo-access p { margin:10px 0 0; }
+.question-back { width:auto; display:block; text-align:left; font-size:13px; padding:8px 0; }
+.question-navigation { flex-wrap:wrap; gap:4px 12px; }
+#question-save-status { font-size:12px; margin:8px 0; min-height:18px; }
+#filter-favorites[aria-pressed="true"] { color:#1d4ed8; background:#eff6ff; border-color:#2563eb; }
+.filter-toolbar { display:flex; flex-wrap:wrap; gap:8px; }
+#discovery-libraries[hidden] { display:none; }
+.calendar-selected .landing-row > div { min-width:0; }
+#day-add { flex-shrink:0; padding:8px; font-size:13px; }
+.set-tools [data-repeat-load] { font-size:12px; padding:6px; }
+.rest-set-action { grid-column:1 / -1; text-align:left; font-size:13px; padding:6px 0; }
+.rest-controls { margin:10px 0; border:1px solid #d1d5db; border-radius:10px; background:#fff; padding:0 12px 10px; }
+.rest-controls > summary { padding:12px 0; cursor:pointer; font-weight:600; }
+.rest-controls > p { font-size:13px; margin:8px 0; }
+#rest-countdown { display:block; font-size:30px; font-variant-numeric:tabular-nums; margin:8px 0; }
+.rest-presets { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0; }
+.review-inline-editor { margin:8px 0; padding:10px; border:1px solid #d1d5db; border-radius:8px; background:#f9fafb; }
+.review-inline-editor > p { margin:8px 0; }
+.review-inline-editor[hidden],.review-row-actions [hidden] { display:none; }
+.history-date-group { margin:20px 0; }
+.history-date-group > h2 { font-size:17px; margin-bottom:12px; text-transform:capitalize; }
+#history-results > p { margin-top:14px; font-size:13px; }
+.program-publication-actions > p { margin:0 0 8px; font-size:13px; }

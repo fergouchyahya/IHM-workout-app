@@ -14,4 +14,4 @@ Trois modèles validés en réunion le 2 octobre 2026, un par persona. Ils décr
 
 ## Prototype — clôture T1
 
-Le 20 octobre 2026, les branches T1 sont couvertes dans le prototype local, selon les décisions validées (portée des adaptations limitée au mésocycle). Le [suivi de couverture et de vérification](../../../prototypes/propotype%201/README.md#clôture-fonctionnelle-de-t1--20-octobre-2026) détaille les contraintes, imports complets et échéances ajoutés. La réception des points à revoir est prête ; leur création relève de T3. La suite à concevoir est T2 au-delà de son écran d’entrée. Le partage/import reste une simulation locale.
+Le 20 octobre 2026, les branches T1 sont couvertes dans le prototype local, selon les décisions validées (portée des adaptations limitée au mésocycle). Le [suivi de couverture et de vérification](../../../prototypes/propotype%201/README.md#contrats-à-conserver) détaille les contraintes, imports complets et échéances ajoutés. La réception des points à revoir est prête ; leur création relève de T3. T2 est également couvert jusqu’au bilan conservé ; l’analyse T3 reste à concevoir. Le partage/import reste une simulation locale.

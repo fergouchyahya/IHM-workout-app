@@ -47,7 +47,7 @@ Présenter d’abord le nom et l’organisation, puis le gabarit et les informat
 | --- | --- | --- |
 | Nom de l’entraînement | Obligatoire | Saisie courte, exemple « Mon bloc haut/bas » ; aucune identité de programme imposée |
 | Organisation | Obligatoire | Séance seule / Semaine type / Mésocycle ; choix explicite, sans présélection cachée |
-| Gabarit de répartition | Facultatif | Personnalisé / Full Body / Upper/Lower / PPL ; choix initial Personnalisé, modifiable |
+| Catégories pour nommer mes séances | Facultatif | Personnalisé / Full Body / Upper/Lower / PPL ; choix initial Personnalisé, modifiable |
 | Objectif principal | Facultatif | Reprendre les repères du questionnaire si donnés ; permettre de les adapter pour cet entraînement |
 | Zone ou groupes ciblés | Facultatif | Champ de choix dont les options reprennent la liste de Découvrir |
 | Matériel | Facultatif | Reprendre le repère existant ; modifiable pour le nouvel entraînement |
@@ -69,7 +69,7 @@ Ces gabarits donnent une **structure à compléter**, pas des charges, volumes o
 | Upper/Lower | Catégories « Haut du corps » et « Bas du corps » | Aucun placement des jours ni rythme imposé |
 | PPL — Push / Pull / Legs | Catégories « Push », « Pull », « Legs », avec explication courte en français | Aucun placement des jours, fréquence, exercices ou charges imposés |
 
-Dans la future interface, une aide courte explique le gabarit sélectionné ; inutile d’afficher un paragraphe sous chaque option. Greg peut commencer avec un gabarit, puis changer les noms et la répartition. Choisir un format ne le verrouille pas dans un programme automatique.
+Une aide courte explique les catégories sélectionnées ; inutile d’afficher un paragraphe sous chaque option. Greg peut commencer avec un gabarit, puis changer les noms et la répartition. Choisir un format ne le verrouille pas dans un programme automatique.
 
 ### Catalogue à enrichir avant implémentation
 
@@ -189,3 +189,12 @@ Le formulaire propose Durée et disponibilités, préremplies à partir du profi
 Séances en cours présente un accès direct à chaque brouillon d’exécution, y compris une séance personnelle non datée ou un ancien placement disparu. Reprendre retrouve l’exercice et les résultats conservés ; l’encart est aussi présent dans Bilans. La liste personnelle reste repliable sous le calendrier. Lors d’une recherche, les reconstructions de l’écran conservent le focus et la position du curseur. Les états d’enregistrement distinguent une conservation seulement en mémoire lorsque le stockage est indisponible.
 
 Reprise datée/non datée, rechargement et curseur de recherche vérifiés dans Chromium ; voir le [compte rendu du lot](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md).
+
+
+## Quatrième lot ergonomique — 22 octobre 2026
+
+Depuis un jour du calendrier, Nouvelle séance affiche la date, le nom vide et Créer et choisir les exercices. Organisation et options avancées sont masquées ; aucun budget, matériel ou objectif du profil n’est supposé sur ce chemin. Un brouillon du même jour peut être repris. Créer plutôt un programme révèle le formulaire complet. Après création datée, le sélecteur d’exercices s’ouvre directement ; annuler ce sélecteur laisse une séance à compléter.
+
+Catégories pour nommer mes séances explique Full Body, Haut/Bas et Push/Pull/Legs, sans remplir jours, repos, exercices ou cibles. Hors calendrier, la création complète reste disponible et n’impose aucune date.
+
+Vérification : 92 tests ciblés et parcours Chromium aux trois largeurs ; [preuves et limites](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#14-quatrième-lot-livré--22-octobre-2026).

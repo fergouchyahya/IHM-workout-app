@@ -186,6 +186,7 @@ document.addEventListener('input', event => {
 // Point d'entrée isolé pour relire les questions sans saisir un compte de démo.
 function openStandaloneQuestions() {
   if (location.hash !== '#questions') return;
+  window.Parcours.switchIdentity('demo:questions');
   document.querySelector('#access-page').hidden = true;
   document.querySelector('#demo-screen').textContent = 'Prototype · Questions rapides';
   window.QuestionsRapides.start({ name: '', reset: true, returnToLogin });
@@ -193,4 +194,11 @@ function openStandaloneQuestions() {
 window.addEventListener('hashchange', openStandaloneQuestions);
 openStandaloneQuestions();
 
-if (window.Parcours.state.identity) loginForm.elements.identifier.value = window.Parcours.state.identity.slice(window.Parcours.state.identity.indexOf(':')+1);
+if (/^(username|email):/.test(window.Parcours.state.identity)) loginForm.elements.identifier.value = window.Parcours.state.identity.slice(window.Parcours.state.identity.indexOf(':')+1);
+
+
+document.querySelector('#try-demo').addEventListener('click',() => {
+  clearPasswords(); window.Parcours.switchIdentity('demo:local');
+  document.querySelector('#access-page').hidden = true;
+  window.Parcours.start({name:'Profil démo',answers:window.Parcours.state.profile,reset:false});
+});

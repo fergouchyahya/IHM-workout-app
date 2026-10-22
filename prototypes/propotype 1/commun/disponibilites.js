@@ -24,6 +24,7 @@ window.Disponibilites = {
     return messages;
   },
   open(source = window.Parcours.state.profile) {
+    const origin = window.Parcours.captureLocation();
     let dialog = document.querySelector('#availability-dialog');
     if (!dialog) { dialog = document.createElement('dialog'); dialog.id = 'availability-dialog'; document.body.append(dialog); }
     dialog.setAttribute('aria-labelledby', 'availability-title');
@@ -40,9 +41,7 @@ window.Disponibilites = {
         if (draft) Object.assign(draft.session, value);
       }
       window.Parcours.persist(); dialog.close();
-      if (window.Parcours.view === 'week') window.Parcours.route('week');
-      else if (window.Parcours.view === 'workout') window.Parcours.route('workout');
-      else window.Parcours.route('mine');
+      if (!window.Parcours.restoreLocation(origin)) window.Parcours.route('mine');
       window.Parcours.notifyChange('Durée et disponibilités enregistrées · planning conservé');
     };
     window.Ergonomie.bind(dialog);

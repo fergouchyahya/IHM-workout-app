@@ -1,6 +1,6 @@
 'use strict';
 
-// Les réponses restent en mémoire pour cette visite, sans stocker d'identifiants.
+// Le brouillon appartient au profil local ; aucun mot de passe n’est conservé.
 window.QuestionsRapides = (() => {
   const page = document.querySelector('#questions-page');
   const questionPanel = document.querySelector('#question-panel');
@@ -11,10 +11,17 @@ window.QuestionsRapides = (() => {
   let current = 0;
   let name = '';
   let returnToLogin;
+  let onComplete;
   let nextTimer;
   let editing = false;
   let editingField = null;
-  let newProfile = true;
+  let owner;
+
+  function remember() {
+    if (editing || window.Parcours.state.identity !== owner) return true;
+    window.Parcours.state.onboardingDraft = {answers:{...answers},current};
+    return window.Parcours.persist();
+  }
 
   function cancelAdvance() {
     clearTimeout(nextTimer);
@@ -36,7 +43,8 @@ window.QuestionsRapides = (() => {
     greeting.textContent = name ? `Bonjour ${name}` : 'Bonjour';
     greeting.title = greeting.textContent;
     title.textContent = question.title;
-    back.setAttribute('aria-label', current === 0 ? 'Revenir à la connexion' : 'Question précédente');
+    const backLabel = editing ? 'Annuler la modification' : current === 0 ? 'Revenir à la connexion' : 'Réponse précédente';
+    back.setAttribute('aria-label',backLabel); back.textContent = `← ${backLabel}`;
     choices.replaceChildren();
     for (const choice of question.choices) {
       const button = document.createElement('button');
@@ -53,15 +61,16 @@ window.QuestionsRapides = (() => {
       button.append(label, mark);
       choices.append(button);
     }
+    const saved = remember();
+    document.querySelector('#question-save-status').textContent = saved ? (answers[question.field] ? `Réponse conservée : ${answers[question.field]}` : editing ? 'Un choix suffit pour enregistrer et revenir.' : 'Réponses conservées au fur et à mesure.') : 'Sauvegarde indisponible · garde cette page ouverte.';
     title.focus({ preventScroll: true });
     window.scrollTo(0, 0);
   }
 
   function finish() {
     cancelAdvance();
-    if (editing) { window.Parcours.state.profile = {...answers}; if (current === 0) window.Parcours.state.filters.level = answers.level || ''; if (current === 2) window.Parcours.state.filters.equipment = answers.equipment || ''; document.querySelector('#questions-page').hidden = true; document.querySelector('#landing-page').hidden = false; window.Parcours.route('mine'); window.Parcours.notify('Préférences enregistrées · entraînements conservés'); }
-    else window.Parcours.start({name, answers, reset:newProfile});
-    newProfile = false;
+    if (editing) { window.Parcours.state.profile = {...answers}; if (current === 0) window.Parcours.state.filters.level = answers.level || ''; if (current === 2) window.Parcours.state.filters.equipment = answers.equipment || ''; document.querySelector('#questions-page').hidden = true; document.querySelector('#landing-page').hidden = false; if (onComplete) onComplete(); else { window.Parcours.route('mine'); window.Parcours.notifyChange('Préférences enregistrées · entraînements conservés'); } }
+    else { delete window.Parcours.state.onboardingDraft; window.Parcours.start({name,answers,reset:false}); }
   }
 
   choices.addEventListener('click', event => {
@@ -69,7 +78,9 @@ window.QuestionsRapides = (() => {
     // Un double appui ne doit pas répondre à deux questions à la même position.
     if (!button || nextTimer || event.detail > 1) return;
 
+    if (window.Parcours.state.identity !== owner) return;
     answers[window.questionsDefinitions[current].field] = button.dataset.choice;
+    const saved = remember(); document.querySelector('#question-save-status').textContent = saved ? `Choisi : ${button.dataset.choice}` : 'Sauvegarde indisponible · garde cette page ouverte.';
     choices.querySelectorAll('button').forEach(option => {
       const selected = option === button;
       option.setAttribute('aria-pressed', String(selected));
@@ -99,10 +110,13 @@ window.QuestionsRapides = (() => {
       editing = !!options.editing;
       editingField = options.field ?? null;
       if (options.answers) answers = {...options.answers};
-      newProfile = options.reset;
+      owner = window.Parcours.state.identity;
       name = options.name || '';
       returnToLogin = options.returnToLogin;
-      current = editingField ?? 0;
+      onComplete = options.onComplete;
+      const draft = !editing && window.Parcours.state.onboardingDraft;
+      if (draft) answers = {...draft.answers};
+      current = editingField ?? (Number.isInteger(draft?.current) ? Math.max(0,Math.min(2,draft.current)) : 0);
 
       page.hidden = false;
       document.querySelector('#landing-page').hidden = true;

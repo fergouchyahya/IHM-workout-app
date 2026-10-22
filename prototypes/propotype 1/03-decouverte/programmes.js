@@ -20,9 +20,23 @@ window.Programmes = {
     const weeks = plan.cycleWeeks || [plan.days || []];
     return weeks.flatMap((days, index) => days.filter(day => day.type === 'session').map(day => ({ ...day, name: `${plan.cycleWeeks ? `Semaine ${index + 1} · ` : ''}${day.name}` })));
   },
+  exerciseSummary(exercise) {
+    const e = window.Ergonomie;
+    return [exercise.sets == null ? 'Séries à définir' : e.count(exercise.sets,'série'),exercise.minReps == null ? 'Répétitions à définir' : `${e.formatNumber(exercise.minReps)}${exercise.maxReps != null && exercise.maxReps !== exercise.minReps ? `–${e.formatNumber(exercise.maxReps)}` : ''} ${exercise.minReps === 1 && (!exercise.maxReps || exercise.maxReps === 1) ? 'répétition' : 'répétitions'}`,exercise.load == null ? '' : `${e.formatNumber(exercise.load)} kg`,exercise.rpe == null ? '' : `RPE ${e.formatNumber(exercise.rpe)}/10`].filter(Boolean).join(' · ');
+  },
+  previewSessions(sessions,expanded = false) {
+    const p = window.Parcours;
+    return sessions.map(session => `<details class="program-session" ${expanded ? 'open' : ''}><summary>${p.escape(session.name)} · ${window.Ergonomie.count(session.exercises.length,'exercice')}${session.duration ? ` · ${window.Ergonomie.formatNumber(session.duration)} min` : ''}</summary><ul>${session.exercises.map(exercise => `<li><strong>${p.escape(exercise.name)}</strong> · ${p.escape(this.exerciseSummary(exercise))}${exercise.instruction ? `<p>${p.escape(exercise.instruction)}</p>` : ''}</li>`).join('') || '<li>Aucun exercice renseigné</li>'}</ul></details>`).join('');
+  },
   scheduleSummary(plan) {
-    const weeks = plan.cycleWeeks || (plan.days ? [plan.days] : []), p = window.Parcours;
-    return weeks.map((week, index) => `<p class="form-help">${plan.cycleWeeks ? `Semaine ${index + 1} · ` : ''}${week.map((day, i) => `${window.Semaine.days[i]} : ${day.type === 'session' ? p.escape(day.name) : day.type === 'rest' ? 'Repos' : 'À définir'}`).join(' · ')}</p>`).join('');
+    const e = window.Ergonomie, p = window.Parcours;
+    if (plan.organization === 'Séance seule') return this.previewSessions([plan]);
+    const weeks = plan.cycleWeeks || [plan.days || []];
+    return `<section class="program-overview" aria-label="Répartition du programme"><p>${e.count(plan.weeks || weeks.length,'semaine')} · ${plan.cycleWeeks ? 'Consulte chaque semaine et ses variations.' : plan.organization === 'Mésocycle' ? 'Semaine de référence ; répétition à vérifier dans ta copie.' : 'Répartition de la semaine.'}</p>${weeks.map((week,index) => {
+      const sessions = week.filter(day => day.type === 'session').length, rests = week.filter(day => day.type === 'rest').length;
+      const same = index > 0 && JSON.stringify(week) === JSON.stringify(weeks[index-1]);
+      return `<details class="program-week"><summary>Semaine ${index+1} · ${e.count(sessions,'séance')} · ${e.count(rests,'repos','repos')}${index ? `<span>${same ? 'Identique à la semaine précédente' : 'Variations par rapport à la semaine précédente'}</span>` : ''}</summary>${week.map((day,i) => `<div class="program-day"><h3>${window.Semaine.days[i]} · ${day.type === 'session' ? p.escape(day.name) : day.type === 'rest' ? 'Repos' : 'À définir'}</h3>${day.type === 'session' ? this.previewSessions([day],true) : ''}</div>`).join('')}</details>`;
+    }).join('')}</section>`;
   },
   entries() {
     const publications = (window.Partages?.data.items || []).filter(item => item.status === 'published' && item.plan).map(item => ({ ...item.plan, id: `publication:${item.id}`, name: item.title, description: item.description, level: item.level, source: 'community', author: 'Publication locale de démonstration' }));
@@ -53,16 +67,20 @@ window.Programmes = {
     const p = window.Parcours;
     let dialog = document.querySelector('#program-import-dialog');
     if (!dialog) { dialog = document.createElement('dialog'); dialog.id = 'program-import-dialog'; document.body.append(dialog); }
-    const sessions = this.sessions(plan);
     dialog.setAttribute('aria-labelledby', 'program-import-title');
-    dialog.innerHTML = `<h2 id="program-import-title" tabindex="-1" autofocus>${p.escape(plan.name)}</h2><p>${p.escape(plan.organization)}${plan.weeks ? ` · ${plan.weeks} semaines` : ''}</p><p>${p.escape(plan.description || '')}</p>${this.scheduleSummary(plan)}<ol class="import-sessions">${sessions.map(session => `<li><strong>${p.escape(session.name)}</strong><ul>${session.exercises.map(exercise => `<li>${p.escape(exercise.name)} · ${exercise.sets ?? '—'} séries · ${exercise.minReps ?? '—'}–${exercise.maxReps ?? '—'} répétitions${exercise.load != null ? ` · ${exercise.load} kg` : ''}${exercise.rpe != null ? ` · RPE ${exercise.rpe}` : ''}</li>`).join('')}</ul></li>`).join('')}</ol><p>Une copie indépendante sera ajoutée à Mes entraînements. Aucune date ne sera planifiée automatiquement.</p><div class="week-actions"><button id="import-program" type="button" class="primary-action">${p.state.saved.some(item => item.importId === id) ? 'Ouvrir ma copie' : 'Importer dans Mes entraînements'}</button><button id="cancel-import" type="button" class="text-action">Fermer</button></div>`;
+    dialog.innerHTML = `<h2 id="program-import-title" tabindex="-1" autofocus>${p.escape(plan.name)}</h2><p>${p.escape(plan.organization)}${plan.weeks ? ` · ${plan.weeks} semaines` : ''}</p><p>${p.escape(plan.description || '')}</p>${this.scheduleSummary(plan)}<p>Une copie indépendante sera ajoutée à Mes entraînements. Aucune date ne sera planifiée automatiquement.</p><div class="week-actions program-dialog-actions"><button id="import-program" type="button" class="primary-action">${p.state.saved.some(item => item.importId === id) ? 'Ouvrir ma copie' : 'Importer dans Mes entraînements'}</button><button id="cancel-import" type="button" class="text-action">Fermer</button></div>`;
     dialog.querySelector('#cancel-import').onclick = () => dialog.close();
     dialog.querySelector('#import-program').onclick = () => { const copy = this.import(plan); dialog.close(); window.Entrainements.openDraft(copy); p.notifyChange('Copie personnelle disponible · source conservée'); };
     dialog.showModal(); dialog.scrollTop = 0; dialog.querySelector('#program-import-title').focus({ preventScroll: true });
   },
-  cards() {
+  filtered() {
     const p = window.Parcours;
-    const plans = this.entries().filter(item => item.source === p.state.source && window.Ergonomie.normalize(item.name).includes(window.Ergonomie.normalize(p.state.search)) && (!p.state.filters.level || item.level === p.state.filters.level) && (!p.state.filters.equipment || item.equipment === p.state.filters.equipment) && (!p.state.filters.group || this.sessions(item).some(session => session.exercises.some(exercise => exercise.group === p.state.filters.group))) && (!p.state.filters.duration || this.sessions(item).every(session => session.duration && session.duration <= Number(p.state.filters.duration))));
+    if (p.state.ui.favoritesOnly) return [];
+    return this.entries().filter(item => item.source === p.state.source && window.Ergonomie.normalize(item.name).includes(window.Ergonomie.normalize(p.state.search)) && (!p.state.filters.level || item.level === p.state.filters.level) && (!p.state.filters.equipment || item.equipment === p.state.filters.equipment) && (!p.state.filters.group || this.sessions(item).some(session => session.exercises.some(exercise => exercise.group === p.state.filters.group))) && (!p.state.filters.duration || this.sessions(item).every(session => session.duration && session.duration <= Number(p.state.filters.duration))));
+  },
+  cards() {
+    const p = window.Parcours, plans = this.filtered();
+    if (!plans.length) return '';
     return `<section class="landing-section"><h2>Programmes complets</h2><p class="form-help">Semaines et mésocycles à consulter puis importer. Les publications locales actives apparaissent dans Communauté.</p><div class="landing-stack">${plans.map(plan => `<button type="button" class="landing-card" data-import-program="${p.escape(plan.id)}"><h3>${p.escape(plan.name)}</h3><p>${p.escape(plan.organization)}${plan.weeks ? ` · ${plan.weeks} semaines` : ''} · ${p.escape(plan.level)}</p><p>${p.escape(plan.author || 'Bibliothèque de démonstration')}</p><p>Voir la répartition et les cibles →</p></button>`).join('') || '<p>Aucun programme complet avec ces critères.</p>'}</div></section>`;
   }
 };
