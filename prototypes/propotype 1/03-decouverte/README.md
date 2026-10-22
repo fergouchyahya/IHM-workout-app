@@ -177,3 +177,15 @@ Les copies personnelles et leurs placements datés sont conservés localement. L
 ## Simplification ergonomique validée
 
 La recherche ignore accents et casse. Les filtres restent conservés dans le profil. Favori désigne un repère, Enregistré une copie personnelle et Planifié une occurrence datée. Si une copie existe, « Ouvrir la séance enregistrée » la retrouve au lieu de proposer une nouvelle copie.
+
+## Complément T1.1.3 — programmes complets
+
+La section Programmes complets de Découvrir présente une semaine prédéfinie et un mésocycle communautaire fictif. Recherche et filtres s’appliquent aussi aux programmes ; un filtre de durée exige une estimation connue pour toutes leurs séances. L’aperçu montre jours, repos, semaines et cibles avant l’import explicite. Fermer ne crée rien. Importer ajoute une copie personnelle, sans date ; ouvrir à nouveau retrouve cette copie au lieu de la dupliquer.
+
+`programmes.js` conserve la répartition, les semaines du cycle, exercices, séries, répétitions, charges et RPE. Un mouvement absent du catalogue est recréé dans la bibliothèque personnelle avec sa consigne publique. La copie se modifie et se planifie avec les éditeurs existants, sans modifier sa source. Les notes/réglages personnels et résultats ne sont pas importés.
+
+Les publications locales actives créées avec une structure complète apparaissent dans Communauté pour le profil courant. Retirer une publication la retire de cette liste ; les copies déjà importées restent indépendantes. Une ancienne publication sans structure ne peut pas reconstituer ses jours : utiliser Actualiser depuis Mes entraînements avant de l’importer. Le service communautaire reste une simulation locale, sans échange entre comptes ni import de fichiers.
+
+## Feedback de conservation — premier lot ergonomique
+
+L’enregistrement/placement depuis le récapitulatif et l’import d’un programme distinguent maintenant une conservation réussie d’un changement seulement appliqué pour cette visite lorsque le stockage échoue. L’alerte globale propose Réessayer la sauvegarde ; la copie déjà créée en mémoire reste réutilisée, sans import supplémentaire. Voir le [compte rendu du lot](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md).

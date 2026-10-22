@@ -3,6 +3,7 @@
 window.Semaine = {
   days:['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'],
   open(base) {
+    if (window.Parcours.view !== 'week') this.origin = window.Parcours.captureLocation?.();
     this.base = base;
     if (!base.days) base.days = this.days.map(() => ({type:'undefined', name:''}));
     window.Parcours.route('week');
@@ -12,13 +13,14 @@ window.Semaine = {
     const base = this.base;
     const sessions = base.days.filter(day => day.type === 'session').length;
     const rest = base.days.filter(day => day.type === 'rest').length;
-    return `<button id="week-back" class="text-action" type="button">← Calendrier</button><p class="week-heading">${p.escape(base.name)} · ${p.escape(base.organization)}</p><h1 tabindex="-1">Organiser ma semaine</h1><div class="week-summary"><p>${sessions} séance${sessions > 1 ? 's' : ''} · ${rest} jour${rest > 1 ? 's' : ''} de repos · ${7 - sessions - rest} à définir</p>${base.frequency ? `<p class="landing-hint">${sessions} séance${sessions > 1 ? 's' : ''} placée${sessions > 1 ? 's' : ''} sur ${base.frequency} prévue${base.frequency > 1 ? 's' : ''}.</p>` : ''}</div><ol class="week-days">${base.days.map((day,index) => `<li><button type="button" class="week-day is-${day.type}" data-day="${index}" aria-haspopup="dialog"><span><strong>${this.days[index]}</strong><small>${day.type === 'session' ? `Séance · ${p.escape(day.name)}` : day.type === 'rest' ? 'Repos' : 'À définir'}</small></span><span>${day.type === 'undefined' ? 'Configurer' : 'Modifier'}</span></button>${day.type === 'session' ? `<button type="button" class="landing-button full day-exercises" data-workout="${index}">Configurer les exercices${day.exercises?.length ? ` (${day.exercises.length})` : ''}</button>` : ''}</li>`).join('')}</ol>${base.organization === 'Mésocycle' ? `<section class="week-cycle landing-section"><h2>Répéter dans le cycle</h2><p class="landing-hint">Appliquer cette semaine aux ${base.weeks} semaines du cycle.</p><p id="cycle-status" role="status">${!base.cycleWeeks ? 'La semaine n’a pas encore été répétée.' : base.cycleNeedsUpdate ? 'Semaine de référence modifiée. Les copies précédentes sont conservées.' : `Répartition répétée sur ${base.weeks} semaines.`}</p><button id="repeat-week" class="landing-button full" type="button">${base.cycleWeeks ? 'Répéter à nouveau' : `Répéter sur ${base.weeks} semaines`}</button></section>` : ''}<button id="plan-program" class="landing-button full landing-section" type="button">Planifier dans le calendrier</button><button id="week-done" class="primary-action landing-section" type="button">Terminer</button><dialog id="day-dialog" class="week-editor" aria-labelledby="day-title"><h2 id="day-title"></h2><div id="day-fields"></div></dialog>`;
+    return `<button id="week-back" class="text-action" type="button">← ${this.origin?.view === 'discover' ? 'Découvrir' : 'Calendrier'}</button><p class="week-heading">${p.escape(base.name)} · ${p.escape(base.organization)}</p><h1 tabindex="-1">Organiser ma semaine</h1><div class="week-summary"><p>${sessions} séance${sessions > 1 ? 's' : ''} · ${rest} jour${rest > 1 ? 's' : ''} de repos · ${7 - sessions - rest} à définir</p>${base.frequency ? `<p class="landing-hint">${sessions} séance${sessions > 1 ? 's' : ''} placée${sessions > 1 ? 's' : ''} sur ${base.frequency} prévue${base.frequency > 1 ? 's' : ''}.</p>` : ''}</div><ol class="week-days">${base.days.map((day,index) => `<li><button type="button" class="week-day is-${day.type}" data-day="${index}" aria-haspopup="dialog"><span><strong>${this.days[index]}</strong><small>${day.type === 'session' ? `Séance · ${p.escape(day.name)}` : day.type === 'rest' ? 'Repos' : 'À définir'}</small></span><span>${day.type === 'undefined' ? 'Configurer' : 'Modifier'}</span></button>${day.type === 'session' ? `<button type="button" class="landing-button full day-exercises" data-workout="${index}">Configurer les exercices${day.exercises?.length ? ` (${day.exercises.length})` : ''}</button>` : ''}</li>`).join('')}</ol>${base.organization === 'Mésocycle' ? `<section class="week-cycle landing-section"><h2>Répéter dans le cycle</h2><p class="landing-hint">Appliquer cette semaine aux ${base.weeks} semaines du cycle.</p><p id="cycle-status" role="status">${!base.cycleWeeks ? 'La semaine n’a pas encore été répétée.' : base.cycleNeedsUpdate ? 'Semaine de référence modifiée. Les copies précédentes sont conservées.' : `Répartition répétée sur ${base.weeks} semaines.`}</p><button id="repeat-week" class="landing-button full" type="button">${base.cycleWeeks ? 'Répéter à nouveau' : `Répéter sur ${base.weeks} semaines`}</button></section>` : ''}<p class="form-help">${p.escape(window.Disponibilites.summary(base) || 'Durée et disponibilités non renseignées')}</p><button type="button" class="text-action" id="program-availability">Modifier durée et disponibilités</button><button id="plan-program" class="landing-button full landing-section" type="button">Planifier dans le calendrier</button><button id="week-done" class="primary-action landing-section" type="button">Terminer</button><dialog id="day-dialog" class="week-editor" aria-labelledby="day-title"><h2 id="day-title"></h2><div id="day-fields"></div></dialog>`;
   },
   bind() {
     const p = window.Parcours;
+    document.querySelector('#program-availability').onclick = () => window.Disponibilites.open(this.base);
     document.querySelector('#plan-program').onclick = () => { const base = this.base; window.Parcours.route('mine'); window.Calendrier.schedule(base,base.calendarStart || window.Calendrier.selected); };
-    document.querySelector('#week-back').onclick = () => p.route('mine');
-    document.querySelector('#week-done').onclick = () => { p.route('mine'); p.notify('Répartition conservée'); };
+    document.querySelector('#week-back').onclick = () => p.returnTo(this.origin || {view:'mine',identity:p.state.identity,scroll:0});
+    document.querySelector('#week-done').onclick = () => { p.route('mine'); p.notifyChange('Répartition conservée'); };
     document.querySelectorAll('[data-day]').forEach(button => {
       button.onclick = () => this.edit(Number(button.dataset.day));
     });
@@ -38,16 +40,22 @@ window.Semaine = {
     };
   },
   repeat() {
+    const base = this.base, before = {cycleWeeks:structuredClone(base.cycleWeeks),cycleNeedsUpdate:base.cycleNeedsUpdate};
     this.base.cycleWeeks = Array.from({length:this.base.weeks}, () => structuredClone(this.base.days));
     this.base.cycleNeedsUpdate = false;
     window.Parcours.route('week');
-    window.Parcours.notify('Répartition répétée dans le cycle');
+    const expected = JSON.stringify(base.cycleWeeks);
+    window.Parcours.notifyChange('Répartition répétée dans le cycle',() => {
+      if (JSON.stringify(base.cycleWeeks) !== expected) { window.Parcours.notify('Le cycle a été modifié depuis. Ces changements sont conservés.'); return false; }
+      if (before.cycleWeeks === undefined) delete base.cycleWeeks; else base.cycleWeeks = structuredClone(before.cycleWeeks);
+      base.cycleNeedsUpdate = before.cycleNeedsUpdate; if (window.Parcours.view === 'week' && this.base === base) window.Parcours.route('week');
+    });
   },
   changed(message) {
     if (this.base.cycleWeeks) this.base.cycleNeedsUpdate = true;
     document.querySelector('#day-dialog').close();
     window.Parcours.route('week');
-    window.Parcours.notify(message);
+    window.Parcours.notifyChange(message);
   },
   edit(index) {
     const p = window.Parcours;

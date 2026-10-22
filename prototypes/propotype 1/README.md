@@ -144,7 +144,7 @@ Le choix d’exercice utilise une recherche par nom et des résultats illustrés
 
 ## Vérification de la préparation et de l’entrée T2
 
-Depuis la racine du dépôt, exécuter `node tests/preparation.test.cjs` et `node tests/ergonomie.test.cjs` : onze vérifications ciblent l’isolation des brouillons/profils, la migration, les dates du cycle, la conservation des cibles futures, les remplacements/retraits, les nombres français et l’échec du stockage. Le parcours cliquable reste accessible depuis [la connexion](01-connexion/index.html). Les vérifications navigateur et les limites propres aux écrans sont détaillées dans les dossiers [Préparation](06-configuration-seance/README.md) et [Entraînement](08-entrainement/README.md).
+Depuis la racine du dépôt, exécuter `node tests/preparation.test.cjs`, `node tests/ergonomie.test.cjs` et `node tests/t1-completion.test.cjs` : dix-huit vérifications T1 ciblent l’isolation des brouillons/profils, la migration, les dates du cycle, la conservation des cibles futures, les remplacements/retraits, les nombres français et l’échec du stockage. Le parcours cliquable reste accessible depuis [la connexion](01-connexion/index.html). Les vérifications navigateur et les limites propres aux écrans sont détaillées dans les dossiers [Préparation](06-configuration-seance/README.md) et [Entraînement](08-entrainement/README.md).
 
 ## Améliorations ergonomiques validées — 16 octobre 2026
 
@@ -199,4 +199,110 @@ Ces comptes décrivent les chemins testés, hors saisie des champs et défilemen
 
 `commun/ergonomie.js` centralise validation numérique, navigation clavier et confirmations ; `commun/ergonomie.css` harmonise les composants. `commun/parcours.js` conserve l’état actif sous `ihm-prototype-1` et les profils sous `ihm-prototype-1-profiles`. Ces identités de démonstration ne constituent pas une authentification réelle. Un échec du stockage conserve le travail en mémoire pour la visite et affiche une alerte ; la persistance après fermeture n’est alors pas garantie.
 
-Les onze tests Node couvrent les règles de données sensibles à la régression. Les essais Chromium couvrent ajout direct, reprise, virgule décimale, erreur conservée, plusieurs brouillons, profils séparés, portée du mésocycle, actions groupées, remplacement du repos avec annulation et partage avec aperçu final. Les vues calendrier/préparation/T2 ont été contrôlées à 320, 390 et 1280 px sans débordement horizontal. Le stockage indisponible et la navigation numérique avec Entrée ont été simulés. Le clavier et les gestes sur téléphone physique restent à vérifier. La fin de T2, le bilan et l’analyse T3 restent hors périmètre.
+Les tests Node couvrent les règles de données sensibles à la régression. Les essais Chromium couvrent ajout direct, reprise, virgule décimale, erreur conservée, plusieurs brouillons, profils séparés, portée du mésocycle, actions groupées, remplacement du repos avec annulation et partage avec aperçu final. Les vues calendrier/préparation/T2 ont été contrôlées à 320, 390 et 1280 px sans débordement horizontal. Le stockage indisponible et la navigation numérique avec Entrée ont été simulés. Le clavier et les gestes sur téléphone physique restent à vérifier. La fin de T2, le bilan et l’analyse T3 restent hors périmètre.
+
+## Clôture fonctionnelle de T1 — 20 octobre 2026
+
+T1 est couvert pour le prototype local, selon les décisions validées. Le prochain périmètre est la suite de T2 ; cette clôture n’implémente ni fin de séance, ni bilan, ni analyse T3.
+
+| Branche | Couverture |
+| --- | --- |
+| T1.1.1 | Niveau/objectif, budget de temps par séance et jours disponibles, modifiables sans réinitialisation. |
+| T1.1.2 | Création d’une séance, semaine type ou mésocycle. |
+| T1.1.3 | Choix et import explicite d’une semaine/mésocycle complet ; publications locales importables. |
+| T1.1.4 | Réouverture des séances/programmes enregistrés et reprise d’exécution. |
+| T1.1.5 | Exercices, séries, répétitions, charge, effort visé et champs utiles. |
+| T1.2.1 | Placement daté de séances et repos, plusieurs séances par jour. |
+| T1.2.2 | Répétition de la semaine sur le cycle ; conservation de ses variations importées. |
+| T1.2.3 | Adaptation des cibles et ajout/modification/retrait d’échéances datées. |
+| T1.2.4 | Déplacement/copie de séance ou semaine ; copies indépendantes. |
+| T1.3.1 | Séance et points à revoir affichés ; leur production viendra de T3. |
+| T1.3.2 | Adaptation des exercices, cibles, consignes et réglages dans les cartes. |
+| T1.3.3 | Date seule ou prochaines occurrences du mésocycle, conformément au choix validé ; modification directe de la base possible. |
+| T1.3.4 | Aperçu avec consignes, cibles, réglages et accès direct à T2 ; cibles absentes non bloquantes. |
+
+### Vérifications de clôture
+
+Depuis la racine :
+
+```sh
+node tests/preparation.test.cjs
+node tests/ergonomie.test.cjs
+node tests/t1-completion.test.cjs
+```
+
+Les 17 tests vérifient les règles de préparation et conservation existantes, puis les contraintes de temps/jours, l’import indépendant d’un mésocycle, les variations par semaine, la copie filtrée pour partage, les mouvements personnels, les publications importables et les échéances. La syntaxe de tous les modules JavaScript et `git diff --check` sont contrôlés.
+
+Parcours Chromium réalisés : préférences ; aperçu fermé sans import ; import et planification de semaine puis mésocycle ; publication et réimport d’un cycle complet ; échéance sur un repos, modification, retrait et annulation ; rechargement ; formulaire de création avec contraintes préremplies, erreur numérique et brouillon ; conservation des contraintes après enregistrement de préparation. Calendrier et dialogues d’échéance/import contrôlés à 320, 390 et 1280 px. Les gestes/claviers sur téléphone physique restent à vérifier.
+
+`commun/disponibilites.js` porte les champs et avertissements ; `03-decouverte/programmes.js` porte les instantanés publics et copies importées ; `calendrier.js` conserve les échéances séparées des séances/repos. Le fonctionnement reste local, avec les alertes de stockage existantes. Les exemples sont fictifs et le partage/import communautaire reste simulé dans le profil courant.
+
+## T2.1 — comprendre et préparer l’effort, 20 octobre 2026
+
+L’écran T2 intègre les repères exercice/série, les consignes et réglages, l’affichage conditionnel du dernier résultat terminé, un état/effort facultatif pour toute la séance et l’adaptation d’une série uniquement. La cible initiale, la cible adaptée et le résultat réel restent séparés ; aucune propagation vers une autre série ou le programme. Le [README T2.1](08-entrainement/README.md#t21--décisions-et-interactions) décrit les choix confirmés, les données, les interactions et le contrat d’historique que la future fin de séance alimentera. T2.2 est décrit ci-dessous ; T2.3 est décrit ci-dessous ; T2.4 est décrit ci-dessous ; la suite à concevoir est T3.
+
+Les 17 vérifications de clôture T1 sont complétées par `node tests/training-preparation.test.cjs` (7 tests), soit 24 tests ciblés. Les parcours Chromium T2.1 couvrent adaptation, conservation des résultats, contexte global, historique injecté pour essai, reprise, rechargement, erreurs et navigation numérique. Les vues ont été contrôlées à 320, 390 et 1280 px ; téléphone physique non testé.
+
+## T2.2 — réaliser et consigner les séries, 20 octobre 2026
+
+La saisie courante conserve charge/répétitions et RPE ou ressenti sans validation supplémentaire. Cas particulier permet de déclarer une série faite, interrompue ou non faite, ainsi qu’un effort adapté et une raison facultative. Les valeurs d’une série Non faite restent récupérables, sans être présentées comme réalisées. La recopie d’une série précédente est filtrée ; Annuler restaure également saisie brute, erreurs et statut. Les autres séries et les cibles restent indépendantes.
+
+Le [README de l’entraînement](08-entrainement/README.md#t22--réaliser-et-consigner-les-séries) décrit les statuts, les interactions et le contrat de données pour le futur bilan. Cette livraison T2.2 est complétée par T2.3 ci-dessous ; T2.4 reste à construire.
+
+Vérifications :
+
+```sh
+node tests/preparation.test.cjs
+node tests/ergonomie.test.cjs
+node tests/t1-completion.test.cjs
+node tests/training-preparation.test.cjs
+node tests/training-results.test.cjs
+```
+
+32 tests ciblés ; syntaxe JavaScript et diff contrôlés. Parcours Chromium avec ressenti/RPE, statuts, correction, recopie et annulation, reprise/rechargement et stockage indisponible ; absence de débordement à 320, 390 et 1280 px. La conservation finale des séances et les essais sur téléphone physique restent à venir.
+
+## T2.3 — contexte, notes et médias, 21 octobre 2026
+
+Les champs facultatifs de contexte (sommeil, fatigue, douleur/gêne, raison générale d’adaptation) complètent État et effort du jour. Chaque exercice conserve remarque technique, réglage réellement utilisé, rappel et photos/vidéos, accessibles depuis Notes dans l’en-tête. Les médias ont un aperçu, une légende et un lien facultatif vers une série ; retrait et annulation restent disponibles.
+
+Le [README T2.3](08-entrainement/README.md#t23--enrichir-la-séance-si-utile-21-octobre-2026) détaille les champs, limites et erreurs. Le nouveau module `08-entrainement/enrichissement.js` conserve les fichiers dans IndexedDB et les références dans le brouillon, par profil et exécution. Les nouvelles données restent privées et ne modifient pas les cibles ou programmes. Le prototype n’envoie aucun média à un serveur.
+
+`node tests/training-enrichment.test.cjs` complète les cinq commandes précédentes : **40 tests ciblés**. Essais Chromium avec photo PNG et vidéo WebM réelles, restauration après rechargement, retrait/annulation, valeurs invalides, erreur de stockage et fichier absent ; absence de débordement à 320, 390 et 1280 px. Téléphone physique et codecs MOV/MP4 non vérifiés. La prochaine étape est T2.4, pour conserver le bilan et ces enrichissements avant T3.
+
+## T2 terminé — frontière de T3, 21 octobre 2026
+
+Le prototype couvre maintenant T2.1 à T2.4. Terminer ouvre la vérification des séries et permet de corriger directement une saisie, de constater les omissions et de noter un ressenti global/rappel facultatif. Une seule confirmation finale conserve un instantané des cibles, résultats, statuts, contexte, notes et références de médias. Les séries vides restent non renseignées, et un échec de stockage conserve le brouillon au lieu d’annoncer un succès.
+
+Les occurrences terminées proposent Voir le bilan ; l’onglet Bilans remplace le repère Progrès et liste les comptes rendus conservés. Cette consultation est la sortie de T2, sans implémenter les analyses T3. La séance suivante peut utiliser les vrais résultats précédents. Les règles, données et limites sont décrites dans le [README T2.4](08-entrainement/README.md#t24--terminer-et-conserver-le-bilan-21-octobre-2026).
+
+La suite est T3 : consulter/analyser les résultats, expliquer les comparaisons et conserver les points à revoir. Aucune progression, aucun record et aucun conseil ne sont produits automatiquement à cette frontière.
+
+Vérification complète :
+
+```sh
+node tests/preparation.test.cjs
+node tests/ergonomie.test.cjs
+node tests/t1-completion.test.cjs
+node tests/training-preparation.test.cjs
+node tests/training-results.test.cjs
+node tests/training-enrichment.test.cjs
+node tests/training-completion.test.cjs
+```
+
+50 tests ciblés ; syntaxe et diff contrôlés. Parcours Chromium jusqu’au bilan conservé, y compris corrections, omissions, stockage indisponible, média, réouverture et réutilisation des résultats, à 320, 390 et 1280 px. Téléphone physique et synchronisation non testés. Les autres travaux et documents du dépôt sont conservés.
+
+## Audit ergonomique — premier lot livré, 21 octobre 2026
+
+Dix points de l’audit Cours 5/6 sont livrés : R02, R03, R17, R22, R23, R27, R33, R34, R35 et R42. Ils couvrent focus/clavier, feedback de sauvegarde et reprise, protection des occurrences commencées/terminées, accès au jour, ajout multiple, suivi prioritaire et présentation compacte de T2/revue. La [liste de travaux restants et le compte rendu](../../docs/07-evaluation/audit-ergonomie-cours5-6.md) conservent 39 propositions ; les dix livrées en sont retirées.
+
+Vérification : les sept commandes de tests précédentes et `node tests/ergonomie-top10.test.cjs`, soit **56 tests ciblés réussis** ; syntaxe JavaScript et diff contrôlés. Essais Chromium avec stockage indisponible/reprise, clavier/focus, historique protégé, ajout multiple et rechargement ; T2/revue/choix multiple à 320, 390 et 1280 px sans débordement. Téléphone physique et évaluation utilisateur non réalisés. Les anciennes sections datées décrivent leurs livraisons successives ; l’état de ce lot fait foi pour les comportements qu’il modifie.
+
+## Audit ergonomique — deuxième lot livré, 22 octobre 2026
+
+R01, R04, R20, R21, R28, R29, R30, R31, R32 et R45 sont livrés et retirés de la liste restante : **20 propositions terminées, 29 restantes**. Le [compte rendu du deuxième lot](../../docs/07-evaluation/audit-ergonomie-cours5-6.md#12-deuxième-lot-livré--22-octobre-2026) décrit les preuves et limites.
+
+L’historique conserve l’écran, l’objet et sa position pour Retour/Suivant ; après connexion au même profil, un rechargement retrouve l’écran disponible. Les dialogues temporaires et le questionnaire ne constituent pas des entrées de cet historique. Les données d’entraînement restent locales au profil.
+
+Les conflits de calendrier se résolvent sans perdre le formulaire, les replanifications identiques sont signalées et les opérations groupées proposent Annuler. La préparation replie ses textes facultatifs, garde les sélections par slot, valide les nombres/plages sans perdre les saisies et nomme la portée exacte. Le bilan retrouve son espace d’origine. Rien n’est analysé automatiquement au-delà du bilan existant.
+
+Validation : les huit commandes du premier lot, plus `node tests/ergonomie-lot2.test.cjs`, soit **66 tests ciblés réussis** ; syntaxe et diff contrôlés. Essais Chromium de navigation/rechargement, conflits/doublons/annulations, sélection/saisie/portée ; préparation et conflits à 320, 390 et 1280 px sans débordement. Téléphone physique et évaluation utilisateur non réalisés.

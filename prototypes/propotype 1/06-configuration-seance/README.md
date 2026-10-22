@@ -36,7 +36,7 @@ Contrat d’entrée : `Parcours.state.reviewPoints` contient `id`, `workoutId` (
 
 ## Vérifié
 
-Depuis la racine du dépôt : `node tests/preparation.test.cjs`. Sept tests déterministes couvrent isolation du brouillon, sélection des dates du cycle, conservation des cibles futures et remplacement/retrait de mouvements répétés.
+Depuis la racine du dépôt : `node tests/preparation.test.cjs`. Huit tests déterministes couvrent isolation du brouillon, sélection des dates du cycle, conservation des cibles futures et remplacement/retrait de mouvements répétés.
 
 Dans Chromium : aperçu avec consignes/réglages et points T3 de démonstration, alternatives du même muscle, remplacement à blanc, annulation sans modification enregistrée, valeurs négatives refusées, portée date seule puis cycle, conservation des objectifs futurs non modifiés, des dates passées et des autres cycles, restauration du brouillon après rechargement, création personnelle et sauvegarde initiale, réorganisation/retrait/annulation, préparation malgré des cibles manquantes. Aperçu et adaptation contrôlés à 320, 390 et 1280 px sans débordement horizontal.
 
@@ -47,3 +47,29 @@ Les points T3 de vérification sont injectés uniquement dans le profil de test.
 Le contexte date/programme/semaine est compact. Sans point T3, une seule ligne reste visible ; les consignes et réglages renseignés sont immédiatement accessibles. Le choix Répétitions fixes n’affiche qu’une valeur ; Fourchette affiche minimum et maximum. Les actions groupées appliquent séries/répétitions aux seuls exercices cochés et gardent leurs charges indépendantes. Retirer un exercice propose Annuler, sans confirmation intermédiaire.
 
 Les virgules décimales sont acceptées pour charge et effort visé (RPE). Le clavier numérique, la sélection du nombre courant et Entrée vers le champ suivant réduisent la saisie. Une valeur invalide est gardée pour correction et distinguée des objectifs simplement manquants. Les champs facultatifs vides restent ordinaires. Le retour du stockage distingue brouillon conservé et modifications appliquées ; un échec local reste visible.
+
+## Complément T1 — durée et disponibilités
+
+Une séance personnelle propose Durée et disponibilités, modifiables sans perte des adaptations en cours. Son aperçu conserve ces repères après l’enregistrement des exercices. Une occurrence datée signale un jour hors disponibilités ou une durée estimée supérieure au budget ; l’avertissement ne bloque ni l’adaptation ni le démarrage. Les repères du programme sont réglables depuis son éditeur de semaine/mésocycle.
+
+## Séance déjà terminée
+
+Une occurrence de calendrier avec bilan conservé propose Voir le bilan. Les occurrences terminées ne reçoivent plus les extensions de cibles au mésocycle ; leur historique reste un instantané distinct du programme et de la préparation courante. Une séance personnelle peut être recommencée sans réutiliser les résultats réels de sa précédente exécution.
+
+## Ergonomie — premier lot Cours 5/6
+
+Ajouter plusieurs est accessible directement à côté de l’ajout individuel. Les choix et leur ordre restent conservés pendant la recherche ; le compteur et Ajouter N exercices terminent le lot. Chaque mouvement ajouté possède un slot indépendant et des cibles vides. L’ajout individuel et le remplacement restent directement sélectionnables.
+
+Les options de suivi sont désormais intitulées Afficher en priorité pendant l’entraînement : les éléments choisis sont proposés directement, les autres restent dans des volets facultatifs. Une préférence ne supprime aucune saisie. La préparation d’une occurrence commencée/terminée est remplacée par l’accès à sa reprise/son bilan, et une sauvegarde de préparation ne peut écraser ses objectifs après démarrage.
+
+Vérifications : indépendance des ajouts et protection dans `tests/ergonomie-top10.test.cjs` ; ajout multiple, recherche et compteur dans Chromium, dont quatre ajouts en six activations depuis l’éditeur. Les règles générales de ce lot sont dans le [rapport](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md).
+
+## Deuxième lot ergonomique — 22 octobre 2026
+
+Consignes et réglage se déplie par exercice et résume les textes présents ; les cibles restent immédiatement visibles. Le brouillon conserve `selectedSlots`, `detailSlots`, `bulkFields` et `bulkOpen`, indépendamment de `session` et `rawFields`. Tout sélectionner/Désélectionner, réordonnancement et rechargement respectent les slots choisis ; les charges restent indépendantes.
+
+Les erreurs numériques nomment le champ et ses limites. Les répétitions min/max sont vérifiées ensemble ; une plage incohérente garde sa dernière paire valide dans le modèle et ses valeurs brutes dans le brouillon. Les erreurs réapparaissent à la restauration ; les états de frappe inachevée ne provoquent pas d’alerte prématurée mais doivent être corrigés avant application.
+
+La sauvegarde locale nomme la date ou la séance. Étendre au mésocycle présente les différences réellement propagées, les dates touchées et les exclusions motivées. Les dates passées, exécutions commencées/terminées et autres brouillons ne sont pas écrasés. Les préférences de suivi restent locales à cette préparation.
+
+Revenir à la version enregistrée permet d’annuler l’abandon et de récupérer le brouillon complet, tant qu’un nouveau travail ou une exécution ne l’a pas remplacé. Les retours retrouvent l’origine et l’historique peut restaurer cet éditeur après rechargement. Vérifications et mesure comparative (2 753 → 2 481 px sur la même séance personnelle à 390 × 844) dans le [rapport](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md).

@@ -11,3 +11,7 @@ Trois modèles validés en réunion le 2 octobre 2026, un par persona. Ils décr
 **Point commun observé :** aucun des trois ne crée un programme de zéro à chaque fois. Greg reproduit ses semaines, Thomas choisit un programme existant, Camille duplique sa dernière séance. La création complète (T1.1 de la réunion) est donc surtout ponctuelle.
 
 **Mireille :** reprend le parcours guidé de Thomas ; son apport concerne surtout la simplification et la lisibilité des visuels.
+
+## Prototype — clôture T1
+
+Le 20 octobre 2026, les branches T1 sont couvertes dans le prototype local, selon les décisions validées (portée des adaptations limitée au mésocycle). Le [suivi de couverture et de vérification](../../../prototypes/propotype%201/README.md#clôture-fonctionnelle-de-t1--20-octobre-2026) détaille les contraintes, imports complets et échéances ajoutés. La réception des points à revoir est prête ; leur création relève de T3. La suite à concevoir est T2 au-delà de son écran d’entrée. Le partage/import reste une simulation locale.

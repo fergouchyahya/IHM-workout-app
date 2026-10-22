@@ -179,3 +179,13 @@ Les séances personnelles, y compris les copies de Découvrir, ouvrent désormai
 ## Simplification ergonomique validée
 
 Le calendrier est l’entrée principale. La liste personnelle est repliable en dessous ; ouverture et recherche sont mémorisées. Les états sont calculés à partir du contenu réel : une base vide reste À compléter, une copie est Enregistrée, ses occurrences sont Planifiées et une exécution commencée peut être Reprise. Les libellés de création suivent l’organisation choisie ; un mésocycle est expliqué comme un programme de plusieurs semaines. Mes préférences permet de changer un seul choix sans effacer le contenu personnel.
+
+## Complément T1.1.1 — contraintes du programme
+
+Le formulaire propose Durée et disponibilités, préremplies à partir du profil puis conservées dans le brouillon de création. `timeBudget` désigne les minutes disponibles par séance, distinctes de la durée du mésocycle en semaines ; `availableDays` contient les indices lundi = 0 à dimanche = 6. Ces repères peuvent être modifiés dans une séance personnelle ou depuis l’éditeur de semaine/mésocycle. Ils ne créent ni repos ni déplacement automatique. Les séances datées conservent les repères de leur programme lors de la planification. Un dépassement de durée n’est signalé que si la durée estimée de la séance est connue.
+
+## Reprise — premier lot ergonomique Cours 5/6
+
+Séances en cours présente un accès direct à chaque brouillon d’exécution, y compris une séance personnelle non datée ou un ancien placement disparu. Reprendre retrouve l’exercice et les résultats conservés ; l’encart est aussi présent dans Bilans. La liste personnelle reste repliable sous le calendrier. Lors d’une recherche, les reconstructions de l’écran conservent le focus et la position du curseur. Les états d’enregistrement distinguent une conservation seulement en mémoire lorsque le stockage est indisponible.
+
+Reprise datée/non datée, rechargement et curseur de recherche vérifiés dans Chromium ; voir le [compte rendu du lot](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md).

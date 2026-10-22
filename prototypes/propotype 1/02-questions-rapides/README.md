@@ -165,3 +165,7 @@ Vérifications du 3 octobre 2026 : connexion par nom, par e-mail et inscription 
 ## Simplification ergonomique validée
 
 Un appui sélectionne et avance ; aucun délai global ne bloque la réponse suivante. « Passer cette question » conserve les suivantes ; « Passer les questions restantes » termine ce parcours. Depuis Mes préférences, rouvrir un seul choix revient directement au calendrier après sélection, sans réinitialiser les entraînements.
+
+## Complément T1.1.1 — durée et disponibilités
+
+Le questionnaire reste limité à niveau, objectif et matériel. Depuis Calendrier → Mes préférences → Durée et disponibilités, le profil peut conserver un budget de 1 à 1440 minutes par séance et des jours disponibles. Les deux informations sont facultatives ; aucun jour coché signifie non renseigné. Modifier ces repères conserve le planning et les autres préférences.

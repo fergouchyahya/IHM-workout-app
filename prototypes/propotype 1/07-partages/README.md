@@ -18,7 +18,7 @@ Le prototype simule le service communautaire dans le navigateur. Il n’envoie r
 
 ## Données et confidentialité
 
-La fiche publiée contient une copie des noms de séances et d’exercices, les séries, répétitions et charge cible disponibles, ainsi que le titre, le niveau, la zone, la description et les options choisies. Le code construit explicitement cette copie : il ne sérialise pas l’objet complet de l’entraînement. Les résultats réels, les notes de suivi, les données de profil et les identifiants ne sont pas inclus.
+La fiche publiée contient une copie des noms de séances et d’exercices, les séries, répétitions, charge cible et RPE disponibles, les consignes publiques du mouvement, ainsi que le titre, le niveau, la zone, la description et les options choisies. Le code construit explicitement cette copie : il ne sérialise pas l’objet complet de l’entraînement. Les résultats réels, les notes de suivi, les données de profil et les identifiants ne sont pas inclus.
 
 Les publications T4 sont archivées par identité dans `ihm-prototype-1-profiles` avec les données du profil ; `ihm-prototype-1-t4` conserve la compatibilité avec la version précédente. Elles restent limitées au navigateur utilisé pour la démonstration.
 
@@ -46,3 +46,15 @@ L’audience, les publications et les commentaires sont simulés localement. Les
 ## Simplification ergonomique validée
 
 Nouvelle publication et modification sont nommées explicitement. Commencer un nouveau partage efface le contexte de modification, sans modifier la publication précédente. Un brouillon distinct par programme ou publication est conservé dans `sharingDrafts` lors des changements d’onglet et rechargements ; la liste propose Reprendre. L’aperçu et sa case de confirmation d’audience restent l’unique validation finale. Les confirmations de retrait et d’abandon utilisent le dialogue commun.
+
+## Complément T1.1.3 — instantané importable
+
+Les nouvelles publications conservent `plan`, un instantané construit par liste blanche avec organisation, jours/repos, durée estimée, nombre de semaines et variations du mésocycle. L’aperçu final affiche la répartition et les cibles partagées ; les semaines du cycle restent distinguées. La représentation `program` reste disponible pour les fiches et publications précédentes. Modifier la présentation conserve l’instantané ; Actualiser depuis Mes entraînements le remplace explicitement.
+
+Les résultats, notes/réglages personnels, disponibilités et budget de temps du profil restent exclus. Dans Découvrir → Communauté, une publication locale active avec `plan` peut être importée comme copie indépendante. Les anciennes publications nécessitent une actualisation explicite pour devenir importables avec leur répartition. Aucune communication réelle entre comptes n’est ajoutée.
+
+## Conservation — premier lot ergonomique Cours 5/6
+
+Une publication ou une modification n’est annoncée confirmée qu’après conservation réussie. Si le stockage échoue, la publication précédente est restaurée, le brouillon et l’aperçu restent disponibles ; réessayer la confirmation ne crée pas de doublon. Réessayer la sauvegarde dans l’alerte conserve le brouillon courant et ne le publie pas à lui seul.
+
+`tests/ergonomie-top10.test.cjs` vérifie les échecs/reprises de publication et de modification ; Chromium vérifie le maintien de l’aperçu, l’alerte, la reprise puis la confirmation unique. L’aperçu, la case et le bouton de confirmation restent en place : leur simplification est encore une proposition de l’audit.

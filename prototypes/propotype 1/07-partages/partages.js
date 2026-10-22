@@ -24,19 +24,14 @@ window.Partages = {
   },
   persist() {
     try { localStorage.setItem(this.key,JSON.stringify(this.data)); }
-    catch { window.Parcours.storageStatus('Sauvegarde des partages indisponible · garde cette page ouverte.'); return; }
-    window.Parcours.persist();
+    catch { window.Parcours.storageFailed = true; window.Parcours.storageStatus('Sauvegarde des partages indisponible · garde cette page ouverte.'); return false; }
+    return window.Parcours.persist();
   },
   esc(value) { return window.Parcours.escape(value); },
   sourceItems() { return window.Parcours.state.saved || []; },
   cleanProgram(source) {
-    const exercise = item => {
-      if (typeof item === 'string') return {name:item,sets:null,minReps:null,maxReps:null,load:null};
-      const catalog = window.catalogueExercices?.find(entry => entry.id === item.exerciseId);
-      return {name:item.name || catalog?.name || String(item.exerciseId || 'Exercice'), sets:item.sets ?? null, minReps:item.minReps ?? null, maxReps:item.maxReps ?? null, load:item.load ?? null};
-    };
-    if (source.organization === 'Séance seule') return [{name:source.name, exercises:(source.exercises || []).map(exercise)}];
-    return (source.days || []).filter(day => day.type === 'session').map(day => ({name:day.name || 'Séance',exercises:(day.exercises || []).map(exercise)}));
+    const plan = source.sharedPlan || window.Programmes.snapshot(source);
+    return window.Programmes.sessions(plan).map(session => ({name:session.name,exercises:session.exercises}));
   },
   readiness(source) {
     const sessions = this.cleanProgram(source);
@@ -47,7 +42,7 @@ window.Partages = {
   },
   render() {
     const p = window.Parcours;
-    if (this.stage === 'list') return this.renderList();
+    if (this.stage === 'list') return `${window.Parcours.storageFailed ? '<p class="draft-status">Sauvegarde indisponible · changements conservés pour cette visite</p>' : ''}${this.renderList()}`;
     if (this.stage === 'select') return this.renderSelect();
     if (this.stage === 'verify') return this.renderForm();
     if (this.stage === 'form') return this.renderForm();
@@ -72,12 +67,12 @@ window.Partages = {
   renderPreview() {
     const d = this.draft;
     const sessions = this.cleanProgram(this.source);
-    return `<button class="text-action" data-a="form">← Modifier la présentation</button><h1 tabindex="-1">${this.editing ? 'Vérifier les modifications' : 'Aperçu avant publication'}</h1><p class="landing-lead">Voici ce que ${d.visibility === 'public' ? 'la communauté' : 'tes contacts'} verra.</p><article class="t4-preview"><p class="landing-tag">${this.esc(d.level)}${d.zone ? ` · ${this.esc(d.zone)}` : ''}</p><h2>${this.esc(d.title)}</h2><p>${this.esc(d.description)}</p>${d.feedback ? '<p><strong>Demande de conseils</strong></p>' : ''}<p>${d.commentsEnabled ? 'Commentaires autorisés' : 'Commentaires fermés'}</p><h3>${this.esc(this.source.name)}</h3><ol class="t4-program">${sessions.map(session => `<li><strong>${this.esc(session.name)}</strong><ul>${session.exercises.map(exercise => `<li>${this.esc(exercise.name)}${exercise.sets ? ` · ${exercise.sets} séries` : ''}${exercise.minReps ? ` · ${exercise.minReps}${exercise.maxReps && exercise.maxReps !== exercise.minReps ? `–${exercise.maxReps}` : ''} répétitions` : ''}</li>`).join('')}</ul></li>`).join('')}</ol><p class="t4-privacy-note">Les résultats réels et les notes personnelles ne sont pas inclus.</p></article><label class="t4-check"><input id="t4-confirm" type="checkbox">${this.editing ? 'Je confirme la mise à jour de cette publication.' : `Je confirme la publication vers ${d.visibility === 'public' ? 'la communauté' : 'mes contacts'}.`}</label><button class="primary-action landing-section" data-a="publish">${this.editing ? 'Confirmer les modifications' : 'Confirmer la publication'}</button>`;
+    return `<button class="text-action" data-a="form">← Modifier la présentation</button><h1 tabindex="-1">${this.editing ? 'Vérifier les modifications' : 'Aperçu avant publication'}</h1><p class="landing-lead">Voici ce que ${d.visibility === 'public' ? 'la communauté' : 'tes contacts'} verra.</p><article class="t4-preview"><p class="landing-tag">${this.esc(d.level)}${d.zone ? ` · ${this.esc(d.zone)}` : ''}</p><h2>${this.esc(d.title)}</h2><p>${this.esc(d.description)}</p>${d.feedback ? '<p><strong>Demande de conseils</strong></p>' : ''}<p>${d.commentsEnabled ? 'Commentaires autorisés' : 'Commentaires fermés'}</p><h3>${this.esc(this.source.name)}</h3>${window.Programmes.scheduleSummary(this.source.sharedPlan || window.Programmes.snapshot(this.source))}<ol class="t4-program">${sessions.map(session => `<li><strong>${this.esc(session.name)}</strong><ul>${session.exercises.map(exercise => `<li>${this.esc(exercise.name)}${exercise.sets ? ` · ${exercise.sets} séries` : ''}${exercise.minReps ? ` · ${exercise.minReps}${exercise.maxReps && exercise.maxReps !== exercise.minReps ? `–${exercise.maxReps}` : ''} répétitions` : ''}${exercise.load != null ? ` · ${exercise.load} kg` : ''}${exercise.rpe != null ? ` · RPE ${exercise.rpe}` : ''}${exercise.instruction ? ` · ${this.esc(exercise.instruction)}` : ''}</li>`).join('')}</ul></li>`).join('')}</ol><p class="t4-privacy-note">Les résultats réels et les notes personnelles ne sont pas inclus.</p></article><label class="t4-check"><input id="t4-confirm" type="checkbox">${this.editing ? 'Je confirme la mise à jour de cette publication.' : `Je confirme la publication vers ${d.visibility === 'public' ? 'la communauté' : 'mes contacts'}.`}</label><button class="primary-action landing-section" data-a="publish">${this.editing ? 'Confirmer les modifications' : 'Confirmer la publication'}</button>`;
   },
   renderDetail() {
     const item = this.data.items.find(entry => entry.id === this.activeId);
     if (!item) return '<h1 tabindex="-1">Publication introuvable</h1><button data-a="list" class="landing-button">Retour</button>';
-    const program = (item.program || []).map(session => `<li><strong>${this.esc(session.name)}</strong><ul>${session.exercises.map(exercise => `<li>${this.esc(exercise.name)}${exercise.sets ? ` · ${exercise.sets} séries` : ''}${exercise.minReps ? ` · ${exercise.minReps}${exercise.maxReps && exercise.maxReps !== exercise.minReps ? `–${exercise.maxReps}` : ''} répétitions` : ''}</li>`).join('')}</ul></li>`).join('');
+    const program = (item.program || []).map(session => `<li><strong>${this.esc(session.name)}</strong><ul>${session.exercises.map(exercise => `<li>${this.esc(exercise.name)}${exercise.sets ? ` · ${exercise.sets} séries` : ''}${exercise.minReps ? ` · ${exercise.minReps}${exercise.maxReps && exercise.maxReps !== exercise.minReps ? `–${exercise.maxReps}` : ''} répétitions` : ''}${exercise.load != null ? ` · ${exercise.load} kg` : ''}${exercise.rpe != null ? ` · RPE ${exercise.rpe}` : ''}${exercise.instruction ? ` · ${this.esc(exercise.instruction)}` : ''}</li>`).join('')}</ul></li>`).join('');
     const comments = item.comments.map((comment,index) => `<article class="t4-comment"><p><strong>${this.esc(comment.author)}</strong></p><p>${this.esc(comment.text)}</p>${comment.reply ? `<p class="t4-reply"><strong>Ta réponse :</strong> ${this.esc(comment.reply)}</p>` : `<form data-reply="${index}" class="t4-reply-form"><label>Répondre<input name="reply" maxlength="300" required></label><button class="landing-button" type="submit">Envoyer la réponse</button></form>`}</article>`).join('');
     const sourceExists = this.sourceItems().some(source => source.id === item.sourceId);
     return `<button class="text-action" data-a="list">← Mes partages</button><h1 tabindex="-1">Gérer la publication</h1><article class="t4-card"><h2>${this.esc(item.title)}</h2><p>${this.esc(item.visibility === 'public' ? 'Communauté' : 'Mes contacts')} · ${item.status === 'published' ? 'Publication active' : 'Publication retirée'}</p><p>${this.esc(item.description)}</p><p>Commentaires ${item.commentsEnabled ? 'autorisés' : 'fermés'} · ${item.feedback ? 'Conseils demandés' : 'Pas de demande de conseils'}</p><h3>${this.esc(item.sourceName)}</h3><ol class="t4-program">${program}</ol><p class="t4-privacy-note">Aucun résultat réel ni note personnelle n’est inclus.</p></article><section class="landing-section"><h2>Retours</h2>${comments || '<p class="empty-content">Aucun commentaire reçu. Les retours apparaîtront ici.</p>'}${item.commentsEnabled && item.status === 'published' ? '<button class="landing-button landing-section" data-a="demo-comment">Simuler un commentaire reçu</button>' : ''}</section><div class="t4-actions"><button class="landing-button" data-a="edit">Modifier la présentation</button>${item.status === 'published' && sourceExists ? '<button class="landing-button" data-a="refresh-program">Actualiser depuis Mes entraînements</button>' : ''}${item.status === 'published' ? '<button class="landing-button" data-a="withdraw">Retirer la publication</button>' : '<button class="landing-button" data-a="republish">Republier</button>'}</div>`;
@@ -102,7 +97,7 @@ window.Partages = {
         const stored = window.Parcours.state.sharingDrafts[button.dataset.id];
         if (stored) { this.editing = stored.editing; this.activeId = stored.activeId; this.source = stored.editing ? this.publicationSource(this.active()) : this.sourceItems().find(item => item.id === stored.sourceId); this.draft = stored.fields; if (this.source) this.go('form'); }
       }
-      else if (action === 'refresh-program') { const item = this.active(), source = this.sourceItems().find(entry => entry.id === item?.sourceId); if (item && source) window.Ergonomie.confirm('Actualiser le contenu partagé ?', 'Le contenu publié sera remplacé par la version enregistrée dans Mes entraînements.',() => { const warning = this.readiness(source); if (warning) { window.Parcours.notify(warning); return; } item.sourceName = source.name; item.program = this.cleanProgram(source); this.persist(); this.go('detail'); },'Actualiser la publication'); }
+      else if (action === 'refresh-program') { const item = this.active(), source = this.sourceItems().find(entry => entry.id === item?.sourceId); if (item && source) window.Ergonomie.confirm('Actualiser le contenu partagé ?', 'Le contenu publié sera remplacé par la version enregistrée dans Mes entraînements.',() => { const warning = this.readiness(source); if (warning) { window.Parcours.notify(warning); return; } item.sourceName = source.name; item.program = this.cleanProgram(source); item.plan = window.Programmes.snapshot(source); this.persist(); this.go('detail'); },'Actualiser la publication'); }
       else if (action === 'withdraw') { const item = this.active(); if (item) window.Ergonomie.confirm('Retirer la publication ?',item.title,() => { item.status = 'withdrawn'; this.persist(); this.go('detail'); },'Retirer'); }
       else if (action === 'republish') { const item = this.active(); if (item) window.Ergonomie.confirm('Republier ?',`Audience : ${item.visibility === 'public' ? 'Communauté' : 'Mes contacts'}`,() => { item.status = 'published'; this.persist(); this.go('detail'); },'Confirmer la republication'); }
       else if (action === 'demo-comment') { const item = this.active(); if (item) { item.comments.push({author:'Camille · compte fictif',text:'La structure est claire. Comment as-tu choisi cette répartition ?'}); this.persist(); this.go('detail'); } }
@@ -129,20 +124,33 @@ window.Partages = {
   },
   draftKey() { return this.editing ? `edit:${this.activeId}` : `new:${this.source.id}`; },
   presentation(fields) { return {title:fields.title || '',level:fields.level || '',zone:fields.zone || '',description:fields.description || '',visibility:fields.visibility || 'public',feedback:!!fields.feedback,commentsEnabled:fields.commentsEnabled !== false}; },
-  publicationSource(item) { return item ? {id:item.sourceId,name:item.sourceName,organization:'Archive',days:(item.program || []).map(session => ({type:'session',name:session.name,exercises:session.exercises}))} : null; },
+  publicationSource(item) { return item ? {id:item.sourceId,name:item.sourceName,sharedPlan:item.plan,organization:'Archive',days:(item.program || []).map(session => ({type:'session',name:session.name,exercises:session.exercises}))} : null; },
   active() { return this.data.items.find(item => item.id === this.activeId); },
   publish() {
-    if (!document.querySelector('#t4-confirm')?.checked) { window.Parcours.notify('Coche la confirmation avant de publier.'); return; }
-    if (this.editing) { this.saveEdit(); window.Parcours.notify('Modifications confirmées'); return; }
-    const draftKey = this.draftKey();
-    this.data.items.unshift({id:crypto.randomUUID(),sourceId:this.source.id,sourceName:this.source.name,program:this.cleanProgram(this.source),...this.draft,status:'published',comments:[],createdAt:new Date().toISOString()});
-    delete window.Parcours.state.sharingDrafts?.[draftKey];
-    this.persist(); this.editing = false; this.activeId = this.data.items[0].id; this.go('detail'); window.Parcours.notify('Publication confirmée dans cette démonstration.');
+    const p = window.Parcours;
+    if (!document.querySelector('#t4-confirm')?.checked) { p.notify('Coche la confirmation avant de publier.'); return; }
+    if (this.editing) { this.saveEdit(); return; }
+    const draftKey = this.draftKey(), stored = p.state.sharingDrafts?.[draftKey];
+    const record = {id:crypto.randomUUID(),sourceId:this.source.id,sourceName:this.source.name,program:this.cleanProgram(this.source),plan:window.Programmes.snapshot(this.source),...this.draft,status:'published',comments:[],createdAt:new Date().toISOString()};
+    this.data.items.unshift(record); delete p.state.sharingDrafts?.[draftKey];
+    if (!this.persist()) {
+      this.data.items = this.data.items.filter(item => item !== record);
+      p.state.sharingDrafts ||= {}; p.state.sharingDrafts[draftKey] = stored || {sourceId:this.source.id,editing:false,activeId:null,fields:{...this.draft}};
+      this.persist();
+      p.notify('Publication non confirmée · brouillon conservé. Réessaie après avoir rétabli la sauvegarde.'); return;
+    }
+    this.editing = false; this.activeId = record.id; this.go('detail'); p.notify('Publication confirmée dans cette démonstration.');
   },
   saveEdit() {
-    const item = this.active();
+    const p = window.Parcours, item = this.active();
     if (!item) return;
-    Object.assign(item,this.presentation(this.draft)); delete window.Parcours.state.sharingDrafts?.[this.draftKey()]; this.persist(); this.editing = false; this.go('detail');
+    const before = structuredClone(item), draftKey = this.draftKey(), stored = p.state.sharingDrafts?.[draftKey];
+    Object.assign(item,this.presentation(this.draft)); delete p.state.sharingDrafts?.[draftKey];
+    if (!this.persist()) {
+      Object.assign(item,before); p.state.sharingDrafts ||= {}; p.state.sharingDrafts[draftKey] = stored || {sourceId:this.source.id,editing:true,activeId:this.activeId,fields:{...this.draft}};
+      this.persist(); p.notify('Modification non confirmée · brouillon conservé. Réessaie après avoir rétabli la sauvegarde.'); return;
+    }
+    this.editing = false; this.go('detail'); p.notify('Modifications confirmées');
   },
   go(stage) { this.stage = stage; window.Parcours.route('sharing'); },
 };

@@ -25,12 +25,13 @@ window.Decouverte = {
   },
   render() {
     const p = window.Parcours;
-    return `${p.greeting()}<h1 tabindex="-1">Découvrir</h1><label for="search-session">Rechercher une séance</label><input id="search-session" type="search" placeholder="Full Body, jambes…" value="${p.escape(p.state.search)}"><div class="filter-toolbar"><button id="open-filters" class="landing-button" type="button" aria-haspopup="dialog">Filtres</button></div><div id="active-filters" class="active-filters"></div><div class="library-sections" aria-label="Bibliothèques"><button type="button" data-source="starter" aria-pressed="${p.state.source === 'starter'}">Pour commencer</button><button type="button" data-source="community" aria-pressed="${p.state.source === 'community'}">Communauté</button></div><div id="library-results">${this.results()}</div>`;
+    return `${p.greeting()}<h1 tabindex="-1">Découvrir</h1><label for="search-session">Rechercher une séance ou un programme</label><input id="search-session" type="search" placeholder="Full Body, jambes…" value="${p.escape(p.state.search)}"><div class="filter-toolbar"><button id="open-filters" class="landing-button" type="button" aria-haspopup="dialog">Filtres</button></div><div id="active-filters" class="active-filters"></div><div class="library-sections" aria-label="Bibliothèques"><button type="button" data-source="starter" aria-pressed="${p.state.source === 'starter'}">Pour commencer</button><button type="button" data-source="community" aria-pressed="${p.state.source === 'community'}">Communauté</button></div><div id="library-results">${this.results()}</div><div id="program-results">${window.Programmes.cards()}</div>`;
   },
   refresh() {
     const results = document.querySelector('#library-results');
     if (!results) return;
     results.innerHTML = this.results();
+    document.querySelector('#program-results').innerHTML = window.Programmes.cards();
     const p = window.Parcours;
     const active = Object.entries(p.state.filters).filter(([,value]) => value);
     document.querySelector('#open-filters').textContent = active.length ? `Filtres (${active.length})` : 'Filtres';
@@ -43,6 +44,8 @@ window.Decouverte = {
     });
     document.querySelector('#open-filters').addEventListener('click', () => this.openFilters());
     document.querySelector('#landing-page').onclick = event => {
+      const program = event.target.closest('[data-import-program]');
+      if (program) { window.Programmes.open(program.dataset.importProgram); return; }
       const card = event.target.closest('[data-workout]');
       const source = event.target.closest('[data-source]');
       const remove = event.target.closest('[data-remove-filter]');
@@ -102,8 +105,8 @@ window.Decouverte = {
     document.querySelector('#recap-notice').textContent ||= 'Favori : retrouver facilement · Enregistrer : garder une copie · Planifier : choisir une date.';
   },
   confirm(message) {
-    window.Parcours.persist();
-    document.querySelector('#recap-notice').textContent = message;
+    const saved = window.Parcours.persist();
+    document.querySelector('#recap-notice').textContent = saved ? message : 'Modification appliquée pour cette visite · sauvegarde indisponible';
     this.updateRecapButtons();
     this.refresh();
   }
