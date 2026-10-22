@@ -1,5 +1,11 @@
 # Partager un programme — T4
 
+## État actuel — navigation et niveau
+
+Le lien vers les créations renvoie à la page Mes entraînements séparée. Les aperçus structurés de cibles masquent le RPE pour Débutant ou niveau absent sans modifier l’instantané publié.
+
+Cette section décrit la dernière décision utilisateur ; elle remplace les règles antérieures incompatibles ci-dessous. Les contrôles sont consignés dans le [compte rendu des ajustements](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#16-ajustements-demandés-après-la-clôture--22-octobre-2026).
+
 **Responsable :** Marie · **Référence :** [T4 validée](../../../docs/04-analyse-taches/T4/T4-finalized.md) · **État :** parcours T4 implémenté dans le prototype.
 
 ## But et périmètre

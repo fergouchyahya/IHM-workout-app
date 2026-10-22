@@ -43,7 +43,8 @@ window.QuestionsRapides = (() => {
     greeting.textContent = name ? `Bonjour ${name}` : 'Bonjour';
     greeting.title = greeting.textContent;
     title.textContent = question.title;
-    const backLabel = editing ? 'Annuler la modification' : current === 0 ? 'Revenir à la connexion' : 'Réponse précédente';
+    const backLabel = editing ? 'Annuler la modification' : 'Question précédente';
+    back.hidden = !editing && current === 0;
     back.setAttribute('aria-label',backLabel); back.textContent = `← ${backLabel}`;
     choices.replaceChildren();
     for (const choice of question.choices) {
@@ -62,7 +63,7 @@ window.QuestionsRapides = (() => {
       choices.append(button);
     }
     const saved = remember();
-    document.querySelector('#question-save-status').textContent = saved ? (answers[question.field] ? `Réponse conservée : ${answers[question.field]}` : editing ? 'Un choix suffit pour enregistrer et revenir.' : 'Réponses conservées au fur et à mesure.') : 'Sauvegarde indisponible · garde cette page ouverte.';
+    document.querySelector('#question-save-status').textContent = saved ? (answers[question.field] ? `Réponse conservée : ${answers[question.field]}` : '') : 'Sauvegarde indisponible · garde cette page ouverte.';
     title.focus({ preventScroll: true });
     window.scrollTo(0, 0);
   }
@@ -96,10 +97,7 @@ window.QuestionsRapides = (() => {
   back.addEventListener('click', () => {
     cancelAdvance();
     if (editing) { page.hidden = true; returnToLogin(); return; }
-    if (current === 0) {
-      page.hidden = true;
-      returnToLogin();
-    } else { current--; render(); }
+    if (current > 0) { current--; render(); }
   });
   document.querySelector('#skip-questions').addEventListener('click', finish);
   document.querySelector('#skip-one-question').addEventListener('click',() => { cancelAdvance(); if (editing || current === 2) finish(); else { current++; render(); } });

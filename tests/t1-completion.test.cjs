@@ -6,7 +6,7 @@ const path = require('node:path');
 const {randomUUID} = require('node:crypto');
 
 function app() {
-  const window = {Parcours:{state:{profile:{timeBudget:20,availableDays:[0,3]},saved:[],customExercises:[],calendar:[],milestones:[]},persist(){}},Semaine:{days:['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche']},Partages:{data:{items:[]}}};
+  const window = {Parcours:{state:{profile:{timeBudget:20,availableDays:[0,3]},saved:[],customExercises:[],calendar:[],milestones:[]},persist(){},isAdvanced:()=>true,isBeginner:()=>false},Semaine:{days:['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche']},Partages:{data:{items:[]}}};
   const ctx = vm.createContext({window,structuredClone,crypto:{randomUUID},document:{addEventListener(){}}});
   for (const file of ['commun/ergonomie.js','commun/disponibilites.js','06-configuration-seance/exercices.js','05-organisation-semaine/calendrier.js','03-decouverte/programmes.js']) vm.runInContext(fs.readFileSync(path.join(__dirname,'../prototypes/propotype 1',file),'utf8'),ctx);
   return window;

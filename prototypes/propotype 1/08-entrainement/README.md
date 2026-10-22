@@ -1,5 +1,18 @@
 # Écran d’entraînement — réaliser, documenter et conserver une séance (T2)
 
+## Repères par série pour mésocycle et semaine répétée — 22 octobre 2026
+
+Pour ces occurrences, chaque série présente « Précédente » avec sa charge et ses répétitions réalisées, sous la date de la dernière séance correspondante. Il n’est plus nécessaire de sélectionner chaque série pour voir son résultat précédent. Les nouvelles saisies restent vides. Le réglage effectivement utilisé précédemment reste consultable lorsqu’il diffère du réglage prévu.
+
+La référence utilise le même groupe de répétition et une seule séance terminée avant la date courante et le début de l’exécution ; elle ne mélange pas des séries de dates différentes et n’emprunte pas celles d’un autre programme comportant le même exercice. Les manques restent des tirets, les statuts particuliers restent nommés. La clé de répétition est conservée dans l’archive ; les résultats et la référence restent séparés après rechargement. Hors répétition, le rappel comparable antérieur de la série sélectionnée conserve son fonctionnement.
+
+
+## État actuel — affichage selon le niveau
+
+Débutant ou niveau absent : lignes de résultats limitées à charge et répétitions ; le ressenti global reste facultatif. RPE masqué dans les cibles, l’historique comparable, l’adaptation de série, les résultats et la correction du bilan. Les valeurs avancées déjà enregistrées sont conservées et redeviennent visibles avec un niveau compatible. Les détails sommeil/fatigue/douleur restent masqués sauf erreur existante à corriger. Une ancienne saisie brute RPE invalide peut être explicitement ignorée depuis l’entraînement, sans effacer son dernier résultat valide. Les autres règles de T2, minuteur, conservation et clôture restent inchangées.
+
+Cette section décrit la dernière décision utilisateur ; elle remplace les règles antérieures incompatibles ci-dessous. Les contrôles sont consignés dans le [compte rendu des ajustements](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#16-ajustements-demandés-après-la-clôture--22-octobre-2026).
+
 **État :** T2.1 à T2.4 implémentés, jusqu’à la frontière de T3, avec décisions de portée confirmées le 20 octobre 2026, depuis [l’aperçu de préparation](../06-configuration-seance/README.md). Référence : arbre T2 fourni et [synthèse T2](../../../docs/04-analyse-taches/T2/T2-finalized.md).
 
 ## Périmètre de cette étape

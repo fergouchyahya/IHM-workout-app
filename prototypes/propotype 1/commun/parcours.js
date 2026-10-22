@@ -55,6 +55,9 @@ window.Parcours = {
     clearTimeout(this.noticeTimer);
     this.view = ''; this.location = null; this.undoAction = null; document.querySelector('#landing-notice')?.replaceChildren();
   },
+  isBeginner() { return !['Intermédiaire','Avancé'].includes(this.state.profile.level); },
+  isAdvanced() { return this.state.profile.level === 'Avancé'; },
+  showRpe(session) { return !this.isBeginner() && !!session?.tracking?.rpe; },
   escape(value) {
     return String(value ?? '').replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]));
   },
@@ -63,7 +66,7 @@ window.Parcours = {
     return `<label>${label}<select name="${name}" ${extra}>${options.map(([key,text]) => `<option value="${escape(key)}" ${key === value ? 'selected' : ''}>${escape(text)}</option>`).join('')}</select></label>`;
   },
   icon(name) {
-    const paths = {discover:'<circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/>',mine:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4m8-4v4"/>',sharing:'<circle cx="5" cy="12" r="3"/><circle cx="18" cy="5" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8 10 7-4M8 14l7 4"/>',progress:'<path d="M4 20V10m8 10V4m8 16v-7"/>'};
+    const paths = {discover:'<circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/>',library:'<path d="M4 5h16v15H4zM8 5V3m8 2V3M8 10h8m-8 5h8"/>',mine:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4m8-4v4"/>',sharing:'<circle cx="5" cy="12" r="3"/><circle cx="18" cy="5" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8 10 7-4M8 14l7 4"/>',progress:'<path d="M4 20V10m8 10V4m8 16v-7"/>'};
     return `<svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">${paths[name]}</svg>`;
   },
   greeting() {
@@ -143,7 +146,7 @@ window.Parcours = {
   restoreLocation(saved,{replace = true} = {}) {
     if (!saved || saved.identity !== this.state.identity) return false;
     const location = structuredClone(saved), p = this.state, editor = window.ConfigurationSeance;
-    if (!['discover','mine','workout','week','create','training','review','summary','progress','sharing'].includes(location.view)) return false;
+    if (!['discover','mine','library','workout','week','create','training','review','summary','progress','sharing'].includes(location.view)) return false;
     if (location.view === 'discover') { p.search = location.search || ''; p.filters = {...location.filters}; p.source = location.source || 'starter'; p.ui.favoritesOnly = !!location.favoritesOnly; }
     if (location.view === 'mine') { window.Calendrier.selected = location.date || window.Calendrier.today(); window.Calendrier.cursor = location.cursor || window.Calendrier.selected; window.Calendrier.mode = location.mode || p.ui.calendarMode || 'week'; }
     if (location.view === 'week') { const base = p.saved.find(item => item.id === location.baseId); if (!base?.days) return false; window.Semaine.base = base; window.Semaine.origin = location.origin; }
@@ -197,12 +200,13 @@ window.Parcours = {
     this.view = view;
     const page = document.querySelector('#landing-page');
     page.onclick = null;
-    const labels = { discover:'Découvrir', mine:'Calendrier', create:'Créer un entraînement', week:'Organiser ma semaine', workout:'Préparer une séance', training:'Entraînement', progress:'Bilans', review:'Vérifier le bilan', summary:'Bilan conservé', sharing:'Partages' };
+    const labels = { discover:'Découvrir', mine:'Calendrier', library:'Mes entraînements', create:'Créer un entraînement', week:'Organiser ma semaine', workout:'Préparer une séance', training:'Entraînement', progress:'Bilans', review:'Vérifier le bilan', summary:'Bilan conservé', sharing:'Partages' };
     document.title = `${labels[view]} — Propotype 1`;
     document.querySelector('#demo-screen').textContent = `Prototype`;
     page.classList.toggle('has-calendar',view === 'mine');
     page.innerHTML = view === 'discover' ? window.Decouverte.render()
       : view === 'mine' ? window.Entrainements.render()
+      : view === 'library' ? window.Entrainements.renderLibrary()
       : view === 'create' ? window.Entrainements.renderCreate()
       : view === 'week' ? window.Semaine.render()
       : view === 'workout' ? window.ConfigurationSeance.render()
@@ -212,12 +216,13 @@ window.Parcours = {
       : view === 'progress' ? window.BilanSeance.renderHistory()
       : view === 'sharing' ? window.Partages.render()
       : '<h1 tabindex="-1">Bilans</h1><p class="landing-lead">Tes séances terminées et leurs résultats apparaîtront ici.</p><p class="landing-hint">Aucun résultat dans cette démonstration.</p>';
-    if (['discover','mine','progress'].includes(view) || view === 'sharing' && window.Partages.stage === 'list') {
+    if (['discover','mine','library','progress'].includes(view) || view === 'sharing' && window.Partages.stage === 'list') {
       page.insertAdjacentHTML('afterbegin','<div class="global-controls"><button id="open-preferences" class="text-action" type="button">Mes préférences</button></div>');
       page.querySelector('#open-preferences').onclick = () => this.openPreferences();
     }
     if (view === 'discover') window.Decouverte.bind();
     else if (view === 'mine') window.Entrainements.bind();
+    else if (view === 'library') window.Entrainements.bindLibrary();
     else if (view === 'create') window.Entrainements.bindCreate();
     else if (view === 'week') window.Semaine.bind();
     else if (view === 'workout') window.ConfigurationSeance.bind();
@@ -228,7 +233,7 @@ window.Parcours = {
     else if (view === 'progress') window.BilanSeance.bindHistory();
     const nav = document.querySelector('#landing-navigation');
     nav.hidden = view === 'create' || view === 'week' || view === 'workout' || view === 'training' || view === 'review';
-    nav.innerHTML = [['discover','Découvrir','⌕'],['mine','Calendrier','▦'],['sharing','Partages','↗'],['progress','Bilans','▥']].map(([id,label,icon]) => `<button type="button" data-page="${id}" ${view === id ? 'aria-current="page"' : ''}><span aria-hidden="true">${this.icon(id)}</span>${label}</button>`).join('');
+    nav.innerHTML = [['discover','Découvrir','⌕'],['mine','Calendrier','▦'],['library','Mes entraînements','▤'],['sharing','Partages','↗'],['progress','Bilans','▥']].map(([id,label,icon]) => `<button type="button" data-page="${id}" ${view === id ? 'aria-current="page"' : ''}><span aria-hidden="true">${this.icon(id)}</span>${label}</button>`).join('');
     window.Ergonomie.bind();
     const focus = focusSelector && page.querySelector(focusSelector);
     (focus || page.querySelector('h1'))?.focus({preventScroll:true});

@@ -34,7 +34,7 @@ window.EnrichissementSeance = {
       ['energy', p.select('Préciser la fatigue initiale (facultatif)','fatigue',[['','Non renseignée'],...['Faible','Moyenne','Forte'].map(value => [value,value])],context.fatigue,'data-context="fatigue"')],
       ['pain', p.select('Préciser la douleur ou gêne initiale (facultatif)','pain',[['','Non renseignée'],...['Aucune','Légère','Modérée','Importante'].map(value => [value,value])],context.pain,'data-context="pain"')]
     ];
-    return `<div class="training-context-fields"><label>Contexte de cette séance (facultatif)<textarea data-context="note" maxlength="1000" rows="2" placeholder="Ex. Nuit courte ou matériel différent — à noter une seule fois">${p.escape(context.note)}</textarea></label><details class="context-secondary" ${this.hasErrors(draft) || fields.some(([key]) => tracking[key]) ? 'open' : ''}><summary>Précisions sur l’état initial (facultatives)</summary>${fields.map(([,markup]) => markup).join('')}</details></div>`;
+    return `<div class="training-context-fields"><label>Contexte de cette séance (facultatif)<textarea data-context="note" maxlength="1000" rows="2" placeholder="Ex. Nuit courte ou matériel différent — à noter une seule fois">${p.escape(context.note)}</textarea></label><details class="context-secondary" ${p.isBeginner() && !this.hasErrors(draft) ? 'hidden' : ''} ${this.hasErrors(draft) || fields.some(([key]) => tracking[key]) ? 'open' : ''}><summary>Précisions sur l’état initial (facultatives)</summary>${fields.map(([,markup]) => markup).join('')}</details></div>`;
   },
   openContext() {
     document.querySelector('.training-day-state').open = true;

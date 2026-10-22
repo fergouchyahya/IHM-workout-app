@@ -373,3 +373,38 @@ input[aria-invalid="true"]:focus-visible,select[aria-invalid="true"]:focus-visib
 .history-date-group > h2 { font-size:17px; margin-bottom:12px; text-transform:capitalize; }
 #history-results > p { margin-top:14px; font-size:13px; }
 .program-publication-actions > p { margin:0 0 8px; font-size:13px; }
+
+/* Navigation du questionnaire et bibliothèque personnelle séparée. */
+.question-navigation { flex-wrap:nowrap; gap:8px; margin:8px 0 0; }
+.question-navigation button { flex:1; min-width:0; min-height:44px; font-size:13px; }
+.question-navigation #skip-one-question { text-align:right; }
+.question-navigation #question-back { text-align:left; }
+#skip-questions { margin-top:8px; }
+#question-save-status:empty, .card-origin:empty { display:none; }
+.saved-workout-row { align-items:stretch; }
+.saved-workout-actions { display:flex; flex-direction:row; gap:24px; justify-content:flex-start; margin-top:4px; }
+.saved-workout-actions button { min-height:44px; }
+#cycle-foundation { display:grid; gap:12px; }
+#cycle-foundation-title { font-size:19px; }
+#quick-create-exercise { margin:12px 0; text-align:left; overflow-wrap:anywhere; }
+#landing-navigation button { line-height:1.25; overflow-wrap:normal; }
+@media (max-width:360px) {
+  #landing-navigation { gap:0; padding-left:4px; padding-right:4px; }
+  #landing-navigation button { font-size:10px; padding-left:1px; padding-right:1px; }
+}
+
+
+/* Référence réalisée distincte des cibles et de la nouvelle saisie. */
+.previous-session-reference { margin:14px 0; padding:12px; border:1px solid #cbd5e1; border-radius:8px; background:#f8fafc; }
+.previous-session-reference h3 { font-size:14px; margin:0 0 8px; }
+.previous-sets { width:100%; border-collapse:collapse; font-size:14px; }
+.previous-sets caption { text-align:left; font-size:12px; color:#475569; margin-bottom:6px; }
+.previous-sets th, .previous-sets td { text-align:left; padding:8px 4px; border-bottom:1px solid #e2e8f0; }
+.previous-sets thead th { font-weight:600; font-size:12px; }
+.previous-sets tbody th { font-weight:400; }
+.previous-sets th small { display:block; font-size:11px; color:#475569; max-width:110px; }
+.previous-session-empty { font-size:13px; color:#475569; margin:12px 0; }
+.previous-set { grid-column:1 / -1; margin:0 0 10px; padding:8px; border-radius:6px; background:#f1f5f9; font-size:13px; color:#334155; }
+.previous-set span { font-weight:600; }
+/* Garder la répétition hebdomadaire accessible au-dessus d’un message Annuler persistant. */
+.landing-page.has-calendar { padding-bottom:340px; }

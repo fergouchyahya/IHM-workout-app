@@ -1,5 +1,13 @@
 # Page d’arrivée — Mes entraînements, avancé
 
+## État actuel — page personnelle séparée
+
+Mes entraînements est une destination autonome de la barre de navigation (`library`), séparée de Calendrier (`mine`). Elle contient Créer, recherche persistante, séances/semaines/mésocycles, favoris, Planifier et Supprimer. La suppression est confirmée et annulable ; elle conserve occurrences datées, exécutions en cours, bilans et publications. La création n’affecte aucune date.
+
+Pour Avancé + Mésocycle, la première étape demande structure (gabarit ou noms libres séparés par des virgules), fréquence, durée et objectif. Les valeurs sont conservées dans le brouillon ; après validation, Organiser les séances affiche l’objectif et la structure avant les jours et exercices. Pour Débutant ou niveau absent, les préférences et champs avancés sont masqués ; nom et organisation restent requis.
+
+Cette section décrit la dernière décision utilisateur ; elle remplace les règles antérieures incompatibles ci-dessous. Les contrôles sont consignés dans le [compte rendu des ajustements](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#16-ajustements-demandés-après-la-clôture--22-octobre-2026).
+
 **Date :** 2026-10-03 · **Responsables :** Yahya et Marie<br>
 **État :** documentation validée ; page implémentée et vérifiée.
 

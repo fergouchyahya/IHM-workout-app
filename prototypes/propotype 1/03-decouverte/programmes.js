@@ -22,7 +22,7 @@ window.Programmes = {
   },
   exerciseSummary(exercise) {
     const e = window.Ergonomie;
-    return [exercise.sets == null ? 'Séries à définir' : e.count(exercise.sets,'série'),exercise.minReps == null ? 'Répétitions à définir' : `${e.formatNumber(exercise.minReps)}${exercise.maxReps != null && exercise.maxReps !== exercise.minReps ? `–${e.formatNumber(exercise.maxReps)}` : ''} ${exercise.minReps === 1 && (!exercise.maxReps || exercise.maxReps === 1) ? 'répétition' : 'répétitions'}`,exercise.load == null ? '' : `${e.formatNumber(exercise.load)} kg`,exercise.rpe == null ? '' : `RPE ${e.formatNumber(exercise.rpe)}/10`].filter(Boolean).join(' · ');
+    return [exercise.sets == null ? 'Séries à définir' : e.count(exercise.sets,'série'),exercise.minReps == null ? 'Répétitions à définir' : `${e.formatNumber(exercise.minReps)}${exercise.maxReps != null && exercise.maxReps !== exercise.minReps ? `–${e.formatNumber(exercise.maxReps)}` : ''} ${exercise.minReps === 1 && (!exercise.maxReps || exercise.maxReps === 1) ? 'répétition' : 'répétitions'}`,exercise.load == null ? '' : `${e.formatNumber(exercise.load)} kg`,window.Parcours.isBeginner() || exercise.rpe == null ? '' : `RPE ${e.formatNumber(exercise.rpe)}/10`].filter(Boolean).join(' · ');
   },
   previewSessions(sessions,expanded = false) {
     const p = window.Parcours;
@@ -81,7 +81,7 @@ window.Programmes = {
   cards() {
     const p = window.Parcours, plans = this.filtered();
     if (!plans.length) return '';
-    return `<section class="landing-section"><h2>Programmes complets</h2><p class="form-help">Semaines et mésocycles à consulter puis importer. Les publications locales actives apparaissent dans Communauté.</p><div class="landing-stack">${plans.map(plan => `<button type="button" class="landing-card" data-import-program="${p.escape(plan.id)}"><h3>${p.escape(plan.name)}</h3><p>${p.escape(plan.organization)}${plan.weeks ? ` · ${plan.weeks} semaines` : ''} · ${p.escape(plan.level)}</p><p>${p.escape(plan.author || 'Bibliothèque de démonstration')}</p><p>Voir la répartition et les cibles →</p></button>`).join('') || '<p>Aucun programme complet avec ces critères.</p>'}</div></section>`;
+    return `<section class="landing-section"><h2>Programmes complets</h2><div class="landing-stack">${plans.map(plan => `<button type="button" class="landing-card" data-import-program="${p.escape(plan.id)}"><h3>${p.escape(plan.name)}</h3><p>${p.escape(plan.organization)}${plan.weeks ? ` · ${plan.weeks} semaines` : ''} · ${p.escape(plan.level)}</p><p>${p.escape(plan.author || 'Bibliothèque de démonstration')}</p><p>Voir la répartition et les cibles →</p></button>`).join('') || '<p>Aucun programme complet avec ces critères.</p>'}</div></section>`;
   }
 };
 

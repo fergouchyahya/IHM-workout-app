@@ -1,5 +1,20 @@
 # Organiser ma semaine — Prototype 1
 
+## Références des séances répétées — 22 octobre 2026
+
+Les occurrences d’un mésocycle sont comparées dans le même placement (`cycleId`) et pour la même séance de référence (`templateDay`). Copier et répéter la semaine donne aux copies une `repetitionKey` stable par séance d’origine ; répéter une copie conserve ce lien, sans modifier ni déverrouiller la source. Une duplication isolée reste indépendante. Les cibles et les adaptations gardent leur portée existante.
+
+L’exécution et son bilan conservent cette clé ; les résultats restent consultables même si l’occurrence ou le modèle d’origine est ensuite retiré. Les anciens bilans de mésocycles sont reliés par leur occurrence lorsqu’elle existe encore. Les anciennes copies hebdomadaires créées avant cette modification ne possèdent aucun lien fiable : utiliser une nouvelle répétition de semaine pour établir ce lien, sans regrouper arbitrairement les placements indépendants.
+
+
+## État actuel — calendrier et ajout unique
+
+Le calendrier ne contient plus la liste personnelle ni la création. Le seul + Ajouter, en haut, ouvre une date réglée par défaut sur aujourd’hui, même si un autre jour est consulté. Modifier cette date met à jour le placement, le repos et les éventuels jours groupés ; seuls les modèles enregistrés sont proposés. Le lien Mes entraînements ouvre la page de création et de liste. Les boutons Planifier de cette page ouvrent aussi le sélecteur de date.
+
+Le débutant ne voit ni échéance, ni copie/déplacement de semaine, ni placement groupé. Les échéances existantes restent conservées et redeviennent visibles au niveau Avancé. Séances, repos, plusieurs séances par date, déplacement d’une occurrence et résolution des conflits restent disponibles. La variante Ajouter ici du lot précédent est remplacée par cette décision utilisateur.
+
+Cette section décrit la dernière décision utilisateur ; elle remplace les règles antérieures incompatibles ci-dessous. Les contrôles sont consignés dans le [compte rendu des ajustements](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#16-ajustements-demandés-après-la-clôture--22-octobre-2026).
+
 **État :** répartition, calendrier daté et compléments de clôture T1 implémentés ; suivi de clôture au 20 octobre 2026 en fin de document.
 
 ## Objectif et tâches

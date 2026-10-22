@@ -61,7 +61,7 @@ window.Partages = {
   },
   sourceCards(search) {
     const sources = this.sourceItems().filter(source => window.Ergonomie.normalize(source.name).includes(window.Ergonomie.normalize(search)));
-    return sources.map(source => { const warning = this.readiness(source); return `<article class="t4-card"><h2>${this.esc(source.name)}</h2><p>${this.esc(source.organization || 'Séance seule')} · ${warning ? 'À compléter' : 'Prêt à partager'}</p><button class="landing-button full" data-a="choose" data-id="${source.id}">${warning ? 'Choisir et compléter' : 'Choisir ce programme'}</button></article>`; }).join('') || '<p>Aucun contenu avec ce nom. Crée une séance dans Mes entraînements ou modifie la recherche.</p><button class="landing-button" data-a="mine">Calendrier et Mes entraînements</button>';
+    return sources.map(source => { const warning = this.readiness(source); return `<article class="t4-card"><h2>${this.esc(source.name)}</h2><p>${this.esc(source.organization || 'Séance seule')} · ${warning ? 'À compléter' : 'Prêt à partager'}</p><button class="landing-button full" data-a="choose" data-id="${source.id}">${warning ? 'Choisir et compléter' : 'Choisir ce programme'}</button></article>`; }).join('') || '<p>Aucun contenu avec ce nom. Crée une séance dans Mes entraînements ou modifie la recherche.</p><button class="landing-button" data-a="mine">Mes entraînements</button>';
   },
   rememberDraft() {
     window.Parcours.state.sharingDrafts ||= {};
@@ -112,7 +112,7 @@ window.Partages = {
       if (action === 'start') { this.editing = false; this.source = null; this.draft = null; this.activeId = null; this.go('select'); }
       else if (action === 'list') this.go('list');
       else if (action === 'select') this.go('select');
-      else if (action === 'mine') window.Parcours.route('mine');
+      else if (action === 'mine') window.Parcours.route('library');
       else if (action === 'choose') this.prepare(this.sourceItems().find(item => item.id === button.dataset.id));
       else if (action === 'complete-source') this.completeSource();
       else if (action === 'verify') this.go('form');

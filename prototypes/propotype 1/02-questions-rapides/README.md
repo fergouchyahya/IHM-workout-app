@@ -1,5 +1,11 @@
 # Questions rapides — Parcours en trois écrans
 
+## État actuel — navigation du questionnaire
+
+Sous « Choisis une réponse pour continuer », Question précédente (flèche gauche) et Passer cette question (flèche droite) sont sur la même ligne. Le retour est absent à la première question ; aucune action ne renvoie à la connexion. En modification de préférence, Annuler reste disponible. Passer le reste reste une action secondaire. Le texte de sauvegarde systématique est retiré ; les erreurs de sauvegarde, la réponse sélectionnée et la reprise du brouillon restent effectives.
+
+Cette section décrit la dernière décision utilisateur ; elle remplace les règles antérieures incompatibles ci-dessous. Les contrôles sont consignés dans le [compte rendu des ajustements](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#16-ajustements-demandés-après-la-clôture--22-octobre-2026).
+
 **Date :** 2026-10-03 · **Responsables :** Yahya et Marie<br>
 **État :** documentation validée dans l’échange du 3 octobre 2026 ; trois questions implémentées et vérifiées.
 

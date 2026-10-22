@@ -13,6 +13,10 @@ window.Calendrier = {
   cursor:null,
   creationDate:null,
   entries(date) { return window.Parcours.state.calendar.filter(entry => entry.date === date); },
+  repeatGroup(entry) {
+    if (!entry || entry.type !== 'session') return null;
+    return entry.repetitionKey || (entry.cycleId && Number.isInteger(entry.templateDay) ? `${entry.cycleId}:${entry.templateDay}` : null);
+  },
   isLocked(entry) {
     const p = window.Parcours;
     return !!entry && (!!p.state.trainingDrafts?.[entry.id] || (p.state.completedSessions || []).some(record => record.executionKey === entry.id));
@@ -25,7 +29,7 @@ window.Calendrier = {
     else window.Parcours.notify(message);
     return false;
   },
-  milestones(date) { return (window.Parcours.state.milestones || []).filter(item => item.date === date); },
+  milestones(date) { if (!window.Parcours.isAdvanced()) return []; return (window.Parcours.state.milestones || []).filter(item => item.date === date); },
   milestoneCards(date) {
     const p = window.Parcours;
     return this.milestones(date).map(item => `<button type="button" class="agenda-card is-milestone" data-milestone="${item.id}"><span class="agenda-symbol" aria-hidden="true">⚑</span><span><small>ÉCHÉANCE</small><strong>${p.escape(item.title)}</strong>${item.workoutId ? `<span>${p.escape(p.state.saved.find(workout => workout.id === item.workoutId)?.name || 'Programme archivé')}</span>` : ''}${item.note ? `<span>${p.escape(item.note)}</span>` : ''}<small>Modifier la date ou l’objectif →</small></span></button>`).join('');
@@ -64,9 +68,9 @@ window.Calendrier = {
         const date = this.plus(start,index), entries = this.entries(date), milestones = this.milestones(date);
         return `<div class="calendar-cell ${date.slice(0,7) !== this.cursor.slice(0,7) && this.mode === 'month' ? 'is-outside' : ''} ${date === this.selected ? 'is-selected' : ''}" data-drop-date="${date}"><button class="calendar-date" type="button" data-date="${date}" tabindex="${date === this.selected ? 0 : -1}" aria-label="${this.label(date)}${entries.length ? `, ${entries.map(entry => entry.type === 'rest' ? 'Repos' : p.escape(entry.session.name)).join(', ')}` : ''}${milestones.length ? `, ${milestones.map(item => p.escape(item.title)).join(', ')}` : ''}" aria-pressed="${date === this.selected}" ${date === this.today() ? 'aria-current="date"' : ''}><span>${this.date(date).getDate()}</span></button><div class="calendar-markers">${entries.slice(0,1).map(entry => `<span class="calendar-chip is-${entry.type}" aria-label="${p.escape(entry.type === 'rest' ? 'Repos' : entry.session.name)} · ${this.label(date)}"><span>${entry.type === 'rest' ? 'Repos' : p.escape(entry.session.name)}</span></span>`).join('')}${milestones.length ? '<span class="milestone-marker" aria-label="Échéance">⚑</span>' : ''}${entries.length > 1 ? `<span class="calendar-overflow">+${entries.length-1}</span>` : ''}</div></div>`;
       }).join('')}</div></div>
-      <div class="calendar-legend"><span class="legend-session">Séance</span><span class="legend-rest">Repos</span><span class="legend-milestone">Échéance</span></div>
-      <section class="calendar-selected" aria-labelledby="selected-date-title"><div class="landing-row"><div><p class="calendar-eyebrow">${this.selected === this.today() ? 'AUJOURD’HUI' : 'JOUR SÉLECTIONNÉ'}</p><h2 id="selected-date-title">${this.label(this.selected)}</h2></div><button type="button" class="landing-button" id="day-add" aria-label="Ajouter au jour sélectionné">+ Ajouter ici</button></div><div class="calendar-agenda">${selected.length ? selected.map(entry => `<div class="agenda-row"><button type="button" class="agenda-card is-${entry.type}" data-entry="${entry.id}" ${this.isLocked(entry) ? '' : 'draggable="true"'}><span class="agenda-symbol" aria-hidden="true">${entry.type === 'rest' ? '☾' : '▥'}</span><span><small>${entry.type === 'rest' ? 'RÉCUPÉRATION' : p.state.completedSessions.some(record => record.executionKey === entry.id) ? 'SÉANCE TERMINÉE' : 'SÉANCE PRÉVUE'}</small><strong>${entry.type === 'rest' ? 'Repos' : p.escape(entry.session.name)}</strong>${entry.type === 'session' ? `<span>${p.escape(this.meta(entry.session))}</span><small>${this.isLocked(entry) ? 'Ouvrir la séance →' : 'Voir les exercices et les objectifs →'}</small>` : '<span>Une journée pour récupérer.</span>'}</span></button>${entry.type === 'session' && p.state.completedSessions.some(record => record.executionKey === entry.id) ? `<button class="resume-workout landing-button" type="button" data-completed-entry="${entry.id}">Voir le bilan</button>` : entry.type === 'session' && p.state.trainingDrafts[entry.id] ? `<button class="resume-workout landing-button" type="button" data-resume="${entry.id}">En cours · Reprendre</button>` : ''}</div>`).join('') : this.milestones(this.selected).length ? '' : '<p class="calendar-empty">Rien de prévu pour ce jour.<br>Ajoute une séance, un repos ou une échéance.</p>'}${this.milestoneCards(this.selected)}</div></section>
-      <button type="button" class="text-action calendar-week-action" id="calendar-copy-week">Copier / déplacer cette semaine</button>
+      <div class="calendar-legend"><span class="legend-session">Séance</span><span class="legend-rest">Repos</span>${p.isAdvanced() ? '<span class="legend-milestone">Échéance</span>' : ''}</div>
+      <section class="calendar-selected" aria-labelledby="selected-date-title"><div class="landing-row"><div><p class="calendar-eyebrow">${this.selected === this.today() ? 'AUJOURD’HUI' : 'JOUR SÉLECTIONNÉ'}</p><h2 id="selected-date-title">${this.label(this.selected)}</h2></div></div><div class="calendar-agenda">${selected.length ? selected.map(entry => `<div class="agenda-row"><button type="button" class="agenda-card is-${entry.type}" data-entry="${entry.id}" ${this.isLocked(entry) ? '' : 'draggable="true"'}><span class="agenda-symbol" aria-hidden="true">${entry.type === 'rest' ? '☾' : '▥'}</span><span><small>${entry.type === 'rest' ? 'RÉCUPÉRATION' : p.state.completedSessions.some(record => record.executionKey === entry.id) ? 'SÉANCE TERMINÉE' : 'SÉANCE PRÉVUE'}</small><strong>${entry.type === 'rest' ? 'Repos' : p.escape(entry.session.name)}</strong>${entry.type === 'session' ? `<span>${p.escape(this.meta(entry.session))}</span><small>${this.isLocked(entry) ? 'Ouvrir la séance →' : 'Voir les exercices et les objectifs →'}</small>` : '<span>Une journée pour récupérer.</span>'}</span></button>${entry.type === 'session' && p.state.completedSessions.some(record => record.executionKey === entry.id) ? `<button class="resume-workout landing-button" type="button" data-completed-entry="${entry.id}">Voir le bilan</button>` : entry.type === 'session' && p.state.trainingDrafts[entry.id] ? `<button class="resume-workout landing-button" type="button" data-resume="${entry.id}">En cours · Reprendre</button>` : ''}</div>`).join('') : this.milestones(this.selected).length ? '' : `<p class="calendar-empty">Rien de prévu pour ce jour.<br>${p.isAdvanced() ? 'Ajoute une séance, un repos ou une échéance.' : 'Ajoute une séance ou un repos.'}</p>`}${this.milestoneCards(this.selected)}</div></section>
+      ${!p.isBeginner() ? '<button type="button" class="text-action calendar-week-action" id="calendar-copy-week">Copier / déplacer cette semaine</button>' : ''}
       <dialog id="calendar-dialog" class="calendar-dialog" aria-labelledby="calendar-dialog-title"><h2 id="calendar-dialog-title"></h2><div id="calendar-dialog-content"></div></dialog>`;
   },
   refresh(focus) {
@@ -99,10 +103,9 @@ window.Calendrier = {
       event.preventDefault(); this.jumpTo(date);
     }; });
     document.querySelector('#calendar-show-day').onclick = () => { const heading = document.querySelector('#selected-date-title'); heading.tabIndex = -1; heading.focus(); heading.scrollIntoView({block:'start'}); };
-    document.querySelector('#calendar-add').onclick = () => this.choose(this.selected);
-    document.querySelector('#day-add').onclick = () => this.choose(this.selected);
+    document.querySelector('#calendar-add').onclick = () => this.choose();
     document.querySelector('#calendar-today').onclick = () => { this.selected = this.cursor = this.today(); this.refresh('#calendar-today'); };
-    document.querySelector('#calendar-copy-week').onclick = () => this.copyWeek();
+    document.querySelector('#calendar-copy-week')?.addEventListener('click',() => this.copyWeek());
     document.querySelectorAll('[draggable]').forEach(card => {
       // L’appui prolongé laisse le défilement ordinaire disponible sur mobile.
       let timer, active = false;
@@ -177,6 +180,10 @@ window.Calendrier = {
     return !!(mode || period || date || entry || schedule);
   },
   dialog(title,content) {
+    if (!document.querySelector('#calendar-dialog')) {
+      const dialog = document.createElement('dialog'); dialog.id = 'calendar-dialog'; dialog.className = 'calendar-dialog'; dialog.setAttribute('aria-labelledby','calendar-dialog-title');
+      dialog.innerHTML = '<h2 id="calendar-dialog-title"></h2><div id="calendar-dialog-content"></div>'; document.querySelector('#landing-page').append(dialog);
+    }
     document.querySelector('#calendar-dialog-title').textContent = title;
     document.querySelector('#calendar-dialog-content').innerHTML = content;
     const dialog = document.querySelector('#calendar-dialog');
@@ -194,52 +201,61 @@ window.Calendrier = {
       if (!this.canChange(current)) return false;
       if ([...expected].some(([id,value]) => JSON.stringify(p.state.calendar.find(entry => entry.id === id)) !== value)) { p.notify('Annulation impossible : une séance du lot a été modifiée depuis. Les changements récents sont conservés.'); return false; }
       p.state.calendar = p.state.calendar.filter(entry => !added.includes(entry.id) && !before.some(old => old.id === entry.id));
-      p.state.calendar.push(...structuredClone(before)); this.refresh('#day-add');
+      p.state.calendar.push(...structuredClone(before)); this.refresh('#calendar-add');
     });
   },
-  choose(date) {
-    const p = window.Parcours; this.selected = this.cursor = date;
-    this.dialog(`Ajouter · ${this.label(date)}`,`<label>Rechercher dans mes entraînements<input id="calendar-workout-search" type="search" placeholder="Nom de séance ou programme"></label><div id="calendar-saved-results" class="picker-results"></div><details class="expert-tools"><summary>Placer sur plusieurs jours</summary><fieldset class="batch-days"><legend>Jours de cette semaine</legend>${window.Semaine.days.map((name,index) => { const value = this.plus(this.monday(date),index); return `<label><input type="checkbox" name="placement-date" value="${value}" ${value === date ? 'checked' : ''}>${name.slice(0,3)} ${this.date(value).getDate()}</label>`; }).join('')}</fieldset></details><div class="calendar-choices"><button type="button" id="calendar-create" class="landing-button">Créer une séance</button><button type="button" id="calendar-milestone" class="landing-button">⚑ Ajouter une échéance</button><button type="button" id="calendar-rest" class="landing-button">☾ Marquer comme repos</button><p id="calendar-error" class="error" role="alert"></p><button type="button" id="calendar-cancel" class="text-action">Fermer</button></div>`);
-    const datesForWarnings = () => [...document.querySelectorAll('[name=placement-date]:checked')].map(input => input.value);
+  choose(date = this.today()) {
+    const p = window.Parcours;
+    this.dialog('Ajouter au calendrier',`<label>Date<input id="calendar-add-date" type="date" value="${date}" required></label><label>Rechercher dans mes entraînements<input id="calendar-workout-search" type="search" placeholder="Nom de séance ou programme"></label><div id="calendar-saved-results" class="picker-results"></div>${!p.isBeginner() ? '<details class="expert-tools"><summary>Placer sur plusieurs jours</summary><fieldset class="batch-days" id="calendar-batch-days"><legend>Jours de cette semaine</legend></fieldset></details>' : ''}<div class="calendar-choices">${p.isAdvanced() ? '<button type="button" id="calendar-milestone" class="landing-button">⚑ Ajouter une échéance</button>' : ''}<button type="button" id="calendar-rest" class="landing-button">☾ Marquer comme repos</button><button type="button" id="calendar-open-library" class="text-action">Mes entraînements</button><p id="calendar-error" class="error" role="alert"></p><button type="button" id="calendar-cancel" class="text-action">Fermer</button></div>`);
+    const dateField = document.querySelector('#calendar-add-date');
+    const readDate = () => {
+      if (!dateField.value || !dateField.validity.valid) { document.querySelector('#calendar-error').textContent = 'Choisis une date valide.'; dateField.focus(); return null; }
+      return dateField.value;
+    };
+    const datesForPlacement = () => p.isBeginner() ? [dateField.value] : [...document.querySelectorAll('[name=placement-date]:checked')].map(input => input.value);
     const refresh = () => {
       const search = window.Ergonomie.normalize(document.querySelector('#calendar-workout-search').value);
       const saved = p.state.saved.filter(item => window.Ergonomie.normalize(item.name).includes(search));
-      document.querySelector('#calendar-saved-results').innerHTML = saved.length ? saved.map(item => `<button type="button" class="picker-result" data-pick="${item.id}"><span><strong>${p.escape(item.name)}</strong><small>${p.escape(item.organization)} · Enregistré</small>${datesForWarnings().flatMap(date => window.Disponibilites.warnings(item,date).map(message => `<small class="availability-warning">${p.escape(this.label(date,{day:'numeric',month:'short'}))} : ${p.escape(message)}</small>`)).join('')}</span><span>${item.organization === 'Séance seule' ? '+ Ajouter' : 'Planifier'}</span></button>`).join('') : '<p>Aucun entraînement trouvé. Crée une séance ci-dessous ou enregistre-en une depuis Découvrir.</p>';
+      document.querySelector('#calendar-saved-results').innerHTML = saved.length ? saved.map(item => `<button type="button" class="picker-result" data-pick="${item.id}"><span><strong>${p.escape(item.name)}</strong><small>${p.escape(item.organization)}</small>${datesForPlacement().filter(Boolean).flatMap(date => window.Disponibilites.warnings(item,date).map(message => `<small class="availability-warning">${p.escape(this.label(date,{day:'numeric',month:'short'}))} : ${p.escape(message)}</small>`)).join('')}</span><span>${item.organization === 'Séance seule' ? '+ Ajouter' : 'Planifier'}</span></button>`).join('') : '<p>Aucun entraînement trouvé. Crée-le dans Mes entraînements ou enregistre-en un depuis Découvrir.</p>';
     };
+    const updateDays = () => {
+      const fieldset = document.querySelector('#calendar-batch-days');
+      if (fieldset && dateField.value) {
+        fieldset.innerHTML = `<legend>Jours de cette semaine</legend>${window.Semaine.days.map((name,index) => { const value = this.plus(this.monday(dateField.value),index); return `<label><input type="checkbox" name="placement-date" value="${value}" ${value === dateField.value ? 'checked' : ''}>${name.slice(0,3)} ${this.date(value).getDate()}</label>`; }).join('')}`;
+        fieldset.onchange = refresh;
+      }
+      document.querySelector('#calendar-error').textContent = ''; refresh();
+    };
+    dateField.onchange = updateDays;
     document.querySelector('#calendar-workout-search').oninput = refresh;
-    document.querySelectorAll('[name=placement-date]').forEach(input => { input.onchange = refresh; });
     document.querySelector('#calendar-saved-results').onclick = event => {
-      const button = event.target.closest('[data-pick]'); if (!button) return;
+      const button = event.target.closest('[data-pick]'); if (!button || !readDate()) return;
       const source = p.state.saved.find(item => item.id === button.dataset.pick);
-      if (source.organization !== 'Séance seule') { this.schedule(source,date); return; }
-      const dates = [...document.querySelectorAll('[name="placement-date"]:checked')].map(input => input.value);
+      if (source.organization !== 'Séance seule') { this.schedule(source,dateField.value); return; }
+      const dates = datesForPlacement();
       if (!dates.length) { document.querySelector('#calendar-error').textContent = 'Sélectionne au moins un jour.'; return; }
       this.quickAdd(source,dates);
     };
-    document.querySelector('#calendar-create').onclick = () => {
-      const create = () => { p.state.ui.fullCreation = false; if (p.state.creationDraft?.creationDate !== date) p.state.creationDraft = null; this.creationDate = date; p.state.creationDraft = {...(p.state.creationDraft || {}),organization:'Séance seule'}; document.querySelector('#calendar-dialog').close(); p.route('create'); };
-      const rests = this.entries(date).filter(entry => entry.type === 'rest');
-      if (rests.length) window.Ergonomie.confirm('Remplacer le repos ?',`Créer une séance le ${this.label(date)} remplace le repos.`,() => { this.creationRestIds = rests.map(entry => entry.id); create(); },'Remplacer et créer'); else create();
-    };
-    document.querySelector('#calendar-milestone').onclick = () => this.editMilestone(date);
+    document.querySelector('#calendar-open-library').onclick = () => { document.querySelector('#calendar-dialog').close(); p.route('library'); };
+    document.querySelector('#calendar-milestone')?.addEventListener('click',() => { const date = readDate(); if (date) this.editMilestone(date); });
     document.querySelector('#calendar-rest').onclick = () => {
-      if (!this.canChange(this.entries(date))) return;
+      const date = readDate(); if (!date || !this.canChange(this.entries(date))) return;
       const removed = structuredClone(this.entries(date));
       const apply = () => {
         p.state.calendar = p.state.calendar.filter(entry => entry.date !== date);
         const rest = {id:crypto.randomUUID(),date,type:'rest'}; p.state.calendar.push(rest);
-        document.querySelector('#calendar-dialog').close(); this.refresh('#day-add'); this.undoPlacement(removed,[rest.id],'Jour marqué comme repos');
+        document.querySelector('#calendar-dialog').close(); this.selected = this.cursor = date; this.refresh('#calendar-add'); this.undoPlacement(removed,[rest.id],'Jour marqué comme repos');
       };
       if (removed.some(entry => entry.type === 'session')) window.Ergonomie.confirm('Remplacer les séances par du repos ?',`${removed.filter(entry => entry.type === 'session').length} séance(s) et leurs objectifs seront retirés du ${this.label(date)}.`,apply,'Remplacer par du repos'); else apply();
     };
-    refresh();
+    updateDays();
   },
   quickAdd(source,dates) {
     const p = window.Parcours, rests = p.state.calendar.filter(entry => dates.includes(entry.date) && entry.type === 'rest');
     const apply = () => {
       p.state.calendar = p.state.calendar.filter(entry => !rests.includes(entry));
       const added = dates.map(date => this.addSession(source,date).id);
-      document.querySelector('#calendar-dialog')?.close(); this.selected = this.cursor = dates[0]; this.refresh('#day-add');
+      document.querySelector('#calendar-dialog')?.close(); this.selected = this.cursor = dates[0]; this.refresh('#calendar-add');
       this.undoPlacement(rests,added,`${source.name} ajouté · ${dates.map(date => this.label(date,{day:'numeric',month:'short'})).join(', ')}`);
     };
     if (rests.length) window.Ergonomie.confirm('Remplacer le repos par cette séance ?',`Repos concerné : ${rests.map(entry => this.label(entry.date)).join(', ')}.`,apply,'Remplacer et ajouter'); else apply();
@@ -260,15 +276,15 @@ window.Calendrier = {
     const previous = id ? structuredClone(p.state.milestones.find(item => item.id === id)) : null;
     const current = previous || {date,title:'',note:'',workoutId:''};
     const dialog = this.dialog(id ? 'Modifier l’échéance' : 'Ajouter une échéance',`<form id="milestone-form"><label>Objectif ou nom de l’échéance<input name="title" maxlength="100" required value="${p.escape(current.title)}" placeholder="Ex. Fin de cycle, séance de référence"></label><label>Date<input name="date" type="date" required value="${current.date}"></label>${p.select('Programme associé (facultatif)','workoutId',[['','Aucun'],...p.state.saved.map(item => [item.id,item.name]),...(current.workoutId && !p.state.saved.some(item => item.id === current.workoutId) ? [[current.workoutId,'Programme archivé']] : [])],current.workoutId)}<label>Repère ou cible (facultatif)<textarea name="note" maxlength="500" rows="3" placeholder="Ce que tu souhaites vérifier à cette date">${p.escape(current.note)}</textarea></label><p class="form-help">L’échéance est un repère personnel. Elle ne modifie ni les cibles des exercices ni les résultats.</p><p id="milestone-error" class="error" role="alert"></p><div class="week-actions"><button type="submit" class="primary-action">Enregistrer l’échéance</button><button type="button" class="text-action" id="calendar-cancel">Annuler</button>${id ? '<button type="button" id="delete-milestone" class="text-action">Retirer l’échéance</button>' : ''}</div></form>`);
-    const undo = () => { p.state.milestones = p.state.milestones.filter(item => item.id !== id); if (previous) p.state.milestones.push(previous); this.refresh('#day-add'); };
+    const undo = () => { p.state.milestones = p.state.milestones.filter(item => item.id !== id); if (previous) p.state.milestones.push(previous); this.refresh('#calendar-add'); };
     document.querySelector('#milestone-form').onsubmit = event => {
       event.preventDefault(); const record = this.saveMilestone(Object.fromEntries(new FormData(event.target)),id);
       if (!record) { document.querySelector('#milestone-error').textContent = 'Renseigne un titre et une date valide.'; return; }
-      this.selected = this.cursor = record.date; dialog.close(); this.refresh('#day-add');
-      p.notifyChange('Échéance enregistrée',() => { p.state.milestones = p.state.milestones.filter(item => item.id !== record.id); if (previous) p.state.milestones.push(previous); this.refresh('#day-add'); });
+      this.selected = this.cursor = record.date; dialog.close(); this.refresh('#calendar-add');
+      p.notifyChange('Échéance enregistrée',() => { p.state.milestones = p.state.milestones.filter(item => item.id !== record.id); if (previous) p.state.milestones.push(previous); this.refresh('#calendar-add'); });
     };
     document.querySelector('#delete-milestone')?.addEventListener('click',() => {
-      p.state.milestones = p.state.milestones.filter(item => item.id !== id); dialog.close(); this.refresh('#day-add'); p.notifyChange('Échéance retirée',undo);
+      p.state.milestones = p.state.milestones.filter(item => item.id !== id); dialog.close(); this.refresh('#calendar-add'); p.notifyChange('Échéance retirée',undo);
     });
   },
   conflicts(proposed,excluded = new Set()) {
@@ -331,7 +347,7 @@ window.Calendrier = {
       event.target.disabled = true; apply(accepted,replaced,effectiveExcluded);
     };
   },
-  schedule(source,date = this.selected) {
+  schedule(source,date = this.today()) {
     const p = window.Parcours, program = source.organization !== 'Séance seule';
     const start = program ? this.monday(date) : date;
     const dialog = this.dialog(program ? 'Planifier le programme' : 'Planifier la séance',`<form id="calendar-schedule"><p class="landing-hint">${p.escape(source.name)}${program ? ' · La répartition est répétée automatiquement ; chaque date reste modifiable.' : ''}</p><label>${program ? 'Lundi de départ' : 'Date'}<input name="date" type="date" value="${start}" required></label>${program ? `<label>Nombre de semaines<input name="weeks" type="number" min="1" max="104" step="1" value="${source.weeks || 1}" required></label>` : ''}<div id="schedule-warnings" role="status"></div><p class="error" id="calendar-error" role="alert"></p><div class="week-actions"><button type="submit" class="primary-action">Ajouter au calendrier</button><button type="button" id="calendar-cancel" class="text-action">Annuler</button></div></form>`);
@@ -364,7 +380,7 @@ window.Calendrier = {
       if (!proposed.length) { document.querySelector('#calendar-error').textContent = 'Configure au moins une séance ou un repos dans cette semaine avant de la planifier.'; return; }
       this.requestPlacement(proposed,new Set(),(accepted,replaced) => {
         const change = this.applyPlacement(accepted,new Set(),replaced); if (!change) return;
-        this.selected = this.cursor = accepted[0].date; dialog.close(); this.refresh('#day-add'); this.undoPlacement(change.removed,change.added,`Planning ajouté · ${source.name}`);
+        this.selected = this.cursor = accepted[0].date; dialog.close(); this.refresh('#calendar-add'); this.undoPlacement(change.removed,change.added,`Planning ajouté · ${source.name}`);
       },true);
     };
   },
@@ -380,7 +396,7 @@ window.Calendrier = {
       return;
     }
     this.dialog(`Repos · ${this.label(entry.date)}`,`<p class="landing-section">Journée de récupération.</p><div class="week-actions"><button id="calendar-remove" type="button" class="landing-button">Retirer le repos</button><button id="calendar-cancel" type="button" class="text-action">Fermer</button></div>`);
-    document.querySelector('#calendar-remove').onclick = () => { window.Parcours.state.calendar = window.Parcours.state.calendar.filter(item => item.id !== id); document.querySelector('#calendar-dialog').close(); this.refresh('#day-add'); this.undoPlacement([entry],[],'Repos retiré'); };
+    document.querySelector('#calendar-remove').onclick = () => { window.Parcours.state.calendar = window.Parcours.state.calendar.filter(item => item.id !== id); document.querySelector('#calendar-dialog').close(); this.refresh('#calendar-add'); this.undoPlacement([entry],[],'Repos retiré'); };
   },
   transfer(id) {
     const p = window.Parcours, entry = p.state.calendar.find(item => item.id === id);
@@ -397,12 +413,12 @@ window.Calendrier = {
       delete proposed.newWorkout;
 
       const copy = form.elements.action.value === 'copy';
-      if (copy) { proposed.id = crypto.randomUUID(); this.detachCycle(proposed); }
+      if (copy) { proposed.id = crypto.randomUUID(); this.detachCycle(proposed); delete proposed.repetitionKey; }
       else if (proposed.cycleId && (date < proposed.cycleStart || date > proposed.cycleEnd)) this.detachCycle(proposed);
       const excluded = new Set(copy ? [] : [id]);
       this.requestPlacement([proposed],excluded,(accepted,replaced) => {
         const change = this.applyPlacement(accepted,excluded,replaced); if (!change) return;
-        this.selected = this.cursor = date; dialog.close(); this.refresh('#day-add'); this.undoPlacement(change.removed,change.added,copy ? 'Séance dupliquée' : 'Séance déplacée');
+        this.selected = this.cursor = date; dialog.close(); this.refresh('#calendar-add'); this.undoPlacement(change.removed,change.added,copy ? 'Séance dupliquée' : 'Séance déplacée');
       },copy);
     };
     dialog.showModal();
@@ -421,12 +437,12 @@ window.Calendrier = {
       if (!entries.length) { document.querySelector('#calendar-error').textContent = 'Cette semaine est vide.'; return; }
       if (this.monday(date) !== date) { document.querySelector('#calendar-error').textContent = 'Choisis un lundi.'; return; }
       if (!move && date <= start && this.plus(date,(count-1)*7) >= start) { document.querySelector('#calendar-error').textContent = 'Les copies doivent être en dehors de la semaine d’origine.'; return; }
-      const proposed = Array.from({length:count},(_,week) => entries.map(entry => ({...structuredClone(entry),id:move ? entry.id : crypto.randomUUID(),date:this.plus(date,week*7+(this.date(entry.date).getDay()+6)%7)}))).flat();
+      const proposed = Array.from({length:count},(_,week) => entries.map(entry => ({...structuredClone(entry),id:move ? entry.id : crypto.randomUUID(),date:this.plus(date,week*7+(this.date(entry.date).getDay()+6)%7),...(!move && entry.type === 'session' ? {repetitionKey:this.repeatGroup(entry) || entry.id} : {})}))).flat();
       proposed.forEach(entry => { if (!move || entry.cycleId && (entry.date < entry.cycleStart || entry.date > entry.cycleEnd)) this.detachCycle(entry); });
       const excluded = new Set(move ? entries.map(entry => entry.id) : []);
       this.requestPlacement(proposed,excluded,(accepted,replaced,effectiveExcluded = excluded) => {
         const change = this.applyPlacement(accepted,effectiveExcluded,replaced); if (!change) return;
-        this.selected = this.cursor = accepted[0].date; dialog.close(); this.refresh('#day-add'); this.undoPlacement(change.removed,change.added,move ? 'Semaine déplacée' : 'Semaine répétée');
+        this.selected = this.cursor = accepted[0].date; dialog.close(); this.refresh('#calendar-add'); this.undoPlacement(change.removed,change.added,move ? 'Semaine déplacée' : 'Semaine répétée');
       },!move);
     };
   }

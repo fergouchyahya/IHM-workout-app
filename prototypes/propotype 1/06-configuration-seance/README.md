@@ -1,5 +1,20 @@
 # Préparer ou adapter une séance — T1.3
 
+## Séance précédente dans une répétition — 22 octobre 2026
+
+Ouvrir une occurrence de mésocycle ou de semaine nouvellement répétée affiche, dans chaque exercice, la date de la séance précédente et un tableau Série / Charge / Répétitions. Il utilise une seule dernière séance terminée de la même répétition, antérieure à la date préparée. Les cibles restent éditables séparément ; aucun résultat ni objectif n’est rempli automatiquement. Modifier le nombre de séries actualise le tableau sans nouvelle navigation.
+
+Les slots stables conservent la correspondance après réordonnancement. Un remplacement ou un ajout ne reprend pas les résultats d’un autre exercice ; les anciens mouvements sans slot ne sont comparés que si leur correspondance est unique. Les séries absentes montrent des tirets ; une série non faite masque ses valeurs mises de côté et indique Non faite. Les valeurs partielles/interrompues restent identifiées. Le tableau reste lisible pour Débutant, sans RPE ; les séances indépendantes ne l’affichent pas.
+
+
+## État actuel — niveau et exercice par nom
+
+Débutant ou niveau absent : séries, répétitions et charge en ligne ; pas de RPE, fixes/plage, cases groupées ou préférences de suivi avancées. Intermédiaire et Avancé : outils détaillés existants. Les consignes/réglages restent facultatifs ; aucune valeur avancée n’est effacée par le changement de niveau. Une plage déjà enregistrée reste conservée tant que les répétitions ne sont pas modifiées ; modifier ce nombre en mode simple définit un nombre fixe.
+
+Dans Ajouter/Remplacer, saisir un nom absent révèle + Ajouter « nom ». Un clic crée le mouvement dans le catalogue personnel et l’ajoute au brouillon avec cibles vides ; un nom existant, sans distinction de casse ou d’accents, réutilise ce mouvement. En ajout multiple, le nouveau mouvement rejoint la sélection. Le formulaire avec image, muscle, matériel et consigne reste un chemin facultatif.
+
+Cette section décrit la dernière décision utilisateur ; elle remplace les règles antérieures incompatibles ci-dessous. Les contrôles sont consignés dans le [compte rendu des ajustements](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#16-ajustements-demandés-après-la-clôture--22-octobre-2026).
+
 **État :** évolution validée dans l’échange du 16 octobre 2026. Le parcours s’arrête à [l’écran d’entraînement T2](../08-entrainement/README.md), avant le bilan et l’analyse T3. Références : [arbre commun des tâches](../../../docs/04-analyse-taches/tache.md), [T1](../../../docs/04-analyse-taches/T1/T1-finalized.md) et [T3](../../../docs/04-analyse-taches/T3/T3-finalized.md).
 
 ## Parcours et présentation

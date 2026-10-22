@@ -15,12 +15,13 @@ window.Decouverte = {
   card(workout) {
     const p = window.Parcours;
     const favorite = p.state.favorites.includes(workout.id);
-    return `<button type="button" class="landing-card" data-workout="${workout.id}"><h3>${p.escape(workout.name)}</h3><p>Environ ${workout.duration} min · ${workout.level} · ${workout.exercises.length} exercices</p><p>${workout.equipment}</p><p>${workout.groups.join(' · ')}</p><p class="card-origin">${workout.source === 'community' ? p.escape(workout.author) : 'Bibliothèque de départ'}${favorite ? ' · ★ Favori' : ''}${p.state.saved.some(item => item.sourceId === workout.id) ? ' · ✓ Déjà enregistré' : ''}</p></button>`;
+    const origin = [workout.source === 'community' ? workout.author : '',favorite ? '★ Favori' : '',p.state.saved.some(item => item.sourceId === workout.id) ? '✓ Déjà enregistré' : ''].filter(Boolean).join(' · ');
+    return `<button type="button" class="landing-card" data-workout="${workout.id}"><h3>${p.escape(workout.name)}</h3><p>Environ ${workout.duration} min · ${workout.level} · ${workout.exercises.length} exercices</p><p>${workout.equipment}</p><p>${workout.groups.join(' · ')}</p><p class="card-origin">${p.escape(origin)}</p></button>`;
   },
   results() {
     const workouts = this.filtered(), plans = window.Programmes.filtered(), p = window.Parcours;
     const total = workouts.length + plans.length, e = window.Ergonomie;
-    return `<div class="results-heading"><h2>${p.state.ui.favoritesOnly ? 'Mes favoris · toutes bibliothèques' : 'Selon tes filtres'}</h2><p id="search-results-summary" role="status">${e.count(total,'résultat')} · ${e.count(workouts.length,'séance')} · ${e.count(plans.length,'programme')}</p><p>Tri des séances : durée croissante. ${p.state.profile.timeBudget ? `Repère personnel : ${e.formatNumber(p.state.profile.timeBudget)} min disponibles ; le filtre Durée reste à ton choix.` : 'Niveau, matériel, zone et durée suivent les filtres affichés.'}</p></div>${total ? workouts.length ? `<h2>Séances individuelles</h2><div class="landing-stack">${workouts.map(workout => this.card(workout)).join('')}</div>` : '' : `<div class="empty-content"><h2>Aucun résultat avec ces critères</h2><p>Retire un filtre ci-dessus${p.state.search ? ' ou modifie le nom recherché' : ''}.</p>${p.state.search ? '<button class="landing-button" type="button" data-clear-search-only>Effacer le nom recherché</button>' : ''}<button class="landing-button" type="button" data-clear-search>Tout réinitialiser</button></div>`}`;
+    return `<div class="results-heading">${p.state.ui.favoritesOnly ? '<h2>Mes favoris · toutes bibliothèques</h2>' : ''}<p id="search-results-summary" role="status">${e.count(total,'résultat')} · ${e.count(workouts.length,'séance')} · ${e.count(plans.length,'programme')}</p></div>${total ? workouts.length ? `<h2>Séances individuelles</h2><div class="landing-stack">${workouts.map(workout => this.card(workout)).join('')}</div>` : '' : `<div class="empty-content"><h2>Aucun résultat avec ces critères</h2><p>Retire un filtre ci-dessus${p.state.search ? ' ou modifie le nom recherché' : ''}.</p>${p.state.search ? '<button class="landing-button" type="button" data-clear-search-only>Effacer le nom recherché</button>' : ''}<button class="landing-button" type="button" data-clear-search>Tout réinitialiser</button></div>`}`;
   },
   render() {
     const p = window.Parcours;
@@ -146,7 +147,7 @@ document.querySelector('#save-session').addEventListener('click', () => {
 });
 document.querySelector('#plan-session').addEventListener('click', () => {
   document.querySelector('#week-form').hidden = false;
-  document.querySelector('#week-day').value = window.Calendrier.selected;
+  document.querySelector('#week-day').value = window.Calendrier.today();
   document.querySelector('#week-day').focus();
 });
 document.querySelector('#cancel-week').addEventListener('click', () => { document.querySelector('#week-form').hidden = true; });
@@ -178,12 +179,12 @@ document.querySelector('#week-form').addEventListener('submit', event => {
 });
 document.querySelector('#close-recap').addEventListener('click', () => document.querySelector('#recap-dialog').close());
 document.querySelector('#recap-open-mine').addEventListener('click', () => {
-  document.querySelector('#recap-dialog').close(); window.Parcours.route('mine');
+  document.querySelector('#recap-dialog').close(); window.Parcours.route('library');
 });
 document.querySelector('#recap-dialog').addEventListener('close', () => {
   const recap = window.Decouverte;
   if (document.querySelector('#landing-page').hidden || window.Parcours.view !== recap.origin) return;
-  if (recap.origin === 'mine') window.Parcours.route('mine');
+  if (recap.origin === 'library') window.Parcours.route('library');
   else (document.querySelector(`[data-workout="${recap.current.id}"]`) || document.querySelector('#filter-favorites'))?.focus({preventScroll:true});
   // Restaurer après le retour du focus natif de la fenêtre modale.
   requestAnimationFrame(() => window.scrollTo(0,recap.originScroll));

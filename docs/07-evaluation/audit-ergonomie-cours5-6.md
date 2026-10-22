@@ -375,3 +375,37 @@ R09, R10, R14, R18, R36, R41, R43, R46 et R48 sont retirés de la liste restante
 ### Clôture et évaluation restante
 
 La liste de développement est terminée. L’analyse T3 reste à concevoir. Téléphone physique, clavier virtuel réel, lecteur d’écran et tests utilisateur ne sont pas réalisés. Les variantes R18 et R48 doivent notamment être comparées sur compréhension, activations involontaires, erreurs et accomplissement des tâches ; les comptes de clics et tests automatisés ne les remplacent pas. Les autres scénarios utilisateur de la section 9 restent également à exécuter.
+
+
+## 16. Ajustements demandés après la clôture — 22 octobre 2026
+
+Cette passe applique les demandes visuelles et de navigation formulées après les 49 propositions. Elle ne rouvre pas cette liste ; elle remplace notamment la variante R18 « Ajouter ici » par une seule action globale d’ajout.
+
+| Demande | Comportement livré |
+| --- | --- |
+| Connexion | Deux textes retirés ; formulaires et Essayer sans compte conservés. |
+| Questions | Précédente et Passer cette question alignés sous l’aide avec flèches ; aucun retour à la connexion, aucun texte répétitif de sauvegarde. Réponses/position restent sauvegardées. |
+| Découvrir | Textes de suggestion/tri et introduction des programmes retirés ; provenance Bibliothèque de départ retirée des cartes. Filtres, tri, favoris, copie/import et auteur communautaire conservés. |
+| Adapter au niveau | Niveau absent et Débutant : essentiels ; Intermédiaire/Avancé : RPE et outils détaillés disponibles. RPE masqué aussi dans entraînement, adaptation, bilan et aperçu public, sans effacer les valeurs existantes. Échéances réservées à Avancé. |
+| Séparer calendrier et bibliothèque | Mes entraînements devient une page de navigation autonome : recherche, création, planification et suppression. Calendrier ne contient plus la liste ni le formulaire de création. |
+| Un seul ajout au calendrier | + Ajouter en haut ; date initiale aujourd’hui, indépendante de la date consultée, modifiable avant placement. Séances et repos utilisent cette date ; hors débutant, les jours groupés se recalculent après changement. |
+| Supprimer un modèle | Confirmation puis suppression de la liste et des seuls brouillons personnels ; Annuler restaure le modèle. Occurrences déjà planifiées, exécutions en cours, bilans et publications conservés. |
+| Exercice libre | Nom dans la recherche puis Ajouter : catalogue personnel et brouillon mis à jour. Réutilisation des noms normalisés existants ; détails facultatifs via le formulaire conservé. |
+| Mésocycle avancé | Structure, fréquence, durée et objectif avant jours/exercices. Structure personnalisée et objectif non vides requis ; brouillon repris après rechargement, contexte visible à l’étape suivante. |
+
+**Vérifications :** 111 tests ciblés réussis (104 existants adaptés aux nouveaux libellés/niveaux, 7 dans `tests/profile-library.test.cjs`). Ils couvrent séparation des écrans, niveaux, masquage sans effacement, suppression de séance et cycle avec conservation/annulation, nom libre sans doublon normalisé et restauration de navigation.
+
+Parcours Chromium : connexion/démo, navigation des trois questions, retour avec choix conservé, textes retirés, création débutante, exercice par nom retrouvé après rechargement, date initiale aujourd’hui malgré une consultation éloignée puis placement à une date modifiée, suppression/annulation/restauration. Parcours T2 débutant jusqu’au bilan, adaptation de série sans RPE ; mésocycle avancé avec erreurs initiales, structure libre/objectifs repris après rechargement, configuration des jours/exercices, RPE choisi, échéances, planification depuis la bibliothèque et suppression du cycle en conservant l’exécution en cours. Écrans principaux contrôlés à 320, 390 et 1280 px sans débordement du document.
+
+**Effets sur les actions :** une seule entrée évite deux libellés Ajouter concurrents ; créer un exercice inconnu à partir d’un nom ne demande plus d’ouvrir et de soumettre un second formulaire. Créer un mésocycle avancé demande davantage de décisions initiales explicites pour structurer le cycle. Ces changements ne constituent pas une mesure de vitesse : téléphone physique, lecteur d’écran et essais utilisateurs restent à faire ; T3 reste distinct.
+
+
+## 17. Charges et répétitions de la séance précédente — 22 octobre 2026
+
+Dans la préparation d’une occurrence de mésocycle ou d’une semaine nouvellement répétée, chaque exercice montre la séance précédente correspondante et ses résultats par série : charge et répétitions. Pendant l’entraînement, le même repère apparaît près de chaque ligne de saisie. Aucune action supplémentaire n’est nécessaire pour consulter ces valeurs ; elles ne remplissent ni les cibles ni les résultats du jour.
+
+La comparaison est limitée au même placement de mésocycle et jour de référence, ou à la même séance d’origine d’une répétition de semaine. Les copies hebdomadaires conservent une clé de répétition, y compris dans leurs bilans ; répéter une copie garde la même origine. Une duplication isolée et une planification indépendante ne déclenchent pas le nouveau tableau. Les anciennes copies sans lien fiable ne sont pas regroupées automatiquement.
+
+Une seule séance terminée précédente est retenue par date, sans combler ses omissions avec des résultats plus anciens. Les slots stables évitent les confusions entre exercices identiques et supportent leur réordonnancement. Les séries non faites sont nommées sans afficher leurs anciennes valeurs mises de côté ; zéro kg, répétition zéro, interruption et valeurs absentes restent distincts. Les résultats restent séparés des cibles, de la nouvelle saisie et de la publication.
+
+Vérifications : **121 tests ciblés réussis**, dont 10 nouveaux dans `tests/repeated-session-history.test.cjs` sur portée, dates et référence unique, origine de répétition, anciens bilans, slots/remplacements/doublons, absences/statuts, lecture seule et conservation de la clé hors instantané public. Parcours Chromium : planification d’un mésocycle, saisie et clôture de la première séance, préparation de la suivante, ajout d’une série, repères dans T2, rechargement et passage à la dernière séance terminée sans reprise des résultats plus anciens. Répétition réelle d’une semaine, distinction de deux séances ayant le même exercice, répétition d’une copie et duplication isolée contrôlées également. Vues de préparation et entraînement vérifiées à 320, 390 et 1280 px sans débordement du document. Le test hebdomadaire a reproduit un recouvrement du bouton de répétition par le message Annuler et la navigation fixes ; une marge de défilement supplémentaire en bas du calendrier permet désormais de placer ce bouton au-dessus du message. Le même scénario tactile simulé passe après correction. Téléphone physique et essais utilisateurs restent à réaliser.

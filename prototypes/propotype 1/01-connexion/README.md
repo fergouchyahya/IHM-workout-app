@@ -1,5 +1,11 @@
 # Écran 01 — Connexion et création de compte
 
+## État actuel — ajustement visuel du 22 octobre 2026
+
+Connexion et Essayer sans compte gardent leurs interactions. Les textes « Retrouve tes entraînements. » et « Profil de démonstration séparé, conservé sur cet appareil. » sont retirés. L’isolation du profil local reste effective.
+
+Cette section décrit la dernière décision utilisateur ; elle remplace les règles antérieures incompatibles ci-dessous. Les contrôles sont consignés dans le [compte rendu des ajustements](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#16-ajustements-demandés-après-la-clôture--22-octobre-2026).
+
 **Date :** 2026-10-03 · **Responsables :** Yahya et Marie<br>
 **État :** documentation validée dans l’échange du 3 octobre 2026 ; première page implémentée et vérifiée.<br>
 **Utilisateur de référence :** Thomas · **Support :** mobile.
