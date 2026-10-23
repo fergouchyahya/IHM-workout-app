@@ -94,3 +94,9 @@ test('cycle scope preserves unsaved preparation drafts on other dates',() => {
   state.preparationDrafts = {'future-draft':{session:{name:'Modifications en cours'}}};
   assert.deepEqual(plain(editor.futureOccurrences().map(item => item.id)),['future']);
 });
+
+test('cycle propagation excludes occurrences with a completed execution',() => {
+ const {editor,state}=prototype();const current={id:'current',type:'session',sourceId:'program',cycleId:'cycle',templateDay:0,date:'2026-12-07'};editor.calendarId=current.id;
+ state.calendar=[current,{...current,id:'completed',date:'2026-12-14'},{...current,id:'future',date:'2026-12-21'}];state.completedSessions=[{executionKey:'completed'}];
+ assert.deepEqual(plain(editor.futureOccurrences().map(item=>item.id)),['future']);
+});

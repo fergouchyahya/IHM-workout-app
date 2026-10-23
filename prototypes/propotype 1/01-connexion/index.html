@@ -18,11 +18,15 @@
   <script defer src="../commun/ergonomie.js"></script>
   <script defer src="../06-configuration-seance/exercices.js"></script>
   <script defer src="../06-configuration-seance/seance.js"></script>
+  <script defer src="../08-entrainement/enrichissement.js"></script>
+  <script defer src="../08-entrainement/bilan.js"></script>
   <script defer src="../08-entrainement/entrainement.js"></script>
   <script defer src="../05-organisation-semaine/semaine.js"></script>
   <script defer src="../05-organisation-semaine/calendrier.js"></script>
+  <script defer src="../commun/disponibilites.js"></script>
   <script defer src="../commun/parcours.js"></script>
   <script defer src="../03-decouverte/seances.js"></script>
+  <script defer src="../03-decouverte/programmes.js"></script>
   <script defer src="../03-decouverte/decouverte.js"></script>
   <script defer src="../04-mes-entrainements/gabarits.js"></script>
   <script defer src="../04-mes-entrainements/entrainements.js"></script>
@@ -54,7 +58,6 @@
 
     <section id="login-panel" role="tabpanel" aria-labelledby="login-tab">
       <h1>Connexion</h1>
-      <p class="intro">Retrouve tes entraînements.</p>
       <form id="login-form" novalidate>
         <div class="field">
           <label for="login-identifier">E-mail ou nom d’utilisateur</label>
@@ -100,26 +103,26 @@
       </form>
     </section>
 
+    <div class="demo-access"><button id="try-demo" class="landing-button full" type="button">Essayer sans compte</button></div>
     <noscript><p>Active JavaScript pour essayer les interactions de cette maquette.</p></noscript>
   </main>
 
   <main id="questions-page" class="questions-page" hidden>
     <section id="question-panel" aria-labelledby="question-title">
-      <div class="question-navigation">
-        <button id="question-back" class="question-back" type="button" aria-label="Revenir à la connexion">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12"/></svg>
-        </button>
-        <button id="skip-one-question" class="text-action" type="button">Passer cette question</button>
-        <button id="skip-questions" class="text-action" type="button">Passer le reste</button>
-      </div>
       <p id="question-number" class="question-progress-label" role="status" aria-live="polite"></p>
       <div id="question-progress" class="question-progress" role="progressbar" aria-labelledby="question-number" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1">
         <span></span><span></span><span></span>
       </div>
       <p id="question-greeting" class="question-greeting"></p>
       <h1 id="question-title" class="question-title" tabindex="-1"></h1>
+      <p id="question-save-status" class="form-help" role="status"></p>
       <div id="question-choices" class="question-choices" role="group" aria-labelledby="question-title" aria-describedby="question-help"></div>
       <p id="question-help" class="question-help">Choisis une réponse pour continuer.</p>
+      <div class="question-navigation">
+        <button id="question-back" class="question-back" type="button" hidden>← Question précédente</button>
+        <button id="skip-one-question" class="text-action" type="button">Passer cette question →</button>
+      </div>
+      <button id="skip-questions" class="text-action" type="button">Passer le reste</button>
     </section>
   </main>
 
