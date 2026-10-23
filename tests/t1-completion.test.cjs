@@ -59,7 +59,7 @@ test('publication plan omits personal fields, preserves all weeks and imports cu
 
 test('only active structured local publications are offered for import',() => {
   const w=app(),plan=w.Programmes.snapshot(w.catalogueProgrammes[0]);
-  w.Partages.data.items=[{id:'yes',status:'published',plan},{id:'withdrawn',status:'withdrawn',plan},{id:'legacy',status:'published',program:[]}];
+  w.Partages.data.items=[{id:'yes',status:'published',visibility:'public',plan},{id:'withdrawn',status:'withdrawn',visibility:'public',plan},{id:'legacy',status:'published',visibility:'public',program:[]}];
   const entries=w.Programmes.entries().filter(item=>item.id.startsWith('publication:'));
   assert.equal(entries.length,1);assert.equal(entries[0].id,'publication:yes');
 });

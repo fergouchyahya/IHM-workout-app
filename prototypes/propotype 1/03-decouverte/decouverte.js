@@ -25,13 +25,13 @@ window.Decouverte = {
   },
   render() {
     const p = window.Parcours;
-    return `${p.greeting()}<h1 tabindex="-1">Découvrir</h1><label for="search-session">Rechercher une séance ou un programme</label><input id="search-session" type="search" placeholder="Full Body, jambes…" value="${p.escape(p.state.search)}"><div class="filter-toolbar"><button id="filter-favorites" class="landing-button" type="button" aria-pressed="${!!p.state.ui.favoritesOnly}">★ Mes favoris</button><button id="open-filters" class="landing-button" type="button" aria-haspopup="dialog">Filtres</button></div><p class="form-help">Bibliothèque et critères actifs</p><div id="active-filters" class="active-filters"></div><div id="discovery-libraries" class="library-sections" aria-label="Bibliothèques" ${p.state.ui.favoritesOnly ? 'hidden' : ''}><button type="button" data-source="starter" aria-pressed="${p.state.source === 'starter'}">Pour commencer</button><button type="button" data-source="community" aria-pressed="${p.state.source === 'community'}">Communauté</button></div><div id="library-results">${this.results()}</div><div id="program-results">${window.Programmes.cards()}</div>`;
+    return `${p.greeting()}<h1 tabindex="-1">Découvrir</h1><label for="search-session">Rechercher une séance ou un programme</label><input id="search-session" type="search" placeholder="Full Body, jambes…" value="${p.escape(p.state.search)}"><div class="filter-toolbar"><button id="filter-favorites" class="landing-button" type="button" aria-pressed="${!!p.state.ui.favoritesOnly}">★ Mes favoris</button><button id="open-filters" class="landing-button" type="button" aria-haspopup="dialog">Filtres</button></div><p class="form-help">Bibliothèque et critères actifs</p><div id="active-filters" class="active-filters"></div><div id="discovery-libraries" class="library-sections" aria-label="Bibliothèques" ${p.state.ui.favoritesOnly ? 'hidden' : ''}><button type="button" data-source="starter" aria-pressed="${p.state.source === 'starter'}">Pour commencer</button><button type="button" data-source="community" aria-pressed="${p.state.source === 'community'}">Communauté</button></div><div id="library-results">${this.results()}</div><div id="program-results">${window.Programmes.feedCards()}${window.Programmes.cards()}</div>`;
   },
   refresh() {
     const results = document.querySelector('#library-results');
     if (!results) return;
     results.innerHTML = this.results();
-    document.querySelector('#program-results').innerHTML = window.Programmes.cards();
+    document.querySelector('#program-results').innerHTML = `${window.Programmes.feedCards()}${window.Programmes.cards()}`;
     const p = window.Parcours;
     document.querySelector('#filter-favorites').setAttribute('aria-pressed',String(!!p.state.ui.favoritesOnly));
     document.querySelector('#discovery-libraries').hidden = !!p.state.ui.favoritesOnly;

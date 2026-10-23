@@ -39,8 +39,18 @@ window.Programmes = {
     }).join('')}</section>`;
   },
   entries() {
-    const publications = (window.Partages?.data.items || []).filter(item => item.status === 'published' && item.plan).map(item => ({ ...item.plan, id: `publication:${item.id}`, name: item.title, description: item.description, level: item.level, source: 'community', author: 'Publication locale de démonstration' }));
+    const publications = (window.Partages?.data.items || []).filter(item => item.status === 'published' && item.visibility === 'public' && item.plan).map(item => ({ ...item.plan, id: `publication:${item.id}`, name: item.title, description: item.description, level: item.level, source: 'community', author: 'Publication locale de démonstration', createdAt: item.createdAt || '' }));
     return [...window.catalogueProgrammes, ...publications];
+  },
+  feedCards() {
+    const p = window.Parcours;
+    if (p.state.source !== 'community' || p.state.ui.favoritesOnly) return '';
+    const items = this.entries().filter(item => item.source === 'community' && String(item.id).startsWith('publication:')).sort((a,b) => (Date.parse(b.createdAt) || 0) - (Date.parse(a.createdAt) || 0));
+    const content = items.length ? `<div class="landing-stack">${items.map(item => {
+      const date = item.createdAt && !Number.isNaN(Date.parse(item.createdAt)) ? new Intl.DateTimeFormat('fr-FR',{dateStyle:'medium'}).format(new Date(item.createdAt)) : '';
+      return `<button type="button" class="landing-card" data-import-program="${p.escape(item.id)}"><h3>${p.escape(item.name)}</h3><p>${p.escape(item.level || item.organization)}${item.weeks ? ` · ${item.weeks} semaines` : ''}${date ? ` · Publié le ${date}` : ''}</p><p>${p.escape(item.description || 'Programme partagé avec la communauté.')}</p><p>${p.escape(item.author)} · Voir le programme et les cibles →</p></button>`;
+    }).join('')}</div>` : '<p class="empty-content">Aucune publication publique pour le moment. Les programmes partagés avec la communauté apparaîtront ici.</p>';
+    return `<section class="landing-section community-feed" aria-labelledby="community-feed-title"><h2 id="community-feed-title">Fil d’actualité de la communauté</h2>${content}</section>`;
   },
   import(plan) {
     const p = window.Parcours, existing = p.state.saved.find(item => item.importId === plan.id);
@@ -79,7 +89,7 @@ window.Programmes = {
     return this.entries().filter(item => item.source === p.state.source && window.Ergonomie.normalize(item.name).includes(window.Ergonomie.normalize(p.state.search)) && (!p.state.filters.level || item.level === p.state.filters.level) && (!p.state.filters.equipment || item.equipment === p.state.filters.equipment) && (!p.state.filters.group || this.sessions(item).some(session => session.exercises.some(exercise => exercise.group === p.state.filters.group))) && (!p.state.filters.duration || this.sessions(item).every(session => session.duration && session.duration <= Number(p.state.filters.duration))));
   },
   cards() {
-    const p = window.Parcours, plans = this.filtered();
+    const p = window.Parcours, plans = this.filtered().filter(plan => !String(plan.id).startsWith('publication:'));
     if (!plans.length) return '';
     return `<section class="landing-section"><h2>Programmes complets</h2><div class="landing-stack">${plans.map(plan => `<button type="button" class="landing-card" data-import-program="${p.escape(plan.id)}"><h3>${p.escape(plan.name)}</h3><p>${p.escape(plan.organization)}${plan.weeks ? ` · ${plan.weeks} semaines` : ''} · ${p.escape(plan.level)}</p><p>${p.escape(plan.author || 'Bibliothèque de démonstration')}</p><p>Voir la répartition et les cibles →</p></button>`).join('') || '<p>Aucun programme complet avec ces critères.</p>'}</div></section>`;
   }
