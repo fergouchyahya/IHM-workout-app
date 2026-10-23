@@ -55,7 +55,7 @@ document.addEventListener('focusin',event => {
     const input = event.target;
     requestAnimationFrame(() => {
       if (!input.isConnected || input.closest('dialog')) return;
-      const footer = document.querySelector('.preparation-footer, .training-navigation');
+      const footer = document.querySelector('#landing-dock') || document.querySelector('.preparation-footer, .training-navigation');
       const viewport = window.visualViewport?.height || window.innerHeight;
       const top = footer?.getBoundingClientRect().top;
       const limit = top > 0 && top < viewport ? top : viewport;

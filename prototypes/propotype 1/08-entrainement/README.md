@@ -1,5 +1,11 @@
 # Écran d’entraînement — réaliser, documenter et conserver une séance (T2)
 
+## Optimisations de saisie — 23 octobre 2026
+
+La série active possède une seule zone Repos et recopie de la séance précédente, placée près de ses champs. Changer de série déplace ces outils sans reconstruire les saisies. La recopie externe reste explicite : elle propose date, position de série et résultat réel complet, avec même mouvement, matériel et réglage. Les séries adaptées/interrompues/non faites, les valeurs invalides et les archives postérieures au début de l’exécution sont exclues ; dans une répétition, une seule séance précédente de cette répétition sert de référence. Aucun résultat n’est prérempli et aucune cible n’est modifiée.
+
+Annuler une recopie intégrale, qu’elle vienne de la série précédente ou d’une séance terminée, restaure seulement les champs restés identiques à la copie. Une correction ultérieure, sa saisie brute, son erreur, un statut changé ou une autre exécution sont conservés. Le reste du contexte de la série reste indépendant. Les actions et messages partagent désormais une zone basse dont la hauteur réelle réserve le défilement ; la marge arbitraire de fin de revue est retirée.
+
 ## Repères par série pour mésocycle et semaine répétée — 22 octobre 2026
 
 Pour ces occurrences, chaque série présente « Précédente » avec sa charge et ses répétitions réalisées, sous la date de la dernière séance correspondante. Il n’est plus nécessaire de sélectionner chaque série pour voir son résultat précédent. Les nouvelles saisies restent vides. Le réglage effectivement utilisé précédemment reste consultable lorsqu’il diffère du réglage prévu.

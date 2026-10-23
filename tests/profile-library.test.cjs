@@ -35,3 +35,14 @@ test('a name alone creates a reusable personal exercise and normalized duplicate
 test('the personal library is a restorable navigation destination for the same identity',()=>{
  const {p}=app();assert.equal(p.restoreLocation({view:'library',identity:p.state.identity,scroll:200}),true);assert.equal(p.view,'library');assert.equal(p.restoreLocation({view:'library',identity:'other'}),false);
 });
+
+test('a search with no match does not claim that existing personal workouts were lost',()=>{
+ const {p,w}=app();p.state.saved=[{id:'personal',name:'Séance jambes',organization:'Séance seule',exercises:[]}];
+ p.state.ui.savedSearch='missing';const html=w.Entrainements.libraryResults();
+ assert.match(html,/Aucun entraînement avec ce nom/);assert.match(html,/data-clear-saved-search/);assert.doesNotMatch(html,/Aucun entraînement enregistré/);
+ p.state.ui.savedSearch='JAMBES';assert.match(w.Entrainements.libraryResults(),/data-personal="personal"/);
+});
+test('one shared rest action replaces repeated row buttons without changing the real results',()=>{
+ const {t,draft:d,p}=app();p.state.profile.level='Avancé';const before=JSON.stringify(d.results),html=t.render();
+ assert.equal((html.match(/data-rest-set=/g)||[]).length,1);assert.equal(JSON.stringify(d.results),before);
+});

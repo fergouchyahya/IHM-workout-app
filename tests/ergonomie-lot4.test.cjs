@@ -5,7 +5,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const {randomUUID}=require('node:crypto');
 function app(){
- const node={textContent:'',innerHTML:'',classList:{toggle(){}},replaceChildren(){},addEventListener(){},close(){},focus(){}};
+ const node={textContent:'',innerHTML:'',dataset:{},classList:{toggle(){}},replaceChildren(){},addEventListener(){},close(){},focus(){}};
  const document={querySelector:()=>node,querySelectorAll:()=>[],addEventListener(){}};
  const window={scrollY:0};const context=vm.createContext({window,document,structuredClone,crypto:{randomUUID},clearTimeout(){},localStorage:{getItem:()=>null,setItem(){}}});
  for(const file of ['commun/ergonomie.js','06-configuration-seance/exercices.js','commun/parcours.js','05-organisation-semaine/calendrier.js','05-organisation-semaine/semaine.js','06-configuration-seance/seance.js','04-mes-entrainements/gabarits.js','04-mes-entrainements/entrainements.js','08-entrainement/enrichissement.js','08-entrainement/entrainement.js','08-entrainement/bilan.js','03-decouverte/programmes.js','07-partages/partages.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'../prototypes/propotype 1',file),'utf8'),context);

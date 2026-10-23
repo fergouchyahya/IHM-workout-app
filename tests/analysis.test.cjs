@@ -83,3 +83,60 @@ test('beginner analysis hides RPE without discarding it and escapes personal int
   assert.match(a.render(next),/&lt;script>/);
   assert.equal(next.results[0][0].rpe,7);
 });
+
+test('exercise switches preserve independent drafts and references, including duplicate movements and reload',() => {
+  const current=record('today','2026-10-23'),{a,w}=app([current]);
+  current.session.exercises.push({...current.session.exercises[0],slotId:'squat-2'}); current.results.push([{load:10,reps:8}]);
+  a.selection(current).text='First draft'; a.selection(current).referenceId='first-reference';
+  a.switchExercise(current,1); assert.equal(a.selection(current).text,'');
+  a.selection(current).text='Second draft'; a.switchExercise(current,0);
+  assert.equal(a.selection(current).text,'First draft'); assert.equal(a.selection(current).referenceId,'first-reference');
+  w.Parcours.state.ui=JSON.parse(JSON.stringify(w.Parcours.state.ui)); a.switchExercise(current,1);
+  assert.equal(a.selection(current).text,'Second draft');
+});
+test('automatic reference skips empty recent results while explicit inspection remains available',() => {
+  const current=record('today','2026-10-23',25),empty=record('empty','2026-10-22',null,null),older=record('older','2026-10-20'),{a}=app([current,empty,older]);
+  const previous=a.history(current,0).filter(item=>item.record.id!==current.id);
+  assert.equal(a.reference(current,0,previous,'').record.id,'older');
+  assert.equal(a.reference(current,0,previous,'empty').record.id,'empty');
+  assert.ok(a.render(current).indexOf('Cette séance :')<a.render(current).indexOf('Pourquoi cette comparaison'));
+});
+test('period presets anchor to the archived date and invalid custom dates preserve the applied comparison',() => {
+  const current=record('today','2026-03-01'),{a}=app([current]);
+  a.setPeriod(current,'4'); assert.equal(a.selection(current).start,'2026-02-02');
+  assert.equal(a.applyPeriod(current,'2026-03-02','2026-03-01'),false);
+  assert.equal(a.selection(current).start,'2026-02-02'); assert.match(a.selection(current).periodError,/non appliquée/);
+  assert.equal(a.applyPeriod(current,'2026-02-30','2026-03-01'),false);
+  assert.equal(a.applyPeriod(current,'2026-02-01','2026-03-01'),true);
+  assert.equal(a.selection(current).periodError,''); a.setPeriod(current,'all'); assert.equal(a.selection(current).start,'');
+});
+test('saved points reappear for editing and resolution can be undone without changing targets',() => {
+  const current=record('today','2026-10-23'),{a,w}=app([current]); const snapshot=JSON.stringify(current);
+  const point=a.savePoint(current,0,'Review setting').point;
+  delete w.Parcours.state.ui.analysis;
+  assert.equal(a.selection(current).text,'Review setting');
+  a.updatePoint(point.id,{text:'Updated setting'}); assert.equal(a.selection(current).text,'Updated setting');
+  let undo; w.Parcours.notify=(message,callback)=>{if(callback)undo=callback;};
+  a.resolvePoint(point.id,()=>{}); assert.ok(w.Parcours.state.reviewPoints[0].resolvedAt);
+  assert.equal(undo(),true); assert.equal(w.Parcours.state.reviewPoints[0].resolvedAt,null);
+  a.resolvePoint(point.id,()=>{}); const previousUndo=undo;
+  a.updatePoint(point.id,{text:'Later correction'}); assert.equal(previousUndo(),false);
+  assert.equal(w.Parcours.state.reviewPoints[0].text,'Later correction'); assert.equal(JSON.stringify(current),snapshot);
+});
+test('failed point edits or resolution preserve the previous point and unsubmitted interpretation',() => {
+  const current=record('today','2026-10-23'),{a,w}=app([current]);
+  const point=a.savePoint(current,0,'Saved').point; a.selection(current).text='My unsent draft';
+  w.Parcours.persist=()=>false;
+  assert.ok(a.updatePoint(point.id,{text:'Replacement'}).error);
+  assert.equal(w.Parcours.state.reviewPoints[0].text,'Saved'); assert.equal(a.selection(current).text,'My unsent draft');
+  assert.ok(a.updatePoint(point.id,{resolvedAt:'now'}).error); assert.equal(w.Parcours.state.reviewPoints[0].resolvedAt,null);
+});
+
+test('point and matching editor copies are persisted together, or both rolled back on failure',()=>{
+  const current=record('today','2026-10-23'),{a,w}=app([current]);
+  const point=a.savePoint(current,0,'Original').point;const selection=a.selection(current);
+  let writes=0;w.Parcours.persist=()=>{writes++;assert.equal(selection.text,'Changed');return true;};
+  assert.ok(a.updatePoint(point.id,{text:'Changed'}).point);assert.equal(writes,1);
+  w.Parcours.persist=()=>false;assert.ok(a.updatePoint(point.id,{text:'Failed'}).error);
+  assert.equal(selection.text,'Changed');assert.equal(w.Parcours.state.reviewPoints[0].text,'Changed');
+});

@@ -126,6 +126,12 @@ window.Parcours = {
     }
     return copy;
   },
+  observeDock() {
+    if (!window.ResizeObserver) return;
+    const dock = document.querySelector('#landing-dock'); if (!dock) return;
+    const update = () => document.documentElement.style.setProperty('--bottom-dock-height',`${Math.ceil(dock.getBoundingClientRect().height)}px`);
+    this.dockObserver = new window.ResizeObserver(update); this.dockObserver.observe(dock); update();
+  },
   locationKey(location) {
     return JSON.stringify([location.view,location.calendarId || location.baseId || location.key || location.recordId || '',location.dayIndex ?? '',location.view === 'sharing' ? location.stage : '']);
   },
@@ -190,15 +196,16 @@ window.Parcours = {
     const previous = this.location ? {...this.location,scroll:window.scrollY || 0} : null;
     if (!restored && previous && window.history?.state?.ihmLocation?.entryId === previous.entryId) window.history.replaceState({ihmLocation:previous},'');
     const active = document.activeElement;
-    const focusAttributes = ['id','name','data-result','data-result-key','data-field','data-index','data-page','data-a','data-id','data-up','data-down','data-replace','data-remove','data-rep-mode','data-bulk-slot','data-completion-feeling','data-review-fix','data-review-skip','data-date','data-mode','data-period'];
-    const focusSelector = same && active?.closest('#landing-page') ? focusAttributes.filter(name => active.hasAttribute(name)).map(name => `[${name}="${CSS.escape(active.getAttribute(name))}"]`).join('') : '';
+    const focusAttributes = ['id','name','data-result','data-result-key','data-field','data-index','data-page','data-a','data-id','data-up','data-down','data-replace','data-remove','data-rep-mode','data-bulk-slot','data-completion-feeling','data-review-fix','data-review-skip','data-date','data-mode','data-period','data-analysis-period'];
+    const focusSelector = same && active?.closest('#landing-page, #landing-dock') ? focusAttributes.filter(name => active.hasAttribute(name)).map(name => `[${name}="${CSS.escape(active.getAttribute(name))}"]`).join('') : '';
     const selection = active && ['text','search'].includes(active.type) ? [active.selectionStart,active.selectionEnd] : null;
     this.state.ui ||= {scroll:{}}; this.state.ui.scroll ||= {};
     if (this.view) this.state.ui.scroll[this.view] = window.scrollY;
     this.persist();
     if (this.view === 'discover') this.state.scroll = window.scrollY;
     this.view = view;
-    const page = document.querySelector('#landing-page');
+    const page = document.querySelector('#landing-page'), dock = document.querySelector('#landing-dock');
+    dock?.querySelectorAll('.preparation-footer, .training-navigation').forEach(footer => footer.remove());
     page.onclick = null;
     const labels = { discover:'Découvrir', mine:'Calendrier', library:'Mes entraînements', create:'Créer un entraînement', week:'Organiser ma semaine', workout:'Préparer une séance', training:'Entraînement', progress:'Bilans', review:'Vérifier le bilan', summary:'Bilan conservé', sharing:'Partages' };
     document.title = `${labels[view]} — Propotype 1`;
@@ -234,8 +241,9 @@ window.Parcours = {
     const nav = document.querySelector('#landing-navigation');
     nav.hidden = view === 'create' || view === 'week' || view === 'workout' || view === 'training' || view === 'review';
     nav.innerHTML = [['discover','Découvrir','⌕'],['mine','Calendrier','▦'],['library','Mes entraînements','▤'],['sharing','Partages','↗'],['progress','Bilans','▥']].map(([id,label,icon]) => `<button type="button" data-page="${id}" ${view === id ? 'aria-current="page"' : ''}><span aria-hidden="true">${this.icon(id)}</span>${label}</button>`).join('');
+    if (dock) { const footer = page.querySelector('.preparation-footer, .training-navigation'); if (footer) dock.prepend(footer); }
     window.Ergonomie.bind();
-    const focus = focusSelector && page.querySelector(focusSelector);
+    const focus = focusSelector && (page.querySelector(focusSelector) || dock?.querySelector(focusSelector));
     (focus || page.querySelector('h1'))?.focus({preventScroll:true});
     if (focus && selection && typeof focus.setSelectionRange === 'function') focus.setSelectionRange(...selection);
     window.scrollTo(0,restored?.scroll ?? this.state.ui.scroll[view] ?? 0);
@@ -279,6 +287,7 @@ document.querySelector('#landing-navigation').addEventListener('click', event =>
 
 window.Parcours.state = window.Parcours.defaults();
 window.Parcours.restore();
+window.Parcours.observeDock();
 
 window.addEventListener?.('popstate',event => {
   const p = window.Parcours;

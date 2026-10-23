@@ -13,20 +13,26 @@ window.Entrainements = {
       else window.Calendrier.click(event);
     };
   },
-  renderLibrary() {
+  libraryResults() {
     const p = window.Parcours;
     const visible = p.state.saved.filter(item => window.Ergonomie.normalize(item.name).includes(window.Ergonomie.normalize(p.state.ui.savedSearch || '')));
     const cards = visible.map(item => `<div class="saved-workout-row"><button class="landing-card" type="button" data-personal="${item.id}"><h3>${p.escape(item.name)}</h3><p>${item.organization}${item.weeks ? ` · ${item.weeks} semaines` : ''}</p><p>${this.status(item)}</p></button><div class="saved-workout-actions"><button type="button" class="text-action" data-schedule="${item.id}">Planifier</button><button type="button" class="text-action" data-delete-saved="${item.id}" aria-label="Supprimer ${p.escape(item.name)}">Supprimer</button></div></div>`).join('');
+    return `<p role="status">${window.Ergonomie.count(visible.length,'entraînement')}</p>${cards ? `<div class="landing-stack">${cards}</div>` : p.state.saved.length ? '<p>Aucun entraînement avec ce nom.</p><button type="button" class="landing-button" data-clear-saved-search>Effacer la recherche</button>' : '<p class="landing-hint">Aucun entraînement enregistré. Crée une séance ou enregistre-la depuis Découvrir.</p>'}`;
+  },
+  renderLibrary() {
+    const p = window.Parcours;
     const favorites = window.catalogueSeances.filter(item => p.state.favorites.includes(item.id));
     const favoriteCards = favorites.map(item => `<button type="button" class="landing-card" data-favorite="${item.id}"><h3>${p.escape(item.name)}</h3><p>★ Favori · environ ${item.duration} min</p></button>`).join('');
     const week = p.state.week.map(item => ({...item,copy:p.state.saved.find(copy => copy.id === item.copyId)})).filter(item => item.copy);
-    return `${p.greeting()}<h1 tabindex="-1">Mes entraînements</h1><div class="personal-actions"><button id="create-workout" type="button" class="primary-action">+ Créer un entraînement</button></div><label>Rechercher mes entraînements<input id="saved-workout-search" type="search" value="${p.escape(p.state.ui.savedSearch || '')}" placeholder="Nom de séance ou programme"></label>${cards ? `<div class="landing-stack">${cards}</div>` : '<p class="landing-hint">Aucun entraînement enregistré. Crée une séance ou enregistre-la depuis Découvrir.</p>'}<button id="explore-workouts" type="button" class="text-action landing-section">Explorer des séances</button>${favorites.length ? `<section class="landing-section"><h2>Mes favoris</h2><div class="landing-stack landing-section">${favoriteCards}</div></section>` : ''}${week.length ? `<section class="landing-section"><h2>Placements sans date</h2><p class="landing-hint">Choisis une date pour les retrouver dans le calendrier.</p>${week.map(item => `<button type="button" class="landing-button" data-schedule="${item.copy.id}">${p.escape(item.day)} · ${p.escape(item.copy.name)}</button>`).join('')}</section>` : ''}`;
+    return `${p.greeting()}<h1 tabindex="-1">Mes entraînements</h1><div class="personal-actions"><button id="create-workout" type="button" class="primary-action">+ Créer un entraînement</button></div><label>Rechercher mes entraînements<input id="saved-workout-search" type="search" value="${p.escape(p.state.ui.savedSearch || '')}" placeholder="Nom de séance ou programme"></label><div id="saved-workout-results">${this.libraryResults()}</div><button id="explore-workouts" type="button" class="text-action landing-section">Explorer des séances</button>${favorites.length ? `<section class="landing-section"><h2>Mes favoris</h2><div class="landing-stack landing-section">${favoriteCards}</div></section>` : ''}${week.length ? `<section class="landing-section"><h2>Placements sans date</h2><p class="landing-hint">Choisis une date pour les retrouver dans le calendrier.</p>${week.map(item => `<button type="button" class="landing-button" data-schedule="${item.copy.id}">${p.escape(item.day)} · ${p.escape(item.copy.name)}</button>`).join('')}</section>` : ''}`;
   },
   bindLibrary() {
     document.querySelector('#create-workout').addEventListener('click', () => { window.Calendrier.creationDate = null; window.Parcours.state.ui.fullCreation = true; window.Parcours.route('create'); });
     document.querySelector('#explore-workouts').addEventListener('click', () => window.Parcours.route('discover'));
-    document.querySelector('#saved-workout-search').oninput = event => { const value = event.target.value, position = event.target.selectionStart; window.Parcours.state.ui.savedSearch = value; window.Parcours.route('library'); const field = document.querySelector('#saved-workout-search'); field.focus({preventScroll:true}); field.setSelectionRange(position,position); };
+    const refresh = () => { document.querySelector('#saved-workout-results').innerHTML = this.libraryResults(); window.Parcours.persist(); };
+    document.querySelector('#saved-workout-search').oninput = event => { window.Parcours.state.ui.savedSearch = event.target.value; refresh(); };
     document.querySelector('#landing-page').onclick = event => {
+      if (event.target.closest('[data-clear-saved-search]')) { window.Parcours.state.ui.savedSearch = ''; const field = document.querySelector('#saved-workout-search'); field.value = ''; refresh(); field.focus(); return; }
       const ongoing = event.target.closest('[data-ongoing]');
       if (ongoing) { window.Entrainement.resume(ongoing.dataset.ongoing); return; }
       const remove = event.target.closest('[data-delete-saved]');

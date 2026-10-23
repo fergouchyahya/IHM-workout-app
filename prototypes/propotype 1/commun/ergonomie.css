@@ -1,6 +1,6 @@
 :root { --border:#d1d5db; }
 body { font-size:16px; }
-.landing-page { max-width:760px; padding:20px 20px 160px; }
+.landing-page { max-width:760px; padding:20px 20px calc(var(--bottom-dock-height,0px) + 24px); }
 .landing-page h1 { font-size:26px; }
 .demo-note { display:flex; flex-wrap:wrap; justify-content:center; gap:4px 10px; padding:8px 16px; color:#4b5563; font-size:11px; border-bottom:1px solid #f3e4e4; }
 .demo-note p:first-child { margin:0; }
@@ -97,7 +97,7 @@ dialog > p { font-size:14px; margin:12px 0; }
 #landing-navigation button { font-size:12px; }
 @media (max-width:600px) {
   dialog { position:fixed; inset:auto 0 0; margin:0; width:100%; max-width:none; max-height:88dvh; border-radius:18px 18px 0 0; padding-bottom:max(20px,env(safe-area-inset-bottom)); }
-  .landing-page,.landing-page.has-calendar { padding:16px 16px 160px; }
+  .landing-page,.landing-page.has-calendar { padding:16px 16px calc(var(--bottom-dock-height,0px) + 24px); }
   .question-navigation { flex-wrap:wrap; gap:8px; }
 }
 @media (max-width:350px) { .training-result-fields:has([data-result-key="rpe"]) { grid-template-columns:repeat(2,minmax(0,1fr)); } .prepared-details,.training-context { grid-template-columns:1fr; gap:6px; } }
@@ -207,7 +207,7 @@ dialog > p { font-size:14px; margin:12px 0; }
 .review-final-feeling h2 { font-size:19px; margin-bottom:12px; }
 .review-final-feeling label { margin:12px 0; }
 .review-final-feeling textarea,#analysis-point { display:block; width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; background:#fff; font:inherit; font-size:16px; }
-.review-footer { position:static; margin-bottom:180px; padding:12px; background:#fff; border:1px solid #e5e7eb; border-radius:10px; }
+.review-footer { position:static; padding:12px; background:#fff; border:1px solid #e5e7eb; border-radius:10px; }
 .review-footer p { font-size:12px; margin-bottom:8px; }
 
 /* Cours 5/6 : saisie et feedback au plus près de leur objet. */
@@ -407,8 +407,28 @@ input[aria-invalid="true"]:focus-visible,select[aria-invalid="true"]:focus-visib
 .previous-set { grid-column:1 / -1; margin:0 0 10px; padding:8px; border-radius:6px; background:#f1f5f9; font-size:13px; color:#334155; }
 .previous-set span { font-weight:600; }
 /* Garder la répétition hebdomadaire accessible au-dessus d’un message Annuler persistant. */
-.landing-page.has-calendar { padding-bottom:340px; }
+.landing-page.has-calendar { padding-bottom:calc(var(--bottom-dock-height,0px) + 24px); }
 
 .analysis-results > details > summary { min-height:44px; padding:10px 0; cursor:pointer; }
 #analysis-point-form { margin-top:16px; }
 #analysis-point-form button { margin-top:10px; }
+
+/* Les actions et le feedback occupent une seule zone, dont la hauteur réelle réserve le défilement. */
+#landing-dock { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:min(760px,100%); z-index:5; display:flex; flex-direction:column; }
+#landing-dock:has(#landing-notice:not(:empty)) { gap:8px; }
+#landing-dock #landing-notice { position:static; order:0; transform:none; width:100%; max-width:100%; max-height:25dvh; overflow:auto; }
+#landing-dock #landing-navigation { position:static; order:2; transform:none; width:100%; }
+#landing-dock .preparation-footer,#landing-dock .training-navigation { position:static; order:1; transform:none; width:100%; margin:0; max-height:45dvh; overflow:auto; }
+input,textarea,select,[data-summary-exercise] { scroll-margin-bottom:calc(var(--bottom-dock-height,0px) + 24px); }
+.analysis-periods,.training-active-tools { display:flex; gap:8px; flex-wrap:wrap; margin:12px 0; }
+.analysis-periods button { flex:1; min-width:0; }
+.analysis-values { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin:6px 0; }
+.analysis-comparisons { list-style:none; padding:0; }
+.analysis-comparisons li { margin:12px 0; padding:10px; border:1px solid var(--border); border-radius:8px; }
+.analysis-results details { margin:12px 0; }
+.analysis-results p,.analysis-values { overflow-wrap:anywhere; }
+.preparation-review-point { margin:12px 0; padding:12px; border:1px solid var(--border); border-radius:8px; }
+.preparation-review-point textarea { display:block; width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; font:inherit; }
+.preparation-review-point summary { min-height:44px; padding:10px 0; cursor:pointer; }
+
+.compact-series .training-active-tools { grid-column:1 / -1; }

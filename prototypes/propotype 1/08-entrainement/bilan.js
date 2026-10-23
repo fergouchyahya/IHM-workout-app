@@ -46,7 +46,30 @@ window.BilanSeance = {
     this.ensure(draft); if (!draft.reviewing) window.Parcours.state.ui.scroll.review = 0; draft.reviewing = true; window.Parcours.route('review');
     if (draft.reviewReturn) { window.scrollTo(0,draft.reviewReturn.scroll); document.querySelector(`[data-review-fix="${draft.reviewReturn.index}:${draft.reviewReturn.row}"]`)?.focus({preventScroll:true}); delete draft.reviewReturn; window.Parcours.persist(); }
   },
-  open(id) { const p = window.Parcours; if (p.view !== 'summary') this.origin = ['mine','progress'].includes(p.view) ? p.captureLocation?.() : {view:'mine',identity:p.state.identity,scroll:0,date:p.state.completedSessions.find(item => item.id === id)?.date}; const changed = this.activeId !== id; this.activeId = id; window.Parcours.route('summary'); if (changed) window.scrollTo(0,0); },
+  open(id,exerciseIndex = null) {
+    const p = window.Parcours, record = p.state.completedSessions.find(item => item.id === id);
+    if (!record) return;
+    if (p.view !== 'summary') this.origin = ['mine','progress'].includes(p.view) ? p.captureLocation?.() : {view:'mine',identity:p.state.identity,scroll:0,date:record.date};
+    const changed = this.activeId !== id; this.activeId = id;
+    if (exerciseIndex !== null && record.session.exercises[exerciseIndex]) {
+      window.AnalyseResultats?.switchExercise(record,exerciseIndex);
+      p.state.ui.summaryPanels ||= {}; p.state.ui.summaryPanels[id] ||= {};
+      p.state.ui.summaryPanels[id][`notes-${exerciseIndex}`] = true;
+    }
+    p.route('summary');
+    if (exerciseIndex !== null) {
+      const card = document.querySelector(`[data-summary-exercise="${exerciseIndex}"]`);
+      card?.scrollIntoView({block:'start'}); const heading = card?.querySelector('h2'); if (heading) { heading.tabIndex = -1; heading.focus({preventScroll:true}); }
+    } else if (changed) window.scrollTo(0,0);
+  },
+  bindSummaryPanels(record) {
+    const p = window.Parcours; p.state.ui.summaryPanels ||= {};
+    const panels = p.state.ui.summaryPanels[record.id] ||= {};
+    document.querySelectorAll('[data-summary-panel]').forEach(details => {
+      details.open = !!panels[details.dataset.summaryPanel];
+      details.ontoggle = () => { panels[details.dataset.summaryPanel] = details.open; p.persist(); };
+    });
+  },
   countsMarkup(draft) {
     const c = this.counts(draft);
     return `<div class="review-counts" aria-label="Bilan des séries">${[['completed','faite','faites'],['interrupted','interrompue','interrompues'],['skipped','non faite','non faites'],['pending','non renseignée','non renseignées']].filter(([key]) => c[key]).map(([key,singular,plural]) => `<span>${c[key]} ${c[key] === 1 ? singular : plural}</span>`).join('')}${c.invalid ? `<span class="error">${c.invalid} à corriger</span>` : ''}${c.adapted ? `<span>${c.adapted} adaptation${c.adapted > 1 ? 's' : ''}</span>` : ''}${c.incomplete ? `<span>${c.incomplete} résultat${c.incomplete > 1 ? 's' : ''} incomplet${c.incomplete > 1 ? 's' : ''}</span>` : ''}</div>`;
@@ -59,11 +82,11 @@ window.BilanSeance = {
     const p = window.Parcours, t = window.Entrainement;
     return draft.session.exercises.map((exercise,index) => {
       const movement = window.catalogueExercices.find(item => item.id === exercise.exerciseId), notes = draft.enrichment?.exercises?.[exercise.slotId || `exercise-${index}`];
-      return `<section class="review-exercise"><h2>${p.escape(exercise.name || movement?.name || 'Exercice personnel')}</h2><p class="exercise-common-target"><strong>Cible initiale commune :</strong> ${p.escape(t.targetText(exercise))}</p><ol class="review-results">${(draft.results[index] || []).map((result,row) => {
+      return `<section class="review-exercise" data-summary-exercise="${index}"><h2>${p.escape(exercise.name || movement?.name || 'Exercice personnel')}</h2><p class="exercise-common-target"><strong>Cible initiale commune :</strong> ${p.escape(t.targetText(exercise))}</p><ol class="review-results">${(draft.results[index] || []).map((result,row) => {
         const state = t.resultState(result,t.rowInvalid(draft,index,row)), target = draft.adaptations?.[`${index}:${row}`];
         const rawErrors = Object.entries(draft.invalidFields || {}).filter(([field]) => field.startsWith(`${index}:${row}:`));
         return `<li data-review-row="${index}:${row}"><div class="landing-row"><strong>Série ${row+1}</strong><span class="review-set-status" data-review-state="${index}:${row}">${p.escape(state.label)}${target || result.adapted ? ' · adaptée' : ''}</span></div>${state.code === 'skipped' ? '<p class="form-help">Déclarée non faite. Les valeurs mises de côté ne sont pas des résultats réalisés.</p>' : `<p data-review-result="${index}:${row}">${p.escape(this.resultText(result))}</p>`}<div data-review-row-errors="${index}:${row}">${state.code === 'invalid' ? rawErrors.map(([field,message]) => `<p class="error">${p.escape(({load:'Charge',reps:'Répétitions',rpe:'Effort ressenti'})[field.split(':')[2]] || 'Valeur')} : ${p.escape(draft.rawFields[field])} · ${p.escape(message)}</p>`).join('') : ''}</div>${target ? `<p class="form-help">Cible initiale : ${p.escape(t.targetText(exercise))}</p>` : ''}${target ? `<p class="form-help">Cible adaptée : ${p.escape(t.targetText(target))}${target.reason ? ` · ${p.escape(target.reason)}` : ''}</p>` : ''}${result.outcomeReason ? `<p>Raison : ${p.escape(result.outcomeReason)}</p>` : ''}${editable ? `<div class="review-row-actions"><button type="button" class="text-action" data-review-fix="${index}:${row}">Ouvrir dans l’entraînement</button><button type="button" class="text-action" data-review-inline="${index}:${row}" ${state.code === 'skipped' ? 'disabled' : ''}>Corriger ici</button><button type="button" class="text-action" data-review-skip="${index}:${row}" ${state.code === 'pending' ? '' : 'hidden'}>Marquer non faite</button></div>${this.inlineEditor(draft,index,row)}` : ''}</li>`;
-      }).join('') || '<li class="form-help">Aucune série prévue ou renseignée.</li>'}</ol>${exercise.note || exercise.setting || notes && (notes.note || notes.setting || notes.reminder || (notes.media || []).length) ? `<details class="review-notes"><summary>Notes et réglages${notes?.media?.length ? ` · ${notes.media.length} média${notes.media.length > 1 ? 's' : ''}` : ''}</summary>${exercise.note ? `<p><strong>Consigne prévue :</strong> ${p.escape(exercise.note)}</p>` : ''}${exercise.setting ? `<p><strong>Réglage prévu :</strong> ${p.escape(exercise.setting)}</p>` : ''}${[['note','Remarque'],['setting','Réglage utilisé'],['reminder','Rappel']].map(([key,label]) => notes?.[key] ? `<p><strong>${label} :</strong> ${p.escape(notes[key])}</p>` : '').join('')}${(notes?.media || []).map(media => `<article class="training-media-card"><p><strong>${p.escape(media.caption || media.name)}</strong>${media.row != null ? ` · Série ${media.row+1}` : ' · Exercice'}</p><div data-media-preview="${media.id}"><p>Chargement du média…</p></div></article>`).join('')}</details>` : ''}</section>`;
+      }).join('') || '<li class="form-help">Aucune série prévue ou renseignée.</li>'}</ol>${exercise.note || exercise.setting || notes && (notes.note || notes.setting || notes.reminder || (notes.media || []).length) ? `<details class="review-notes" data-summary-panel="notes-${index}"><summary>Notes et réglages${notes?.media?.length ? ` · ${notes.media.length} média${notes.media.length > 1 ? 's' : ''}` : ''}</summary>${exercise.note ? `<p><strong>Consigne prévue :</strong> ${p.escape(exercise.note)}</p>` : ''}${exercise.setting ? `<p><strong>Réglage prévu :</strong> ${p.escape(exercise.setting)}</p>` : ''}${[['note','Remarque'],['setting','Réglage utilisé'],['reminder','Rappel']].map(([key,label]) => notes?.[key] ? `<p><strong>${label} :</strong> ${p.escape(notes[key])}</p>` : '').join('')}${(notes?.media || []).map(media => `<article class="training-media-card"><p><strong>${p.escape(media.caption || media.name)}</strong>${media.row != null ? ` · Série ${media.row+1}` : ' · Exercice'}</p><div data-media-preview="${media.id}"><p>Chargement du média…</p></div></article>`).join('')}</details>` : ''}</section>`;
     }).join('');
   },
   contextMarkup(draft) {
@@ -107,7 +130,7 @@ window.BilanSeance = {
   renderSummary() {
     const p = window.Parcours, record = p.state.completedSessions.find(item => item.id === this.activeId);
     if (!record) return '<h1 tabindex="-1">Bilan introuvable</h1>';
-    return `<button id="summary-calendar" type="button" class="text-action">← ${this.origin?.view === 'progress' ? 'Mes bilans' : 'Calendrier'}</button><h1 tabindex="-1">Séance conservée</h1><p>${p.escape(record.session.name)} · ${window.Calendrier.label(record.date)}</p><p class="ready-status">Terminée · bilan enregistré sur cet appareil</p>${this.countsMarkup(record)}${record.completion?.feeling ? `<p><strong>Ressenti global :</strong> ${p.escape(record.completion.feeling)}</p>` : ''}${record.completion?.note ? `<p>${p.escape(record.completion.note)}</p>` : ''}${record.completion?.reminder ? `<p><strong>Rappel :</strong> ${p.escape(record.completion.reminder)}</p>` : ''}${window.AnalyseResultats?.render(record) || ''}${this.exerciseCards(record)}${this.contextMarkup(record)}<p class="form-help">Résultats, notes et médias conservés pour cette séance.</p><button id="summary-new-session" type="button" class="landing-button">Programmer une nouvelle séance à partir de celle-ci</button><button id="summary-history" type="button" class="landing-button">Mes bilans conservés</button>`;
+    return `<button id="summary-calendar" type="button" class="text-action">← ${this.origin?.view === 'progress' ? 'Mes bilans' : 'Calendrier'}</button><h1 tabindex="-1">Séance conservée</h1><p>${p.escape(record.session.name)} · ${window.Calendrier.label(record.date)}</p><p class="ready-status">Terminée · bilan enregistré sur cet appareil</p>${this.countsMarkup(record)}${record.completion?.feeling ? `<p><strong>Ressenti global :</strong> ${p.escape(record.completion.feeling)}</p>` : ''}${record.completion?.note ? `<p>${p.escape(record.completion.note)}</p>` : ''}${record.completion?.reminder ? `<p><strong>Rappel :</strong> ${p.escape(record.completion.reminder)}</p>` : ''}${window.AnalyseResultats?.render(record) || ''}${this.exerciseCards(record)}${this.contextMarkup(record).replace('<details ','<details data-summary-panel="summary-context" ')}<p class="form-help">Résultats, notes et médias conservés pour cette séance.</p><button id="summary-new-session" type="button" class="landing-button">Programmer une nouvelle séance à partir de celle-ci</button><button id="summary-plan-prepare" type="button" class="primary-action">Planifier et préparer</button><button id="summary-history" type="button" class="landing-button">Mes bilans conservés</button>`;
   },
   filteredHistory() {
     const p = window.Parcours, search = window.Ergonomie.normalize(p.state.ui.historySearch || ''), direction = p.state.ui.historyOrder === 'asc' ? 1 : -1;
@@ -186,6 +209,14 @@ window.BilanSeance = {
     if (record) {
       this.hydrate(record,record.executionKey);
       window.AnalyseResultats?.bind(record);
+      this.bindSummaryPanels(record);
+      document.querySelector('#summary-plan-prepare')?.addEventListener('click',() => {
+        const source = {...structuredClone(record.session),id:record.workoutId,organization:'Séance seule'};
+        window.Parcours.route('mine');
+        window.Calendrier.schedule(source,window.Calendrier.today(),entry => {
+          window.ConfigurationSeance.open(entry.session,null,entry.id); window.ConfigurationSeance.stage = 'edit'; window.Parcours.route('workout');
+        });
+      });
       document.querySelector('#summary-new-session').onclick = () => { const source = {...structuredClone(record.session),id:record.workoutId,organization:'Séance seule'}; window.Parcours.route('mine'); window.Calendrier.schedule(source); };
     }
   },

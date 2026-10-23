@@ -2,7 +2,7 @@
 
 ## État actuel — page personnelle séparée
 
-Mes entraînements est une destination autonome de la barre de navigation (`library`), séparée de Calendrier (`mine`). Elle contient Créer, recherche persistante, séances/semaines/mésocycles, favoris, Planifier et Supprimer. La suppression est confirmée et annulable ; elle conserve occurrences datées, exécutions en cours, bilans et publications. La création n’affecte aucune date.
+Mes entraînements est une destination autonome de la barre de navigation (`library`), séparée de Calendrier (`mine`). Elle contient Créer, recherche persistante, séances/semaines/mésocycles, favoris, Planifier et Supprimer. La suppression est confirmée et annulable ; elle conserve occurrences datées, exécutions en cours, bilans et publications. La création n’affecte aucune date. La recherche actualise uniquement ses résultats, sans reconstruire le champ ni créer d’entrée de navigation. Une recherche sans correspondance indique Aucun entraînement avec ce nom et propose Effacer la recherche, qui rend le focus au champ ; une bibliothèque réellement vide conserve son message propre.
 
 Pour Avancé + Mésocycle, la première étape demande structure (gabarit ou noms libres séparés par des virgules), fréquence, durée et objectif. Les valeurs sont conservées dans le brouillon ; après validation, Organiser les séances affiche l’objectif et la structure avant les jours et exercices. Pour Débutant ou niveau absent, les préférences et champs avancés sont masqués ; nom et organisation restent requis.
 

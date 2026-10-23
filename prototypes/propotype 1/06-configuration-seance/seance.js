@@ -49,10 +49,39 @@ window.ConfigurationSeance = {
   },
   reviewPoints() {
     const p = window.Parcours, sourceId = this.entry()?.sourceId || this.base.id;
-    const exercises = new Set(this.session.exercises.map(exercise => exercise.exerciseId));
-    const points = p.state.reviewPoints.filter(point => point.workoutId === sourceId && (!point.exerciseId || exercises.has(point.exerciseId)) && (!point.slotId || this.session.exercises.some(exercise => exercise.exerciseId === point.exerciseId && exercise.slotId === point.slotId)));
+    const points = p.state.reviewPoints.filter(point => point.workoutId === sourceId && (!point.exerciseId || this.session.exercises.some(exercise => exercise.exerciseId === point.exerciseId && (!point.slotId || exercise.slotId === point.slotId))));
     if (!points.length) return p.isBeginner() ? '' : '<p class="review-empty">Aucun point à revoir pour cette séance.</p>';
-    return `<section class="review-points"><h2>Points à revoir</h2>${points.length ? points.map(point => { const item = window.catalogueExercices.find(item => item.id === point.exerciseId); return `<article><p><strong>${p.escape(item?.name || 'Cette séance')}</strong>${point.createdAt ? ` · ${p.escape(point.createdAt.slice(0,10))}` : ''}</p><p>${p.escape(point.text)}</p>${point.note ? `<p>Note : ${p.escape(point.note)}</p>` : ''}${point.setting ? `<p>Réglage : ${p.escape(point.setting)}</p>` : ''}</article>`; }).join('') : '<p>Aucun point à revoir pour cette séance.</p>'}<p class="landing-hint">Retrouve les résultats comparables dans Bilans. Ces points ne modifient pas tes cibles.</p></section>`;
+    const card = point => {
+      const index = this.session.exercises.findIndex(exercise => exercise.exerciseId === point.exerciseId && (!point.slotId || exercise.slotId === point.slotId));
+      const movement = window.catalogueExercices.find(item => item.id === point.exerciseId);
+      return `<article class="preparation-review-point"><p><strong>${p.escape(movement?.name || 'Cette séance')}</strong>${point.createdAt ? ` · ${p.escape(point.createdAt.slice(0,10))}` : ''}</p><p>${p.escape(point.text)}</p>${point.note ? `<p>Note : ${p.escape(point.note)}</p>` : ''}${point.setting ? `<p>Réglage : ${p.escape(point.setting)}</p>` : ''}
+        ${index >= 0 && !point.resolvedAt ? `<button type="button" class="landing-button" data-prepare-point="${index}">Adapter cet exercice</button>` : ''}
+        <details><summary>Modifier le point</summary><form data-point-form="${p.escape(point.id)}"><label>Point à revoir<textarea rows="2" maxlength="500" required>${p.escape(p.state.ui.reviewPointDrafts?.[point.id] ?? point.text)}</textarea></label><button type="submit" class="landing-button">Enregistrer le point</button><p class="error" role="alert"></p></form></details>
+        <button type="button" class="text-action" data-resolve-point="${p.escape(point.id)}" ${point.resolvedAt ? 'data-reopen-point' : ''}>${point.resolvedAt ? 'Rouvrir le point' : 'Marquer résolu'}</button></article>`;
+    };
+    const active = points.filter(point => !point.resolvedAt), resolved = points.filter(point => point.resolvedAt);
+    return `<section class="review-points"><h2>Points à revoir</h2>${active.map(card).join('') || '<p>Aucun point en attente.</p>'}${resolved.length ? `<details><summary>Points résolus (${resolved.length})</summary>${resolved.map(card).join('')}</details>` : ''}<p class="landing-hint">Retrouve les résultats comparables dans Bilans. Ces points ne modifient pas tes cibles.</p></section>`;
+  },
+  bindReviewPoints() {
+    const p = window.Parcours, analysis = window.AnalyseResultats;
+    document.querySelectorAll('[data-prepare-point]').forEach(button => { button.onclick = () => {
+      const index = Number(button.dataset.preparePoint); this.stage = 'edit'; p.route('workout');
+      document.querySelector(`[data-card="${index}"] [data-field="load"]`)?.focus();
+    }; });
+    document.querySelectorAll('[data-point-form]').forEach(form => {
+      const field = form.querySelector('textarea'), id = form.dataset.pointForm;
+      field.oninput = () => { p.state.ui.reviewPointDrafts ||= {}; p.state.ui.reviewPointDrafts[id] = field.value; p.persist(); };
+      form.onsubmit = event => {
+        event.preventDefault(); const result = analysis.updatePoint(id,{text:field.value});
+        if (result.error) { form.querySelector('[role=alert]').textContent = result.error; return; }
+        delete p.state.ui.reviewPointDrafts?.[id]; p.route('workout'); p.notify('Point mis à jour · cibles conservées');
+      };
+    });
+    document.querySelectorAll('[data-resolve-point]').forEach(button => { button.onclick = () => {
+      const id = button.dataset.resolvePoint;
+      if (!button.hasAttribute('data-reopen-point')) analysis.resolvePoint(id,() => { if (p.view === 'workout') p.route('workout'); });
+      else { const result = analysis.updatePoint(id,{resolvedAt:null}); if (result.error) p.notify(result.error); else p.route('workout'); }
+    }; });
   },
   render() {
     const p = window.Parcours, entry = this.entry(), editing = this.stage === 'edit';
@@ -69,6 +98,7 @@ window.ConfigurationSeance = {
   },
   bind() {
     const p = window.Parcours;
+    this.bindReviewPoints();
     document.querySelector('#workout-back').onclick = () => { if (this.stage === 'edit' && this.dirty()) this.changed(); p.returnTo(this.origin || {view:this.dayIndex !== null ? 'week' : this.calendarId ? 'mine' : 'library',identity:p.state.identity,baseId:this.base.id,scroll:0}); };
     document.querySelector('#share-personal-session')?.addEventListener('click',() => window.Partages.prepare(this.base));
     document.querySelector('#adapt-session')?.addEventListener('click',() => { this.stage = 'edit'; p.route('workout'); });

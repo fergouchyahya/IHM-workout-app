@@ -347,10 +347,10 @@ window.Calendrier = {
       event.target.disabled = true; apply(accepted,replaced,effectiveExcluded);
     };
   },
-  schedule(source,date = this.today()) {
+  schedule(source,date = this.today(),prepare = null) {
     const p = window.Parcours, program = source.organization !== 'Séance seule';
     const start = program ? this.monday(date) : date;
-    const dialog = this.dialog(program ? 'Planifier le programme' : 'Planifier la séance',`<form id="calendar-schedule"><p class="landing-hint">${p.escape(source.name)}${program ? ' · La répartition est répétée automatiquement ; chaque date reste modifiable.' : ''}</p><label>${program ? 'Lundi de départ' : 'Date'}<input name="date" type="date" value="${start}" required></label>${program ? `<label>Nombre de semaines<input name="weeks" type="number" min="1" max="104" step="1" value="${source.weeks || 1}" required></label>` : ''}<div id="schedule-warnings" role="status"></div><p class="error" id="calendar-error" role="alert"></p><div class="week-actions"><button type="submit" class="primary-action">Ajouter au calendrier</button><button type="button" id="calendar-cancel" class="text-action">Annuler</button></div></form>`);
+    const dialog = this.dialog(program ? 'Planifier le programme' : 'Planifier la séance',`<form id="calendar-schedule"><p class="landing-hint">${p.escape(source.name)}${program ? ' · La répartition est répétée automatiquement ; chaque date reste modifiable.' : ''}</p><label>${program ? 'Lundi de départ' : 'Date'}<input name="date" type="date" value="${start}" required></label>${program ? `<label>Nombre de semaines<input name="weeks" type="number" min="1" max="104" step="1" value="${source.weeks || 1}" required></label>` : ''}<div id="schedule-warnings" role="status"></div><p class="error" id="calendar-error" role="alert"></p><div class="week-actions"><button type="submit" class="primary-action">${prepare ? 'Confirmer la date et préparer' : 'Ajouter au calendrier'}</button><button type="button" id="calendar-cancel" class="text-action">Annuler</button></div></form>`);
     const scheduleForm = document.querySelector('#calendar-schedule');
     const warnings = () => {
       const date = scheduleForm.elements.date.value; if (!date) return;
@@ -381,6 +381,7 @@ window.Calendrier = {
       this.requestPlacement(proposed,new Set(),(accepted,replaced) => {
         const change = this.applyPlacement(accepted,new Set(),replaced); if (!change) return;
         this.selected = this.cursor = accepted[0].date; dialog.close(); this.refresh('#calendar-add'); this.undoPlacement(change.removed,change.added,`Planning ajouté · ${source.name}`);
+        if (prepare && !program) prepare(accepted[0]);
       },true);
     };
   },

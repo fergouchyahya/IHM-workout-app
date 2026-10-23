@@ -136,3 +136,7 @@ Vérification : 92 tests ciblés et parcours Chromium aux trois largeurs ; [preu
 Toucher une date sélectionne son jour, vide ou rempli ; le panneau ne s’ouvre plus automatiquement sur un jour vide. Ajouter ici et Ajouter demandent explicitement un ajout. Cette variante ajoute un appui pour créer depuis un jour vide, mais évite l’ouverture/fermeture d’un panneau pour une simple consultation. Compréhension et ouvertures involontaires restent à comparer avec des utilisateurs.
 
 Vérification : 104 tests ciblés et parcours Chromium à 320, 390 et 1280 px ; [preuves, compromis et évaluations restantes](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#15-dernier-lot-livré--22-octobre-2026).
+
+## Depuis un bilan — 23 octobre 2026
+
+Planifier et préparer reprend les cibles du bilan, demande une date et utilise le contrôle de placement habituel. Après confirmation, seule la nouvelle occurrence est ouverte en édition T1. Les cibles de l’entraînement type, les résultats réels et les bilans existants restent distincts. La planification simple demeure disponible.
