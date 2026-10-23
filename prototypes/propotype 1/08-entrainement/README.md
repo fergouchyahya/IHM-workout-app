@@ -21,7 +21,7 @@ Un exercice à la fois avec navigation entre mouvements, illustration, consignes
 
 Les saisies et la position sont conservées directement dans `Parcours.state.trainingDrafts`, par occurrence de calendrier ou séance personnelle. Quitter et reprendre retrouve le même état. Les objectifs sont copiés au démarrage et restent séparés des résultats ; modifier ensuite une préparation ne réécrit pas une exécution commencée. Les brouillons des autres dates et les résultats des autres exercices restent conservés.
 
-La séance peut maintenant être vérifiée puis conservée par T2.4. Quitter pendant la saisie reste une sortie sans terminer ; la confirmation finale crée un bilan distinct et consultable. L’analyse des progrès, records et comparaisons T3 et la substitution d’exercice pendant l’effort restent hors de cette version.
+La séance peut maintenant être vérifiée puis conservée par T2.4. Quitter pendant la saisie reste une sortie sans terminer ; la confirmation finale crée un bilan distinct et consultable. L’analyse des progrès, records et comparaisons est portée par [T3 dans les bilans](../09-analyse/README.md). La substitution d’exercice pendant l’effort reste hors de cette version.
 
 ## Organisation et fichiers
 
@@ -158,11 +158,11 @@ Les médias restent dans leur stockage local existant, avec leurs références e
 
 Une occurrence datée terminée affiche Voir le bilan au lieu de Reprendre ; sa réouverture ne démarre pas une deuxième exécution. Elle est exclue des extensions de cibles dans le mésocycle. Une séance personnelle peut être réalisée à nouveau : elle repart avec des résultats vides et conserve les bilans précédents indépendamment.
 
-L’onglet auparavant réservé à Progrès est intitulé Bilans. Il donne uniquement une liste de bilans et leur consultation en lecture seule, sans courbe, record, recommandation ou comparaison de progression. Notes, réglages prévus/utilisés, contexte, rappels et médias restent consultables. Les performances complètes des séances terminées peuvent maintenant servir de référence dans T2.1 ; une série interrompue, non faite ou non renseignée n’est pas présentée comme une performance complète.
+L’onglet auparavant réservé à Progrès est intitulé Bilans. Il donne une liste de bilans et leur consultation en lecture seule. Depuis le 23 octobre, [T3](../09-analyse/README.md) ajoute dans le bilan les comparaisons, records définis et points à revoir ; aucune recommandation automatique ne modifie le programme. Notes, réglages prévus/utilisés, contexte, rappels et médias restent consultables. Les performances complètes des séances terminées peuvent maintenant servir de référence dans T2.1 ; une série interrompue, non faite ou non renseignée n’est pas présentée comme une performance complète.
 
 ### Frontière de T3
 
-T2 est couvert dans le prototype local. Les données de résultat et de contexte sont disponibles pour T3, mais son analyse, ses comparaisons et la conservation de points à revoir restent à concevoir. Un rappel du bilan reste un rappel ; il n’est pas transformé automatiquement en point T3 ni en modification du programme T1. Les bilans et médias restent privés au profil local et exclus des publications de programme.
+T2 est couvert dans le prototype local. Les données de résultat et de contexte sont utilisées en lecture seule par [T3](../09-analyse/README.md) pour analyser, comparer et conserver volontairement un point à revoir. Un rappel du bilan reste un rappel ; il n’est pas transformé automatiquement en point T3 ni en modification du programme T1. Les bilans et médias restent privés au profil local et exclus des publications de programme.
 
 ### Vérifications de clôture
 

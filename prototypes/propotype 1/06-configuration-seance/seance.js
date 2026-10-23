@@ -50,9 +50,9 @@ window.ConfigurationSeance = {
   reviewPoints() {
     const p = window.Parcours, sourceId = this.entry()?.sourceId || this.base.id;
     const exercises = new Set(this.session.exercises.map(exercise => exercise.exerciseId));
-    const points = p.state.reviewPoints.filter(point => point.workoutId === sourceId && (!point.exerciseId || exercises.has(point.exerciseId)));
+    const points = p.state.reviewPoints.filter(point => point.workoutId === sourceId && (!point.exerciseId || exercises.has(point.exerciseId)) && (!point.slotId || this.session.exercises.some(exercise => exercise.exerciseId === point.exerciseId && exercise.slotId === point.slotId)));
     if (!points.length) return p.isBeginner() ? '' : '<p class="review-empty">Aucun point à revoir pour cette séance.</p>';
-    return `<section class="review-points"><h2>Points à revoir</h2>${points.length ? points.map(point => { const item = window.catalogueExercices.find(item => item.id === point.exerciseId); return `<article><p><strong>${p.escape(item?.name || 'Cette séance')}</strong>${point.createdAt ? ` · ${p.escape(point.createdAt.slice(0,10))}` : ''}</p><p>${p.escape(point.text)}</p>${point.note ? `<p>Note : ${p.escape(point.note)}</p>` : ''}${point.setting ? `<p>Réglage : ${p.escape(point.setting)}</p>` : ''}</article>`; }).join('') : '<p>Aucun point à revoir pour cette séance.</p>'}<p class="landing-hint">Les résultats comparables et leur analyse seront disponibles dans Progrès.</p></section>`;
+    return `<section class="review-points"><h2>Points à revoir</h2>${points.length ? points.map(point => { const item = window.catalogueExercices.find(item => item.id === point.exerciseId); return `<article><p><strong>${p.escape(item?.name || 'Cette séance')}</strong>${point.createdAt ? ` · ${p.escape(point.createdAt.slice(0,10))}` : ''}</p><p>${p.escape(point.text)}</p>${point.note ? `<p>Note : ${p.escape(point.note)}</p>` : ''}${point.setting ? `<p>Réglage : ${p.escape(point.setting)}</p>` : ''}</article>`; }).join('') : '<p>Aucun point à revoir pour cette séance.</p>'}<p class="landing-hint">Retrouve les résultats comparables dans Bilans. Ces points ne modifient pas tes cibles.</p></section>`;
   },
   render() {
     const p = window.Parcours, entry = this.entry(), editing = this.stage === 'edit';

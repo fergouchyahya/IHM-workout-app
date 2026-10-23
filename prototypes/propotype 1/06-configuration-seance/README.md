@@ -41,9 +41,9 @@ Séries et répétitions acceptent des entiers positifs ou une valeur vide ; max
 
 ## Points à revoir issus de T3
 
-Le panneau reprend T3.3.2 de l’arbre fourni : texte conservé pour la prochaine préparation, date/source, exercice, notes et réglages associés lorsqu’ils existent. Les résultats comparables, leurs limites, les records, tendances et médias relèvent de T3.1/T3.2 et restent hors périmètre. Aucun résultat ou conseil automatique n’est inventé.
+Le panneau reprend T3.3.2 de l’arbre fourni : texte conservé pour la prochaine préparation, date/source, exercice, notes et réglages associés lorsqu’ils existent. Les résultats comparables, leurs limites, les records et l’évolution relèvent de [T3 dans les bilans](../09-analyse/README.md) ; les médias restent associés à leur bilan. Aucun résultat ou conseil automatique n’est inventé.
 
-Contrat d’entrée : `Parcours.state.reviewPoints` contient `id`, `workoutId` (entraînement enregistré), `exerciseId` facultatif, `text`, `createdAt`, `note` et `setting` facultatifs. Un point lié à un exercice est affiché seulement si le mouvement figure dans la séance. Sans données : « Aucun point à revoir pour cette séance ». L’interface d’analyse et de conservation des points dans T3 reste à implémenter.
+Contrat d’entrée : `Parcours.state.reviewPoints` contient `id`, `workoutId` (entraînement enregistré), `exerciseId` facultatif, `text`, `createdAt`, `note` et `setting` facultatifs. Un point lié à un exercice est affiché seulement si le mouvement figure dans la séance ; un `slotId` fourni doit aussi correspondre. Les anciens points sans slot restent compatibles. Sans données : « Aucun point à revoir pour cette séance » hors débutant. [T3 dans les bilans](../09-analyse/README.md) conserve les nouveaux points avec `recordId` et `slotId`, sans modifier les cibles.
 
 ## Conservation et fichiers
 

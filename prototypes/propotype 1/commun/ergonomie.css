@@ -206,8 +206,8 @@ dialog > p { font-size:14px; margin:12px 0; }
 .review-final-feeling { margin:20px 0; }
 .review-final-feeling h2 { font-size:19px; margin-bottom:12px; }
 .review-final-feeling label { margin:12px 0; }
-.review-final-feeling textarea { display:block; width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; background:#fff; font:inherit; font-size:16px; }
-.review-footer { position:sticky; bottom:8px; padding:12px; background:#fff; border:1px solid #e5e7eb; border-radius:10px; }
+.review-final-feeling textarea,#analysis-point { display:block; width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; background:#fff; font:inherit; font-size:16px; }
+.review-footer { position:static; margin-bottom:180px; padding:12px; background:#fff; border:1px solid #e5e7eb; border-radius:10px; }
 .review-footer p { font-size:12px; margin-bottom:8px; }
 
 /* Cours 5/6 : saisie et feedback au plus près de leur objet. */
@@ -408,3 +408,7 @@ input[aria-invalid="true"]:focus-visible,select[aria-invalid="true"]:focus-visib
 .previous-set span { font-weight:600; }
 /* Garder la répétition hebdomadaire accessible au-dessus d’un message Annuler persistant. */
 .landing-page.has-calendar { padding-bottom:340px; }
+
+.analysis-results > details > summary { min-height:44px; padding:10px 0; cursor:pointer; }
+#analysis-point-form { margin-top:16px; }
+#analysis-point-form button { margin-top:10px; }
