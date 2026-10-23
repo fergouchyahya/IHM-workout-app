@@ -11,3 +11,7 @@ Thumbs.db
 
 # Exportations locales de Figma
 prototypes/exports/
+
+# Supports de cours conservés localement
+/Cours5.pdf
+/Cours6.pdf

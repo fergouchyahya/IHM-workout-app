@@ -1,202 +1,88 @@
-# Propotype 1 — Conception écran par écran
+# Prototype 1 — entraînements
 
-**Création :** 2026-10-03 · **Responsables :** Yahya et Marie<br>
-**État :** préparation documentaire ; écrans à définir et valider progressivement.
+## État actuel — 22 octobre 2026
 
-## Objectif et méthode
+Ce prototype cliquable couvre **T1 : préparer et organiser**, puis **T2 : réaliser, documenter et conserver une séance**. Le parcours principal est Découvrir → copie personnelle → préparation → entraînement → vérification → bilan conservé. Le calendrier est l’espace de planification ; **Mes entraînements est une page distincte**, accessible dans la navigation, pour rechercher, créer, préparer, planifier ou supprimer une séance ou un programme. Les autres espaces sont Découvrir, Partages et Bilans.
 
-Concevoir un prototype mobile cliquable avec des données d’exemple, centré d’abord sur Thomas et le parcours **découvrir une séance existante → l’adapter → la réaliser**. Le livrable sert à expliquer et évaluer l’IHM ; il ne vise pas une application fonctionnelle complète.
+L’analyse T3 (comparaisons, progression, records, conclusions et points à revoir produits par une analyse) reste à concevoir. La liste et la consultation des bilans constituent la sortie de T2. Le partage T4 est simulé localement ; aucune publication distante ni authentification réelle n’est effectuée.
 
-Pour chaque écran, nous posons les questions nécessaires, rédigeons sa documentation détaillée, puis la faisons valider avant de passer à son implémentation. Aucun code de prototype n’est créé avant validation de la documentation de l’écran. La première page de connexion est documentée, validée et implémentée ; les questions rapides sont documentées, validées et implémentées ; les deux pages d’arrivée sont documentées, validées et implémentées.
+**Ce document et les README des écrans décrivent l’état actuel.** Les comptes rendus datés de l’[audit ergonomique](../../docs/07-evaluation/audit-ergonomie-cours5-6.md) retracent les livraisons successives ; leurs mesures et nombres de tests appartiennent au lot daté. Ils ne remplacent pas les règles ci-dessous. Les anciennes règles « charge vide = série non faite » et « arrêt avant bilan » sont abandonnées. Le minuteur facultatif est désormais livré dans le dernier lot.
 
-Ce document rassemble les choix transverses déjà confirmés et l’index des écrans. Chaque dossier contient la description de son écran ; ses éventuels fichiers de maquette seront ajoutés après validation. Les choix propres à un écran restent dans son document, avec leurs justifications, plutôt que d’être recopiés partout.
+## Ouvrir le prototype
 
-## Sources de conception
+Depuis la racine du dépôt :
 
-- [Persona Thomas](../../docs/02-utilisateurs-personas/persona-thomas.md) : besoin de guidance, vocabulaire simple, saisie rapide et repères compréhensibles.
-- [Persona Greg](../../docs/02-utilisateurs-personas/persona-greg.md) : préparation personnelle, semaines et cycles pour la variante avancée.
-- [Scénario Thomas](../../docs/03-scenarios/scenario-thomas.md) : consultation des consignes, saisie pendant la séance et bilan final.
-- [Arbre commun des tâches](../../docs/04-analyse-taches/tache.md) : T1 pour choisir et adapter, T2 pour réaliser et consigner, T3 pour retrouver les résultats, T5 pour l’accès et la conservation.
-- [Modèle des décisions de conception](../../docs/05-decisions-conception/README.md) : problème, alternatives, décision, justification, risques et points à valider.
+```sh
+python3 -m http.server 8765 --bind 127.0.0.1
+```
 
-Le parcours de découverte complète le scénario d’une séance déjà planifiée. Les documents de persona, scénario et tâches servent de références ; la présente préparation ne les modifie pas.
+Ouvrir `http://127.0.0.1:8765/prototypes/propotype%201/01-connexion/index.html`. Les données d’exemple servent à évaluer l’interface, pas à prescrire un entraînement.
 
-## Choix déjà confirmés
+## Contrats à conserver
 
-### Périmètre et navigation
+- **Séparer les objets.** Une source de bibliothèque, une copie enregistrée, une occurrence datée, un brouillon de préparation, une exécution en cours et un bilan terminé sont distincts. La création se fait dans Mes entraînements, sans placement automatique ; les catégories de programme ne remplissent aucun jour. Importer crée une copie sans la planifier ; Favori ne crée aucune copie. Préparer ma copie ne démarre aucune exécution.
+- **Planifier explicitement.** Calendrier Mois/Semaine avec dates réelles, séances rouges, repos explicites verts, jours vides et plusieurs séances par jour. Toucher un jour sélectionne. Le seul **+ Ajouter**, en haut, ouvre le choix de date initialisé à aujourd’hui, indépendamment du jour consulté ; on choisit ensuite un entraînement enregistré ou un repos. Les outils groupés sont proposés hors mode débutant ; les échéances sont réservées au niveau Avancé. Répéter une semaine et faire évoluer ses cibles restent explicites ; les conflits et doublons demandent un choix explicite. Annuler inverse la dernière opération proposée de la visite sans écraser un travail ultérieur.
+- **Préparer avec peu d’actions.** Saisir un nom inconnu dans le sélecteur puis Ajouter crée un exercice personnel réutilisable sans autre formulaire ; les détails restent facultatifs. Exercices ajoutables individuellement ou par lot ; remplacement avec mêmes muscles prioritaires et nouvelles cibles vides. Le débutant ne voit que séries, répétitions et charge. Les autres niveaux ont aussi fixes/plage, RPE facultatif et outils groupés ; les champs avancés déjà remplis sont conservés lorsqu’ils sont masqués. Consignes et réglages sont dépliables. Sélections, valeurs brutes, détails ouverts et champs groupés restent dans le brouillon par slot, même après réordonnancement ou rechargement.
+- **Structurer un mésocycle avancé.** Avant les jours et exercices, définir une structure prédéfinie ou des noms de séances libres, la fréquence, la durée et l’objectif du cycle. Le brouillon est repris après rechargement ; la structure et l’objectif restent visibles à l’étape suivante.
+- **Nommer la portée.** Une adaptation de préparation concerne le jour. Une extension volontaire au même mésocycle présente différences, dates et exclusions. Elle propage seulement les champs changés ; les autres cibles futures restent indépendantes. Les dates passées, séances commencées/terminées et autres brouillons sont exclus. Le programme personnel enregistré reste distinct.
+- **Retrouver les séries précédentes dans une répétition.** Pour une occurrence de mésocycle ou une nouvelle copie issue de Copier et répéter la semaine, la préparation montre les charges et répétitions réelles de la dernière séance terminée de cette même répétition, série par série. Pendant l’entraînement, chaque ligne garde son repère précédent. Ce rappel ne remplit ni cible ni résultat ; les valeurs absentes restent des tirets et les séries non faites sont nommées. Une séance indépendante ne reçoit pas ce nouveau tableau.
+- **Distinguer cible et résultat.** T2 montre un exercice à la fois avec toutes ses séries, consignes, réglages, cibles initiales et résultat précédent comparable lorsqu’il existe. Adapter une cible pendant l’effort ne concerne que cette série et ne remplit pas le résultat réel. Aucune série n’est inventée quand le nombre prévu est vide ; Ajouter une série est explicite.
+- **Conserver les absences.** Vide = non renseigné ; **0 kg = sans charge ajoutée**. Une série n’est déclarée Non faite que par une action explicite. Faite, Interrompue, Non faite, Partielle et Non renseignée restent distinctes. Une valeur invalide garde la dernière valeur valide séparée de la saisie brute et bloque l’archivage jusqu’à correction. Une omission autorisée peut être conservée après avertissement.
+- **Corriger et enrichir.** Saisie autosauvegardée sans validation par série ; recopie explicite d’un résultat précédent complet et valide, annulable ; charge seule également disponible sans inventer d’autres valeurs. État/effort initial facultatifs ; un seul contexte général, raisons par série, notes, accès direct au réglage utilisé et médias disponibles sans obligation de les remplir. L’avancement distingue les statuts ; Série suivante sélectionne sans déclarer de réalisation. Les médias affichent leurs opérations et proposent un réessai par fichier ; une annulation asynchrone échouée reste réessayable. Les préférences de suivi changent leur visibilité prioritaire, sans supprimer de données. Le RPE est masqué au débutant en préparation, entraînement, adaptation, bilan et aperçu public ; le ressenti global reste facultatif.
+- **Terminer délibérément.** Quitter garde l’exécution en cours. Vérifier le bilan permet les corrections ciblées, omissions, ressenti final et rappels. La revue propose une correction réelle sur place, sans modifier les cibles ; son accès avancé retrouve la ligne au retour. La confirmation crée un seul bilan en lecture seule avec notes/médias, puis protège l’occurrence terminée. Bilans propose recherche par nom, regroupement par date et tri, conservés au retour. Un bilan peut servir de référence ou de source pour une nouvelle occurrence indépendante.
+- **Revenir au contexte utile.** Retour/Suivant restaure l’écran, son objet et le défilement, sans étape par frappe. Le même profil retrouve un écran encore disponible après rechargement. Les préférences sont accessibles depuis les espaces principaux et reviennent à l’origine avec les critères actifs ; un objet supprimé replie vers Calendrier. Les dialogues et l’accès/questionnaire ne sont pas des entrées de cet historique ; le questionnaire conserve séparément réponses et position par profil. Essayer sans compte ouvre un profil démo isolé, sans mot de passe à saisir. Dans les questions, Précédente et Passer cette question sont alignés sous l’aide ; la première question n’a aucun retour vers la connexion.
+- **Présenter les critères réels.** Découvrir filtre par bibliothèque, nom, niveau, matériel, zone et durée ; compte séances et programmes ensemble. L’objectif sportif ne produit pas une personnalisation non implémentée. Mes favoris filtre les séances des deux bibliothèques, avec les critères explicites conservés. Le budget temps ne modifie pas les résultats tant qu’aucun filtre de durée n’est choisi ; les textes explicatifs de tri, de provenance initiale et de suggestion demandés ont été retirés. Les longs programmes se consultent par semaines dépliables avant import/partage.
 
-- Persona prioritaire : Thomas.
-- Format mobile ; prototype cliquable avec des données d’exemple.
-- Parcours prioritaire : découvrir → adapter → réaliser.
-- Espaces principaux : **Découvrir**, **Mes entraînements**, **Partages** (T4) et **Progrès**. Partages réutilise les entraînements créés dans Mes entraînements ; il ne crée ni ne modifie leur contenu.
-- Arrivée selon le niveau renseigné : Débutant / Intermédiaire → Découvrir ; Avancé → Mes entraînements ; niveau absent → suggestions de Découvrir. Cette orientation ne bloque pas l’accès aux autres espaces.
-- Découvrir : séances personnalisées de la bibliothèque de départ, filtres et accès séparé à la communauté.
-- Mes entraînements : copies personnelles enregistrées, à ouvrir, adapter ou démarrer.
-- Progrès : séances terminées et résultats.
-- Pendant une séance, possibilité de quitter puis reprendre.
+## Écrans et modules
 
-### Questions rapides et découverte
+| Dossier | Rôle actuel |
+| --- | --- |
+| [01-connexion](01-connexion/README.md) | Accès simulé, création/récupération et choix d’identité locale |
+| [02-questions-rapides](02-questions-rapides/README.md) | Niveau, objectif et matériel facultatifs ; modification d’un choix depuis les préférences |
+| [03-decouverte](03-decouverte/README.md) | Recherche/filtres, récapitulatif, favoris, copie et import de programmes |
+| [04-mes-entrainements](04-mes-entrainements/README.md) | Page personnelle séparée ; création, recherche, planification et suppression annulable |
+| [05-organisation-semaine](05-organisation-semaine/README.md) | Calendrier, semaine type, mésocycle, placements et échéances |
+| [06-configuration-seance](06-configuration-seance/README.md) | Préparation T1.3, brouillon, cibles, portée et séance prête |
+| [07-partages](07-partages/README.md) | Présentation, aperçu, confirmation et gestion de publications locales |
+| [08-entrainement](08-entrainement/README.md) | T2.1–T2.4 : préparation de l’effort, saisie, enrichissements, clôture et bilan |
 
-- Après la connexion, trois questions courtes, chacune sur son écran : niveau, objectif principal, matériel disponible.
-- Possibilité de passer les questions et de modifier les réponses plus tard.
-- Pas de question sur la durée à cette étape.
-- Séances individuelles proposées en premier ; les plus courtes sont prioritaires.
-- Bibliothèque de départ adaptée aux réponses, avec communauté accessible séparément.
-- Filtres : niveau, groupe musculaire, matériel et durée, avec recherche par nom de séance ; listes extensibles dans la documentation de Découvrir.
-- Choisir une séance ouvre un récapitulatif avec durée, matériel, exercices et explication courte ; possibilité d’ajouter à la semaine, aux favoris ou aux entraînements personnels. Aucun démarrage depuis la page d’arrivée ou ce récapitulatif dans cette étape.
+`commun/parcours.js` porte navigation, identité et sauvegarde ; `commun/ergonomie.js` porte nombres français, validation et clavier ; `commun/disponibilites.js` porte durée/jours disponibles. Aucun framework ni compilation n’est requis.
 
-### Adaptation
+## Conservation et limites
 
-- Remplacer ou retirer un exercice ; ajuster les séries, la plage de répétitions et une charge cible facultative.
-- Remplacement par menu déroulant, avec priorité aux exercices sollicitant les mêmes muscles et objectifs initialement vides.
-- La première adaptation enregistrée crée une copie personnelle ; la bibliothèque originale reste disponible.
-- Depuis le calendrier, les adaptations concernent cette date. À l’enregistrement, une occurrence de mésocycle propose aussi les suivantes du même type dans ce cycle. Le programme enregistré reste distinct.
-- Adaptation pendant la séance prévue pour une étape ultérieure ; les changements concernent les séries à venir, les résultats déjà réalisés restent conservés et corrigibles séparément.
+Les données sont locales à l’appareil et à l’identité de démonstration : état applicatif et profils dans `localStorage`, fichiers de médias dans IndexedDB. Les brouillons sont distincts des bilans dans `trainingDrafts` / `completedSessions`. Le changement de profil conserve et isole les données, dont les brouillons de questions. Le minuteur reste facultatif, avec durée réutilisable, pause/reprise et arrêt ; son échéance survit à une navigation/recharge sans notification et sans modifier les résultats. Une erreur de stockage est visible avec Réessayer ; les changements en mémoire ne sont pas annoncés comme durablement enregistrés. Sans stockage, garder la page ouverte est nécessaire.
 
-### Réalisation et bilan
+Les fichiers partagés sont produits à partir d’une liste blanche : programme/cibles/instructions, sans résultats, notes/réglages personnels, médias ou identifiants. Les publications T4 publiques actives alimentent le fil chronologique sous Découvrir → Communauté ; les partages aux contacts et les contenus retirés en sont exclus. Le fil reprend les données du profil local courant et ne simule pas une diffusion entre comptes. Supprimer de Mes entraînements retire seulement le modèle et ses brouillons de préparation personnels, après confirmation et avec Annuler. Les occurrences datées indépendantes, séances en cours, bilans et publications sont conservés. Les anciennes archives restent consultables. Description de partage facultative, titre et niveau requis ; les erreurs sont locales. Un contenu À compléter revient au brouillon du partage après préparation. L’aperçu précède une action finale nommant l’audience ; aucune case supplémentaire. Les publications et contacts sont fictifs.
 
-- Un exercice à la fois, avec toutes ses séries et un accès aux autres exercices.
-- Afficher une plage cible de répétitions ; Thomas saisit le nombre effectivement réalisé, par exemple 7 pour une cible de 6–12.
-- Charge renseignée : série faite ; charge vide : série non faite. **0 kg** indique un exercice réalisé sans charge ajoutée.
-- Saisies conservées directement ; aucun bouton de validation par série.
-- Minuteur de repos facultatif.
-- En fin de séance, aperçu complet des résultats et séries non faites, possibilité de correction, ressenti global facultatif et confirmation finale.
-- Après confirmation, résumé de la séance ; progression annoncée uniquement si un historique comparable le permet.
+Non implémentés : analyse T3, substitution d’exercice pendant l’effort, synchronisation distante et authentification réelle. Téléphone physique, clavier virtuel réel, lecteurs d’écran et évaluation utilisateur restent à tester. Les mesures de page et comptes d’actions dans l’audit ne sont pas des temps utilisateur ni une déclaration de conformité.
 
-Ces choix sont confirmés dans l’échange de conception. Leur présentation concrète et leur évaluation par l’équipe restent à mener écran par écran.
+## Vérification reproductible
 
-## Index des premiers dossiers
+Depuis la racine du dépôt :
 
-| Dossier et document | Rôle envisagé | État |
-| --- | --- | --- |
-| [01-connexion/README.md](01-connexion/README.md) | Connexion, création de compte et accès à la récupération | Documentation validée ; [page cliquable](01-connexion/index.html) vérifiée |
-| [02-questions-rapides/README.md](02-questions-rapides/README.md) | Règles communes et trois dossiers : niveau, objectif, matériel | Documentation validée ; parcours cliquable vérifié |
-| [03-decouverte/README.md](03-decouverte/README.md) | Arrivée débutant/intermédiaire : suggestions, filtres et récapitulatif | Documentation validée ; code vérifié |
-| [04-mes-entrainements/README.md](04-mes-entrainements/README.md) | Arrivée avancée : contenu personnel et création par organisation/gabarit | Documentation validée ; code vérifié |
-| [05-organisation-semaine/README.md](05-organisation-semaine/README.md) | Calendrier daté Mois / Semaine, séances et repos ; répétition des cycles | Calendrier validé dans l’échange ; implémenté |
-| [06-configuration-seance/README.md](06-configuration-seance/README.md) | T1.3 : aperçu, points à revoir, adaptation en ligne, portée et séance prête | Évolution validée ; parcours implémenté |
-| [07-partages/README.md](07-partages/README.md) | Partager un programme existant et suivre les retours (T4) | Parcours implémenté ; communauté simulée localement |
-| [08-entrainement/README.md](08-entrainement/README.md) | Écran T2 : exercices, cibles et saisie réelle distincte, reprise | Écran implémenté ; arrêt avant bilan et T3 |
+```sh
+node tests/ergonomie.test.cjs
+node tests/preparation.test.cjs
+node tests/t1-completion.test.cjs
+node tests/training-preparation.test.cjs
+node tests/training-results.test.cjs
+node tests/training-enrichment.test.cjs
+node tests/training-completion.test.cjs
+node tests/ergonomie-top10.test.cjs
+node tests/ergonomie-lot2.test.cjs
+node tests/ergonomie-lot3.test.cjs
+node tests/ergonomie-lot4.test.cjs
+node tests/ergonomie-lot5.test.cjs
+node tests/profile-library.test.cjs
+node tests/repeated-session-history.test.cjs
+```
 
-Le dossier questions rapides contient un README commun et un sous-dossier avec README pour chaque question. Les trois écrans sont documentés séparément ; leur implémentation suit la validation de ces documents. Les autres dossiers seront ajoutés au fur et à mesure, après discussion du parcours ; aucun écran supplémentaire n’est rempli par anticipation.
+**121 tests ciblés réussis** sur les quatorze suites. Les 49 propositions sont implémentées ; la liste de développement est close. Les évaluations utilisateur restent à réaliser, notamment pour comparer sélection de date et confirmation de partage. Les ajustements de navigation/niveau et les références de séances répétées sont consignés en sections 16 et 17 de l’[audit ergonomique](../../docs/07-evaluation/audit-ergonomie-cours5-6.md). Les tests vérifient des comportements ; ils ne remplacent pas l’évaluation de l’ergonomie auprès d’utilisateurs.
 
-## Contenu à rédiger pour chaque écran
+## Références de conception
 
-Le document de référence d’un écran est son `README.md`. Nous développerons les sections suivantes lors de la discussion de chaque écran.
+- [Persona Thomas](../../docs/02-utilisateurs-personas/persona-thomas.md), priorité à la guidance et à la saisie rapide ; [persona Greg](../../docs/02-utilisateurs-personas/persona-greg.md), préparation des semaines et cycles.
+- [Scénario Thomas](../../docs/03-scenarios/scenario-thomas.md) et [arbre commun des tâches](../../docs/04-analyse-taches/tache.md).
+- [Décisions de conception](../../docs/05-decisions-conception/README.md) et [audit fondé sur Cours 5/6](../../docs/07-evaluation/audit-ergonomie-cours5-6.md).
 
-### 1. Identité, objectif et état
-
-Nom de l’écran, problème qu’il résout pour Thomas, tâche et sous-tâches concernées, situation dans laquelle il arrive, décisions confirmées et questions encore ouvertes. Indiquer ce que Thomas doit pouvoir accomplir avant de poursuivre.
-
-### 2. Entrées et sorties du parcours
-
-Décrire chaque origine possible, les conditions d’accès et les informations conservées à l’arrivée. Pour chaque action, nommer précisément l’écran suivant et expliquer l’effet du retour, de l’annulation, du passage d’une étape et de la reprise si ces possibilités existent. Ajouter un tableau **action → effet → destination → données conservées** et un schéma si utile.
-
-### 3. Informations affichées
-
-Lister les titres, textes, données d’exemple, repères, visuels et messages. Pour chaque information, préciser sa source, son format, son caractère obligatoire ou facultatif et la raison de sa présence. Distinguer ce qui vient du programme, des préférences et des résultats réels.
-
-### 4. Organisation de l’IHM
-
-Décrire l’écran de haut en bas : en-tête, contenu principal, sections, actions et navigation. Préciser l’emplacement de chaque élément, la hiérarchie visuelle, ce qui doit être visible immédiatement et ce qui peut nécessiter un défilement. Décrire les éléments fixes ou contextuels seulement lorsqu’ils ont une utilité pour cet écran.
-
-### 5. Composants et options
-
-Décrire les boutons, champs, listes, filtres, menus et aides effectivement retenus. Préciser leurs libellés, valeurs initiales, choix possibles, contraintes et états. Justifier le type de contrôle choisi et éviter les options inutiles à l’objectif de Thomas.
-
-### 6. Interactions et états
-
-Expliquer les effets d’un appui, d’une saisie ou d’un changement de choix ; la conservation des données ; les confirmations et possibilités de correction. Décrire les états initiaux, renseignés, vides et erronés qui sont pertinents, avec les messages associés. Préciser les conséquences d’une action avant qu’elle soit effectuée.
-
-### 7. Style et accessibilité
-
-Définir couleurs, typographie, tailles relatives, espacements, formes, icônes et visuels. Expliquer leur rôle dans la compréhension et la cohérence. Prévoir la lisibilité mobile, les cibles tactiles, les libellés explicites, le contraste et les états compréhensibles sans dépendre uniquement de la couleur.
-
-### 8. Justification des décisions
-
-Pour chaque choix important, décrire le besoin ou la tâche, les alternatives envisagées, le choix retenu, sa justification et ses limites. Relier le choix à Thomas, au scénario et à l’arbre ; ne pas présenter une préférence graphique comme un résultat d’évaluation utilisateur.
-
-### 9. Données et comportement du prototype
-
-Lister les données fictives nécessaires et les actions qui seront simulées. Préciser ce qui sera cliquable, modifiable ou seulement illustré, ainsi que les limites de cette version. Définir les exemples après les décisions d’interface, sans inventer un service réel.
-
-### 10. Validation avant code
-
-Décrire les parcours à essayer et les résultats observables attendus. Vérifier que chaque action a une destination, que les informations importantes sont présentes et que les états nécessaires sont expliqués. Rassembler les questions restantes et consigner la validation avant d’implémenter l’écran.
-
-## Points à décider progressivement
-
-- Évaluation du [premier écran de connexion](01-connexion/README.md) et des questions rapides.
-- Évaluation des [trois questions rapides](02-questions-rapides/README.md) et des deux pages d’arrivée implémentées.
-- Relecture des [suggestions et filtres](03-decouverte/README.md) et de la [création avancée](04-mes-entrainements/README.md) ; évaluation de la semaine et de l’éditeur de séance ; évaluation de l’écran T2 ; bilan et analyse T3 à concevoir ensuite.
-- Évaluation de la portée proposée à l’enregistrement : cette date ou les prochaines occurrences correspondantes du mésocycle.
-- Visuels d’aide aux exercices, présentation des saisies et fonctionnement précis du repos.
-- Présentation du bilan, des comparaisons et des éventuels records.
-- Style visuel et libellés de chaque écran.
-
-La palette confirmée pour cette première page est `#B91C1C`, `#F87171`, `#111827`, `#FEF2F2`, avec un style très sobre et au plus un petit symbole sportif. Son application concrète est décrite dans le README de connexion. Le nom de l’interface, la durée du repos et les comportements techniques de l’ancienne proposition ne sont pas considérés comme validés ; ils seront décidés lorsque nous traiterons les écrans concernés.
-
-## Mémorisation et simplification
-
-Le prototype conserve localement les préférences, entraînements, exercices personnels et le formulaire de création inachevé. Pour la même identité de démonstration, les questions rapides ne sont pas répétées. Les adaptations sont conservées dans un brouillon séparé jusqu’à l’enregistrement. Les remplacements commencent vides et les modifications ponctuelles ne changent pas les préférences globales. Les saisies de l’écran T2 sont conservées séparément des cibles. Les mots de passe ne sont pas enregistrés.
-
-Le choix d’exercice utilise une recherche par nom et des résultats illustrés directement sélectionnables. Les consignes et réglages sont visibles sur les cartes ; les points conservés par T3 sont présentés lorsqu’ils existent ; les unités, erreurs et conséquences de remplacement restent visibles.
-
-## Vérification de la préparation et de l’entrée T2
-
-Depuis la racine du dépôt, exécuter `node tests/preparation.test.cjs` et `node tests/ergonomie.test.cjs` : onze vérifications ciblent l’isolation des brouillons/profils, la migration, les dates du cycle, la conservation des cibles futures, les remplacements/retraits, les nombres français et l’échec du stockage. Le parcours cliquable reste accessible depuis [la connexion](01-connexion/index.html). Les vérifications navigateur et les limites propres aux écrans sont détaillées dans les dossiers [Préparation](06-configuration-seance/README.md) et [Entraînement](08-entrainement/README.md).
-
-## Améliorations ergonomiques validées — 16 octobre 2026
-
-Les 32 propositions sont intégrées aux parcours existants. Les codes ci-dessous servent de référence à la validation ; ils ne sont pas affichés dans les écrans utilisateur.
-
-| Critère | Référence | Comportement livré |
-| --- | --- | --- |
-| Guidage | G1 | Reprendre une exécution depuis la carte du calendrier. |
-| Guidage | G2 | Contexte date/programme/semaine compact ; exercice X/Y dans T2. |
-| Guidage | G3 | Points à revoir absents réduits à une ligne ; vraies consignes visibles. |
-| Guidage | G4 | Nouvelle publication et modification explicites ; contexte réinitialisé. |
-| Charge de travail | W1 | Panneau d’ajout unique ; choix d’une séance enregistrée directement appliqué. |
-| Charge de travail | W2 | Résultats de recherche illustrés directement sélectionnables ; remplacement à blanc. |
-| Charge de travail | W3 | Répétitions fixes avec un champ ou fourchette avec deux champs. |
-| Charge de travail | W4 | Reprendre explicitement le résultat précédent, sans remplissage automatique. |
-| Charge de travail | W5 | Contenu et présentation réunis ; aperçu et confirmation finale maintenus. |
-| Contrôle explicite | C1 | Séance prête dans l’aperçu ; démarrage direct. |
-| Contrôle explicite | C2 | Enregistrement ponctuel direct ; extension au mésocycle avec dates et confirmation. |
-| Contrôle explicite | C3 | Annuler pour les actions ponctuelles réversibles ; confirmations pour suppression et remplacement. |
-| Contrôle explicite | C4 | Remplacement d’un repos confirmé dans le panneau courant. |
-| Adaptabilité | A1 | Vue/date, liste, recherche, filtres et défilement conservés. |
-| Adaptabilité | A2 | Plusieurs brouillons de préparation et de partage indépendants. |
-| Adaptabilité | A3 | Une préférence modifiable sans réinitialiser les entraînements. |
-| Adaptabilité | A4 | Dates cochées pour placements groupés ; exercices cochés pour séries/répétitions, charges indépendantes. |
-| Gestion des erreurs | E1 | Saisies numériques invalides conservées et signalées, plutôt que remplacées silencieusement. |
-| Gestion des erreurs | E2 | Échec du stockage visible et persistant ; brouillon distingué de l’application. |
-| Gestion des erreurs | E3 | Cibles manquantes rouges non bloquantes ; valeurs invalides à corriger ; champs facultatifs ordinaires. |
-| Gestion des erreurs | E4 | Profils locaux séparés, identifiant prérempli, aucun mot de passe conservé. |
-| Homogénéité | H1 | Espacements, cartes, typographie et icônes cohérents. |
-| Homogénéité | H2 | Dialogues en panneau inférieur sur mobile, centrés sur grand écran. |
-| Homogénéité | H3 | Défilement et focus conservés lors des mises à jour. |
-| Homogénéité | H4 | Action principale mise en avant ; actions secondaires discrètes et suppressions séparées. |
-| Signifiance | S1 | Créer une séance/programme ; mésocycle et effort visé (RPE) expliqués. |
-| Signifiance | S2 | État calculé d’après le contenu : À compléter, Enregistré, Planifié, Reprendre. |
-| Signifiance | S3 | Favori, copie personnelle et placement distingués ; accès à la copie existante. |
-| Compatibilité | K1 | En-tête T2 compact ; premières saisies remontées sur mobile. |
-| Compatibilité | K2 | Alternatives tactiles/clavier, cibles agrandies, champ focalisé au-dessus du pied de page. |
-| Compatibilité | K3 | Virgule décimale, clavier numérique, sélection du nombre, Entrée vers le champ suivant. |
-| Compatibilité | K4 | Réponses en un appui ; passer une question ou toutes les restantes ; suppression du délai global. |
-
-### Réduction des actions sur les parcours concernés
-
-| Parcours | Avant | Après |
-| --- | --- | --- |
-| Ajouter une séance seule enregistrée au jour sélectionné | 4 appuis | 2 appuis |
-| Calendrier vers début de séance | 3 appuis | 2 appuis |
-| Enregistrer une adaptation pour cette date | 3 appuis | 1 appui |
-
-Ces comptes décrivent les chemins testés, hors saisie des champs et défilement ; ils ne constituent pas une mesure auprès d’utilisateurs.
-
-### Implémentation et vérification
-
-`commun/ergonomie.js` centralise validation numérique, navigation clavier et confirmations ; `commun/ergonomie.css` harmonise les composants. `commun/parcours.js` conserve l’état actif sous `ihm-prototype-1` et les profils sous `ihm-prototype-1-profiles`. Ces identités de démonstration ne constituent pas une authentification réelle. Un échec du stockage conserve le travail en mémoire pour la visite et affiche une alerte ; la persistance après fermeture n’est alors pas garantie.
-
-Les onze tests Node couvrent les règles de données sensibles à la régression. Les essais Chromium couvrent ajout direct, reprise, virgule décimale, erreur conservée, plusieurs brouillons, profils séparés, portée du mésocycle, actions groupées, remplacement du repos avec annulation et partage avec aperçu final. Les vues calendrier/préparation/T2 ont été contrôlées à 320, 390 et 1280 px sans débordement horizontal. Le stockage indisponible et la navigation numérique avec Entrée ont été simulés. Le clavier et les gestes sur téléphone physique restent à vérifier. La fin de T2, le bilan et l’analyse T3 restent hors périmètre.
+Les supports locaux `/Cours5.pdf` et `/Cours6.pdf` sont exclus par `.gitignore`. Les règles propres à un écran restent dans son README ; l’audit conserve les points livrés et la liste restante avec leurs identifiants d’origine.

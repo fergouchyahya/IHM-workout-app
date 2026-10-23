@@ -1,5 +1,11 @@
 # Questions rapides — Parcours en trois écrans
 
+## État actuel — navigation du questionnaire
+
+Sous « Choisis une réponse pour continuer », Question précédente (flèche gauche) et Passer cette question (flèche droite) sont sur la même ligne. Le retour est absent à la première question ; aucune action ne renvoie à la connexion. En modification de préférence, Annuler reste disponible. Passer le reste reste une action secondaire. Le texte de sauvegarde systématique est retiré ; les erreurs de sauvegarde, la réponse sélectionnée et la reprise du brouillon restent effectives.
+
+Cette section décrit la dernière décision utilisateur ; elle remplace les règles antérieures incompatibles ci-dessous. Les contrôles sont consignés dans le [compte rendu des ajustements](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#16-ajustements-demandés-après-la-clôture--22-octobre-2026).
+
 **Date :** 2026-10-03 · **Responsables :** Yahya et Marie<br>
 **État :** documentation validée dans l’échange du 3 octobre 2026 ; trois questions implémentées et vérifiées.
 
@@ -103,7 +109,7 @@ La fin ouvre la page correspondant au niveau conservé. Le nom et les réponses 
 | Repère | Valeurs | Effet envisagé |
 | --- | --- | --- |
 | Niveau | Débutant / Intermédiaire / Avancé | Présélectionner le filtre de niveau lorsqu’il est renseigné |
-| Objectif | Gagner en force / Développer mes muscles / Rester actif | Donner un repère pour mettre en avant les séances pertinentes ; le classement précis sera discuté avec Découvrir |
+| Objectif | Gagner en force / Développer mes muscles / Rester actif | Conserver le repère sportif ; aucun classement par objectif dans cette version |
 | Matériel | Salle équipée / Haltères à la maison / Sans matériel | Présélectionner le filtre de matériel lorsqu’il est renseigné |
 
 Les réponses non données n’appliquent aucun filtre et ne sont pas devinées. Avec seulement une partie des réponses, utiliser seulement ces repères ; garder les filtres modifiables. Les séances courtes restent prioritaires, conformément au cadrage général. Aucune durée ou disponibilité n’est demandée ici.
@@ -158,10 +164,21 @@ Ouvrir le [parcours depuis la connexion](../01-connexion/index.html) ou [les que
 - [styles.css](styles.css) : composition compacte et états des questions, utilisant la palette de connexion.
 - [01-niveau/niveau.js](01-niveau/niveau.js), [02-objectif/objectif.js](02-objectif/objectif.js), [03-materiel/materiel.js](03-materiel/materiel.js) : titre et options propres à chaque écran.
 
-Les préférences d’un questionnaire terminé sont conservées localement par identité de démonstration ; les réponses d’un questionnaire encore en cours restent en mémoire pendant la visite. Une identité connue retrouve son propre profil ; une nouvelle identité commence le questionnaire. Aucun service distant n’est utilisé.
+Les préférences d’un questionnaire terminé sont conservées localement par identité de démonstration ; les réponses et la position d’un questionnaire encore en cours sont conservées localement dans le brouillon de ce profil, sans mot de passe. Une identité connue retrouve son propre profil ; une nouvelle identité commence le questionnaire. Aucun service distant n’est utilisé.
 
 Vérifications du 3 octobre 2026 : connexion par nom, par e-mail et inscription ; nom personnalisé ; passage direct et progression ; correction par retour ; passage sur les trois étapes et après retour ; maintien des réponses pour une même identité et remise à zéro pour une autre ; protection contre le double appui. Les trois options et « Passer le reste » restent visibles sans défilement à 320 × 568 et 390 × 844 px, taille de texte normale. Nom long, activation clavier, focus et réduction des animations vérifiés. Ouverture directe depuis le disque et accès isolé aux questions vérifiés ; captures relues ; aucune erreur JavaScript ni requête externe observée.
 
 ## Simplification ergonomique validée
 
-Un appui sélectionne et avance ; aucun délai global ne bloque la réponse suivante. « Passer cette question » conserve les suivantes ; « Passer les questions restantes » termine ce parcours. Depuis Mes préférences, rouvrir un seul choix revient directement au calendrier après sélection, sans réinitialiser les entraînements.
+Un appui sélectionne et avance ; aucun délai global ne bloque la réponse suivante. « Passer cette question » conserve les suivantes ; « Passer les questions restantes » termine ce parcours. Depuis Mes préférences, rouvrir un seul choix revient à l’espace d’origine et à sa position après sélection, sans réinitialiser les entraînements.
+
+## Complément T1.1.1 — durée et disponibilités
+
+Le questionnaire reste limité à niveau, objectif et matériel. Depuis Calendrier → Mes préférences → Durée et disponibilités, le profil peut conserver un budget de 1 à 1440 minutes par séance et des jours disponibles. Les deux informations sont facultatives ; aucun jour coché signifie non renseigné. Modifier ces repères conserve le planning et les autres préférences.
+
+
+## Dernier lot ergonomique — 22 octobre 2026
+
+`onboardingDraft` conserve réponses et numéro de question par profil au fil de chaque choix et passage. Après rechargement, l’accès au même profil reprend la question inachevée. Réponse précédente est visible ; choix en un appui, Passer cette question et Passer le reste sont conservés. Terminer efface le brouillon sans réinitialiser les entraînements. L’édition des préférences ne crée pas de brouillon de questionnaire. Le lien autonome `#questions` utilise `demo:questions`, distinct des autres profils.
+
+Vérification : 104 tests ciblés et parcours Chromium à 320, 390 et 1280 px ; [preuves, compromis et évaluations restantes](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#15-dernier-lot-livré--22-octobre-2026).

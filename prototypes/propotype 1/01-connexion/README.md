@@ -1,5 +1,11 @@
 # Écran 01 — Connexion et création de compte
 
+## État actuel — ajustement visuel du 22 octobre 2026
+
+Connexion et Essayer sans compte gardent leurs interactions. Les textes « Retrouve tes entraînements. » et « Profil de démonstration séparé, conservé sur cet appareil. » sont retirés. L’isolation du profil local reste effective.
+
+Cette section décrit la dernière décision utilisateur ; elle remplace les règles antérieures incompatibles ci-dessous. Les contrôles sont consignés dans le [compte rendu des ajustements](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#16-ajustements-demandés-après-la-clôture--22-octobre-2026).
+
 **Date :** 2026-10-03 · **Responsables :** Yahya et Marie<br>
 **État :** documentation validée dans l’échange du 3 octobre 2026 ; première page implémentée et vérifiée.<br>
 **Utilisateur de référence :** Thomas · **Support :** mobile.
@@ -10,7 +16,7 @@ Permettre à Thomas d’entrer dans le parcours avec un formulaire familier et c
 
 La première page comprend deux modes, Connexion et Créer un compte. Elle donne aussi accès à la récupération du mot de passe. L’objectif est de comprendre les actions et leur destination, sans détour ni éléments promotionnels.
 
-La connexion est un préalable au parcours du prototype ; elle n’est pas une nouvelle branche ajoutée à l’arbre validé. Elle donne accès aux questions rapides qui préparent T1.1.1, puis à la découverte liée à T1.1.3. La lisibilité des accès rejoint T5.1. Thomas étant à l’aise avec le numérique, une interaction familière suffit ; sa priorité reste d’atteindre rapidement les séances.
+Le formulaire simulé est un chemin d’entrée ; Essayer sans compte donne aussi un accès direct au profil démo. La connexion simulée n’est pas une nouvelle branche ajoutée à l’arbre validé. Elle donne accès aux questions rapides qui préparent T1.1.1, puis à la découverte liée à T1.1.3. La lisibilité des accès rejoint T5.1. Thomas étant à l’aise avec le numérique, une interaction familière suffit ; sa priorité reste d’atteindre rapidement les séances.
 
 ### Choix confirmés dans l’échange
 
@@ -210,3 +216,10 @@ Ouvrir [index.html](index.html) dans un navigateur ; aucun serveur ni installati
 Vérifications du 3 octobre 2026 : connexion par e-mail et nom d’utilisateur, inscription, champs requis et correction des erreurs, valeurs conservées entre modes et mots de passe vidés, affichage/masquage avec conservation du curseur, récupération avec préremplissage d’e-mail, fermeture par Échap et retour du focus, messages de simulation. Les onglets ont été vérifiés au clavier ; les trois vues restent sans débordement horizontal à 320, 390 et 1280 px. Captures relues ; aucune erreur JavaScript ni requête externe observée pendant le parcours.
 
 Les [questions rapides](../02-questions-rapides/README.md) sont désormais implémentées après validation de leur documentation ; les pages Découvrir et Mes entraînements sont également implémentées, avec une arrivée selon le niveau. Le retour depuis la première question garde les réponses de la même identité pendant cette visite et revient à la connexion sans mot de passe.
+
+
+## Dernier lot ergonomique — 22 octobre 2026
+
+Essayer sans compte ouvre directement le profil local séparé `demo:local`, sans mot de passe fictif. Ses données sont reprises lors d’une nouvelle visite ; celles des profils nommés restent distinctes. Les formulaires de connexion/création/récupération restent simulés et disponibles pour évaluation. Le profil démo n’est pas présenté comme une authentification réelle.
+
+Vérification : 104 tests ciblés et parcours Chromium à 320, 390 et 1280 px ; [preuves, compromis et évaluations restantes](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md#15-dernier-lot-livré--22-octobre-2026).
