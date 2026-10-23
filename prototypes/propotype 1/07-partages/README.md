@@ -63,6 +63,10 @@ Les résultats, notes/réglages personnels, disponibilités et budget de temps d
 
 Une publication ou une modification n’est annoncée confirmée qu’après conservation réussie. Si le stockage échoue, la publication précédente est restaurée, le brouillon et l’aperçu restent disponibles ; réessayer la confirmation ne crée pas de doublon. Réessayer la sauvegarde dans l’alerte conserve le brouillon courant et ne le publie pas à lui seul.
 
+## Publications dans le fil de la communauté
+
+Après une publication publique confirmée, le détail propose « Voir dans le fil d’actualité ». L’action ouvre **Découvrir → Communauté**. Le fil présente les publications publiques actives, triées de la plus récente à la plus ancienne ; chacune ouvre l’aperçu du programme puis peut être importée comme copie personnelle. Les partages aux contacts et les publications retirées sont exclus. Le fil lit les données T4 du profil courant et reste une simulation locale, sans diffusion entre comptes.
+
 `tests/ergonomie-top10.test.cjs` vérifie les échecs/reprises de publication et de modification ; Chromium vérifie le maintien de l’aperçu, l’alerte, la reprise puis la confirmation unique. L’aperçu, la case et le bouton de confirmation restent en place : leur simplification est encore une proposition de l’audit.
 
 

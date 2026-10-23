@@ -192,6 +192,8 @@ La section Programmes complets de Découvrir présente une semaine prédéfinie 
 
 Les publications locales actives créées avec une structure complète apparaissent dans Communauté pour le profil courant. Retirer une publication la retire de cette liste ; les copies déjà importées restent indépendantes. Une ancienne publication sans structure ne peut pas reconstituer ses jours : utiliser Actualiser depuis Mes entraînements avant de l’importer. Le service communautaire reste une simulation locale, sans échange entre comptes ni import de fichiers.
 
+Le fil d’actualité de la bibliothèque Communauté présente aussi les publications T4 publiques actives, de la plus récente à la plus ancienne. Les partages réservés aux contacts et les publications retirées n’y figurent pas. Ouvrir une carte affiche le programme et permet de l’importer comme copie personnelle. Depuis le détail d’une publication T4 publique, « Voir dans le fil d’actualité » ouvre directement cette bibliothèque. Le fil utilise les publications locales du profil de démonstration courant ; il ne simule pas une distribution entre comptes.
+
 ## Feedback de conservation — premier lot ergonomique
 
 L’enregistrement/placement depuis le récapitulatif et l’import d’un programme distinguent maintenant une conservation réussie d’un changement seulement appliqué pour cette visite lorsque le stockage échoue. L’alerte globale propose Réessayer la sauvegarde ; la copie déjà créée en mémoire reste réutilisée, sans import supplémentaire. Voir le [compte rendu du lot](../../../docs/07-evaluation/audit-ergonomie-cours5-6.md).
