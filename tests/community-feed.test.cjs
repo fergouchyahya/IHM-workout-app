@@ -12,7 +12,7 @@ function app() {
       normalize: value => String(value || '').toLowerCase(),
     },
     Parcours: {
-      state: { source: 'community', ui: { favoritesOnly: false }, saved: [] },
+      state: { source: 'community', ui: { favoritesOnly: false }, saved: [], search: '', filters: {} },
       escape: value => String(value || ''),
       isBeginner: () => false,
     },
@@ -61,5 +61,16 @@ test('community feed is hidden outside community mode and in favorites mode', ()
 test('community feed explains when there are no public publications', () => {
   const w = app();
   w.Partages.data.items = [publication('contacts', { visibility: 'contacts' }), publication('withdrawn', { status: 'withdrawn' })];
-  assert.match(w.Programmes.feedCards(), /Aucune publication publique pour le moment/);
+  assert.match(w.Programmes.feedCards(), /Aucune publication publique avec ces critères pour le moment/);
+});
+
+test('community feed honors search and active filters used by discovery counts', () => {
+  const w = app();
+  w.Partages.data.items = [publication('matching'), publication('other')];
+  w.Parcours.state.search = 'matching';
+  assert.match(w.Programmes.feedCards(), /Publication matching/);
+  assert.doesNotMatch(w.Programmes.feedCards(), /Publication other/);
+  w.Parcours.state.filters.level = 'Avancé';
+  assert.doesNotMatch(w.Programmes.feedCards(), /data-import-program=/);
+  assert.match(w.Programmes.feedCards(), /avec ces critères/);
 });

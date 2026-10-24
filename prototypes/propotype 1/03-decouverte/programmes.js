@@ -45,11 +45,11 @@ window.Programmes = {
   feedCards() {
     const p = window.Parcours;
     if (p.state.source !== 'community' || p.state.ui.favoritesOnly) return '';
-    const items = this.entries().filter(item => item.source === 'community' && String(item.id).startsWith('publication:')).sort((a,b) => (Date.parse(b.createdAt) || 0) - (Date.parse(a.createdAt) || 0));
+    const items = this.filtered().filter(item => String(item.id).startsWith('publication:')).sort((a,b) => (Date.parse(b.createdAt) || 0) - (Date.parse(a.createdAt) || 0));
     const content = items.length ? `<div class="landing-stack">${items.map(item => {
       const date = item.createdAt && !Number.isNaN(Date.parse(item.createdAt)) ? new Intl.DateTimeFormat('fr-FR',{dateStyle:'medium'}).format(new Date(item.createdAt)) : '';
       return `<button type="button" class="landing-card" data-import-program="${p.escape(item.id)}"><h3>${p.escape(item.name)}</h3><p>${p.escape(item.level || item.organization)}${item.weeks ? ` · ${item.weeks} semaines` : ''}${date ? ` · Publié le ${date}` : ''}</p><p>${p.escape(item.description || 'Programme partagé avec la communauté.')}</p><p>${p.escape(item.author)} · Voir le programme et les cibles →</p></button>`;
-    }).join('')}</div>` : '<p class="empty-content">Aucune publication publique pour le moment. Les programmes partagés avec la communauté apparaîtront ici.</p>';
+    }).join('')}</div>` : '<p class="empty-content">Aucune publication publique avec ces critères pour le moment.</p>';
     return `<section class="landing-section community-feed" aria-labelledby="community-feed-title"><h2 id="community-feed-title">Fil d’actualité de la communauté</h2>${content}</section>`;
   },
   import(plan) {

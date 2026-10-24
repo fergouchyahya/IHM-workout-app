@@ -107,7 +107,7 @@ window.BilanSeance = {
   renderSummary() {
     const p = window.Parcours, record = p.state.completedSessions.find(item => item.id === this.activeId);
     if (!record) return '<h1 tabindex="-1">Bilan introuvable</h1>';
-    return `<button id="summary-calendar" type="button" class="text-action">← ${this.origin?.view === 'progress' ? 'Mes bilans' : 'Calendrier'}</button><h1 tabindex="-1">Séance conservée</h1><p>${p.escape(record.session.name)} · ${window.Calendrier.label(record.date)}</p><p class="ready-status">Terminée · bilan enregistré sur cet appareil</p>${this.countsMarkup(record)}${record.completion?.feeling ? `<p><strong>Ressenti global :</strong> ${p.escape(record.completion.feeling)}</p>` : ''}${record.completion?.note ? `<p>${p.escape(record.completion.note)}</p>` : ''}${record.completion?.reminder ? `<p><strong>Rappel :</strong> ${p.escape(record.completion.reminder)}</p>` : ''}${this.exerciseCards(record)}${this.contextMarkup(record)}<p class="form-help">Résultats, notes et médias conservés pour cette séance.</p><button id="summary-new-session" type="button" class="landing-button">Programmer une nouvelle séance à partir de celle-ci</button><button id="summary-history" type="button" class="landing-button">Mes bilans conservés</button>`;
+    return `<button id="summary-calendar" type="button" class="text-action">← ${this.origin?.view === 'progress' ? 'Mes bilans' : 'Calendrier'}</button><h1 tabindex="-1">Séance conservée</h1><p>${p.escape(record.session.name)} · ${window.Calendrier.label(record.date)}</p><p class="ready-status">Terminée · bilan enregistré sur cet appareil</p>${this.countsMarkup(record)}${record.completion?.feeling ? `<p><strong>Ressenti global :</strong> ${p.escape(record.completion.feeling)}</p>` : ''}${record.completion?.note ? `<p>${p.escape(record.completion.note)}</p>` : ''}${record.completion?.reminder ? `<p><strong>Rappel :</strong> ${p.escape(record.completion.reminder)}</p>` : ''}${window.AnalyseResultats?.render(record) || ''}${this.exerciseCards(record)}${this.contextMarkup(record)}<p class="form-help">Résultats, notes et médias conservés pour cette séance.</p><button id="summary-new-session" type="button" class="landing-button">Programmer une nouvelle séance à partir de celle-ci</button><button id="summary-history" type="button" class="landing-button">Mes bilans conservés</button>`;
   },
   filteredHistory() {
     const p = window.Parcours, search = window.Ergonomie.normalize(p.state.ui.historySearch || ''), direction = p.state.ui.historyOrder === 'asc' ? 1 : -1;
@@ -125,7 +125,7 @@ window.BilanSeance = {
   },
   renderHistory() {
     const p = window.Parcours;
-    return `<h1 tabindex="-1">Bilans conservés</h1>${window.Entrainement.ongoingMarkup()}<p class="form-help">Résultats de tes séances terminées, sans analyse de progression.</p><label>Rechercher une séance terminée<input id="history-search" type="search" value="${p.escape(p.state.ui.historySearch || '')}"></label>${p.select('Ordre des dates','historyOrder',[['desc','Plus récentes d’abord'],['asc','Plus anciennes d’abord']],p.state.ui.historyOrder || 'desc','id="history-order"')}<div id="history-results">${this.historyResults()}</div>`;
+    return `<h1 tabindex="-1">Bilans conservés</h1>${window.Entrainement.ongoingMarkup()}<p class="form-help">Ouvre un bilan pour comparer ses exercices et préparer ta prochaine séance.</p><label>Rechercher une séance terminée<input id="history-search" type="search" value="${p.escape(p.state.ui.historySearch || '')}"></label>${p.select('Ordre des dates','historyOrder',[['desc','Plus récentes d’abord'],['asc','Plus anciennes d’abord']],p.state.ui.historyOrder || 'desc','id="history-order"')}<div id="history-results">${this.historyResults()}</div>`;
   },
   bindReview() {
     const p = window.Parcours, key = window.Entrainement.key, draft = p.state.trainingDrafts[key]; if (!draft) return;
@@ -185,6 +185,7 @@ window.BilanSeance = {
     const record = window.Parcours.state.completedSessions.find(item => item.id === this.activeId);
     if (record) {
       this.hydrate(record,record.executionKey);
+      window.AnalyseResultats?.bind(record);
       document.querySelector('#summary-new-session').onclick = () => { const source = {...structuredClone(record.session),id:record.workoutId,organization:'Séance seule'}; window.Parcours.route('mine'); window.Calendrier.schedule(source); };
     }
   },

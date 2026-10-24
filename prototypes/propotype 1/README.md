@@ -1,10 +1,10 @@
 # Prototype 1 — entraînements
 
-## État actuel — 22 octobre 2026
+## État actuel — 23 octobre 2026
 
-Ce prototype cliquable couvre **T1 : préparer et organiser**, puis **T2 : réaliser, documenter et conserver une séance**. Le parcours principal est Découvrir → copie personnelle → préparation → entraînement → vérification → bilan conservé. Le calendrier est l’espace de planification ; **Mes entraînements est une page distincte**, accessible dans la navigation, pour rechercher, créer, préparer, planifier ou supprimer une séance ou un programme. Les autres espaces sont Découvrir, Partages et Bilans.
+Ce prototype cliquable couvre **T1 : préparer et organiser**, puis **T2 : réaliser, documenter et conserver une séance** et **T3 : analyser les résultats**. Le parcours principal est Découvrir → copie personnelle → préparation → entraînement → vérification → bilan conservé. Le calendrier est l’espace de planification ; **Mes entraînements est une page distincte**, accessible dans la navigation, pour rechercher, créer, préparer, planifier ou supprimer une séance ou un programme. Les autres espaces sont Découvrir, Partages et Bilans.
 
-L’analyse T3 (comparaisons, progression, records, conclusions et points à revoir produits par une analyse) reste à concevoir. La liste et la consultation des bilans constituent la sortie de T2. Le partage T4 est simulé localement ; aucune publication distante ni authentification réelle n’est effectuée.
+La liste et la consultation des bilans constituent la sortie de T2. Chaque bilan contient l’analyse T3 : exercice, période, référence comparable, écarts réels, records de charge à répétitions identiques, historique et point à revoir en T1. Voir les [règles de comparaison](09-analyse/README.md). Le partage T4 est simulé localement ; aucune publication distante ni authentification réelle n’est effectuée.
 
 **Ce document et les README des écrans décrivent l’état actuel.** Les comptes rendus datés de l’[audit ergonomique](../../docs/07-evaluation/audit-ergonomie-cours5-6.md) retracent les livraisons successives ; leurs mesures et nombres de tests appartiennent au lot daté. Ils ne remplacent pas les règles ci-dessous. Les anciennes règles « charge vide = série non faite » et « arrêt avant bilan » sont abandonnées. Le minuteur facultatif est désormais livré dans le dernier lot.
 
@@ -45,6 +45,7 @@ Ouvrir `http://127.0.0.1:8765/prototypes/propotype%201/01-connexion/index.html`.
 | [06-configuration-seance](06-configuration-seance/README.md) | Préparation T1.3, brouillon, cibles, portée et séance prête |
 | [07-partages](07-partages/README.md) | Présentation, aperçu, confirmation et gestion de publications locales |
 | [08-entrainement](08-entrainement/README.md) | T2.1–T2.4 : préparation de l’effort, saisie, enrichissements, clôture et bilan |
+| [09-analyse](09-analyse/README.md) | T3 dans les bilans : comparaisons, records explicites, contexte et point à revoir en T1 |
 
 `commun/parcours.js` porte navigation, identité et sauvegarde ; `commun/ergonomie.js` porte nombres français, validation et clavier ; `commun/disponibilites.js` porte durée/jours disponibles. Aucun framework ni compilation n’est requis.
 
@@ -54,13 +55,15 @@ Les données sont locales à l’appareil et à l’identité de démonstration 
 
 Les fichiers partagés sont produits à partir d’une liste blanche : programme/cibles/instructions, sans résultats, notes/réglages personnels, médias ou identifiants. Les publications T4 publiques actives alimentent le fil chronologique sous Découvrir → Communauté ; les partages aux contacts et les contenus retirés en sont exclus. Le fil reprend les données du profil local courant et ne simule pas une diffusion entre comptes. Supprimer de Mes entraînements retire seulement le modèle et ses brouillons de préparation personnels, après confirmation et avec Annuler. Les occurrences datées indépendantes, séances en cours, bilans et publications sont conservés. Les anciennes archives restent consultables. Description de partage facultative, titre et niveau requis ; les erreurs sont locales. Un contenu À compléter revient au brouillon du partage après préparation. L’aperçu précède une action finale nommant l’audience ; aucune case supplémentaire. Les publications et contacts sont fictifs.
 
-Non implémentés : analyse T3, substitution d’exercice pendant l’effort, synchronisation distante et authentification réelle. Téléphone physique, clavier virtuel réel, lecteurs d’écran et évaluation utilisateur restent à tester. Les mesures de page et comptes d’actions dans l’audit ne sont pas des temps utilisateur ni une déclaration de conformité.
+Non implémentés : substitution d’exercice pendant l’effort, synchronisation distante et authentification réelle. Téléphone physique, clavier virtuel réel, lecteurs d’écran et évaluation utilisateur restent à tester. Les mesures de page et comptes d’actions dans l’audit ne sont pas des temps utilisateur ni une déclaration de conformité.
 
 ## Vérification reproductible
 
 Depuis la racine du dépôt :
 
 ```sh
+node tests/analysis.test.cjs
+node tests/community-feed.test.cjs
 node tests/ergonomie.test.cjs
 node tests/preparation.test.cjs
 node tests/t1-completion.test.cjs
@@ -77,7 +80,7 @@ node tests/profile-library.test.cjs
 node tests/repeated-session-history.test.cjs
 ```
 
-**121 tests ciblés réussis** sur les quatorze suites. Les 49 propositions sont implémentées ; la liste de développement est close. Les évaluations utilisateur restent à réaliser, notamment pour comparer sélection de date et confirmation de partage. Les ajustements de navigation/niveau et les références de séances répétées sont consignés en sections 16 et 17 de l’[audit ergonomique](../../docs/07-evaluation/audit-ergonomie-cours5-6.md). Les tests vérifient des comportements ; ils ne remplacent pas l’évaluation de l’ergonomie auprès d’utilisateurs.
+Les quatorze suites historiques couvrent T1/T2 ; `analysis.test.cjs` et `community-feed.test.cjs` vérifient T3 et l’intégration du fil communautaire. Les 49 propositions sont implémentées ; la liste de développement est close. Les évaluations utilisateur restent à réaliser, notamment pour comparer sélection de date et confirmation de partage. Les ajustements de navigation/niveau et les références de séances répétées sont consignés en sections 16 et 17 de l’[audit ergonomique](../../docs/07-evaluation/audit-ergonomie-cours5-6.md). Les tests vérifient des comportements ; ils ne remplacent pas l’évaluation de l’ergonomie auprès d’utilisateurs.
 
 ## Références de conception
 
