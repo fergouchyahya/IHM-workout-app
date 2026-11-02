@@ -1,12 +1,18 @@
 # Prototype 1 — entraînements
 
-## État actuel — 23 octobre 2026
+## État actuel — 2 novembre 2026
 
 Ce prototype cliquable couvre **T1 : préparer et organiser**, puis **T2 : réaliser, documenter et conserver une séance** et **T3 : analyser les résultats**. Le parcours principal est Découvrir → copie personnelle → préparation → entraînement → vérification → bilan conservé. Le calendrier est l’espace de planification ; **Mes entraînements est une page distincte**, accessible dans la navigation, pour rechercher, créer, préparer, planifier ou supprimer une séance ou un programme. Les autres espaces sont Découvrir, Partages et Bilans.
 
 La liste et la consultation des bilans constituent la sortie de T2. Chaque bilan contient l’analyse T3 : exercice, période, référence comparable, écarts réels, records de charge à répétitions identiques, historique et point à revoir en T1. Voir les [règles de comparaison](09-analyse/README.md). Le partage T4 est simulé localement ; aucune publication distante ni authentification réelle n’est effectuée.
 
 **Ce document et les README des écrans décrivent l’état actuel.** Les comptes rendus datés de l’[audit ergonomique](../../docs/07-evaluation/audit-ergonomie-cours5-6.md) retracent les livraisons successives ; leurs mesures et nombres de tests appartiennent au lot daté. Ils ne remplacent pas les règles ci-dessous. Les anciennes règles « charge vide = série non faite » et « arrêt avant bilan » sont abandonnées. Le minuteur facultatif est désormais livré dans le dernier lot.
+
+## Itération après retour utilisateur — 2 novembre 2026
+
+Créer ma séance est accessible depuis Découvrir, Calendrier et Mes entraînements. Une séance seule est proposée par défaut, avec reprise du formulaire inachevé ; sa création reste indépendante d’une date. Les recherches ignorent les espaces superflus, la casse et les accents, sans modifier la saisie affichée. La molette sur un nombre focalisé rend le focus à la page pour défiler sans modifier sa valeur ; la saisie et les flèches du clavier restent disponibles.
+
+Terminer la séance… ouvre une vérification : note facultative et confirmation avant le détail des séries. Terminer et enregistrer mon bilan clôture explicitement la séance. Le bilan propose immédiatement le retour au calendrier et l’accès aux bilans ; la préparation suivante et la comparaison sont dépliables. Voir les [constats, corrections et limites de cette itération](../../docs/07-evaluation/audit-ergonomie-cours5-6.md#20-itération-à-partir-du-retour-utilisateur--2-novembre-2026).
 
 ## Ouvrir le prototype
 
@@ -80,7 +86,7 @@ node tests/profile-library.test.cjs
 node tests/repeated-session-history.test.cjs
 ```
 
-**143 tests ciblés réussis** sur seize suites : T1/T2, analyse T3, intégration communautaire et onze régressions de cette passe. Les optimisations du 23 octobre sont consignées en section 19 de l’audit : brouillons par exercice, Undo protégé, références utilisables, résultats avant détails, périodes rapides, points modifiables/résolus, contexte ciblé, planification vers préparation, recopie réelle précédente, outils de série regroupés, recherche stable et zone basse mesurée. Les 49 propositions sont implémentées ; la liste de développement est close. Les évaluations utilisateur restent à réaliser, notamment pour comparer sélection de date et confirmation de partage. Les ajustements de navigation/niveau et les références de séances répétées sont consignés en sections 16 et 17 de l’[audit ergonomique](../../docs/07-evaluation/audit-ergonomie-cours5-6.md). Les tests vérifient des comportements ; ils ne remplacent pas l’évaluation de l’ergonomie auprès d’utilisateurs.
+**146 tests ciblés réussis** sur seize suites : T1/T2, analyse T3, intégration communautaire, régressions des passes précédentes et trois régressions liées au retour utilisateur (espaces en recherche, contexte de création et molette). Les optimisations du 23 octobre sont consignées en section 19 de l’audit : brouillons par exercice, Undo protégé, références utilisables, résultats avant détails, périodes rapides, points modifiables/résolus, contexte ciblé, planification vers préparation, recopie réelle précédente, outils de série regroupés, recherche stable et zone basse mesurée. Les 49 propositions de l’audit initial sont implémentées. Une itération supplémentaire répond au retour qualitatif fourni le 2 novembre ; son efficacité reste à évaluer. Les évaluations complémentaires restent à réaliser, notamment pour comparer sélection de date et confirmation de partage. Les ajustements de navigation/niveau et les références de séances répétées sont consignés en sections 16 et 17 de l’[audit ergonomique](../../docs/07-evaluation/audit-ergonomie-cours5-6.md). Les tests vérifient des comportements ; ils ne remplacent pas l’évaluation de l’ergonomie auprès d’utilisateurs.
 
 ## Références de conception
 

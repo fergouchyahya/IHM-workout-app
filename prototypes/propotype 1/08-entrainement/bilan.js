@@ -124,13 +124,38 @@ window.BilanSeance = {
   renderReview() {
     const p = window.Parcours, draft = p.state.trainingDrafts[window.Entrainement.key];
     if (!draft) return '<h1 tabindex="-1">Bilan indisponible</h1>';
-    this.ensure(draft); const counts = this.counts(draft), issues = this.issues(draft);
-    return `<button id="review-back" type="button" class="text-action">← Reprendre la séance</button><h1 tabindex="-1">Vérifier le bilan</h1><p>${p.escape(draft.session.name)} · ${window.Calendrier.label(draft.date)}</p><div id="review-counts-live">${this.countsMarkup(draft)}</div><section id="review-issues" class="review-errors" ${issues.length ? '' : 'hidden'}>${this.issuesMarkup(draft)}</section><p id="review-media-progress" class="form-help" role="status">${window.EnrichissementSeance.operationStatus(window.Entrainement.key,p.state.identity)}</p>${this.exerciseCards(draft,true)}${this.contextMarkup(draft)}<details class="review-final-feeling" ${(draft.session.tracking?.feeling || draft.completion.feeling || draft.completion.note || draft.completion.reminder) ? 'open' : ''}><summary>Après la séance · ton bilan (facultatif)</summary><div class="day-state-choices" role="group" aria-label="Ressenti global après la séance">${['Bien','Mitigé','Difficile'].map(value => `<button class="landing-button" type="button" data-completion-feeling="${value}" aria-pressed="${draft.completion.feeling === value}">${value}</button>`).join('')}</div><label>Comment s’est passée la séance ?<textarea data-completion="note" rows="2" maxlength="500">${p.escape(draft.completion.note)}</textarea></label><label>Un rappel pour la prochaine revue ?<textarea data-completion="reminder" rows="2" maxlength="500">${p.escape(draft.completion.reminder)}</textarea></label></details><p id="review-save-status" role="status" class="form-help">${p.storageFailed ? 'Sauvegarde indisponible' : 'Bilan en préparation · séance encore en cours'}</p><p id="review-error" class="error" role="alert"></p><div class="review-footer"><div id="review-warning">${this.warningMarkup(draft)}</div><p>Cette confirmation termine la séance et conserve ses résultats, ses notes et ses médias.</p><button id="confirm-training-completion" type="button" class="primary-action" ${issues.length || window.EnrichissementSeance.busy(window.Entrainement.key,p.state.identity) ? 'disabled' : ''}>Terminer et conserver</button></div>`;
+    this.ensure(draft); const issues = this.issues(draft);
+    return `<button id="review-back" type="button" class="text-action">← Reprendre la séance</button>
+      <p class="completion-step">Dernière étape · vérifier et enregistrer</p><h1 tabindex="-1">Terminer ma séance</h1>
+      <p>${p.escape(draft.session.name)} · ${window.Calendrier.label(draft.date)}</p>
+      <p class="landing-lead">Vérifie tes résultats, ajoute une note si tu veux, puis enregistre ton bilan.</p>
+      <div id="review-counts-live">${this.countsMarkup(draft)}</div>
+      <section id="review-issues" class="review-errors" ${issues.length ? '' : 'hidden'}>${this.issuesMarkup(draft)}</section>
+      <p id="review-media-progress" class="form-help" role="status">${window.EnrichissementSeance.operationStatus(window.Entrainement.key,p.state.identity)}</p>
+      <section class="review-final-feeling" aria-label="Note et ressenti facultatifs"><h2>Une note pour la prochaine fois ?</h2>
+        <label>Note de séance (facultatif)<textarea data-completion="note" rows="2" maxlength="500" placeholder="Ex. Même charge à reprendre la prochaine fois">${p.escape(draft.completion.note)}</textarea></label>
+        <details><summary>Ressenti et rappel (facultatifs)</summary><div class="day-state-choices" role="group" aria-label="Ressenti global après la séance">${['Bien','Mitigé','Difficile'].map(value => `<button class="landing-button" type="button" data-completion-feeling="${value}" aria-pressed="${draft.completion.feeling === value}">${value}</button>`).join('')}</div>
+        <label>À penser pour la prochaine séance<textarea data-completion="reminder" rows="2" maxlength="500">${p.escape(draft.completion.reminder)}</textarea></label></details>
+      </section>
+      <p id="review-save-status" role="status" class="form-help">${p.storageFailed ? 'Sauvegarde indisponible' : 'Séance encore en cours · enregistre pour terminer'}</p>
+      <p id="review-error" class="error" role="alert"></p>
+      <div class="review-footer"><div id="review-warning">${this.warningMarkup(draft)}</div>
+        <p>Enregistrer termine la séance. Tu retrouveras ses résultats et ses notes dans Bilans, sur cet appareil.</p>
+        <button id="confirm-training-completion" type="button" class="primary-action" ${issues.length || window.EnrichissementSeance.busy(window.Entrainement.key,p.state.identity) ? 'disabled' : ''}>Terminer et enregistrer mon bilan</button>
+      </div>
+      <h2 class="landing-section">Vérifier ou corriger mes séries</h2>${this.exerciseCards(draft,true)}${this.contextMarkup(draft)}`;
   },
   renderSummary() {
     const p = window.Parcours, record = p.state.completedSessions.find(item => item.id === this.activeId);
     if (!record) return '<h1 tabindex="-1">Bilan introuvable</h1>';
-    return `<button id="summary-calendar" type="button" class="text-action">← ${this.origin?.view === 'progress' ? 'Mes bilans' : 'Calendrier'}</button><h1 tabindex="-1">Séance conservée</h1><p>${p.escape(record.session.name)} · ${window.Calendrier.label(record.date)}</p><p class="ready-status">Terminée · bilan enregistré sur cet appareil</p>${this.countsMarkup(record)}${record.completion?.feeling ? `<p><strong>Ressenti global :</strong> ${p.escape(record.completion.feeling)}</p>` : ''}${record.completion?.note ? `<p>${p.escape(record.completion.note)}</p>` : ''}${record.completion?.reminder ? `<p><strong>Rappel :</strong> ${p.escape(record.completion.reminder)}</p>` : ''}${window.AnalyseResultats?.render(record) || ''}${this.exerciseCards(record)}${this.contextMarkup(record).replace('<details ','<details data-summary-panel="summary-context" ')}<p class="form-help">Résultats, notes et médias conservés pour cette séance.</p><button id="summary-new-session" type="button" class="landing-button">Programmer une nouvelle séance à partir de celle-ci</button><button id="summary-plan-prepare" type="button" class="primary-action">Planifier et préparer</button><button id="summary-history" type="button" class="landing-button">Mes bilans conservés</button>`;
+    return `<button id="summary-calendar" type="button" class="text-action">← ${this.origin?.view === 'progress' ? 'Mes bilans' : 'Calendrier'}</button>
+      <h1 tabindex="-1">Séance terminée</h1><p>${p.escape(record.session.name)} · ${window.Calendrier.label(record.date)}</p>
+      <p class="ready-status">Bilan enregistré sur cet appareil</p><p class="landing-lead">Tes résultats et tes notes sont dans Bilans. Ils te serviront de repère pour ta prochaine séance.</p>
+      <div class="summary-actions"><button id="summary-done" type="button" class="primary-action">Revenir au calendrier</button><button id="summary-history" type="button" class="landing-button">Voir mes bilans</button></div>
+      ${this.countsMarkup(record)}${record.completion?.feeling ? `<p><strong>Ressenti global :</strong> ${p.escape(record.completion.feeling)}</p>` : ''}${record.completion?.note ? `<p class="summary-session-note"><strong>Note de séance :</strong> ${p.escape(record.completion.note)}</p>` : ''}${record.completion?.reminder ? `<p><strong>Rappel :</strong> ${p.escape(record.completion.reminder)}</p>` : ''}
+      <details class="summary-next"><summary>Préparer la prochaine séance à partir de celle-ci</summary><button id="summary-new-session" type="button" class="landing-button">Choisir une date</button><button id="summary-plan-prepare" type="button" class="landing-button">Choisir une date et adapter les exercices</button></details>
+      ${this.exerciseCards(record)}${this.contextMarkup(record).replace('<details ','<details data-summary-panel="summary-context" ')}
+      <details class="summary-analysis" data-summary-panel="analysis"><summary>Comparer avec mes séances précédentes</summary>${window.AnalyseResultats?.render(record) || ''}</details>`;
   },
   filteredHistory() {
     const p = window.Parcours, search = window.Ergonomie.normalize(p.state.ui.historySearch || ''), direction = p.state.ui.historyOrder === 'asc' ? 1 : -1;
@@ -204,6 +229,7 @@ window.BilanSeance = {
   },
   bindSummary() {
     document.querySelector('#summary-calendar')?.addEventListener('click',() => window.Parcours.returnTo(this.origin));
+    document.querySelector('#summary-done')?.addEventListener('click',() => window.Parcours.route('mine'));
     document.querySelector('#summary-history')?.addEventListener('click',() => window.Parcours.route('progress'));
     const record = window.Parcours.state.completedSessions.find(item => item.id === this.activeId);
     if (record) {

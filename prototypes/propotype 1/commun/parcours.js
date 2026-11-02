@@ -238,6 +238,7 @@ window.Parcours = {
     else if (view === 'review') window.BilanSeance.bindReview();
     else if (view === 'summary') window.BilanSeance.bindSummary();
     else if (view === 'progress') window.BilanSeance.bindHistory();
+    page.querySelectorAll('[data-create-personal-session]').forEach(button => { button.onclick = () => window.Entrainements.startCreation(); });
     const nav = document.querySelector('#landing-navigation');
     nav.hidden = view === 'create' || view === 'week' || view === 'workout' || view === 'training' || view === 'review';
     nav.innerHTML = [['discover','Découvrir','⌕'],['mine','Calendrier','▦'],['library','Mes entraînements','▤'],['sharing','Partages','↗'],['progress','Bilans','▥']].map(([id,label,icon]) => `<button type="button" data-page="${id}" ${view === id ? 'aria-current="page"' : ''}><span aria-hidden="true">${this.icon(id)}</span>${label}</button>`).join('');

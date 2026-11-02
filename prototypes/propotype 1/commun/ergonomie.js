@@ -1,7 +1,7 @@
 'use strict';
 
 window.Ergonomie = {
-  normalize(value) { return String(value).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('fr'); },
+  normalize(value) { return String(value).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('fr').trim().replace(/\s+/g,' '); },
   formatNumber(value) { return value == null || value === '' ? '—' : Number(value).toLocaleString('fr-FR',{useGrouping:false}); },
   count(value,singular,plural = `${singular}s`) { return `${this.formatNumber(value)} ${value === 1 ? singular : plural}`; },
   number(input) { return input.value.trim() === '' ? null : Number(input.value.trim().replace(',','.')); },
@@ -74,6 +74,11 @@ document.addEventListener('focusout',event => {
   const error = (input.getAttribute('aria-describedby') || '').split(' ').map(id => document.getElementById(id)).find(element => element?.classList.contains('error'));
   if (error && !valid) { error.hidden = false; error.textContent = input.validationMessage; }
 });
+document.addEventListener('wheel',event => {
+  // Retirer le focus empêche le pas numérique natif tout en laissant défiler la page.
+  const input = event.target;
+  if (input instanceof HTMLInputElement && input.type === 'number' && document.activeElement === input) input.blur();
+},{capture:true,passive:true});
 document.addEventListener('keydown',event => {
   if (event.key !== 'Enter' || !(event.target instanceof HTMLInputElement) || !window.Ergonomie.numeric(event.target)) return;
   event.preventDefault();

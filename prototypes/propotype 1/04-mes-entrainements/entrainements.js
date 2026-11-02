@@ -1,9 +1,19 @@
 'use strict';
 
 window.Entrainements = {
+  creationEntry() {
+    const first = !window.Parcours.state.saved.length;
+    return `<section class="create-session-entry" aria-label="Créer une séance personnelle"><h2>${first ? 'Ta première séance, à ta façon' : 'Une nouvelle séance à toi'}</h2><p>Choisis tes exercices et note tes séries. Retrouve tes résultats à la prochaine séance.</p><button type="button" class="primary-action" data-create-personal-session>+ Créer ma séance</button>${first ? '<p class="form-help">Mes entraînements pour créer · Calendrier pour planifier · Bilans pour retrouver tes résultats.</p>' : ''}</section>`;
+  },
+  startCreation() {
+    window.Calendrier.creationDate = null;
+    window.Calendrier.creationRestIds = null;
+    window.Parcours.state.ui.fullCreation = true;
+    window.Parcours.route('create');
+  },
   render() {
     const p = window.Parcours;
-    return `${p.greeting()}${window.Entrainement.ongoingMarkup()}${window.Calendrier.render()}`;
+    return `${p.greeting()}${window.Entrainement.ongoingMarkup()}${this.creationEntry()}${window.Calendrier.render()}`;
   },
   bind() {
     window.Calendrier.bind();
@@ -24,10 +34,10 @@ window.Entrainements = {
     const favorites = window.catalogueSeances.filter(item => p.state.favorites.includes(item.id));
     const favoriteCards = favorites.map(item => `<button type="button" class="landing-card" data-favorite="${item.id}"><h3>${p.escape(item.name)}</h3><p>★ Favori · environ ${item.duration} min</p></button>`).join('');
     const week = p.state.week.map(item => ({...item,copy:p.state.saved.find(copy => copy.id === item.copyId)})).filter(item => item.copy);
-    return `${p.greeting()}<h1 tabindex="-1">Mes entraînements</h1><div class="personal-actions"><button id="create-workout" type="button" class="primary-action">+ Créer un entraînement</button></div><label>Rechercher mes entraînements<input id="saved-workout-search" type="search" value="${p.escape(p.state.ui.savedSearch || '')}" placeholder="Nom de séance ou programme"></label><div id="saved-workout-results">${this.libraryResults()}</div><button id="explore-workouts" type="button" class="text-action landing-section">Explorer des séances</button>${favorites.length ? `<section class="landing-section"><h2>Mes favoris</h2><div class="landing-stack landing-section">${favoriteCards}</div></section>` : ''}${week.length ? `<section class="landing-section"><h2>Placements sans date</h2><p class="landing-hint">Choisis une date pour les retrouver dans le calendrier.</p>${week.map(item => `<button type="button" class="landing-button" data-schedule="${item.copy.id}">${p.escape(item.day)} · ${p.escape(item.copy.name)}</button>`).join('')}</section>` : ''}`;
+    return `${p.greeting()}<h1 tabindex="-1">Mes entraînements</h1><div class="personal-actions"><button id="create-workout" type="button" class="primary-action">+ Créer ma séance</button></div><label>Rechercher mes entraînements<input id="saved-workout-search" type="search" value="${p.escape(p.state.ui.savedSearch || '')}" placeholder="Nom de séance ou programme"></label><div id="saved-workout-results">${this.libraryResults()}</div><button id="explore-workouts" type="button" class="text-action landing-section">Explorer des séances</button>${favorites.length ? `<section class="landing-section"><h2>Mes favoris</h2><div class="landing-stack landing-section">${favoriteCards}</div></section>` : ''}${week.length ? `<section class="landing-section"><h2>Placements sans date</h2><p class="landing-hint">Choisis une date pour les retrouver dans le calendrier.</p>${week.map(item => `<button type="button" class="landing-button" data-schedule="${item.copy.id}">${p.escape(item.day)} · ${p.escape(item.copy.name)}</button>`).join('')}</section>` : ''}`;
   },
   bindLibrary() {
-    document.querySelector('#create-workout').addEventListener('click', () => { window.Calendrier.creationDate = null; window.Parcours.state.ui.fullCreation = true; window.Parcours.route('create'); });
+    document.querySelector('#create-workout').addEventListener('click', () => this.startCreation());
     document.querySelector('#explore-workouts').addEventListener('click', () => window.Parcours.route('discover'));
     const refresh = () => { document.querySelector('#saved-workout-results').innerHTML = this.libraryResults(); window.Parcours.persist(); };
     document.querySelector('#saved-workout-search').oninput = event => { window.Parcours.state.ui.savedSearch = event.target.value; refresh(); };
@@ -77,8 +87,8 @@ window.Entrainements = {
     const p = window.Parcours;
     const quick = !!window.Calendrier.creationDate && !p.state.ui.fullCreation;
     const profile = quick ? {} : p.state.profile;
-    return `<button id="cancel-create" class="text-action" type="button">← Retour</button><h1 tabindex="-1">${quick ? `Nouvelle séance · ${window.Calendrier.label(window.Calendrier.creationDate)}` : 'Créer un entraînement'}</h1><form id="create-base-form" class="create-form ${quick ? 'is-quick-creation' : ''}" novalidate>
-      <div class="creation-advanced">${p.select('Organisation','organization',[['','Choisir une organisation'],['Séance seule','Séance seule'],['Semaine type','Semaine type'],['Mésocycle',p.isBeginner() ? 'Programme sur plusieurs semaines' : 'Mésocycle']],'','id="base-organization" required aria-describedby="base-organization-error"')}<p class="error" id="base-organization-error" hidden></p></div>
+    return `<button id="cancel-create" class="text-action" type="button">← Retour</button><h1 tabindex="-1">${quick ? `Nouvelle séance · ${window.Calendrier.label(window.Calendrier.creationDate)}` : 'Créer ma séance'}</h1><p class="form-help">Nomme ta séance, puis choisis tes exercices. Tu pourras la retrouver dans Mes entraînements.</p><form id="create-base-form" class="create-form ${quick ? 'is-quick-creation' : ''}" novalidate>
+      <div class="creation-advanced">${p.select('Organisation','organization',[['','Choisir une organisation'],['Séance seule','Séance seule'],['Semaine type','Semaine type'],['Mésocycle',p.isBeginner() ? 'Programme sur plusieurs semaines' : 'Mésocycle']],'Séance seule','id="base-organization" required aria-describedby="base-organization-error"')}<p class="error" id="base-organization-error" hidden></p></div>
       <label for="base-name">Nom de l’entraînement<input id="base-name" name="name" type="text" maxlength="100" placeholder="Ex. Haut du corps" required aria-describedby="base-name-error"></label><p class="error" id="base-name-error" hidden></p>
       <div class="creation-advanced"><section id="cycle-foundation"><h2 id="cycle-foundation-title" hidden>1. Structure et objectifs du mésocycle</h2><div id="program-fields" hidden><div ${p.isBeginner() ? 'hidden' : ''}>${p.select('Structure des séances','preset',window.gabaritsEntrainement.map(item => [item.id,item.label || item.id]),'Personnalisé','id="base-preset" aria-describedby="preset-help"')}<p class="form-help" id="preset-help">${window.gabaritsEntrainement[0].help}</p></div><div id="custom-structure-fields" hidden><label>Nom des séances de la structure<input id="base-structure" name="cycleStructure" maxlength="200" placeholder="Ex. Haut du corps, Bas du corps" aria-describedby="base-structure-error"></label><p class="error" id="base-structure-error" hidden></p></div><label><span id="frequency-label">Séances par semaine, facultatif</span><input id="base-frequency" name="frequency" type="number" min="1" step="1" inputmode="numeric" aria-describedby="base-frequency-error"></label><p class="error" id="base-frequency-error" hidden></p></div>
       <div id="cycle-fields" hidden><label>Durée en semaines<input id="base-weeks" name="weeks" type="number" min="1" max="104" step="1" inputmode="numeric" aria-describedby="base-weeks-error"></label><p class="error" id="base-weeks-error" hidden></p></div>
@@ -102,7 +112,7 @@ window.Entrainements = {
     form.elements.organization.addEventListener('change', () => {
       const organization = form.elements.organization.value;
       form.elements.name.placeholder = organization === 'Séance seule' ? 'Ex. Haut du corps' : 'Ex. Mon programme haut / bas';
-      form.querySelector('[type=submit]').textContent = organization === 'Mésocycle' && window.Parcours.isAdvanced() ? 'Enregistrer et organiser les séances' : organization && organization !== 'Séance seule' ? 'Créer le programme' : quick ? 'Créer et choisir les exercices' : 'Créer la séance';
+      form.querySelector('[type=submit]').textContent = organization === 'Mésocycle' && window.Parcours.isAdvanced() ? 'Enregistrer et organiser les séances' : organization && organization !== 'Séance seule' ? 'Créer le programme' : 'Créer et choisir les exercices';
       document.querySelector('#program-fields').hidden = !organization || organization === 'Séance seule';
       document.querySelector('#cycle-fields').hidden = organization !== 'Mésocycle';
       const advancedCycle = organization === 'Mésocycle' && window.Parcours.isAdvanced();

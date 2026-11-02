@@ -52,8 +52,8 @@ test('failed asynchronous media undo remains retryable and restores no duplicate
 test('failed media removal retains both file and reference',async()=>{
  const {e,draft:d,p}=app(),stored=mediaStore(e);await e.uploadFiles(d,0,'execution',p.state.identity,[file()]);const id=e.exercise(d,0).media[0].id,operation=e.mediaOperation;e.mediaOperation=async(mode,key,value)=>{if(mode==='delete')throw Error('offline');return operation(mode,key,value);};assert.equal(await e.removeMedia(d,0,'execution',p.state.identity,id),false);assert.equal(e.exercise(d,0).media.length,1);assert.equal(stored.size,1);
 });
-test('completion keeps its stable label and unknown rows remain unknown',()=>{
- const {b,draft:d}=app();const markup=b.renderReview();assert.match(markup,/>Terminer et conserver<\/button>/);assert.equal(markup.includes('0 faites'),false);assert.match(markup,/3 séries non renseignées seront conservées ainsi/);const record=b.finish('execution').record;assert.equal(record.results[0][0].load,null);assert.equal(record.results[0][0].outcome,undefined);
+test('completion explicitly saves the report and unknown rows remain unknown',()=>{
+ const {b,draft:d}=app();const markup=b.renderReview();assert.match(markup,/>Terminer et enregistrer mon bilan<\/button>/);assert.equal(markup.includes('0 faites'),false);assert.match(markup,/3 séries non renseignées seront conservées ainsi/);const record=b.finish('execution').record;assert.equal(record.results[0][0].load,null);assert.equal(record.results[0][0].outcome,undefined);
 });
 test('description is optional while title and level have individual errors',()=>{
  const {share}=app();assert.deepEqual(Object.keys(share.presentationErrors({title:'Mon programme',level:'Débutant',description:''})),[]);const errors=share.presentationErrors({title:' ',level:'',description:''});assert.match(errors.title,/titre/);assert.match(errors.level,/niveau/);assert.equal(errors.description,undefined);

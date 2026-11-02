@@ -286,6 +286,16 @@ button { overflow-wrap:anywhere; }
 button:focus-visible,summary:focus-visible { outline:3px solid #2563eb; outline-offset:2px; }
 .global-controls { display:flex; justify-content:flex-end; margin-bottom:4px; }
 .global-controls button { padding:8px 4px; font-size:13px; }
+.create-session-entry { margin:16px 0 24px; padding:16px; border:1px solid #e5e7eb; border-radius:12px; background:#fff; }
+.create-session-entry h2 { font-size:19px; }
+.create-session-entry p { margin:10px 0 14px; font-size:14px; }
+.create-session-entry .form-help { margin:12px 0 0; font-size:12px; }
+.completion-step { margin:14px 0 8px; color:#4b5563; font-size:13px; }
+.summary-actions { display:grid; gap:10px; margin:16px 0; }
+.summary-next { margin:20px 0; }
+.summary-next summary,.summary-analysis > summary { min-height:44px; padding:12px 0; cursor:pointer; font-weight:600; }
+.summary-next button { display:block; width:100%; margin-top:8px; }
+.summary-session-note { white-space:pre-wrap; overflow-wrap:anywhere; }
 .calendar-grid-scroll { max-width:100%; overflow-x:auto; border-radius:12px; }
 .calendar-grid { min-width:317px; grid-template-columns:repeat(7,minmax(45px,1fr)); }
 .calendar-date { min-width:44px; }

@@ -9,3 +9,7 @@ Anonymiser les données personnelles et ne conserver que ce qui est nécessaire 
 [Audit ergonomique fondé sur les cours 5 et 6](audit-ergonomie-cours5-6.md) : lecture des supports, revue des parcours existants, **49 propositions implémentées, aucune restante à implémenter**, exemples GOMS/Keystroke, compromis QOC et scénarios de validation. Les cinq lots sont décrits dans le compte rendu du rapport, avec 104 tests ciblés et vérifications Chromium. La passe suivante de navigation, niveaux et allègement visuel est documentée en section 16 : 111 tests ciblés pour cette passe. La section 17 ajoute les références de résultats des séances répétées : 121 tests ciblés au total.
 
 La clôture concerne l’implémentation et les contrôles techniques ; l’évaluation utilisateur, notamment des variantes R18/R48, reste à mener.
+
+## Itération après retour utilisateur — 2 novembre 2026
+
+La [section 20 de l’audit](audit-ergonomie-cours5-6.md#20-itération-à-partir-du-retour-utilisateur--2-novembre-2026) relie le retour qualitatif aux corrections de création personnelle, molette, recherche et fin de séance. Elle distingue les contrôles techniques de l’hypothèse d’utilité face aux notes du téléphone, qui reste à évaluer.

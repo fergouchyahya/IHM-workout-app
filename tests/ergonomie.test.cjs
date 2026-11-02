@@ -53,3 +53,19 @@ test('storage failure is reported without losing in-memory workouts',() => {
   assert.equal(p.storageFailed,true);
   assert.equal(p.state.saved[0].id,'keep');
 });
+
+test('wheel releases a focused number field and leaves page scrolling available',() => {
+  const listeners = new Map();
+  class HTMLInputElement {
+    constructor(type) { this.type = type; this.blurred = false; }
+    blur() { this.blurred = true; }
+  }
+  const document = {addEventListener(name,listener,options) { listeners.set(name,{listener,options}); }};
+  const context = vm.createContext({window:{},document,HTMLInputElement});
+  vm.runInContext(fs.readFileSync(path.join(__dirname,'../prototypes/propotype 1/commun/ergonomie.js'),'utf8'),context);
+  const wheel = listeners.get('wheel'), input = new HTMLInputElement('number');
+  document.activeElement = input;
+  wheel.listener({target:input});assert.equal(input.blurred,true);assert.equal(wheel.options.passive,true);
+  const other = new HTMLInputElement('number');wheel.listener({target:other});assert.equal(other.blurred,false);
+  const text = new HTMLInputElement('text');document.activeElement=text;wheel.listener({target:text});assert.equal(text.blurred,false);
+});

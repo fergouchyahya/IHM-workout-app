@@ -49,3 +49,30 @@ test('publication refuses a direct action before preview and needs no redundant 
 test('inline editing is only offered for a pending review, never on an archived summary',()=>{
  const {b,draft:d,p}=app();const review=b.renderReview();assert.match(review,/data-review-inline="0:0"/);assert.match(review,/data-review-editor="0:0"/);const record=b.finish('execution').record;b.activeId=record.id;const summary=b.renderSummary();assert.equal(summary.includes('data-review-inline'),false);assert.equal(summary.includes('data-review-value'),false);assert.equal(p.state.trainingDrafts.execution,undefined);
 });
+
+test('search ignores surrounding and repeated whitespace without altering the entered query',()=>{
+ const {p,w,b}=app();
+ p.state.filters={};p.state.source='starter';
+ const plain=value=>JSON.stringify(value);
+ for(const module of [w.Decouverte,w.Programmes]){
+   p.state.search='';const all=plain(module.filtered());
+   p.state.search=' \t  ';assert.equal(plain(module.filtered()),all);
+   const name=module.filtered()[0].name;
+   p.state.search=name;const expected=plain(module.filtered());
+   const query=`  ${name.toLocaleUpperCase('fr').replace(/ /g,'   ')}  `;
+   p.state.search=query;assert.equal(plain(module.filtered()),expected);assert.equal(p.state.search,query);
+ }
+ p.state.saved=[{id:'one',name:'Séance été',organization:'Séance seule',exercises:[]}];
+ p.state.ui.savedSearch='  SEANCE   ETE  ';assert.match(w.Entrainements.libraryResults(),/data-personal="one"/);
+ p.state.completedSessions=[{id:'done',date:'2026-11-02',session:{name:'Séance été'}}];
+ p.state.ui.historySearch='  SEANCE   ETE  ';assert.deepEqual(Array.from(b.filteredHistory(),x=>x.id),['done']);
+ assert.equal(w.ConfigurationSeance.normalize('  DEVELOPPE   COUCHE  '),'developpe couche');
+});
+
+test('personal creation clears calendar placement context while preserving unfinished work',()=>{
+ const {p,w}=app(),draft={name:'Ma séance',organization:'Séance seule'};
+ p.state.creationDraft=draft;w.Calendrier.creationDate='2026-12-01';w.Calendrier.creationRestIds=['rest'];
+ w.Entrainements.startCreation();
+ assert.equal(p.view,'create');assert.equal(w.Calendrier.creationDate,null);assert.equal(w.Calendrier.creationRestIds,null);
+ assert.equal(p.state.creationDraft,draft);assert.equal(p.state.saved.length,0);assert.equal(p.state.calendar.length,0);
+});
