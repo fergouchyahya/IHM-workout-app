@@ -20,35 +20,61 @@ But : consigner **20 kg et 10 répétitions réellement effectuées**. Départ :
 
 ```text
 ConsignerSerie(i)
-  (Saisir(charge,i) & Saisir(repetitions,i))
+  (Renseigner(charge,i) & Renseigner(repetitions,i))
   {rpeVisible : Saisir(rpe,i)}
   Verifier(i)
   (Corriger(champ,i))*
+
+Renseigner(champ,i)
+  Saisir(champ,i) OR Recopier(i) OR Ajuster(champ,i)
 
 Saisir(champ,i)
   Activer(champ[i])
   Clavier(valeurReelle)
   ;
 
+Recopier(i)
+  i > 1 : Activer(MemeResultatQueSerie[i-1])
+  OR i > 1 : Activer(ChargeSeule[i-1])
+  OR sourceComparable : Activer(MemeResultatQueSeancePrecedente)
+
+Ajuster(champ,i)
+  champ[i] non vide et valide : (Activer(Plus[champ,i]) OR Activer(Moins[champ,i]))*
+
 Corriger(champ,i)
   Activer(champ[i])
   Clavier(valeurCorrigee)
   Verifier(i)
+
+Verifier(i)
+  lecture des valeurs et du statut de la ligne i, sans action motrice
 ```
 
-L’ordre de saisie charge/répétitions est libre (`&`). La méthode clavier précise ci-dessous choisit charge puis répétitions. À `;`, l’interruption après une frappe conserve la valeur brute et la dernière valeur valide déjà traitées, si le stockage réussit. Elle ne confirme pas la fin de séance. La réalisation physique précède la saisie et reste hors de ce modèle d’interaction.
+L’ordre de saisie charge/répétitions est libre (`&`). La méthode clavier précise ci-dessous choisit charge puis répétitions. `Verifier` n’a pas d’action physique : c’est une lecture, gardée dans le modèle pour indiquer où l’utilisateur contrôle le retour de l’interface. `ChargeSeule` ne recopie que la charge ; les répétitions restent à renseigner. À `;`, l’interruption après une frappe conserve la valeur brute et la dernière valeur valide déjà traitées, si le stockage réussit. Elle ne confirme pas la fin de séance. La réalisation physique précède la saisie et reste hors de ce modèle d’interaction.
 
 ## Méthode normale : saisie directe et progression clavier
 
 | User Action | Interface Feedback | Interface State |
 | --- | --- | --- |
-| `~[charge[i]] Mv M^` | `charge[i]!` ; focus et sélection de la valeur éventuelle. | Série i active ; cibles inchangées. |
+| `~[charge[i]] Mv M^` | `charge[i]!` ; focus et sélection de la valeur éventuelle ; `serie[i]!` (cadre « série en cours ») et position « Série i sur n » mise à jour. | Série i active ; cibles inchangées. |
 | `Clavier"20"` | `display("20")` ; indicateur « Saisie conservée » si sauvegarde réussie. | Chaque événement de saisie traite la valeur brute ; résultat charge = 20 après la deuxième frappe. Répétitions restent nulles. |
 | `Clavier(Entrée)` | `repetitions[i]!` ; focus sur Répétitions, pas sur les boutons +/−. | Aucune valeur supplémentaire créée. |
 | `Clavier"10"` | `display("10")`, statut « Faite » calculé à partir de charge et répétitions complètes. | Résultat i = {charge:20, répétitions:10} dans le brouillon ; aucune archive ni soumission par série. |
 | Vérification visuelle, sans opérateur moteur ajouté | Valeurs réelles affichées avec leurs unités ; cible initiale reste distincte. | Séance en cours ; autres lignes inchangées. |
+| `{Clavier(Entrée)}` | Focus sur le champ visible suivant : RPE ou Ressenti s’ils sont affichés, raison du Cas particulier si ce volet est ouvert, sinon charge de la série i+1, qui devient `serie[i+1]!`. Les boutons et les champs masqués sont sautés. | Aucune donnée modifiée ; seule la série active change. |
 
 Cette dernière activité de vérification n’est pas un clic « Terminer la série » : ce bouton n’existe pas. Le statut peut aussi être déclaré explicitement dans « Cas particulier », sans inventer de résultat numérique.
+
+## Méthode alternative : boutons + et −
+
+Chaque champ Charge et Répétitions a deux boutons, `Moins` et `Plus`, de part et d’autre de la valeur. Ils servent à ajuster une valeur déjà présente, par exemple après une recopie.
+
+| User Action | Interface Feedback | Interface State |
+| --- | --- | --- |
+| `Activer(Plus[charge,i])` avec charge = 20 | `display("20,5")` ; focus remis dans le champ Charge. | Charge = 20,5 (pas de 0,5 kg) ; saisie brute et erreur éventuelles du champ effacées. |
+| `Activer(Moins[repetitions,i])` avec répétitions = 10 | `display("9")` ; focus dans le champ Répétitions. | Répétitions = 9 (pas de 1) ; jamais en dessous de 0. |
+| `Activer(Plus[champ,i])` avec champ vide ou invalide (ex. `-1`) | Aucune nouvelle valeur ; focus placé dans le champ pour le corriger. | État inchangé : la saisie invalide visible n’est pas remplacée par la dernière valeur valide. |
+| `Activer(Plus[champ,i])` sur une série déclarée non faite | Bouton désactivé, aucun effet. | Statut et valeurs conservés. |
 
 ## Variantes, erreurs et reprise de la même tâche
 
@@ -57,9 +83,14 @@ Cette dernière activité de vérification n’est pas un clic « Terminer la s�
 | `Activer(charge[i]) Clavier"-1"` | `display("-1")`, `display(erreurLocale)` ; « Saisie à corriger ». | Valeur brute invalide séparée ; dernière charge valide conservée ; clôture bloquée tant que l’erreur active subsiste. |
 | `Activer(charge[i]) Clavier"22,5"` | `display("22,5")`, `erase(erreurLocale)` après correction valide. | Charge réelle = 22,5 ; répétitions, autres séries et cible initiale intactes. |
 | `Activer(CasParticulier[i]) Activer(NonFaite[i])` | `display("Série déclarée non faite · valeurs conservées")`, champs désactivés. | `outcome = skipped` ; anciennes valeurs gardées pour correction, exclues des résultats utilisés pour ce statut. |
-| `Activer(ReprendreLaSaisie[i])` | Champs à nouveau éditables ; valeurs précédemment saisies réaffichées. | Statut explicite retiré ; statut recalculé selon les données réelles. |
+| `Activer(CasParticulier[i]) Activer(Interrompue[i])` | `display("Série interrompue · résultats partiels conservés")` avec Annuler ; bouton Interrompue `aria-pressed`. | `outcome = interrupted` ; valeurs partielles gardées, exclues des comparaisons T3. |
+| `Activer(Interrompue[i])` une seconde fois | `display("Statut selon la saisie")` avec Annuler. | Statut explicite retiré ; statut recalculé selon les valeurs. |
+| `Activer(repetitions[i]) Clavier"0"` | Statut `display("0 répétition · précise le statut")`. | Série ni faite ni non faite : l’interface ne décide pas à la place de l’utilisateur ; il choisit un statut dans Cas particulier. |
+| `Activer(ReprendreLaSaisie[i])` | Champs à nouveau éditables ; valeurs précédemment saisies réaffichées ; `display("Statut selon la saisie")` avec Annuler ; focus sur Charge. | Statut explicite retiré ; statut recalculé selon les données réelles. |
 | `Activer(QuitterSaisieConservee)` puis `Activer(Reprendre)` depuis la séance en cours | Calendrier, puis entraînement avec exercice/série et saisies retrouvés. | Même brouillon, mêmes valeurs brutes/erreurs ; pas de bilan terminé. Rechargement possible si conservation locale réussie. |
-| `Activer(MemeResultatQueSeriePrecedente)` ; `Activer(Annuler)` | Valeurs réelles précédentes recopiées explicitement, message Annuler puis restauration. | Seulement si source complète/valide et réellement identique ; annulation n’écrase pas une correction ultérieure. |
+| `Activer(MemeResultatQueSerie[i-1])` ; `{Activer(Annuler)}` | Charge, répétitions, RPE et ressenti de la série i-1 recopiés ; `display("Résultat réel recopié · cibles conservées")` avec Annuler. | Seulement si la série i-1 est faite et valide ; sinon message « Renseigne une série précédente faite et valide avant de la recopier » et rien ne change. Annuler ne restaure que les champs encore identiques à la recopie. |
+| `Activer(ChargeSeule[i-1])` ; `{Activer(Annuler)}` | Charge de la série i-1 recopiée ; `display("Charge précédente seule recopiée · répétitions, effort et statut conservés")` avec Annuler. | Seule la charge change. Si la charge a été modifiée entre-temps, Annuler la conserve et l’indique. |
+| `Activer(MemeResultatQueSeancePrecedente)` ; `{Activer(Annuler)}` | Bouton visible seulement s’il existe une séance précédente comparable, avec la date et les valeurs dans son libellé ; même message de recopie avec Annuler. | Valeurs réelles de la même série de cette séance recopiées ; cibles inchangées ; même règle d’annulation. |
 | `échecStockage :` retour système, sans action utilisateur | `display("Sauvegarde indisponible")`, `display(RéessayerLaSauvegarde)` ; aucun faux succès. | État en mémoire conservé ; **rechargement non garanti**. Garder la page ouverte. |
 | `Activer(ReessayerLaSauvegarde)` | Succès annoncé uniquement après écriture ; sinon erreur maintenue. | Brouillon courant persisté si possible ; pas de résultat ni d’archive supplémentaire. |
 
@@ -67,7 +98,7 @@ La recopie et le marquage Non faite sont des variantes conditionnelles ; ils ne 
 
 ## Correspondance et limites
 
-- [entrainement.js](<../../prototypes/propotype 1/08-entrainement/entrainement.js>) : `bind`, `writeResult`, `resultState`, `setOutcome`, `restoreCopiedResult`.
+- [entrainement.js](<../../prototypes/propotype 1/08-entrainement/entrainement.js>) : `bind`, `writeResult`, `resultState`, `setOutcome`, `setActive`, `adjustResult` (boutons + et −), `repeatResult`, `repeatLoad`, `copyPreviousSession`, `restoreCopiedResult`.
 - [ergonomie.js](<../../prototypes/propotype 1/commun/ergonomie.js>) : progression Entrée et nombres français ; [parcours.js](<../../prototypes/propotype 1/commun/parcours.js>) : `persist`, `storageStatus`, reprise de route.
 - [Régressions de résultats](../../tests/training-results.test.cjs), [clôture](../../tests/training-completion.test.cjs).
 

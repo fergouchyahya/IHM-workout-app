@@ -450,7 +450,7 @@ window.Entrainement = {
           if (!Number.isFinite(current) || current < 0) { input.focus(); return; }
           const next = this.adjustResult(draft,draft.exerciseIndex,row,key,delta);
           if (next === false) { input.focus(); return; }
-          input.value = String(next); input.oninput(); input.focus();
+          input.value = window.Ergonomie.formatNumber(next); input.oninput(); input.focus();
         }; wrap.append(button);
       }
     });
