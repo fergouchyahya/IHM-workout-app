@@ -1,0 +1,1064 @@
+{
+  "source_commit": "72cee5a66edc42c797c1972f302503749bf4f814",
+  "assembled_at_utc": "2026-11-04T14:24:09.475408+00:00",
+  "archive": {
+    "path": "sources-projet.zip",
+    "bytes": 3830912,
+    "sha256": "9a77be44fff3f6a567f543161ebf2f9fbdde669a3db4905b8de9661d80c0d01b"
+  },
+  "source_file_count": 175,
+  "sources": [
+    {
+      "path": ".gitignore",
+      "bytes": 297,
+      "sha256": "a42933adc0aed17731cadba3b6a5c93efa23072ad315bae711591d6c10ad1580"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "bytes": 1049,
+      "sha256": "5b9f50daa3b3ec6dcd42f776006b7688b36ff446c4c33d2003cdec80aee75e2a"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3371,
+      "sha256": "1b3859f8ddef8431f0d7cadcd3d78dac9a44e09d5e42e15160729bc8b391de96"
+    },
+    {
+      "path": "assets/captures/.gitkeep",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "assets/diagrammes/.gitkeep",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "assets/diagrammes/arbre-taches-global.png",
+      "bytes": 92505,
+      "sha256": "c89190d1d5a60ffcf74ebd4126cfe05e87adb99f811da4162911bd2aaeb164f9"
+    },
+    {
+      "path": "assets/diagrammes/arbre-taches-t1.png",
+      "bytes": 180854,
+      "sha256": "2560e8ebd22c4ddee9043927f000c798b61324530980c8f666b4526fd991b742"
+    },
+    {
+      "path": "assets/diagrammes/arbre-taches-t2.png",
+      "bytes": 208797,
+      "sha256": "347deea163afd14a322280d98663454ec678655ee0d5739529faaf98dc9a322c"
+    },
+    {
+      "path": "assets/diagrammes/arbre-taches-t3.png",
+      "bytes": 108122,
+      "sha256": "06d2a2ef284c1b896a0c9cfbdd1328c1e701c94e404c0203580cbd4280ff3a62"
+    },
+    {
+      "path": "assets/diagrammes/arbre-taches-t4.png",
+      "bytes": 112597,
+      "sha256": "c7fa0fcae8bc7c5e35b69c407365c986d4a76822cde2bc1bec9314612aefdc5a"
+    },
+    {
+      "path": "assets/diagrammes/arbre-taches-t5.png",
+      "bytes": 982194,
+      "sha256": "21379e8fccfdbd427f0ad467addbe432578e6dd8ddaec6b335a9766a84c0be95"
+    },
+    {
+      "path": "assets/figures/.gitkeep",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "docs/01-probleme/README.md",
+      "bytes": 413,
+      "sha256": "b2f420be959b005b100944d84611fb6acf00ae7747bd7fee736a1567c250e481"
+    },
+    {
+      "path": "docs/01-probleme/probleme-v1.md",
+      "bytes": 4436,
+      "sha256": "ac55d058683623bc8b1481ac2ef4596d12202da22a7cd272948962caec2a4a25"
+    },
+    {
+      "path": "docs/02-utilisateurs-personas/README.md",
+      "bytes": 1081,
+      "sha256": "aa55d25726d0a1413cf672ddb59c4198a8c2c1179645707132814b062eb3dd4d"
+    },
+    {
+      "path": "docs/02-utilisateurs-personas/persona-camille.md",
+      "bytes": 3627,
+      "sha256": "61f35980337619abac920af7a6760772cd759e75be0399064e5296c5a9c19c96"
+    },
+    {
+      "path": "docs/02-utilisateurs-personas/persona-greg.md",
+      "bytes": 4507,
+      "sha256": "d5d89a589f1db6d2967396704395f9dbb9941f65405288c455215d03a8f5c2e7"
+    },
+    {
+      "path": "docs/02-utilisateurs-personas/persona-mireille.md",
+      "bytes": 3881,
+      "sha256": "94757ddabedbbce7d3cfa22ae45f2f7907d26a45ebaf281bbe8751812f2ee6ed"
+    },
+    {
+      "path": "docs/02-utilisateurs-personas/persona-thomas.md",
+      "bytes": 4632,
+      "sha256": "9a1e6b5e3c484eb4bd232947a9576d0065c1245c3eb012cefef7f1f7d1cc2e9e"
+    },
+    {
+      "path": "docs/03-scenarios/README.md",
+      "bytes": 1280,
+      "sha256": "507c4a11b78029eabbd64827a96fcfc91ff46eb20249abd0e6113b698366f42d"
+    },
+    {
+      "path": "docs/03-scenarios/scenario-camille.md",
+      "bytes": 2100,
+      "sha256": "90c3d4ff04b602cf94889bd90607b74783e5e62fad938663c803451469575918"
+    },
+    {
+      "path": "docs/03-scenarios/scenario-greg.md",
+      "bytes": 2841,
+      "sha256": "ebaa288a44d3107fbb21b2352d52b985522629368f05599760072717a61bb15f"
+    },
+    {
+      "path": "docs/03-scenarios/scenario-mireille.md",
+      "bytes": 2050,
+      "sha256": "4edd31e64b4a0956a33ef7b9acf799b6466678fa4df06386c966664c2d21195c"
+    },
+    {
+      "path": "docs/03-scenarios/scenario-thomas.md",
+      "bytes": 1706,
+      "sha256": "e590eec57bf9fd27e60b3dbbebd5f705e12499787390dfbe8cf71f27dae62e2d"
+    },
+    {
+      "path": "docs/04-analyse-taches/README.md",
+      "bytes": 2126,
+      "sha256": "04f3f3b7139ca0380f9ada2b9535e40225b599ca2e5f669538b2d4bc06c5b2c2"
+    },
+    {
+      "path": "docs/04-analyse-taches/T1/README.md",
+      "bytes": 1757,
+      "sha256": "6ca80e845898496fa3d27d5d7a2c9755871325859dea3f8131b5f031c83df0d7"
+    },
+    {
+      "path": "docs/04-analyse-taches/T1/T1-Camille.md",
+      "bytes": 4686,
+      "sha256": "e9dbc81188c85aacd892d3efad909c8801f61a05dfd7b462385b25015f8efe85"
+    },
+    {
+      "path": "docs/04-analyse-taches/T1/T1-Greg.md",
+      "bytes": 5846,
+      "sha256": "71f7a1e6514d5c7f95496e61716a4d57d7da13b03f950e73044c4b71ae95606d"
+    },
+    {
+      "path": "docs/04-analyse-taches/T1/T1-Thomas.md",
+      "bytes": 4799,
+      "sha256": "f3e22f2b6aafc87017edd49974462e295754e791b67f6c49d05eba408083ad9d"
+    },
+    {
+      "path": "docs/04-analyse-taches/T1/T1-finalized.md",
+      "bytes": 1459,
+      "sha256": "5cee7d2673e32bda2f496f1902bf61ca21cc0abdbedff07cdf4ab7134ee160b3"
+    },
+    {
+      "path": "docs/04-analyse-taches/T2/README.md",
+      "bytes": 3393,
+      "sha256": "a570cf7f43ac6c7592607aee9e25cfb719a2784ab8d7198003c341225106a6de"
+    },
+    {
+      "path": "docs/04-analyse-taches/T2/T2-Camille.md",
+      "bytes": 4162,
+      "sha256": "ef51b8b7bcb5070948242ac50a23c4d8840adbbfa9e72d556572ec9c6687161e"
+    },
+    {
+      "path": "docs/04-analyse-taches/T2/T2-Greg.md",
+      "bytes": 5434,
+      "sha256": "466fb5a7009b099a0e14e0af81987f6d029793566aa60f0d95062f6a316e4243"
+    },
+    {
+      "path": "docs/04-analyse-taches/T2/T2-Thomas.md",
+      "bytes": 4198,
+      "sha256": "27134a23f0deb40293a0c8e24f33bc2128039a2bdb3c91ab8d7a38d2edbb8bbb"
+    },
+    {
+      "path": "docs/04-analyse-taches/T2/T2-finalized.md",
+      "bytes": 1500,
+      "sha256": "8407f577f1e86a13cc410cdbf888557086d805ce0d625463fc855a3c447a48d4"
+    },
+    {
+      "path": "docs/04-analyse-taches/T3/README.md",
+      "bytes": 564,
+      "sha256": "ab8e12f7c39ce154894fc7aaa14d6ba8763d26eedcd61dbd004dbc1604df0413"
+    },
+    {
+      "path": "docs/04-analyse-taches/T3/T3-Camille.md",
+      "bytes": 3936,
+      "sha256": "78e82dff99274b425eafca8cabca2835f3cd46828fda351eb7af86bf16b903fd"
+    },
+    {
+      "path": "docs/04-analyse-taches/T3/T3-Greg.md",
+      "bytes": 4649,
+      "sha256": "1f2aab3702eab7b7617880350ad133ec99185e9284d4ac70cf323591986d185f"
+    },
+    {
+      "path": "docs/04-analyse-taches/T3/T3-Thomas.md",
+      "bytes": 3710,
+      "sha256": "5479aced914c834f83139cc26ec5c36cf0f444838d674ea24ee3eab9e5045c22"
+    },
+    {
+      "path": "docs/04-analyse-taches/T3/T3-finalized.md",
+      "bytes": 1588,
+      "sha256": "0470ba8cc82b49c7f48d840230bc0f72c41a78a742378bba3dc7c967ab2b5d52"
+    },
+    {
+      "path": "docs/04-analyse-taches/T4/T4-Camille.md",
+      "bytes": 6481,
+      "sha256": "5e721817076e2835f75d3e7423a07225f348c7ce2d3f729610f6e20ab493b575"
+    },
+    {
+      "path": "docs/04-analyse-taches/T4/T4-Greg.md",
+      "bytes": 7604,
+      "sha256": "7bfc2335567d0e0d10cb5769e7b564857f20ccd3c53c03c19e705f51f940dfa2"
+    },
+    {
+      "path": "docs/04-analyse-taches/T4/T4-Thomas.md",
+      "bytes": 6235,
+      "sha256": "295bfe1dc1ee4014c94efb1967ea6a008b268872867a535d12d6d7010e4ab9be"
+    },
+    {
+      "path": "docs/04-analyse-taches/T4/T4-finalized.md",
+      "bytes": 1639,
+      "sha256": "f77127d719346b98f75fe69f552976b1be787ca34d1fe8a9f888deaee8065907"
+    },
+    {
+      "path": "docs/04-analyse-taches/T5/T5-finalized.md",
+      "bytes": 1871,
+      "sha256": "f4ea9b2bb9d017acf38bb8a795428b461f0bb93849cfe7c91d903f59b3c9ed97"
+    },
+    {
+      "path": "docs/04-analyse-taches/arbres-visuels.md",
+      "bytes": 3820,
+      "sha256": "4aa7a2568e8b438470009fb55c7847a183763ca4c65f8a0996eba2a361717377"
+    },
+    {
+      "path": "docs/04-analyse-taches/tache.md",
+      "bytes": 11157,
+      "sha256": "93bbfcf3a14b0331bc34201a9eee4db44aa489eb49d1afa9c6c08622e9dcd8b0"
+    },
+    {
+      "path": "docs/05-decisions-conception/DR-001-revamp-ergonomie.md",
+      "bytes": 7764,
+      "sha256": "626357b855a4d565b2579e7b06d9bb44513573c31b76b186ccdee5aa14136e0b"
+    },
+    {
+      "path": "docs/05-decisions-conception/README.md",
+      "bytes": 1173,
+      "sha256": "fb7b4a3c6583dd913fa503308fa9ce6dff70b8792e9ee8d8ad26ea221cb02a4f"
+    },
+    {
+      "path": "docs/06-prototypes/README.md",
+      "bytes": 2030,
+      "sha256": "18ac1b04bb39001f8623c866682f37f9777ac88e90ea6e61f6702d7fead35121"
+    },
+    {
+      "path": "docs/07-evaluation/README.md",
+      "bytes": 2857,
+      "sha256": "e8e970f64a9fd7a424d1e86a04d158c1784d9461b1804a482de394ce536029c1"
+    },
+    {
+      "path": "docs/07-evaluation/audit-ergonomie-cours5-6.md",
+      "bytes": 80626,
+      "sha256": "166493a11b3b3a588ec725c8382809d4246230842d7a5fe87c57ae0d189521b0"
+    },
+    {
+      "path": "docs/07-evaluation/audit-final-grille.md",
+      "bytes": 25673,
+      "sha256": "f395461033268834d14e8ac12031141e4e3462a62dc29cf9f3d8dcaba66ac6fd"
+    },
+    {
+      "path": "docs/07-evaluation/keystroke.md",
+      "bytes": 11346,
+      "sha256": "91a4bc5f86b39a5a244734af6b74663529ab97b15a8d0d1b37fef344ff6b3203"
+    },
+    {
+      "path": "docs/07-evaluation/protocole-utilisateur.md",
+      "bytes": 13262,
+      "sha256": "0db60d6b28bc62e6c2c4c56de32486a48683b70aac03d62f7fba648cd6ceba4b"
+    },
+    {
+      "path": "docs/07-evaluation/uan-saisie-serie.md",
+      "bytes": 6763,
+      "sha256": "15adfe9f838f05dc164f81e82d03676000ee717003ad4521d0703b83bf62da6f"
+    },
+    {
+      "path": "output/playwright/feedback-discover-390.png",
+      "bytes": 56174,
+      "sha256": "518fd728c176c46bbdf5e8b6e2497b03a04f8d71093cd3702cafa2312612d605"
+    },
+    {
+      "path": "output/playwright/feedback-revamp-calendar.png",
+      "bytes": 52960,
+      "sha256": "6322606e99a6a6b0a49035e803df04248c4fe848591b2bcd773ad4d09b60acf0"
+    },
+    {
+      "path": "output/playwright/feedback-revamp-review.png",
+      "bytes": 63133,
+      "sha256": "3290330700b4254163b5b69ae6171296fd77bf0cb89b86b9f80f3102c35748a3"
+    },
+    {
+      "path": "output/playwright/feedback-revamp-summary.png",
+      "bytes": 56032,
+      "sha256": "1d5a982acd1c402637519bc185ff6a3d82cc3bcb058e4f9e4e7115d6b55f4f61"
+    },
+    {
+      "path": "output/playwright/feedback-review-390.png",
+      "bytes": 69778,
+      "sha256": "ccd6832596fcad6ebcab8ad45cd6b3a0bd92fe8d18fdf5d461bcfb7904c79870"
+    },
+    {
+      "path": "output/playwright/feedback-summary-390.png",
+      "bytes": 60370,
+      "sha256": "08dd431dd5562006a5f7ea340c040f4e07574319366ada6ee14b7b2767348d7d"
+    },
+    {
+      "path": "output/playwright/grille-analysis-320.png",
+      "bytes": 156277,
+      "sha256": "e1f80571146d60399ee3d961fd89a404005242dff5e1ea431430c16fabfb5bf6"
+    },
+    {
+      "path": "output/playwright/grille-history-desktop.png",
+      "bytes": 75875,
+      "sha256": "1a42ad13080b72f425c4be0f0f27d2ea3ca85b24ffa261679621b3ece9973abf"
+    },
+    {
+      "path": "output/playwright/grille-klm-desktop.png",
+      "bytes": 110871,
+      "sha256": "ecd60d56603c9ec657e8fb945228dd64b05cf32c0c108809f3ebe334713d4336"
+    },
+    {
+      "path": "output/playwright/grille-summary-mobile.png",
+      "bytes": 151007,
+      "sha256": "84f022a1f84d7c4daa264824896496473982aac4c5aafde5db067a44ce0ab0c0"
+    },
+    {
+      "path": "output/playwright/grille-training-mobile.png",
+      "bytes": 121953,
+      "sha256": "41d286e493ea839ac84da67a04c47b7045d8f2bca4be9d2bc2c9392c35c707fc"
+    },
+    {
+      "path": "output/playwright/revamp-access-desktop.png",
+      "bytes": 71950,
+      "sha256": "864fa3ed0ed12e045ad4cc5bab955cb54da555d90404e0e4670065f2af30bbf7"
+    },
+    {
+      "path": "output/playwright/revamp-access-mobile.png",
+      "bytes": 56111,
+      "sha256": "fbb156c23f2f94a8b36fdd7ec38d19cf2caaae96cd291823ed66745c44b0f296"
+    },
+    {
+      "path": "output/playwright/revamp-calendar-mobile.png",
+      "bytes": 55950,
+      "sha256": "f9ed08670b66177e79fab6aef892f2cbfe90810d5c6bf9c49bd5dfe38be1527d"
+    },
+    {
+      "path": "output/playwright/revamp-discover-desktop.png",
+      "bytes": 90298,
+      "sha256": "1cb21b237221a1ac207024c578704daaacb7248734addc07d8ff2b37666145ee"
+    },
+    {
+      "path": "output/playwright/revamp-library-mobile.png",
+      "bytes": 47343,
+      "sha256": "2950b6e7416ead0d80ac5abc74fb11147aa94f7978b93b5c0d402eabf0f9a6e9"
+    },
+    {
+      "path": "output/playwright/revamp-preparation-mobile.png",
+      "bytes": 57189,
+      "sha256": "646cc631ecba744a9ab6d91cfb5afa79563095a8f321c5562422fd9b53a1fa13"
+    },
+    {
+      "path": "output/playwright/revamp-summary-mobile.png",
+      "bytes": 62644,
+      "sha256": "fc4e9bce291722eec91e77cac2396bdd6b33ec7c01190933f88a159e01ef1327"
+    },
+    {
+      "path": "output/playwright/revamp-training-mobile.png",
+      "bytes": 68129,
+      "sha256": "6501bf681d6925a9fc91ac564662e92a66b86c2575eee5a775cff3e3f08b1a7a"
+    },
+    {
+      "path": "output/playwright/seamless-access-desktop.png",
+      "bytes": 48063,
+      "sha256": "e0957dbdd494fd1be3c7b34714f351dfcfe0fa0bdab5bff1c3fc9bb1904fa9f8"
+    },
+    {
+      "path": "output/playwright/seamless-access-mobile.png",
+      "bytes": 35209,
+      "sha256": "aa33604cf8e8761ec3a318c7cafab6af386a893846a4f7d6f4255b7dafb1277e"
+    },
+    {
+      "path": "output/playwright/seamless-discover-desktop.png",
+      "bytes": 84149,
+      "sha256": "7cca97761e64b2722362a3cf38935a13c026c42a3df0becee3f4ce8b8c793912"
+    },
+    {
+      "path": "output/playwright/seamless-preparation-mobile.png",
+      "bytes": 149738,
+      "sha256": "8f7c8aa0a2238996fdd659b537c64e05b38c0c79b282e38c75c582b7968ffb40"
+    },
+    {
+      "path": "output/playwright/seamless-sharing-mobile.png",
+      "bytes": 63419,
+      "sha256": "b9c757ee05b0b79e52f2ce9bc80f62edb9131a414b6af6aa573378f53a8c411d"
+    },
+    {
+      "path": "output/playwright/seamless-training-mobile.png",
+      "bytes": 86422,
+      "sha256": "4f319f0066e720eff67f2f62b048ab2ecd64720b5933e92df623991c0073d52d"
+    },
+    {
+      "path": "prototypes/figma.md",
+      "bytes": 1313,
+      "sha256": "abed48e21174b059764e0f102cbbb1f751250087a4a057f18c7d0635a8ebcd35"
+    },
+    {
+      "path": "prototypes/propotype 1/01-connexion/README.md",
+      "bytes": 21842,
+      "sha256": "9b4d2dcc8ef4d2ce15f7c36ea0dcd0bce8768b9f788093cc032911961d075fc5"
+    },
+    {
+      "path": "prototypes/propotype 1/01-connexion/connexion.js",
+      "bytes": 8505,
+      "sha256": "7e598c27cff27d895317692656c7ece4fc159f2a797898261bbc0e8365a8b842"
+    },
+    {
+      "path": "prototypes/propotype 1/01-connexion/index.html",
+      "bytes": 12862,
+      "sha256": "43de098f2c8f1ad52fd22d69571f0abb27dd804ad15f1f706fdb014fed2ca71a"
+    },
+    {
+      "path": "prototypes/propotype 1/01-connexion/styles.css",
+      "bytes": 3671,
+      "sha256": "d7d4671c407fe95fbf59b3f1f6a1a0c1edb6cc7dfc3be0b157502881187625d6"
+    },
+    {
+      "path": "prototypes/propotype 1/02-questions-rapides/01-niveau/README.md",
+      "bytes": 5291,
+      "sha256": "c1ca8dc1711aa7b7c0976542bc53ec7567575060df89d3b893a4c0c3db57afc3"
+    },
+    {
+      "path": "prototypes/propotype 1/02-questions-rapides/01-niveau/niveau.js",
+      "bytes": 143,
+      "sha256": "035a52e98dc873d59550925e830d2bcba858eead709aed40ab44d403854d5719"
+    },
+    {
+      "path": "prototypes/propotype 1/02-questions-rapides/02-objectif/README.md",
+      "bytes": 5244,
+      "sha256": "e30e4b1cbd5093c3a09646f28f97cfe0e4c7fa0238dad64a52a94cc991099417"
+    },
+    {
+      "path": "prototypes/propotype 1/02-questions-rapides/02-objectif/objectif.js",
+      "bytes": 166,
+      "sha256": "c9d213cacc47d6f3b423507c38b0e2e7371cc53efa9292c7850668608e36177d"
+    },
+    {
+      "path": "prototypes/propotype 1/02-questions-rapides/03-materiel/README.md",
+      "bytes": 5325,
+      "sha256": "640e4a159fbdb74c1756044d1251e530352747e85eb292a1bdb44250121f32e0"
+    },
+    {
+      "path": "prototypes/propotype 1/02-questions-rapides/03-materiel/materiel.js",
+      "bytes": 171,
+      "sha256": "d91cd969232b638cf894c07874b15afc8af3b5e1e46b37fde889c65a4317de43"
+    },
+    {
+      "path": "prototypes/propotype 1/02-questions-rapides/README.md",
+      "bytes": 19212,
+      "sha256": "6b76a28a18d31035807dee26d6dbea20e06c904f262e2ae06d8694a776f9b768"
+    },
+    {
+      "path": "prototypes/propotype 1/02-questions-rapides/questions.js",
+      "bytes": 7664,
+      "sha256": "473d8be538f01d9c209e246e749d7076c633b9480bf9b71ec5eb8b8e6d8362a3"
+    },
+    {
+      "path": "prototypes/propotype 1/02-questions-rapides/styles.css",
+      "bytes": 2312,
+      "sha256": "ee9a40cf2a04ac83304a80df15ee6e4f2296a32363746a0d37d924e2f6e38629"
+    },
+    {
+      "path": "prototypes/propotype 1/03-decouverte/README.md",
+      "bytes": 21416,
+      "sha256": "4c585be4bbc340b2155ed5bbcbbb11039b78725b8d9ba52509328901b1c30bb2"
+    },
+    {
+      "path": "prototypes/propotype 1/03-decouverte/decouverte.js",
+      "bytes": 15021,
+      "sha256": "6de1670f4680e34d0f8968c6dc97cbca6518318a7f7218ec507813874eb23847"
+    },
+    {
+      "path": "prototypes/propotype 1/03-decouverte/programmes.js",
+      "bytes": 12298,
+      "sha256": "7b773890655ca51a480dd56ee493689f21fb5aa586185ba89f7a4bd3228f5bcd"
+    },
+    {
+      "path": "prototypes/propotype 1/03-decouverte/seances.js",
+      "bytes": 2948,
+      "sha256": "7669f6ca0f842db633e34e8d0f684c90d6e903005b9f0102d460c1b027662cc0"
+    },
+    {
+      "path": "prototypes/propotype 1/04-mes-entrainements/README.md",
+      "bytes": 21711,
+      "sha256": "6d79dd94034892ab9c98b710d93a5842bd746b73ee99bb9952614cb854928ceb"
+    },
+    {
+      "path": "prototypes/propotype 1/04-mes-entrainements/entrainements.js",
+      "bytes": 20722,
+      "sha256": "711fbf121fa1cc3c46d80acacf9994e6eaf3fb06cb1206b384947b1328630266"
+    },
+    {
+      "path": "prototypes/propotype 1/04-mes-entrainements/gabarits.js",
+      "bytes": 554,
+      "sha256": "b089ee97a4c6f4697286e5c8a9e814e761430b9645811ad2a34a2cc7c46c726a"
+    },
+    {
+      "path": "prototypes/propotype 1/05-organisation-semaine/README.md",
+      "bytes": 18163,
+      "sha256": "3272639db0eb902857abc041a6bdd1d12d38adc07c38beeb27d615a13fb4ee12"
+    },
+    {
+      "path": "prototypes/propotype 1/05-organisation-semaine/calendrier.css",
+      "bytes": 5505,
+      "sha256": "42d6e6af547c6e4cb2a22032765aa28c021b1d48bb671bfd97f945735fab6a97"
+    },
+    {
+      "path": "prototypes/propotype 1/05-organisation-semaine/calendrier.js",
+      "bytes": 45512,
+      "sha256": "b1727a295b6f20c3d6aa824918112a1371b42dc34b177322badca8041a08e865"
+    },
+    {
+      "path": "prototypes/propotype 1/05-organisation-semaine/semaine.js",
+      "bytes": 17018,
+      "sha256": "468b76d5e56852384e99971e449ec54e0325130c104c7bf0643c6d3d2b56e711"
+    },
+    {
+      "path": "prototypes/propotype 1/05-organisation-semaine/styles.css",
+      "bytes": 1447,
+      "sha256": "02228ba21b7adb1ddc844085f290139ff5ae2404dc0fa18987b051e4f1486208"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/README.md",
+      "bytes": 15902,
+      "sha256": "7e693b756eede98b9100fc20d2a352e454160df1b035baa9fd709d293ff0a15d"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/exercices.js",
+      "bytes": 2752,
+      "sha256": "636da911bcac0b0cc156b072c6aa23a91f941d8ae45907ae535262ca4f11aa4e"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/images/couche.svg",
+      "bytes": 478,
+      "sha256": "7516b444c27e21f291c2cabbaec2f5103bc0feb75f5ead4b2cc93677bb369c46"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/images/curl.svg",
+      "bytes": 501,
+      "sha256": "1ba7e733db6d287e777fb0df5aff3008bfab3ee7eb0591c6b373f5df68ba33d4"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/images/developpe-halteres.svg",
+      "bytes": 514,
+      "sha256": "a1dbb8467e915617e3ac2655585ea245d839a0399f1fcc101aae81e5e44eae25"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/images/elevations.svg",
+      "bytes": 501,
+      "sha256": "f986b2fbfe69c8999c36fc9fa8393d2cbfc357befaf6452b148942f53051a1bc"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/images/flexion-jambes.svg",
+      "bytes": 464,
+      "sha256": "a1c94ed6f60d31443c6768e9636b1ee33883958398d2dff19a7b19b8192b9bc4"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/images/genoux.svg",
+      "bytes": 442,
+      "sha256": "9606e6ed1f71e660088aa10df809821b1d1f0c81e6aa22174434d3457b2a1881"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/images/personal.svg",
+      "bytes": 437,
+      "sha256": "b06e16070f14deede99f62aa6d978226599e900e375b68f1f6037f115bf43942"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/images/pompes.svg",
+      "bytes": 439,
+      "sha256": "a0eb9ff239ffdce3510317c564e17ee8cd478638b798a1dcbceb42e7014358b8"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/images/pont.svg",
+      "bytes": 436,
+      "sha256": "cd9faf9092bfaeccc950dd485a3831d03cbab1df29f4cc9a029b5f930f3e1f90"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/images/presse-jambes.svg",
+      "bytes": 463,
+      "sha256": "22f52845cf687d22d0bd924285d0abf20b6fadba52e860189db4a0f5d5b09886"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/images/presse-pectoraux.svg",
+      "bytes": 473,
+      "sha256": "bfb8c027735f7d12f72319f826472f0922152b6f681d2de3447587d900d08e45"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/images/squat.svg",
+      "bytes": 440,
+      "sha256": "ad9995f5a851fdcafee9ed14e2d7b3b1dbfc3e52e5fad2f976d099d31aee6299"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/images/tirage-assis.svg",
+      "bytes": 475,
+      "sha256": "edb255933dc33e25bd685184672cacd4c12f2ac1776a4fe7c9b570ad96c8ebfe"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/images/tirage-haltere.svg",
+      "bytes": 486,
+      "sha256": "14152030f281f323f07b5c6f34b2d8e09e60dd9f9f5ef3b4200e20488206a15a"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/images/tractions.svg",
+      "bytes": 472,
+      "sha256": "355a216423e630965956db5ddeee96f696be9ec172b94237f328a82b98f2fb26"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/images/triceps.svg",
+      "bytes": 469,
+      "sha256": "ca75da32ac4c6cffbc405b082b70e80de21300fc6d7f0612018ebac270792b4d"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/seance.js",
+      "bytes": 50160,
+      "sha256": "38b3bc87b31fe7abc62d84b99f94ec1667af6787db021ce484baf8595aa06889"
+    },
+    {
+      "path": "prototypes/propotype 1/06-configuration-seance/styles.css",
+      "bytes": 5060,
+      "sha256": "3a330d2b152f960dcf09d96139c7803f4ea6d54a71befd4a7b90d90cbd8bf052"
+    },
+    {
+      "path": "prototypes/propotype 1/07-partages/README.md",
+      "bytes": 10677,
+      "sha256": "c8c6260a52acdf7b0e963ea72f5e2f02042a0dc3ecc7ea160656c4ff72532def"
+    },
+    {
+      "path": "prototypes/propotype 1/07-partages/partages.js",
+      "bytes": 24402,
+      "sha256": "1d6ca3d6d7cc4ccf9a222fcff7c4fb25604b6e8dcaec0b3f7b23ec6f1b9591b4"
+    },
+    {
+      "path": "prototypes/propotype 1/07-partages/styles.css",
+      "bytes": 1766,
+      "sha256": "9d75db2ab55c69ff403d14c50ff2c0fd3aafd1237b4687897369870b92196575"
+    },
+    {
+      "path": "prototypes/propotype 1/08-entrainement/README.md",
+      "bytes": 35318,
+      "sha256": "61846a24a21178a01a9bf78aeb25257cdaed5d644bbc289042e2145bcfd965cf"
+    },
+    {
+      "path": "prototypes/propotype 1/08-entrainement/bilan.js",
+      "bytes": 29889,
+      "sha256": "de834ea9b5ae3a38020eecb12a519920b9ebcb1bcb9c5be334fb7c7c2e09e51e"
+    },
+    {
+      "path": "prototypes/propotype 1/08-entrainement/enrichissement.js",
+      "bytes": 25310,
+      "sha256": "d5ed547bf90061894d5fddb93a381e2c448c5425e7e169cf90e45122405561a5"
+    },
+    {
+      "path": "prototypes/propotype 1/08-entrainement/entrainement.js",
+      "bytes": 57204,
+      "sha256": "d67b0fdc4d4c618eed5f6f9b78ca5c930ab3b51625ccab9e5756e59a22df33a5"
+    },
+    {
+      "path": "prototypes/propotype 1/08-entrainement/styles.css",
+      "bytes": 3192,
+      "sha256": "a432bc8a7b7c4e05cb3f97c67c6fa78067fb18332a6232fb4b49eb8123c5021f"
+    },
+    {
+      "path": "prototypes/propotype 1/09-analyse/README.md",
+      "bytes": 5863,
+      "sha256": "8c9d0b4edf87c21dd09be1188a37582eddedf06c6caf0d7487b7f530731634cb"
+    },
+    {
+      "path": "prototypes/propotype 1/09-analyse/analyse.js",
+      "bytes": 20192,
+      "sha256": "6c931533305721ace7e23b284d4f86da3a7aa5d38d2c4eedff95181177b24d5d"
+    },
+    {
+      "path": "prototypes/propotype 1/README.md",
+      "bytes": 21080,
+      "sha256": "19237f9e8ab1a44db4cb005abc65899439eb248e9d34dd3e32f291f49fd769e8"
+    },
+    {
+      "path": "prototypes/propotype 1/commun/disponibilites.js",
+      "bytes": 4286,
+      "sha256": "a85fbd0fd12959796f8baa7e9412d85438c0e4ff1a59063361ad3477eb2905a8"
+    },
+    {
+      "path": "prototypes/propotype 1/commun/ergonomie.css",
+      "bytes": 33090,
+      "sha256": "d14c1d8cd9d76cbaa9dfb3e26c98a4950f9ae85351ca97d9ec87c7b24adc990e"
+    },
+    {
+      "path": "prototypes/propotype 1/commun/ergonomie.js",
+      "bytes": 6277,
+      "sha256": "60daaca086edd8a0a90bcefcce7a0e22789a35b81054e422f245887547db5fb3"
+    },
+    {
+      "path": "prototypes/propotype 1/commun/parcours.js",
+      "bytes": 25384,
+      "sha256": "0d37e944540331ba838e27e06162ac26856dca32b0006c5f46aaa07ae68d4527"
+    },
+    {
+      "path": "prototypes/propotype 1/commun/recherche.js",
+      "bytes": 3766,
+      "sha256": "f32bce292d15a4ef83333cff99314e5f96270bee40234ba4f94ce80be7836675"
+    },
+    {
+      "path": "prototypes/propotype 1/commun/revamp.css",
+      "bytes": 20125,
+      "sha256": "707193cec36c2f3e1e73e1543b03d015f2ce088422803c3506e60a621956ea3b"
+    },
+    {
+      "path": "prototypes/propotype 1/commun/styles.css",
+      "bytes": 4266,
+      "sha256": "e87d447fb1ccf381e1486c27c7f4100a79fcc2605e3ea6a8131bc02ca2801cf3"
+    },
+    {
+      "path": "prototypes/prototype-global.html",
+      "bytes": 45268,
+      "sha256": "9919b6a4602c87f39f6eb83810b6a5b1624284c6ad4488a93d957af8295ec7ac"
+    },
+    {
+      "path": "prototypes/squelette-global.md",
+      "bytes": 4828,
+      "sha256": "03327506432f4eba2a00fa5add99bcaf8b47c2ac8aee322c9e52430b9eeddac7"
+    },
+    {
+      "path": "research/analyse-concurrence/README.md",
+      "bytes": 287,
+      "sha256": "4571c565e92530b6db89bb55aad231eb208148602521e8f375a27bce3a93f332"
+    },
+    {
+      "path": "research/analyse-concurrence/analyse-applications-concurrentes.md",
+      "bytes": 9293,
+      "sha256": "e098cafa715cd66f0904b3c8d706f8dac688d7242d1c4466bc39578e54f60f6d"
+    },
+    {
+      "path": "research/analyse-concurrence/synthese-concurrence.md",
+      "bytes": 7762,
+      "sha256": "2bfe6e797f6c5534b00f82108771c760d54108be54ae63a63c67cc06e3f4d132"
+    },
+    {
+      "path": "research/entretiens/README.md",
+      "bytes": 334,
+      "sha256": "b83bc808a85b92c24693515fb0235ec2b5f747deaf53a0bfeeff710caacaaa5d"
+    },
+    {
+      "path": "research/entretiens/questions-entretien-par-profil.md",
+      "bytes": 10862,
+      "sha256": "9a0030a683ec096826ef64e7ff6fef5a87d8087e2d3370585bf31e65844d9049"
+    },
+    {
+      "path": "research/observations/README.md",
+      "bytes": 235,
+      "sha256": "43ca40c559d479e3932cb024d4ff69970f5eba0fbeb31325f4c8e65a20147fb2"
+    },
+    {
+      "path": "reunions/2026-09-11-ideation.md",
+      "bytes": 2807,
+      "sha256": "6913473f478dadd29ec609ed7ff18d60e3ed3c3c0de8929133792253f061f2bf"
+    },
+    {
+      "path": "reunions/2026-09-18-arbre-des-taches.md",
+      "bytes": 3398,
+      "sha256": "ddec071cbffc8c5de7f1eba7f919be5a96753c40141c88058a33efd0ff598115"
+    },
+    {
+      "path": "reunions/2026-10-02-validation-des-taches.md",
+      "bytes": 4523,
+      "sha256": "d7a3e0f4d2e91b13e1257fdb69b196a4774b48cdd34bc4bb23558c083bda5bb2"
+    },
+    {
+      "path": "reunions/2026-10-09-ordre-du-jour.md",
+      "bytes": 2481,
+      "sha256": "20a8a279342470a5be15578672d2fb680bfc3becb22fd251d165cd071ad52150"
+    },
+    {
+      "path": "reunions/README.md",
+      "bytes": 650,
+      "sha256": "1c6c88ea262f8ac0c071c59d68167096c3125d2c13455ed7b947799bfbeefd72"
+    },
+    {
+      "path": "tests/analysis.test.cjs",
+      "bytes": 10095,
+      "sha256": "1cefab563e5363868d7f401367f11b788ef9f948696538255e906e2bae9d58bc"
+    },
+    {
+      "path": "tests/community-feed.test.cjs",
+      "bytes": 3569,
+      "sha256": "2a2550b40066f80f8a54140962e85c8dc962b9deeaf373ee306ea5d27fa384ca"
+    },
+    {
+      "path": "tests/ergonomie-lot2.test.cjs",
+      "bytes": 6893,
+      "sha256": "0dfc805773ab0e5bbeae524aa860b6ba4b242b2b2953548aedc8e507329d7c9a"
+    },
+    {
+      "path": "tests/ergonomie-lot3.test.cjs",
+      "bytes": 6414,
+      "sha256": "3c9eea8c831e48ffd1ef3eaabe31ebad374904bd95d806e936c729eb1a9b3976"
+    },
+    {
+      "path": "tests/ergonomie-lot4.test.cjs",
+      "bytes": 10229,
+      "sha256": "e234e2970c33acf9e1bbe0ee16e9f6554f6b9ace7f50386a347b46ba94682904"
+    },
+    {
+      "path": "tests/ergonomie-lot5.test.cjs",
+      "bytes": 9937,
+      "sha256": "6342bb864aecea1c4dcdc80716ba1fe2ec94f720d4361a814171840c32a10669"
+    },
+    {
+      "path": "tests/ergonomie-top10.test.cjs",
+      "bytes": 4980,
+      "sha256": "d26f3739aebceca2cfca0371440c6607d836a304f561b2d8478d3f0a5389e690"
+    },
+    {
+      "path": "tests/ergonomie.test.cjs",
+      "bytes": 3979,
+      "sha256": "6228916b451804b7851eebd09798b741e22fae4bd37da53702f01452149cbec2"
+    },
+    {
+      "path": "tests/parcours-final.browser.js",
+      "bytes": 9773,
+      "sha256": "268159fdea694f8fa4e053bfbafefbfd103899245ac2f884f7f8a0ce1a994dbb"
+    },
+    {
+      "path": "tests/preparation.test.cjs",
+      "bytes": 5421,
+      "sha256": "c9a66dbb60542725e04720a2b94e84b7d15027edcc31e112e49927ab073def9d"
+    },
+    {
+      "path": "tests/profile-library.test.cjs",
+      "bytes": 8700,
+      "sha256": "5e47aa78332ff0f65dc7582ddd80f96d8b5a5376f411bc43a775871475dff567"
+    },
+    {
+      "path": "tests/repeated-session-history.test.cjs",
+      "bytes": 8163,
+      "sha256": "f6293717c25db667601ed7335bb116408aff77bb4f1f7fc0df791ef8770d941f"
+    },
+    {
+      "path": "tests/t1-completion.test.cjs",
+      "bytes": 5218,
+      "sha256": "a7a2958ee878de49abb0a674db5c450a3133357002c3369d10a5ce8bcfbde8b1"
+    },
+    {
+      "path": "tests/training-completion.test.cjs",
+      "bytes": 5521,
+      "sha256": "5b05aa3cef271296030809144ca78fae815d2a71f777b2fb8ed252aeac072bb9"
+    },
+    {
+      "path": "tests/training-enrichment.test.cjs",
+      "bytes": 5120,
+      "sha256": "9d905f80d538cdba28d6d71e2cebb032de01ededc15059a147360fec6730d6dd"
+    },
+    {
+      "path": "tests/training-preparation.test.cjs",
+      "bytes": 4897,
+      "sha256": "04704edf09009b936ad704628c21dbb02c6209c84e556539a4bc82bbc6bd1451"
+    },
+    {
+      "path": "tests/training-results.test.cjs",
+      "bytes": 10928,
+      "sha256": "d4674f2396ea32afe955ab2b989417a5073d1451530b594bcfd4d59994bd3bb3"
+    }
+  ],
+  "visual_files": [
+    {
+      "path": "visuels/00-acces.png",
+      "bytes": 35209,
+      "sha256": "aa33604cf8e8761ec3a318c7cafab6af386a893846a4f7d6f4255b7dafb1277e",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "visuels/01-decouverte.png",
+      "bytes": 103505,
+      "sha256": "c6f2f830f80244e20390cd87ba69a7599a04ce1094625d100cb94dad0f538a66",
+      "width": 1440,
+      "height": 1296
+    },
+    {
+      "path": "visuels/02-preparation.png",
+      "bytes": 73570,
+      "sha256": "a3e1d2a5636cd13fb7f0d86a5eeebf8b20fa6f0594867b7d66136392dc306376",
+      "width": 390,
+      "height": 1400
+    },
+    {
+      "path": "visuels/03-calendrier.png",
+      "bytes": 67355,
+      "sha256": "97a7387336568ba596d2534ea7a8b30e812a9d5ffa4e0e911b3b7205c09ba2b5",
+      "width": 390,
+      "height": 1200
+    },
+    {
+      "path": "visuels/04-saisie.png",
+      "bytes": 121953,
+      "sha256": "41d286e493ea839ac84da67a04c47b7045d8f2bca4be9d2bc2c9392c35c707fc",
+      "width": 390,
+      "height": 1963
+    },
+    {
+      "path": "visuels/05-bilan.png",
+      "bytes": 151007,
+      "sha256": "84f022a1f84d7c4daa264824896496473982aac4c5aafde5db067a44ce0ab0c0",
+      "width": 390,
+      "height": 2247
+    },
+    {
+      "path": "visuels/06-saisie-rpe.png",
+      "bytes": 32428,
+      "sha256": "5be2cd1521f423b4cb7ee64961f1c5c897287f8bd38e73315bac11fd8ecc9e6b",
+      "width": 736,
+      "height": 525
+    },
+    {
+      "path": "visuels/07-historique.png",
+      "bytes": 75875,
+      "sha256": "1a42ad13080b72f425c4be0f0f27d2ea3ca85b24ffa261679621b3ece9973abf",
+      "width": 1440,
+      "height": 959
+    },
+    {
+      "path": "visuels/arbre-taches-global.png",
+      "bytes": 92505,
+      "sha256": "c89190d1d5a60ffcf74ebd4126cfe05e87adb99f811da4162911bd2aaeb164f9",
+      "width": 2920,
+      "height": 1220
+    },
+    {
+      "path": "visuels/arbre-taches-t1.png",
+      "bytes": 180854,
+      "sha256": "2560e8ebd22c4ddee9043927f000c798b61324530980c8f666b4526fd991b742",
+      "width": 5150,
+      "height": 2120
+    },
+    {
+      "path": "visuels/arbre-taches-t2.png",
+      "bytes": 208797,
+      "sha256": "347deea163afd14a322280d98663454ec678655ee0d5739529faaf98dc9a322c",
+      "width": 5920,
+      "height": 2120
+    },
+    {
+      "path": "visuels/arbre-taches-t3.png",
+      "bytes": 108122,
+      "sha256": "06d2a2ef284c1b896a0c9cfbdd1328c1e701c94e404c0203580cbd4280ff3a62",
+      "width": 3225,
+      "height": 1400
+    },
+    {
+      "path": "visuels/arbre-taches-t4.png",
+      "bytes": 112597,
+      "sha256": "c7fa0fcae8bc7c5e35b69c407365c986d4a76822cde2bc1bec9314612aefdc5a",
+      "width": 3995,
+      "height": 1400
+    },
+    {
+      "path": "visuels/arbre-taches-t5.png",
+      "bytes": 982194,
+      "sha256": "21379e8fccfdbd427f0ad467addbe432578e6dd8ddaec6b335a9766a84c0be95",
+      "width": 1923,
+      "height": 818
+    },
+    {
+      "path": "visuels/provenance.json",
+      "bytes": 1344,
+      "sha256": "3b425f52aa0d17e52c7f82f0b32e865abdf4f58e8f4b509a64941a455b9c714c"
+    },
+    {
+      "path": "visuels/t5-corrige.mmd",
+      "bytes": 1032,
+      "sha256": "0537a885117b918fba613ebeb701a652579492091c2ea75c41c1bd91d81dd46b"
+    }
+  ],
+  "capture_provenance": {
+    "source_commit": "72cee5a66edc42c797c1972f302503749bf4f814",
+    "captured_at_utc": "2026-11-04T14:24:08.804286+00:00",
+    "method": "Playwright CLI / Chromium; dedicated presentation-kit-final profile; HTTP cache disabled",
+    "script": "../capturer-visuels.browser.js",
+    "data": "Synthetic workout; no human participants or personal training data",
+    "technical_journey": "passed",
+    "observed_final_result": {
+      "target_load": 20,
+      "first_set": {
+        "load": 20,
+        "reps": 10
+      },
+      "second_set": {
+        "load": 22.5,
+        "reps": 9
+      }
+    },
+    "viewports": {
+      "00-acces.png": [
+        390,
+        844
+      ],
+      "01-decouverte.png": [
+        1440,
+        1000
+      ],
+      "02-preparation.png": [
+        390,
+        1400
+      ],
+      "03-calendrier.png": [
+        390,
+        1200
+      ],
+      "04-saisie.png": [
+        390,
+        844
+      ],
+      "05-bilan.png": [
+        390,
+        844
+      ],
+      "06-saisie-rpe.png": [
+        1440,
+        1200
+      ],
+      "07-historique.png": [
+        1440,
+        900
+      ]
+    },
+    "limitations": [
+      "Full-page captures may display sticky elements midway through the image",
+      "No physical mobile keyboard or screen reader validation",
+      "No experimental results collected"
+    ],
+    "capture_regions": {
+      "06-saisie-rpe.png": ".training-series element; other images are full-page captures"
+    }
+  },
+  "evidence_status": "Technical verification and synthetic demonstrations; no collected experimental results.",
+  "excluded": [
+    "docs/08-presentation-finale (avoid recursion)",
+    ".git metadata",
+    "untracked files, including local course PDFs"
+  ]
+}

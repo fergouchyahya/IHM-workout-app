@@ -52,6 +52,8 @@ Depuis la racine : `python3 -m http.server 8765 --bind 127.0.0.1`, puis ouvrir [
 
 L’[audit selon la grille IHM](docs/07-evaluation/audit-final-grille.md) relie les artefacts, les preuves techniques et les évaluations utilisateur encore à réaliser.
 
+Le [dossier de préparation de la présentation finale](docs/08-presentation-finale/README.md) regroupe trame, sources, visuels et démonstration.
+
 Les parcours et commandes de vérification sont décrits dans le [README du prototype](<prototypes/propotype 1/README.md>).
 
 ## Fonctionnement de l’équipe

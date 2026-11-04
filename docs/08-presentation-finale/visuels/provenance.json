@@ -1,0 +1,61 @@
+{
+  "source_commit": "72cee5a66edc42c797c1972f302503749bf4f814",
+  "captured_at_utc": "2026-11-04T14:24:08.804286+00:00",
+  "method": "Playwright CLI / Chromium; dedicated presentation-kit-final profile; HTTP cache disabled",
+  "script": "../capturer-visuels.browser.js",
+  "data": "Synthetic workout; no human participants or personal training data",
+  "technical_journey": "passed",
+  "observed_final_result": {
+    "target_load": 20,
+    "first_set": {
+      "load": 20,
+      "reps": 10
+    },
+    "second_set": {
+      "load": 22.5,
+      "reps": 9
+    }
+  },
+  "viewports": {
+    "00-acces.png": [
+      390,
+      844
+    ],
+    "01-decouverte.png": [
+      1440,
+      1000
+    ],
+    "02-preparation.png": [
+      390,
+      1400
+    ],
+    "03-calendrier.png": [
+      390,
+      1200
+    ],
+    "04-saisie.png": [
+      390,
+      844
+    ],
+    "05-bilan.png": [
+      390,
+      844
+    ],
+    "06-saisie-rpe.png": [
+      1440,
+      1200
+    ],
+    "07-historique.png": [
+      1440,
+      900
+    ]
+  },
+  "limitations": [
+    "Full-page captures may display sticky elements midway through the image",
+    "No physical mobile keyboard or screen reader validation",
+    "No experimental results collected"
+  ],
+  "capture_regions": {
+    "06-saisie-rpe.png": ".training-series element; other images are full-page captures"
+  }
+}
