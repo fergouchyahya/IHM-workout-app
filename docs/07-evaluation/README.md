@@ -7,7 +7,8 @@ Anonymiser les données personnelles et ne conserver que ce qui est nécessaire 
 ## État actuel selon la grille — 4 novembre 2026
 
 - [Audit final et matrice de couverture](audit-final-grille.md) : écarts initiaux, huit critères ergonomiques, traçabilité et bilan après corrections ; appréciation interne, sans note officielle.
-- [UAN de saisie/correction d’une série](uan-saisie-serie.md) : notation du cours et correspondance avec les états du prototype.
+- [UAN de la séance complète](uan-remplir-seance.md) : commencer la séance, renseigner et adapter les séries, passer d'un exercice à l'autre, vérifier, ajouter son ressenti et terminer.
+- [UAN de saisie/correction d’une série](uan-saisie-serie.md) : sous-tâche détaillée de la précédente, notation du cours et correspondance avec les états du prototype.
 - [Protocole utilisateur prêt à exécuter](protocole-utilisateur.md) : recrutement prévu, tâches, mesures et fiche vierge. **Aucun résultat expérimental collecté n’est fourni.** Le retour qualitatif rapporté le 2 novembre reste une preuve humaine limitée et non contrôlée.
 
 Les décomptes de tests ci-dessous décrivent leurs passes historiques. La vérification de la version courante est consignée dans l’audit final. Implémentation livrée, test technique réussi et bénéfice utilisateur démontré sont trois états différents.

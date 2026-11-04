@@ -26,7 +26,7 @@ Cette trame est une proposition éditoriale, pas la trace d’une présentation 
 - Matrice persona → scénario → tâche → interface → évaluation → itération.
 - Huit catégories de Bastien & Scapin avec exemples/code/limites.
 - Calculs KLM complets, sensibilité de P, règles de placement de M, limites tactiles.
-- UAN complète : saisie invalide, Non faite, reprise, Annuler et échec de stockage.
+- UAN complète : de « Commencer la séance » à « Terminer et enregistrer mon bilan » (statuts, adaptation de cible, ressenti), avec la saisie d'une série détaillée à part : saisie invalide, Non faite, reprise, Annuler et échec de stockage.
 - Protocole, définitions des mesures et fiche vierge ; futurs résultats réels seulement après collecte.
 - Choix de confidentialité du partage : programme/cibles publics, suivi personnel exclu ; diffusion locale simulée.
 

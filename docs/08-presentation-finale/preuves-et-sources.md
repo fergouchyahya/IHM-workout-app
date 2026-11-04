@@ -13,7 +13,7 @@ Révision de référence : consulter `manifest-sources.json`. L’archive conser
 | Prototype | 3,5 | [Prototype](<../../prototypes/propotype 1/README.md>), `prototypes/propotype 1/`, `tests/` | 5 + démo | Authentification, diffusion et synchronisation distante non réelles |
 | Critères ergonomiques | 1,5 | [Audit final](../07-evaluation/audit-final-grille.md), audit cours 5/6, DR-001 | 6 | Revue experte ; pas de validation humaine générale |
 | Keystroke | 1 | [Analyse KLM](../07-evaluation/keystroke.md) | 7 | Temps prédits sur ordinateur sous hypothèses explicites |
-| UAN | 1 | [Modèle de saisie](../07-evaluation/uan-saisie-serie.md) | 8 | Spécification confrontée au code ; perception des retours à observer |
+| UAN | 1 | [Séance complète](../07-evaluation/uan-remplir-seance.md) et [saisie d'une série](../07-evaluation/uan-saisie-serie.md) | 8 | Spécification confrontée au code ; perception des retours à observer |
 | Expérimentation | 3,5 | [Protocole](../07-evaluation/protocole-utilisateur.md), audit historique §20 | 9 | Protocole prêt ; pas de relevés expérimentaux fournis |
 | Processus / itération | 3 | Audit final, DR-001, audit historique §11–20, `reunions/`, `research/` | 10–12 | Réunions et retours non inventés ; boucle empirique à compléter |
 
