@@ -50,6 +50,8 @@ Les hypothèses, décisions et résultats sont consignés au plus près de leur 
 
 Depuis la racine : `python3 -m http.server 8765 --bind 127.0.0.1`, puis ouvrir [le prototype](http://127.0.0.1:8765/prototypes/propotype%201/01-connexion/index.html) et choisir **Essayer sans compte**. Aucun paquet à installer ; Python 3 et un navigateur suffisent. Les données sont conservées dans le navigateur.
 
+L’[audit selon la grille IHM](docs/07-evaluation/audit-final-grille.md) relie les artefacts, les preuves techniques et les évaluations utilisateur encore à réaliser.
+
 Les parcours et commandes de vérification sont décrits dans le [README du prototype](<prototypes/propotype 1/README.md>).
 
 ## Fonctionnement de l’équipe

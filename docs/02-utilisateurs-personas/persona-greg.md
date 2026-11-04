@@ -43,3 +43,14 @@ Pour préparer et suivre ses séances, Greg utilise actuellement des tableaux Ex
 ## Citation
 
 > « Je veux enregistrer mes séances sans trop penser ni complications, tout en gardant assez de contexte pour comprendre ma progression. »
+
+## Conséquences pour la conception — explicitation du 4 novembre 2026
+
+Les besoins ci-dessus sont des hypothèses du persona fictif, pas des réponses d’entretien :
+
+- Cycles et séances répétées → calendrier et portée explicite de l’adaptation (T1.2/T1.3.3), sans changer les bilans passés.
+- Précision entre deux séries → RPE facultatif, cible distincte du résultat, contexte et réglages retrouvables (T2.1–T2.3).
+- Revue à froid → résultats comparables, notes et point à revoir (T3) ; les tendances n’établissent pas un lien causal avec le sommeil.
+- Partage choisi → aperçu du programme séparé des résultats et médias personnels (T4). Diffusion réseau et macrocycle annuel global restent hors réalisation actuelle.
+
+Son usage décrit d’Excel et Notion suggère une familiarité avec les outils numériques ; cela ne prouve pas sa maîtrise de notre interface. Le [scénario Greg](../03-scenarios/scenario-greg.md) et le [protocole](../07-evaluation/protocole-utilisateur.md) précisent ce qui reste à vérifier.

@@ -80,6 +80,8 @@ Cette clôture concerne le code et ses vérifications techniques. Les gains de t
 
 ## 5. Calculs Keystroke et limites
 
+**Clarification du 4 novembre 2026 :** les calculs ci-dessous sont ceux de l’audit historique. L’[analyse dédiée récupérée de main](keystroke.md) est la référence pour la saisie d’une série, avec mêmes états de départ et d’arrivée. Son retour final à la souris donne six H et 8,65 s pour la méthode champ par champ, contre les cinq H/8,25 s de l’exemple historique ci-dessous qui s’arrête au clavier. De même, ne pas comparer les 4,45 s de §19 sans retour final aux 4,85 s de la méthode qui le compte. Ces différences de convention ne sont pas des gains observés. La [UAN dédiée](uan-saisie-serie.md) complète les exemples simplifiés de §7 ; le [protocole utilisateur](protocole-utilisateur.md) opérationnalise §9 sans inventer de résultats.
+
 ### Hypothèses communes
 
 Modèle du Cours 6, diapositives 29–37. Utilisateur connaissant la méthode, tâche sans erreur, éléments à choisir déjà repérés, point de départ identique. **Ce sont des prédictions desktop, pas des chronométrages utilisateur ni une conversion des gestes tactiles.**

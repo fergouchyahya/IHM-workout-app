@@ -21,6 +21,23 @@ test('ordinary input completes only the concerned set, zero kg is valid and blan
  assert.equal(d.results[0][1].load,null);assert.equal(JSON.stringify(d.results[1]),other);assert.equal(JSON.stringify(d.session),initial);
 });
 
+test('stepper adjustments reject blank values, preserve other rows, and clear stale field errors',()=>{
+ const {training:t,draft:d}=app(); d.rawFields['0:0:load']='7,'; d.invalidFields['0:0:load']='Valeur incomplète';
+ assert.equal(t.adjustResult(d,0,0,'load',1),false); assert.equal(d.results[0][0].load,null);
+ t.writeResult(d,0,0,'load',20); d.rawFields['0:0:load']='20'; d.invalidFields['0:0:load']='stale';
+ assert.equal(t.adjustResult(d,0,0,'load',1),20.5); assert.equal(d.results[0][0].load,20.5); assert.equal(d.invalidFields['0:0:load'],undefined);
+ d.rawFields['0:0:load']='20,'; d.invalidFields['0:0:load']='Valeur incomplète'; assert.equal(t.adjustResult(d,0,0,'load',1),false); assert.equal(d.results[0][0].load,20.5);
+ d.rawFields['0:0:load']='20,5'; delete d.invalidFields['0:0:load']; assert.equal(t.adjustResult(d,0,0,'load',1),21);
+ assert.equal(d.results[0][1].load,null); assert.equal(t.adjustResult(d,0,0,'reps',1),false);
+});
+
+test('stepper keeps repetitions integral and never edits skipped or unrelated fields',()=>{
+ const {training:t,draft:d}=app(); t.writeResult(d,0,0,'reps',8); d.results[0][1].load=12; d.results[0][0].outcome='skipped';
+ assert.equal(t.adjustResult(d,0,0,'reps',1),false); assert.equal(d.results[0][0].reps,8);
+ d.results[0][0].outcome=null; assert.equal(t.adjustResult(d,0,0,'reps',1),9); assert.equal(Number.isInteger(d.results[0][0].reps),true); assert.equal(d.results[0][1].load,12);
+ assert.equal(t.adjustResult(d,0,0,'rpe',1),false);
+});
+
 test('explicit completed/interrupted/skipped states never invent load or repetitions',()=>{
  const {training:t,draft:d}=app();
  for(const outcome of ['completed','interrupted','skipped']){
@@ -96,4 +113,14 @@ test('previous-session copy uses complete comparable actual data, not targets, a
  }
  prior.results[0][0]={load:20,reps:8};prior.session.exercises[0].equipment='Machine';assert.equal(t.copyPreviousSession(d,0,0),false);
  prior.session.exercises[0].equipment='Barre';prior.completedAt='2026-12-01T12:00:00Z';assert.equal(t.copyPreviousSession(d,0,0),false);
+});
+
+
+test('stepper preserves invalid fractional repetitions and accepts zero without crossing the lower bound',()=>{
+ const {training:t,draft:d}=app(); t.writeResult(d,0,0,'reps',8);
+ d.rawFields['0:0:reps']='8.5'; d.invalidFields['0:0:reps']='Entier requis';
+ const before=JSON.stringify(d); assert.equal(t.adjustResult(d,0,0,'reps',1),false); assert.equal(JSON.stringify(d),before);
+ d.rawFields['0:0:reps']='abc'; assert.equal(t.adjustResult(d,0,0,'reps',1),false); assert.equal(d.rawFields['0:0:reps'],'abc');
+ t.writeResult(d,0,1,'load',0); assert.equal(t.adjustResult(d,0,1,'load',-1),0); assert.equal(t.adjustResult(d,0,1,'load',1),0.5);
+ for(const delta of [0,2,0.5,NaN]) assert.equal(t.adjustResult(d,0,1,'load',delta),false);
 });

@@ -4,6 +4,14 @@ Préparer et archiver les évaluations utilisateur : objectif, participants, pro
 
 Anonymiser les données personnelles et ne conserver que ce qui est nécessaire au projet.
 
+## État actuel selon la grille — 4 novembre 2026
+
+- [Audit final et matrice de couverture](audit-final-grille.md) : écarts initiaux, huit critères ergonomiques, traçabilité et bilan après corrections ; appréciation interne, sans note officielle.
+- [UAN de saisie/correction d’une série](uan-saisie-serie.md) : notation du cours et correspondance avec les états du prototype.
+- [Protocole utilisateur prêt à exécuter](protocole-utilisateur.md) : recrutement prévu, tâches, mesures et fiche vierge. **Aucun résultat expérimental collecté n’est fourni.** Le retour qualitatif rapporté le 2 novembre reste une preuve humaine limitée et non contrôlée.
+
+Les décomptes de tests ci-dessous décrivent leurs passes historiques. La vérification de la version courante est consignée dans l’audit final. Implémentation livrée, test technique réussi et bénéfice utilisateur démontré sont trois états différents.
+
 ## Analyse Keystroke — 24 octobre 2026
 
 [Keystroke — Remplir un entraînement pendant la séance](keystroke.md) : analyse limitée à la saisie des résultats réels, à la recopie de séries identiques et au passage entre exercices. Comparaison souris/clavier sur un scénario de deux exercices de trois séries, avec calculs détaillés et hypothèses. Les temps sont des prédictions sur ordinateur.

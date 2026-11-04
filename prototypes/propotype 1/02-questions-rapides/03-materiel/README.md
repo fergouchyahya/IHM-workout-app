@@ -1,5 +1,11 @@
 # Écran 02.3 — Matériel
 
+## État courant — 4 novembre 2026
+
+Un appui sélectionne et conserve une réponse **sans changer d’écran**. Continuer confirme le choix (Enregistrer ce choix en modification) ; le dernier bouton ouvre les entraînements. Des descriptions expliquent les options ; Précédente permet une correction, Passer cette question et Passer le reste conservent le caractère facultatif. La première question n’a pas de retour connexion. Avancé mène au Calendrier ; les autres profils à Découvrir, sauf reprise d’un écran conservé.
+
+Les sections ci-dessous conservent la conception historique du passage direct, désormais remplacé. La lisibilité peut nécessiter un défilement sur petit écran ; aucune obligation de tout faire tenir à 320 × 568 px. Les comportements courants sont définis par `questions.js`.
+
 **Date :** 2026-10-03 · **Responsables :** Yahya et Marie<br>
 **État :** documentation validée ; écran implémenté et vérifié.<br>
 **Persona :** Thomas · **Tâche :** T1.1.1, définir les repères du programme.

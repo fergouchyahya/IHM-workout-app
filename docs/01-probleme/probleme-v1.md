@@ -6,7 +6,7 @@
 
 ## Contexte d'usage
 
-Une personne qui pratique la musculation organise ses séances autour d'un programme (choix des exercices, séries, répétitions, charges) qu'elle doit suivre dans la durée pour progresser. Aujourd'hui, ce suivi se fait le plus souvent sur papier, dans un tableur excel, ou dans des applications généralistes peu adaptées, ce qui rend difficile de :
+Une personne qui pratique la musculation organise ses séances autour d'un programme (choix des exercices, séries, répétitions, charges) qu'elle doit suivre dans la durée pour progresser. L’hypothèse de cadrage est qu’une partie des pratiquants suit ses séances sur papier, dans un tableur excel, ou dans des applications généralistes peu adaptées, ce qui rend difficile de :
 
 - préparer une séance à l'avance en s'appuyant sur ce qui a été fait précédemment ;
 - suivre, pendant la séance, ce qui a réellement été réalisé par rapport à ce qui était prévu ;
@@ -18,9 +18,9 @@ L'application visée se limite au suivi de l'entraînement de musculation.
 
 ## Problème
 
-Les utilisateurs n'ont pas d'outil simple qui couvre à la fois la préparation d'un programme d'entraînement structuré dans le temps (blocs de plusieurs mois, séances répétées sur un cycle, ex. 7 jours), le suivi en séance de sa réalisation, et la visualisation de la progression (PR/max, historique), sans complexité excessive ni fonctionnalités hors sujet (diététique, réseau social, etc.).
+Nous faisons l’hypothèse que les outils utilisés par les profils visés ne couvrent pas simplement à la fois la préparation d'un programme d'entraînement structuré dans le temps (blocs de plusieurs mois, séances répétées sur un cycle, ex. 7 jours), le suivi en séance de sa réalisation, et la visualisation de la progression (PR/max, historique), sans complexité excessive ni fonctionnalités hors sujet (diététique, réseau social, etc.).
 
-Cette absence d'outil adapté à plusieurs conséquences pour l'utilisateur :
+Les difficultés que le projet cherche à réduire sont les suivantes (hypothèses à confronter à des usages réels) :
 
 - perte de temps à préparer ou noter ses séances dans des outils non prévus pour ça
 - difficulté à savoir si une séance a été suivie comme prévu et pourquoi (charge trop lourde, fatigue, etc.)
@@ -50,3 +50,7 @@ Voir l’[objectif du projet](../../README.md#objectif) : construire et justifie
 - Hypothèse : la modification d'une séance doit pouvoir, au choix de l'utilisateur, se répercuter ou non sur les séances suivantes du même cycle.
 
 
+
+## Statut des preuves — revue du 4 novembre 2026
+
+Le cadrage et les personas sont des choix de conception validés par l’équipe. L’[analyse concurrentielle](../../research/analyse-concurrence/synthese-concurrence.md) documente des interfaces et des avis, mais ne démontre ni une absence générale d’outil adapté ni la fréquence de ces difficultés dans notre population. Aucun corpus d’entretiens ou d’observations du public cible n’est archivé ici. Le [protocole utilisateur](../07-evaluation/protocole-utilisateur.md) doit mettre à l’épreuve ces hypothèses ; le partage retenu dans T4 porte sur des programmes, pas sur un réseau social généraliste.

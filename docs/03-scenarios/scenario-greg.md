@@ -15,7 +15,7 @@ Réaliser et documenter la séance du jour en respectant le RPE visé, puis cons
 ## Déroulement
 
 1. Greg ouvre l'application et accède à la séance planifiée du jour. L'écran affiche uniquement son tableau de séance : exercices, séries, répétitions, charges et RPE cibles.
-2. Avant son échauffement, il renseigne rapidement son niveau de sommeil, d'énergie et de motivation.
+2. Avant son échauffement, il renseigne rapidement son sommeil et son énergie ; s’il souhaite décrire sa motivation, il le fait dans une note libre.
 3. Après ses premières séries de squat, Greg constate que la charge paraît plus lourde que prévu. Il réduit la charge de son top set afin de rester dans le RPE cible.
 4. Il ajoute une note indiquant qu'il ressent de la fatigue et formule l'hypothèse que son sommeil de trois heures y contribue. Il peut également relever un problème technique éventuel, par exemple le positionnement de ses pieds ou une perte de trajectoire.
 5. Il termine ses séries de squat puis poursuit avec ses exercices accessoires. L'application lui rappelle les réglages utiles et le résultat de la dernière séance semblable ; Greg saisit seulement les charges et répétitions effectivement réalisées, le reste de la séance étant déjà planifié.
@@ -23,4 +23,8 @@ Réaliser et documenter la séance du jour en respectant le RPE visé, puis cons
 
 ## Résultat attendu
 
-Greg termine sa séance sans perdre de temps à modifier un tableur ni à reconstruire son programme. Les charges réalisées, le RPE, la fatigue, le manque de sommeil et ses remarques techniques restent rattachés à la séance et peuvent être retrouvés lors de sa revue à domicile. Il peut ainsi comparer cette séance aux précédentes et prendre une décision éclairée pour la suite du cycle.
+Greg retrouve une trace structurée de sa séance sans reconstruire son programme. La rapidité par rapport au tableur reste à mesurer. Les charges réalisées, le RPE, la fatigue, le manque de sommeil et ses remarques techniques restent rattachés à la séance et peuvent être retrouvés lors de sa revue à domicile. Il peut ainsi comparer cette séance aux précédentes et prendre une décision éclairée pour la suite du cycle.
+
+## Alignement du 4 novembre 2026
+
+**Préconditions :** une séance planifiée comporte des cibles. **Parcours couvert :** T1.3.2–T1.3.3, T2.1–T2.4 et T3.1–T3.3. Sommeil, énergie, douleur, RPE et note technique sont facultatifs ; la motivation reste une note libre sans champ obligatoire. **Résultat observable :** adaptations et points à revoir sont conservés sans déduction automatique de cause.

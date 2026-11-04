@@ -120,6 +120,13 @@ T0 Gérer et suivre sa pratique de la musculation [U/S]
 
 La revue du 9 octobre porte sur la cohérence de cet arbre consolidé et sa transcription K-MADe. Les précisions de conception restantes — champs obligatoires, critères exacts de comparaison et de record, options de partage et copies importées, erreurs ou modifications concurrentes de synchronisation — seront traitées dans cette revue, sans rouvrir les questionnaires des modèles sources. Le prototype sera aligné séparément par Yahya et Marie.
 
+## Clarifications d’alignement — 4 novembre 2026
+
+- T1.1.1 définit le contexte (objectif, niveau, durée et disponibilités), qui peut être précisé progressivement selon le chemin choisi ; il n’impose pas un questionnaire préalable. Les alternatives sont T1.1.2 (créer), T1.1.3 (choisir/importer) et T1.1.4 (reprendre) ; T1.1.5 renseigne les cibles quel que soit le chemin. Organiser dans le calendrier est ensuite facultatif pour une séance personnelle.
+- T2 et T3 décrivent des résultats conditionnels : une progression ou un record n’est annoncé que si l’exercice, le matériel et les conditions sont comparables. Une célébration visuelle n’est pas une garantie du parcours.
+- Les illustrations et consignes textuelles couvrent l’aide au mouvement dans le prototype ; une vidéo ou démonstration intégrée n’est pas une exigence livrée.
+- T5.2.1 concerne la conservation locale réalisée ; T5.2.2 décrit la synchronisation distante future. Le prototype frontend évalue la conservation locale et son état visible ; aucune transmission réseau réelle n’est revendiquée.
+
 ## Sources
 
 - [Validation du 2 octobre](../../reunions/2026-10-02-validation-des-taches.md).

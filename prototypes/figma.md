@@ -1,5 +1,7 @@
 # Suivi Figma
 
+Ce document conserve le suivi du squelette initial. Le **prototype courant** est [Propotype 1](<propotype 1/README.md>) : T1–T4 et conservation locale T5 y sont interactifs. Les espaces réservés décrits ci-dessous concernent uniquement le squelette historique.
+
 ## Lien vers le fichier Figma
 
 - À ajouter :

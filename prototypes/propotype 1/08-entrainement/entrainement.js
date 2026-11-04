@@ -41,6 +41,21 @@ window.Entrainement = {
     if (!valid) return false;
     result[key] = value; return true;
   },
+  adjustResult(draft,index,row,key,delta) {
+    if (!['load','reps'].includes(key) || ![-1,1].includes(delta) || draft.results[index]?.[row]?.outcome === 'skipped' || !Number.isFinite(draft.results[index]?.[row]?.[key])) return false;
+    const rawKey = `${index}:${row}:${key}`, raw = draft.rawFields?.[rawKey];
+    const current = draft.results[index][row][key];
+    if (current < 0 || key === 'reps' && !Number.isInteger(current)) return false;
+    if (raw != null) {
+      const text = String(raw).trim(), visible = Number(text.replace(',','.'));
+      // A shortcut must not replace an invalid visible edit with the last valid value.
+      if (!/^\d+(?:[.,]\d+)?$/.test(text) || !Number.isFinite(visible) || key === 'reps' && !Number.isInteger(visible)) return false;
+    }
+    const step = key === 'load' ? 0.5 : 1, next = Math.max(0,current + delta * step);
+    if (!this.writeResult(draft,index,row,key,next)) return false;
+    delete draft.rawFields[`${index}:${row}:${key}`]; delete draft.invalidFields[`${index}:${row}:${key}`];
+    return next;
+  },
   setOutcome(draft,index,row,outcome) {
     if (!draft.results[index]?.[row] || ![null,'completed','interrupted','skipped'].includes(outcome)) return false;
     draft.results[index][row].outcome = outcome; return true;
@@ -433,7 +448,8 @@ window.Entrainement = {
         button.onclick = () => {
           const row = Number(input.dataset.result), key = input.dataset.resultKey, raw = input.value.trim(), current = raw === '' ? NaN : Number(raw.replace(',','.'));
           if (!Number.isFinite(current) || current < 0) { input.focus(); return; }
-          const next = Math.max(0, current + (key === 'load' ? delta * 0.5 : delta));
+          const next = this.adjustResult(draft,draft.exerciseIndex,row,key,delta);
+          if (next === false) { input.focus(); return; }
           input.value = String(next); input.oninput(); input.focus();
         }; wrap.append(button);
       }

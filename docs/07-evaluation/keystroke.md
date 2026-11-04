@@ -8,19 +8,23 @@ Support : prototype 1, ordinateur avec souris et clavier.
 
 Nature des résultats : estimations KLM, sans chronométrage utilisateur.
 
+## Périmètre principal : une série
+
+La comparaison principale porte sur **une seule série** dont les valeurs connues sont `20 kg`, `10 répétitions` et `RPE 7`. Le scénario de six séries ci-dessous est une extension arithmétique permettant de montrer l’effet cumulé ; il ne constitue pas une nouvelle mesure. Les méthodes sont comparées à état initial et état final identiques, sans erreur, avec un utilisateur connaissant déjà l’interface.
+
 ## 1. Définition de la tâche
 
 Après chaque série réalisée, l’utilisateur renseigne la charge, le nombre de répétitions et, si le suivi est activé, son effort ressenti (RPE). Il répète cette saisie pour toutes les séries et passe à l’exercice suivant lorsque nécessaire.
 
-État initial : l’entraînement est ouvert sur le premier exercice ; les séries prévues existent et les résultats sont vides.
+État initial principal : entraînement ouvert, série 2 visible avec Charge, Répétitions et RPE vides ; la série 1 est faite et contient déjà les mêmes résultats réels complets et valides (20 kg, 10 répétitions, RPE 7), condition nécessaire à la méthode C. La main est sur la souris. Les méthodes A et B saisissent le même résultat sans utiliser cette référence.
 
-État final : les résultats de toutes les séries du scénario sont renseignés dans le brouillon de la séance en cours.
+État final principal : seule la série 2 reçoit 20 kg, 10 répétitions et RPE 7 dans le brouillon ; les autres résultats et les cibles sont conservés. La main revient à la souris ; la séance reste en cours. Pour l’extension de six séries, les résultats sont initialement vides et les premières séries sont saisies avant toute recopie.
 
 Le périmètre se limite à la saisie, à la recopie éventuelle et au passage entre exercices pendant la séance. La préparation, le démarrage, la revue finale du bilan, sa confirmation et le partage sont hors périmètre.
 
 ## 2. Scénario et hypothèses
 
-Le scénario comporte deux exercices de trois séries, soit six séries à renseigner.
+L’extension comporte deux exercices de trois séries, soit six séries à renseigner. Les calculs unitaires des sections 4–6 restent le résultat principal pour une série.
 
 | Exercice | Série 1 réalisée | Série 2 réalisée | Série 3 réalisée |
 | --- | --- | --- | --- |
@@ -56,7 +60,7 @@ Nous supposons `R ≈ 0 s` : les interactions sont traitées localement, sans at
 
 Un pointage suivi d’un clic coûte `P + K = 1,30 s`. Entrée compte pour un `K`. Les valeurs `20`, `10` et `7` demandent cinq touches ; les unités ne sont pas saisies. Les valeurs de l’exercice B demandent le même nombre de touches.
 
-On place un `M` au début de chaque épisode après l’effort. Aucun `M` supplémentaire n’est ajouté entre les chiffres, entre les champs d’une saisie préparée ou avant un clic anticipé. Une hésitation, une lecture prolongée ou un nouveau choix demanderait de réviser cette hypothèse.
+On place un `M` au début de chaque épisode après l’effort. Aucun `M` supplémentaire n’est ajouté entre les chiffres, entre les champs d’une saisie préparée ou avant un clic anticipé. Une hésitation, une lecture prolongée ou un nouveau choix demanderait de réviser cette hypothèse. Application des règles du cours (diapositive 33) : insérer M avant la sous-méthode de saisie ; supprimer le M avant un clic déjà anticipé par le pointage ; grouper les chiffres d’une valeur connue. Le passage entre champs est supposé anticipé par un utilisateur entraîné ; un débutant hésitant sort de cette hypothèse. P = 1,10 s est le choix de l’exemple diapositive 34, dans l’intervalle 0,8–1,5 s de la diapositive 31 ; ce n’est pas un temps mesuré sur notre interface.
 
 ## 4. Méthode A — Choisir chaque champ à la souris
 
@@ -145,4 +149,6 @@ Le ressenti facultatif éventuellement proposé à d’autres profils sans suivi
 - [entrainement.js](../../prototypes/propotype%201/08-entrainement/entrainement.js) : saisie, recopie et navigation entre exercices.
 - [ergonomie.js](../../prototypes/propotype%201/commun/ergonomie.js) : progression des champs numériques avec Entrée.
 - [Audit ergonomique, section 5](audit-ergonomie-cours5-6.md#5-calculs-keystroke-et-limites) : conventions KLM du projet.
+- `Cours6.pdf`, diapositives 28–38 (pages PDF 16–26 selon la pagination du support) : GOMS/Keystroke ; diapositives 29–37 pour les opérateurs et hypothèses de calcul.
+- `Cours6.pdf`, diapositives 39–49 (pages PDF 27–36 selon la pagination du support) : UAN, consulté pour la spécification des retours et états.
 - Card, Moran et Newell : [table des opérateurs dans le rapport original](https://iiif.library.cmu.edu/file/Newell_box00072_fld05090_doc0005/Newell_box00072_fld05090_doc0005.pdf).

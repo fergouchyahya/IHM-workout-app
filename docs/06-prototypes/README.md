@@ -1,7 +1,15 @@
 # 06 — Prototypes
 
-Relier les prototypes aux besoins, scénarios et décisions qu’ils explorent. Décrire le niveau de fidélité, la version, les tâches couvertes et les retours attendus.
+## Prototype courant
 
-Le point d’entrée Figma est [prototypes/figma.md](../../prototypes/figma.md).
+Le [prototype HTML/CSS/JavaScript](<../../prototypes/propotype 1/README.md>) est exécutable localement sans framework. Il couvre préparation et calendrier T1, saisie/correction/clôture T2, bilans et comparaison T3, partage local simulé T4, navigation/recherche et conservation locale T5. Le point d’entrée est [01-connexion/index.html](<../../prototypes/propotype 1/01-connexion/index.html>).
 
-Le [dossier Propotype 1](<../../prototypes/propotype 1/README.md>) prépare le parcours mobile de Thomas « découvrir → adapter → réaliser ». La conception avance écran par écran : documentation détaillée, validation, puis code. La [page de connexion](<../../prototypes/propotype 1/01-connexion/index.html>) est documentée, validée et implémentée ; les trois questions sont documentées, validées et implémentées, et les deux pages d’arrivée sont documentées, validées et implémentées. Les récapitulatifs et placements par jour restent simples ; l’éditeur, le calendrier détaillé et Progrès seront conçus séparément.
+Le prototype est interactif, avec données persistées dans le navigateur ; il sert à examiner les comportements et les retours d’interface. Authentification, diffusion vers des contacts et synchronisation distante ne sont pas des services réels. Les médias ajoutés par l’utilisateur sont locaux ; les illustrations fournies ne sont pas des démonstrations vidéo.
+
+Les décisions d’interface abstraite relient les objets et activités (programme, occurrence datée, cible, résultat, bilan) aux tâches T1–T5. Leur réalisation concrète (calendrier, cartes, champs et feedback) est décrite dans les README des écrans et le [DR-001](../05-decisions-conception/DR-001-revamp-ergonomie.md). La [matrice de traçabilité](../07-evaluation/audit-final-grille.md#traçabilité-conception--interface--évaluation--itération) relie ces choix aux personas et aux preuves.
+
+## Historique conservé
+
+Le [squelette global](../../prototypes/prototype-global.html) et son [descriptif](../../prototypes/squelette-global.md) représentent une étape antérieure centrée sur T4, avec espaces réservés T1–T3/T5. Ils ne décrivent pas la couverture du prototype courant. [Figma](../../prototypes/figma.md) reste un index historique, sans lien vers un fichier fourni.
+
+Les audits et captures sont des vérifications techniques et des analyses expertes. Le [protocole expérimental](../07-evaluation/protocole-utilisateur.md) est préparé ; son exécution et ses résultats humains restent à recueillir. Aucun essai humain n’est déduit d’une capture ou d’un test automatisé.

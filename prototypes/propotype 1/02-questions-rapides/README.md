@@ -1,5 +1,11 @@
 # Questions rapides — Parcours en trois écrans
 
+## État courant — 4 novembre 2026
+
+Un appui sélectionne et conserve une réponse **sans changer d’écran**. Continuer confirme le choix (Enregistrer ce choix en modification) ; le dernier bouton ouvre les entraînements. Des descriptions expliquent les options ; Précédente permet une correction, Passer cette question et Passer le reste conservent le caractère facultatif. La première question n’a pas de retour connexion. Avancé mène au Calendrier ; les autres profils à Découvrir, sauf reprise d’un écran conservé.
+
+Les sections ci-dessous conservent la conception historique du passage direct, désormais remplacé. La lisibilité peut nécessiter un défilement sur petit écran ; aucune obligation de tout faire tenir à 320 × 568 px. Les comportements courants sont définis par `questions.js`.
+
 ## État actuel — navigation du questionnaire
 
 Sous « Choisis une réponse pour continuer », Question précédente (flèche gauche) et Passer cette question (flèche droite) sont sur la même ligne. Le retour est absent à la première question ; aucune action ne renvoie à la connexion. En modification de préférence, Annuler reste disponible. Passer le reste reste une action secondaire. Le texte de sauvegarde systématique est retiré ; les erreurs de sauvegarde, la réponse sélectionnée et la reprise du brouillon restent effectives.

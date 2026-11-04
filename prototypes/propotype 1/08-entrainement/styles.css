@@ -19,7 +19,7 @@
 
 /* Training is used with one hand between sets: keep the current context visible
    and make the two values easy to hit on a phone. */
-.training-progress-row { position:sticky; top:0; z-index:4; padding:10px 0; background:color-mix(in srgb,#f6f5f1 94%,transparent); backdrop-filter:blur(8px); border-bottom:1px solid #dce0da; }
+.training-progress-row { position:sticky; top:0; z-index:4; padding:10px 0; background:#f6f5f1; background:color-mix(in srgb,#f6f5f1 94%,transparent); backdrop-filter:blur(8px); border-bottom:1px solid #dce0da; }
 .training-progress-row p { margin:0; }
 .training-active-tools { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:40px; }
 .training-set.is-current { border-color:var(--primary,#a51f32); box-shadow:0 0 0 2px color-mix(in srgb,var(--primary,#a51f32) 14%,transparent); }
@@ -35,7 +35,7 @@
 .training-set[data-outcome="completed"] { border-left:4px solid #2e7d5a; }
 .training-set[data-outcome="interrupted"] { border-left:4px solid #bd7b20; }
 .training-set[data-outcome="skipped"] { border-left:4px solid #7b8580; background:#fafbf9; }
-.training-navigation { padding:10px 0; }
+.training-navigation { padding:10px 0; background:#fff; }
 .training-navigation button { min-height:48px; font-size:14px; }
 @media (max-width:600px) {
   .training-result-fields { grid-template-columns:1fr 1fr; gap:8px; }

@@ -14,3 +14,7 @@ Les scénarios servent de pont entre les besoins utilisateurs et l’analyse des
 | Mireille | [Suivre une séance simple](scenario-mireille.md) | Yahya | 2026-09-24 |
 
 Les dates de création reprennent la première introduction du scénario dans Git, y compris lorsqu’il était intégré au persona.
+
+## Statut et lecture
+
+Ces scénarios sont des situations de conception, validées comme supports de travail le 2 octobre 2026. Ils ne constituent pas des observations de personnes réelles. Chaque fiche précise désormais les préconditions, les tâches couvertes et le résultat observable dans le prototype. Une étape facultative est indiquée comme telle ; elle ne doit pas devenir une obligation de parcours.

@@ -93,6 +93,16 @@ Non implémentés : substitution d’exercice pendant l’effort, synchronisatio
 
 ## Vérification reproductible
 
+État de la revue finale : [audit de la grille](../../docs/07-evaluation/audit-final-grille.md). La passe courante vérifie **150 tests individuels dans 16 fichiers**, plus le parcours navigateur ci-dessous. Les comptes antérieurs dans les audits sont historiques.
+
+Le scénario technique [parcours-final.browser.js](../../tests/parcours-final.browser.js) est une fonction destinée à `playwright-cli run-code`, pas un essai utilisateur. Il exige un profil navigateur et une origine locale **vierges**, ne supprime aucune donnée, et désactive le cache HTTP pour charger les modules modifiés. Playwright CLI et un navigateur compatible sont requis pour ce contrôle uniquement ; ils ne sont pas des dépendances du prototype. Après avoir ouvert le prototype dans une session CLI dédiée, depuis la racine :
+
+```sh
+playwright-cli run-code "$(cat tests/parcours-final.browser.js)"
+```
+
+Il couvre création, préparation, placement, résultats, correction, Non faite/reprise, recharge, revue et clôture, historique, retour T3→T1, progression Entrée avec RPE, niveaux et largeurs. Utiliser une nouvelle session de navigateur pour un nouveau passage. Les captures `output/playwright/grille-*.png` sont des données synthétiques de vérification.
+
 Depuis la racine du dépôt :
 
 ```sh

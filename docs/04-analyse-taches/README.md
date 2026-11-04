@@ -15,3 +15,7 @@ Le [compte rendu du 18 septembre](../../reunions/2026-09-18-arbre-des-taches.md)
 Les modèles et les synthèses T1–T5 ont été validés par toute l’équipe lors de la [réunion du 2 octobre](../../reunions/2026-10-02-validation-des-taches.md). Leurs questionnaires de validation sont clos.
 
 Le livrable commun est [tache.md](tache.md), attribué à Sami : il regroupe l’arbre T1–T5 et sera relu le 9 octobre avant sa transcription K-MADe. Les précisions restantes sont centralisées dans cette revue. Mireille reprend les parcours existants avec des visuels simplifiés.
+
+## Périmètre du prototype
+
+Le prototype est local et frontend : T5.2.2 (synchroniser, confirmer une transmission et reprendre après échec réseau) est décrit dans l’arbre pour couvrir le besoin, mais reste hors périmètre d’implémentation serveur. La conservation locale et son état visible sont les comportements effectivement évaluables. De même, T4 simule les publications et retours dans les données du navigateur ; il ne s’agit pas d’une communauté multi-utilisateur réelle.

@@ -1,5 +1,9 @@
 # Écran 01 — Connexion et création de compte
 
+## État courant — 4 novembre 2026
+
+Essayer sans compte est l’action principale. Les formulaires de connexion/création simulées restent dans un volet facultatif ; aucune authentification distante. Au premier lancement démo, trois questions facultatives précèdent Découvrir ; un profil déjà utilisé retrouve son écran disponible. La description détaillée ci-dessous conserve les décisions historiques ; les dimensions et la hiérarchie actuelles sont dans `commun/revamp.css` et [DR-001](../../../docs/05-decisions-conception/DR-001-revamp-ergonomie.md).
+
 ## État actuel — ajustement visuel du 22 octobre 2026
 
 Connexion et Essayer sans compte gardent leurs interactions. Les textes « Retrouve tes entraînements. » et « Profil de démonstration séparé, conservé sur cet appareil. » sont retirés. L’isolation du profil local reste effective.

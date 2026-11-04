@@ -288,3 +288,5 @@ dialog > p { font-size:15px; color:var(--muted); }
 .creation-suggestions { display:flex; flex-wrap:wrap; align-items:center; gap:4px 12px; font-size:13px; color:var(--muted); }
 body:has(#access-page:not([hidden])) .demo-note { display:none; }
 .access-page:has(.access-account:not([open])) .demo-access { border-bottom:0; padding-bottom:0; }
+/* Keep period labels readable inside a narrow summary card. */
+.analysis-periods .landing-button { flex:1 1 100px; min-width:min(100%,100px); padding-inline:10px; overflow-wrap:normal; }
