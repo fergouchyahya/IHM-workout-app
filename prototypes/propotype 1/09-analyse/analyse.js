@@ -162,6 +162,7 @@ window.AnalyseResultats = {
     const point = this.point(record,index), raw = selection.periodRaw || selection;
     return `<section class="review-exercise analysis-results" aria-labelledby="analysis-title">
       <h2 id="analysis-title">Analyse des résultats</h2>
+      <p class="analysis-intro"><strong>Une lecture simple de ta séance.</strong> On compare seulement les séries réellement faites dans des conditions comparables. Une première séance est déjà un repère utile.</p>
       <label>Exercice à comparer<select id="analysis-exercise">${record.session.exercises.map((exercise,i) => option(i,`${i+1}. ${exercise.name || window.catalogueExercices.find(item => item.id === exercise.exerciseId)?.name || 'Exercice personnel'}`,i === index)).join('')}</select></label>
       <p class="analysis-reference">${reference ? `Comparaison du ${p.escape(record.date)} avec le ${p.escape(reference.record.date)}` : 'Aucune séance précédente comparable avec des séries utilisables dans cette période. Première séance ou données insuffisantes : aucune progression déduite.'}</p>
       ${comparisons.length ? `<ul class="analysis-comparisons">${comparisons.map(item => {

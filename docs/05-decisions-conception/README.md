@@ -6,6 +6,10 @@ Consigner ici les décisions qui influencent durablement l’interface, avec leu
 
 Le [dossier de conception du prototype](<../../prototypes/propotype 1/README.md>) rassemble les choix transverses confirmés. Chaque écran sera documenté séparément, avec ses alternatives, justifications et transitions, puis validé avant son implémentation.
 
+## Décisions
+
+- [DR-001 — Revamp ergonomique du prototype](DR-001-revamp-ergonomie.md) : hiérarchie, navigation, lisibilité et adaptation aux écrans.
+
 ## Modèle de Design Record
 
 ```markdown

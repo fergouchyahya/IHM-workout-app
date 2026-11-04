@@ -126,9 +126,9 @@ window.BilanSeance = {
     if (!draft) return '<h1 tabindex="-1">Bilan indisponible</h1>';
     this.ensure(draft); const issues = this.issues(draft);
     return `<button id="review-back" type="button" class="text-action">← Reprendre la séance</button>
-      <p class="completion-step">Dernière étape · vérifier et enregistrer</p><h1 tabindex="-1">Terminer ma séance</h1>
+      <ol class="completion-steps" aria-label="Fin de séance"><li aria-current="step">1. Vérifier et enregistrer</li><li>2. Bilan conservé</li></ol><h1 tabindex="-1">Vérifier avant de terminer</h1>
       <p>${p.escape(draft.session.name)} · ${window.Calendrier.label(draft.date)}</p>
-      <p class="landing-lead">Vérifie tes résultats, ajoute une note si tu veux, puis enregistre ton bilan.</p>
+      <p class="landing-lead">Vérifie tes séries ci-dessous et corrige-les si besoin. La séance reste en cours jusqu’à « Terminer et enregistrer mon bilan ». La note est facultative.</p>
       <div id="review-counts-live">${this.countsMarkup(draft)}</div>
       <section id="review-issues" class="review-errors" ${issues.length ? '' : 'hidden'}>${this.issuesMarkup(draft)}</section>
       <p id="review-media-progress" class="form-help" role="status">${window.EnrichissementSeance.operationStatus(window.Entrainement.key,p.state.identity)}</p>
@@ -149,8 +149,8 @@ window.BilanSeance = {
     const p = window.Parcours, record = p.state.completedSessions.find(item => item.id === this.activeId);
     if (!record) return '<h1 tabindex="-1">Bilan introuvable</h1>';
     return `<button id="summary-calendar" type="button" class="text-action">← ${this.origin?.view === 'progress' ? 'Mes bilans' : 'Calendrier'}</button>
-      <h1 tabindex="-1">Séance terminée</h1><p>${p.escape(record.session.name)} · ${window.Calendrier.label(record.date)}</p>
-      <p class="ready-status">Bilan enregistré sur cet appareil</p><p class="landing-lead">Tes résultats et tes notes sont dans Bilans. Ils te serviront de repère pour ta prochaine séance.</p>
+      <ol class="completion-steps" aria-label="Fin de séance"><li>1. Vérifier et enregistrer</li><li aria-current="step">2. Bilan conservé</li></ol><h1 tabindex="-1">Séance terminée</h1><p>${p.escape(record.session.name)} · ${window.Calendrier.label(record.date)}</p>
+      <p class="ready-status completion-success"><span aria-hidden="true">✓</span> Bilan enregistré sur cet appareil</p><p class="landing-lead">Tes résultats et tes notes sont dans Bilans. Ils te serviront de repère pour ta prochaine séance.</p>
       <div class="summary-actions"><button id="summary-done" type="button" class="primary-action">Revenir au calendrier</button><button id="summary-history" type="button" class="landing-button">Voir mes bilans</button></div>
       ${this.countsMarkup(record)}${record.completion?.feeling ? `<p><strong>Ressenti global :</strong> ${p.escape(record.completion.feeling)}</p>` : ''}${record.completion?.note ? `<p class="summary-session-note"><strong>Note de séance :</strong> ${p.escape(record.completion.note)}</p>` : ''}${record.completion?.reminder ? `<p><strong>Rappel :</strong> ${p.escape(record.completion.reminder)}</p>` : ''}
       <details class="summary-next"><summary>Préparer la prochaine séance à partir de celle-ci</summary><button id="summary-new-session" type="button" class="landing-button">Choisir une date</button><button id="summary-plan-prepare" type="button" class="landing-button">Choisir une date et adapter les exercices</button></details>

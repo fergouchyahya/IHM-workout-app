@@ -12,7 +12,7 @@ Construire et justifier une proposition d’IHM adaptée aux besoins d’utilisa
 
 ## Périmètre
 
-Le projet couvre la recherche utilisateur, la conception, le prototypage et l’évaluation. Une intégration Figma peut compléter les documents versionnés ici. Aucun développement frontend ou backend n’est prévu dans ce dépôt à ce stade.
+Le projet couvre la recherche utilisateur, la conception, le prototypage et l’évaluation. Un prototype HTML/CSS/JavaScript exécutable localement permet de tester les parcours ; une intégration Figma peut compléter les documents versionnés ici. Il ne comporte ni serveur applicatif ni authentification réelle.
 
 ## Méthode de travail
 
@@ -38,13 +38,19 @@ Les hypothèses, décisions et résultats sont consignés au plus près de leur 
 - `docs/` : livrables de conception, organisés par étape.
 - `research/` : matériaux de recherche (concurrence, entretiens, observations).
 - `assets/` : captures, diagrammes et figures réutilisés dans les documents.
-- `prototypes/` : suivi des prototypes externes, notamment Figma.
+- `prototypes/` : prototype navigateur interactif et suivi des prototypes externes.
 - `reunions/` : ordres du jour, comptes rendus et actions.
 
 ## Outils utilisés
 
 - Markdown et Git pour les documents et les décisions ;
 - Figma pour les sketches, wireframes, maquettes et prototypes ;
+
+## Essayer le prototype
+
+Depuis la racine : `python3 -m http.server 8765 --bind 127.0.0.1`, puis ouvrir [le prototype](http://127.0.0.1:8765/prototypes/propotype%201/01-connexion/index.html) et choisir **Essayer sans compte**. Aucun paquet à installer ; Python 3 et un navigateur suffisent. Les données sont conservées dans le navigateur.
+
+Les parcours et commandes de vérification sont décrits dans le [README du prototype](<prototypes/propotype 1/README.md>).
 
 ## Fonctionnement de l’équipe
 

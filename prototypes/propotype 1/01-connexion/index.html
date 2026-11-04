@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#FEF2F2">
-  <title>Connexion — Propotype 1</title>
+  <meta name="theme-color" content="#f6f5f1">
+  <title>Connexion — Mon entraînement</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="../02-questions-rapides/styles.css">
@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="../07-partages/styles.css">
   <link rel="stylesheet" href="../08-entrainement/styles.css">
   <link rel="stylesheet" href="../commun/ergonomie.css">
+  <link rel="stylesheet" href="../commun/revamp.css">
   <script defer src="../commun/ergonomie.js"></script>
   <script defer src="../06-configuration-seance/exercices.js"></script>
   <script defer src="../06-configuration-seance/seance.js"></script>
@@ -26,6 +27,7 @@
   <script defer src="../05-organisation-semaine/calendrier.js"></script>
   <script defer src="../commun/disponibilites.js"></script>
   <script defer src="../commun/parcours.js"></script>
+  <script defer src="../commun/recherche.js"></script>
   <script defer src="../03-decouverte/seances.js"></script>
   <script defer src="../03-decouverte/programmes.js"></script>
   <script defer src="../03-decouverte/decouverte.js"></script>
@@ -39,72 +41,85 @@
   <script defer src="connexion.js"></script>
 </head>
 <body>
+  <a class="skip-link" href="#landing-page">Aller au contenu</a>
+  <header class="app-header">
+    <div class="app-brand"><span class="brand-symbol" aria-hidden="true">↗</span><span>Mon entraînement<small>À ton rythme.</small></span></div>
+    <span class="local-badge">Prototype · données sur cet appareil</span>
+  </header>
   <aside class="demo-note" aria-label="Cadre de démonstration">
     <p id="demo-screen">Prototype · Connexion</p>
     <p>Données fictives · aucune authentification réelle</p>
   </aside>
 
   <main id="access-page" class="access-page">
-    <div class="sport-mark" aria-hidden="true">
-      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-        <path d="M8 9v14M4 12v8m20-11v14m4-11v8M8 16h16"/>
-        <path class="mark-accent" d="M14 16h4"/>
-      </svg>
+    <div class="access-welcome">
+      <div class="access-intro">
+        <p class="eyebrow">TON CARNET D’ENTRAÎNEMENT</p>
+        <h1>Un repère pour<br> chaque séance.</h1>
+        <p>Prépare tes exercices, note tes séries et retrouve tes progrès.</p>
+      </div>
+      <div class="demo-access">
+        <p>Commence sans inscription. Tes séances restent sur cet appareil.</p>
+        <button id="try-demo" class="primary-action full" type="button">Essayer sans compte</button>
+      </div>
     </div>
+    <details class="access-account">
+      <summary>Utiliser un profil de démonstration</summary>
+      <p class="form-help">Facultatif · cet accès simule un compte, sans serveur.</p>
+      <div id="access-tabs" class="mode-tabs" role="tablist" aria-label="Accès au compte">
+        <button id="login-tab" type="button" role="tab" aria-selected="true" aria-controls="login-panel" tabindex="0">Connexion</button>
+        <button id="signup-tab" type="button" role="tab" aria-selected="false" aria-controls="signup-panel" tabindex="-1">Créer un compte</button>
+      </div>
 
-    <div id="access-tabs" class="mode-tabs" role="tablist" aria-label="Accès au compte">
-      <button id="login-tab" type="button" role="tab" aria-selected="true" aria-controls="login-panel" tabindex="0">Connexion</button>
-      <button id="signup-tab" type="button" role="tab" aria-selected="false" aria-controls="signup-panel" tabindex="-1">Créer un compte</button>
-    </div>
-
-    <section id="login-panel" role="tabpanel" aria-labelledby="login-tab">
-      <h1>Connexion</h1>
-      <form id="login-form" novalidate>
-        <div class="field">
-          <label for="login-identifier">E-mail ou nom d’utilisateur</label>
-          <input id="login-identifier" name="identifier" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="thomas.dubois" required aria-describedby="login-identifier-error">
-          <p id="login-identifier-error" class="error" aria-live="polite" hidden></p>
-        </div>
-        <div class="field">
-          <label for="login-password">Mot de passe</label>
-          <div class="password-field">
-            <input id="login-password" name="password" type="password" autocomplete="off" required aria-describedby="login-password-error">
-            <button type="button" class="password-toggle" data-password="login-password" aria-controls="login-password" aria-pressed="false" aria-label="Afficher le mot de passe">Afficher</button>
+      <section id="login-panel" role="tabpanel" aria-labelledby="login-tab">
+        <h2>Content de te retrouver</h2>
+        <p class="intro">Connecte-toi à ton profil de démonstration.</p>
+        <form id="login-form" novalidate>
+          <div class="field">
+            <label for="login-identifier">E-mail ou nom d’utilisateur</label>
+            <input id="login-identifier" name="identifier" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="thomas.dubois" required aria-describedby="login-identifier-error">
+            <p id="login-identifier-error" class="error" aria-live="polite" hidden></p>
           </div>
-          <p id="login-password-error" class="error" aria-live="polite" hidden></p>
-        </div>
-        <button id="forgot-password" class="text-action recovery-link" type="button" aria-haspopup="dialog" aria-controls="recovery-dialog">Mot de passe oublié ?</button>
-        <button class="primary-action" type="submit">Se connecter</button>
-      </form>
-    </section>
-
-    <section id="signup-panel" role="tabpanel" aria-labelledby="signup-tab" hidden>
-      <h1>Créer un compte</h1>
-      <p class="intro">Prépare ton premier entraînement.</p>
-      <form id="signup-form" novalidate>
-        <div class="field">
-          <label for="signup-email">E-mail</label>
-          <input id="signup-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="thomas@example.com" required aria-describedby="signup-email-error">
-          <p id="signup-email-error" class="error" aria-live="polite" hidden></p>
-        </div>
-        <div class="field">
-          <label for="signup-username">Nom d’utilisateur</label>
-          <input id="signup-username" name="username" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="thomas.dubois" required aria-describedby="signup-username-error">
-          <p id="signup-username-error" class="error" aria-live="polite" hidden></p>
-        </div>
-        <div class="field">
-          <label for="signup-password">Mot de passe</label>
-          <div class="password-field">
-            <input id="signup-password" name="password" type="password" autocomplete="off" required aria-describedby="signup-password-error">
-            <button type="button" class="password-toggle" data-password="signup-password" aria-controls="signup-password" aria-pressed="false" aria-label="Afficher le mot de passe">Afficher</button>
+          <div class="field">
+            <label for="login-password">Mot de passe</label>
+            <div class="password-field">
+              <input id="login-password" name="password" type="password" autocomplete="off" required aria-describedby="login-password-error">
+              <button type="button" class="password-toggle" data-password="login-password" aria-controls="login-password" aria-pressed="false" aria-label="Afficher le mot de passe">Afficher</button>
+            </div>
+            <p id="login-password-error" class="error" aria-live="polite" hidden></p>
           </div>
-          <p id="signup-password-error" class="error" aria-live="polite" hidden></p>
-        </div>
-        <button class="primary-action signup-submit" type="submit">Créer mon compte</button>
-      </form>
-    </section>
+          <button id="forgot-password" class="text-action recovery-link" type="button" aria-haspopup="dialog" aria-controls="recovery-dialog">Mot de passe oublié ?</button>
+          <button class="primary-action" type="submit">Se connecter</button>
+        </form>
+      </section>
 
-    <div class="demo-access"><button id="try-demo" class="landing-button full" type="button">Essayer sans compte</button></div>
+      <section id="signup-panel" role="tabpanel" aria-labelledby="signup-tab" hidden>
+        <h2>Créer un compte</h2>
+        <p class="intro">Prépare ton premier entraînement.</p>
+        <form id="signup-form" novalidate>
+          <div class="field">
+            <label for="signup-email">E-mail</label>
+            <input id="signup-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="thomas@example.com" required aria-describedby="signup-email-error">
+            <p id="signup-email-error" class="error" aria-live="polite" hidden></p>
+          </div>
+          <div class="field">
+            <label for="signup-username">Nom d’utilisateur</label>
+            <input id="signup-username" name="username" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="thomas.dubois" required aria-describedby="signup-username-error">
+            <p id="signup-username-error" class="error" aria-live="polite" hidden></p>
+          </div>
+          <div class="field">
+            <label for="signup-password">Mot de passe</label>
+            <div class="password-field">
+              <input id="signup-password" name="password" type="password" autocomplete="off" required aria-describedby="signup-password-error">
+              <button type="button" class="password-toggle" data-password="signup-password" aria-controls="signup-password" aria-pressed="false" aria-label="Afficher le mot de passe">Afficher</button>
+            </div>
+            <p id="signup-password-error" class="error" aria-live="polite" hidden></p>
+          </div>
+          <button class="primary-action signup-submit" type="submit">Créer mon compte</button>
+        </form>
+      </section>
+
+    </details>
     <noscript><p>Active JavaScript pour essayer les interactions de cette maquette.</p></noscript>
   </main>
 
@@ -118,7 +133,8 @@
       <h1 id="question-title" class="question-title" tabindex="-1"></h1>
       <p id="question-save-status" class="form-help" role="status"></p>
       <div id="question-choices" class="question-choices" role="group" aria-labelledby="question-title" aria-describedby="question-help"></div>
-      <p id="question-help" class="question-help">Choisis une réponse pour continuer.</p>
+      <p id="question-help" class="question-help">Tu pourras modifier ce choix dans tes préférences.</p>
+      <button id="question-continue" class="primary-action full" type="button" disabled>Continuer</button>
       <div class="question-navigation">
         <button id="question-back" class="question-back" type="button" hidden>← Question précédente</button>
         <button id="skip-one-question" class="text-action" type="button">Passer cette question →</button>
@@ -127,7 +143,7 @@
     </section>
   </main>
 
-  <main id="landing-page" class="landing-page" hidden></main>
+  <main id="landing-page" class="landing-page" tabindex="-1" hidden></main>
   <div id="landing-dock">
   <nav id="landing-navigation" aria-label="Navigation principale" hidden></nav>
   <div id="landing-notice" role="status" aria-live="polite"></div>

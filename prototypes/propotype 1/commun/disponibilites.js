@@ -28,7 +28,8 @@ window.Disponibilites = {
     let dialog = document.querySelector('#availability-dialog');
     if (!dialog) { dialog = document.createElement('dialog'); dialog.id = 'availability-dialog'; document.body.append(dialog); }
     dialog.setAttribute('aria-labelledby', 'availability-title');
-    dialog.innerHTML = `<h2 id="availability-title">Durée et disponibilités</h2><form id="availability-form">${this.fields(source)}<p id="availability-error" class="error" role="alert"></p><div class="week-actions"><button type="submit" class="primary-action">Enregistrer</button><button type="button" id="cancel-availability" class="text-action">Annuler</button></div></form>`;
+    dialog.innerHTML = `<h2 id="availability-title">Durée et disponibilités</h2><form id="availability-form">${this.fields(source)}<div class="duration-presets" role="group" aria-label="Durées courantes">${[15,30,45,60].map(minutes => `<button type="button" class="landing-button" data-duration="${minutes}" aria-pressed="${source.timeBudget === minutes}">${minutes} min</button>`).join('')}</div><p id="availability-error" class="error" role="alert"></p><div class="week-actions"><button type="submit" class="primary-action">Enregistrer</button><button type="button" id="cancel-availability" class="text-action">Annuler</button></div></form>`;
+    dialog.querySelectorAll('[data-duration]').forEach(button => { button.onclick = () => { dialog.querySelector('[name="timeBudget"]').value = button.dataset.duration; dialog.querySelectorAll('[data-duration]').forEach(option => option.setAttribute('aria-pressed',String(option === button))); }; });
     dialog.querySelector('#cancel-availability').onclick = () => dialog.close();
     dialog.querySelector('form').onsubmit = event => {
       event.preventDefault(); const value = this.read(event.target);

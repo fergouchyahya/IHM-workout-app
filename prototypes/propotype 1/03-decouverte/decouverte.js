@@ -16,7 +16,7 @@ window.Decouverte = {
     const p = window.Parcours;
     const favorite = p.state.favorites.includes(workout.id);
     const origin = [workout.source === 'community' ? workout.author : '',favorite ? '★ Favori' : '',p.state.saved.some(item => item.sourceId === workout.id) ? '✓ Déjà enregistré' : ''].filter(Boolean).join(' · ');
-    return `<button type="button" class="landing-card" data-workout="${workout.id}"><h3>${p.escape(workout.name)}</h3><p>Environ ${workout.duration} min · ${workout.level} · ${workout.exercises.length} exercices</p><p>${workout.equipment}</p><p>${workout.groups.join(' · ')}</p><p class="card-origin">${p.escape(origin)}</p></button>`;
+    return `<button type="button" class="landing-card" data-workout="${workout.id}"><h3>${p.escape(workout.name)}</h3><p>Environ ${workout.duration} min · ${workout.level} · ${workout.exercises.length} exercices</p><p>${workout.equipment}</p><p>${workout.groups.join(' · ')}</p>${origin ? `<p class="card-origin">${p.escape(origin)}</p>` : ''}<span class="card-link">Voir la séance <span aria-hidden="true">↗</span></span></button>`;
   },
   results() {
     const workouts = this.filtered(), plans = window.Programmes.filtered(), p = window.Parcours;
@@ -25,7 +25,7 @@ window.Decouverte = {
   },
   render() {
     const p = window.Parcours;
-    return `${p.greeting()}<h1 tabindex="-1">Découvrir</h1>${window.Entrainements.creationEntry()}<label for="search-session">Rechercher une séance ou un programme</label><input id="search-session" type="search" placeholder="Full Body, jambes…" value="${p.escape(p.state.search)}"><div class="filter-toolbar"><button id="filter-favorites" class="landing-button" type="button" aria-pressed="${!!p.state.ui.favoritesOnly}">★ Mes favoris</button><button id="open-filters" class="landing-button" type="button" aria-haspopup="dialog">Filtres</button></div><p class="form-help">Bibliothèque et critères actifs</p><div id="active-filters" class="active-filters"></div><div id="discovery-libraries" class="library-sections" aria-label="Bibliothèques" ${p.state.ui.favoritesOnly ? 'hidden' : ''}><button type="button" data-source="starter" aria-pressed="${p.state.source === 'starter'}">Pour commencer</button><button type="button" data-source="community" aria-pressed="${p.state.source === 'community'}">Communauté</button></div><div id="library-results">${this.results()}</div><div id="program-results">${window.Programmes.feedCards()}${window.Programmes.cards()}</div>`;
+    return `<div class="page-heading"><h1 tabindex="-1">Découvrir</h1><button type="button" class="landing-button" data-create-personal-session>+ Créer ma séance</button></div><p class="landing-lead">Trouve une séance qui te convient, puis adapte-la à ton rythme.</p><label for="search-session">Rechercher une séance ou un programme</label><input id="search-session" type="search" enterkeyhint="search" autocomplete="off" placeholder="Full Body, jambes…" value="${p.escape(p.state.search)}"><div class="quick-searches" aria-label="Recherches rapides"><span>Essayer :</span><button type="button" class="landing-button" data-quick-search="Full Body">Full Body</button><button type="button" class="landing-button" data-quick-search="jambes">Jambes</button><button type="button" class="landing-button" data-quick-level="Débutant">Débutant</button></div><div class="filter-toolbar"><button id="filter-favorites" class="landing-button" type="button" aria-pressed="${!!p.state.ui.favoritesOnly}">★ Mes favoris</button><button id="open-filters" class="landing-button" type="button" aria-haspopup="dialog">Filtres</button></div><div id="active-filters" class="active-filters"></div><div id="discovery-libraries" class="library-sections" aria-label="Bibliothèques" ${p.state.ui.favoritesOnly ? 'hidden' : ''}><button type="button" data-source="starter" aria-pressed="${p.state.source === 'starter'}">Pour commencer</button><button type="button" data-source="community" aria-pressed="${p.state.source === 'community'}">Communauté</button></div><div id="library-results">${this.results()}</div><div id="program-results">${window.Programmes.feedCards()}${window.Programmes.cards()}</div>`;
   },
   refresh() {
     const results = document.querySelector('#library-results');
@@ -51,6 +51,8 @@ window.Decouverte = {
       this.refresh();
     });
     document.querySelector('#filter-favorites').onclick = () => { window.Parcours.state.ui.favoritesOnly = !window.Parcours.state.ui.favoritesOnly; this.refresh(); };
+    document.querySelectorAll('[data-quick-search]').forEach(button => button.onclick = () => { const input = document.querySelector('#search-session'); window.Parcours.state.search = button.dataset.quickSearch; input.value = window.Parcours.state.search; this.refresh(); input.focus(); });
+    document.querySelectorAll('[data-quick-level]').forEach(button => button.onclick = () => { window.Parcours.state.search = ''; window.Parcours.state.filters.level = button.dataset.quickLevel; document.querySelector('#search-session').value = ''; this.refresh(); });
     document.querySelector('#open-filters').addEventListener('click', () => this.openFilters());
     document.querySelector('#landing-page').onclick = event => {
       const program = event.target.closest('[data-import-program]');

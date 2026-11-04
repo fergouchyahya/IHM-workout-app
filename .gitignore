@@ -15,3 +15,6 @@ prototypes/exports/
 # Supports de cours conservés localement
 /Cours5.pdf
 /Cours6.pdf
+
+# État temporaire du navigateur de vérification
+/.playwright-cli/

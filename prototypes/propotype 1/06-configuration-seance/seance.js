@@ -99,6 +99,7 @@ window.ConfigurationSeance = {
   bind() {
     const p = window.Parcours;
     this.bindReviewPoints();
+    this.bindPresets();
     document.querySelector('#workout-back').onclick = () => { if (this.stage === 'edit' && this.dirty()) this.changed(); p.returnTo(this.origin || {view:this.dayIndex !== null ? 'week' : this.calendarId ? 'mine' : 'library',identity:p.state.identity,baseId:this.base.id,scroll:0}); };
     document.querySelector('#share-personal-session')?.addEventListener('click',() => window.Partages.prepare(this.base));
     document.querySelector('#adapt-session')?.addEventListener('click',() => { this.stage = 'edit'; p.route('workout'); });
@@ -137,6 +138,22 @@ window.ConfigurationSeance = {
       if (!window.Calendrier.canChange([this.entry()])) return;
       this.dialog('Retirer cette occurrence ?', '<p>Cette date et ses objectifs seront retirés. Les autres dates et l’entraînement enregistré sont conservés.</p><div class="week-actions"><button id="confirm-calendar-delete" type="button" class="primary-action">Retirer cette occurrence</button><button id="cancel-exercise" type="button" class="text-action">Annuler</button></div>');
       document.querySelector('#confirm-calendar-delete').onclick = () => { p.state.calendar = p.state.calendar.filter(item => item.id !== this.calendarId); delete p.state.preparationDrafts[this.key]; document.querySelector('#exercise-dialog').close(); p.route('mine'); };
+    });
+  },
+  bindPresets() {
+    if (this.stage !== 'edit') return;
+    document.querySelectorAll('[data-card]').forEach(card => {
+      const index = Number(card.dataset.card), target = card.querySelector('.inline-targets');
+      if (!target || card.querySelector('.target-presets')) return;
+      const bar = document.createElement('div'); bar.className = 'target-presets'; bar.setAttribute('role','group'); bar.setAttribute('aria-label','Préréglages rapides');
+      bar.innerHTML = `<span>Remplir :</span><button type="button" class="text-action" data-preset="starter">3 séries de 8</button><button type="button" class="text-action" data-preset="volume">3 séries de 12</button>${!window.Parcours.isBeginner() ? '<button type="button" class="text-action" data-preset="strength">5 séries de 5</button>' : ''}`;
+      target.insertAdjacentElement('afterend',bar);
+      bar.querySelectorAll('[data-preset]').forEach(button => button.onclick = () => {
+        const values = {starter:[3,8],volume:[3,12],strength:[5,5]}[button.dataset.preset], exercise = this.session.exercises[index];
+        exercise.sets = values[0]; exercise.minReps = values[1]; exercise.maxReps = values[1]; exercise.repMode = 'fixed';
+        for (const key of ['sets','minReps','maxReps']) delete this.rawFields[`${exercise.slotId}:${key}`];
+        this.changed(); window.Parcours.route('workout'); document.querySelector(`[data-card="${index}"] input[data-field="load"]`)?.focus();
+      });
     });
   },
   dialog(title,content) {

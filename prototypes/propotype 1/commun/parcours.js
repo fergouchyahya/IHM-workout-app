@@ -111,10 +111,11 @@ window.Parcours = {
     let dialog = document.querySelector('#preference-dialog');
     if (!dialog) { dialog = document.createElement('dialog'); dialog.id = 'preference-dialog'; document.body.append(dialog); }
     const definitions = [['Niveau','level',0],['Objectif','goal',1],['Matériel','equipment',2]];
-    dialog.innerHTML = `<h2>Mes préférences</h2><p>Les changements conservent tes entraînements.</p>${definitions.map(([name,key,index]) => `<button class="picker-result" type="button" data-preference="${index}"><strong>${name}</strong><span>${this.escape(this.state.profile[key] || 'Non renseigné')}</span></button>`).join('')}<button class="picker-result" type="button" id="open-availability"><strong>Durée et disponibilités</strong><span>${this.escape(window.Disponibilites.summary(this.state.profile) || 'Non renseignées')}</span></button><button class="text-action" type="button" id="close-preferences">Fermer</button><button class="text-action" type="button" id="switch-profile">Changer de profil de démonstration</button>`;
+    dialog.innerHTML = `<h2 id="preferences-title">Mes préférences</h2><p>Ton niveau adapte les outils affichés. Tes entraînements et leurs détails sont conservés lorsque tu changes de niveau.</p>${definitions.map(([name,key,index]) => `<button class="picker-result" type="button" data-preference="${index}"><strong>${name}</strong><span>${this.escape(this.state.profile[key] || 'Non renseigné')}</span></button>`).join('')}<button class="picker-result" type="button" id="open-availability"><strong>Durée et disponibilités</strong><span>${this.escape(window.Disponibilites.summary(this.state.profile) || 'Non renseignées')}</span></button><button class="text-action" type="button" id="close-preferences">Fermer</button><button class="text-action" type="button" id="switch-profile">Changer de profil de démonstration</button>`;
+    dialog.setAttribute('aria-labelledby','preferences-title');
     dialog.querySelector('#open-availability').onclick = () => { dialog.close(); window.Disponibilites.open(); };
     dialog.querySelector('#close-preferences').onclick = () => dialog.close();
-    dialog.querySelector('#switch-profile').onclick = () => { dialog.close(); this.persist(); document.querySelector('#landing-page').hidden = true; document.querySelector('#landing-navigation').hidden = true; document.querySelector('#access-page').hidden = false; document.querySelector('#login-identifier').focus(); };
+    dialog.querySelector('#switch-profile').onclick = () => { dialog.close(); this.persist(); document.querySelector('#landing-page').hidden = true; document.querySelector('#landing-navigation').hidden = true; document.querySelector('#access-page').hidden = false; document.querySelector('.access-account').open = true; document.querySelector('#login-identifier').focus(); };
     dialog.querySelectorAll('[data-preference]').forEach(button => { button.onclick = () => { dialog.close(); document.querySelector('#landing-page').hidden = true; document.querySelector('#landing-navigation').hidden = true; window.QuestionsRapides.start({name:this.state.name,reset:false,answers:this.state.profile,field:Number(button.dataset.preference),returnToLogin:() => this.returnFromPreferences(),onComplete:() => this.returnFromPreferences(true),editing:true}); }; });
     dialog.showModal();
   },
@@ -208,9 +209,10 @@ window.Parcours = {
     dock?.querySelectorAll('.preparation-footer, .training-navigation').forEach(footer => footer.remove());
     page.onclick = null;
     const labels = { discover:'Découvrir', mine:'Calendrier', library:'Mes entraînements', create:'Créer un entraînement', week:'Organiser ma semaine', workout:'Préparer une séance', training:'Entraînement', progress:'Bilans', review:'Vérifier le bilan', summary:'Bilan conservé', sharing:'Partages' };
-    document.title = `${labels[view]} — Propotype 1`;
+    document.title = `${labels[view]} — Mon entraînement`;
     document.querySelector('#demo-screen').textContent = `Prototype`;
     page.classList.toggle('has-calendar',view === 'mine');
+    page.setAttribute('data-view',view);
     page.innerHTML = view === 'discover' ? window.Decouverte.render()
       : view === 'mine' ? window.Entrainements.render()
       : view === 'library' ? window.Entrainements.renderLibrary()
@@ -224,7 +226,8 @@ window.Parcours = {
       : view === 'sharing' ? window.Partages.render()
       : '<h1 tabindex="-1">Bilans</h1><p class="landing-lead">Tes séances terminées et leurs résultats apparaîtront ici.</p><p class="landing-hint">Aucun résultat dans cette démonstration.</p>';
     if (['discover','mine','library','progress'].includes(view) || view === 'sharing' && window.Partages.stage === 'list') {
-      page.insertAdjacentHTML('afterbegin','<div class="global-controls"><button id="open-preferences" class="text-action" type="button">Mes préférences</button></div>');
+      page.insertAdjacentHTML('afterbegin',`<div class="global-controls">${this.greeting() || '<span class="workspace-label">MON ESPACE</span>'}<div class="workspace-actions"><button id="open-quick-search" class="landing-button" type="button" aria-haspopup="dialog">⌕ <span>Trouver</span></button><button id="open-preferences" class="text-action" type="button">Mes préférences</button></div></div>`);
+      page.querySelector('#open-quick-search').onclick = () => window.RechercheRapide.open();
       page.querySelector('#open-preferences').onclick = () => this.openPreferences();
     }
     if (view === 'discover') window.Decouverte.bind();
@@ -241,7 +244,7 @@ window.Parcours = {
     page.querySelectorAll('[data-create-personal-session]').forEach(button => { button.onclick = () => window.Entrainements.startCreation(); });
     const nav = document.querySelector('#landing-navigation');
     nav.hidden = view === 'create' || view === 'week' || view === 'workout' || view === 'training' || view === 'review';
-    nav.innerHTML = [['discover','Découvrir','⌕'],['mine','Calendrier','▦'],['library','Mes entraînements','▤'],['sharing','Partages','↗'],['progress','Bilans','▥']].map(([id,label,icon]) => `<button type="button" data-page="${id}" ${view === id ? 'aria-current="page"' : ''}><span aria-hidden="true">${this.icon(id)}</span>${label}</button>`).join('');
+    nav.innerHTML = [['mine','Calendrier','▦'],['library','Mes entraînements','▤'],['discover','Découvrir','⌕'],['sharing','Partages','↗'],['progress','Bilans','▥']].map(([id,label,icon]) => `<button type="button" data-page="${id}" ${(view === id || id === 'progress' && view === 'summary') ? 'aria-current="page"' : ''}><span aria-hidden="true">${this.icon(id)}</span>${label}</button>`).join('');
     if (dock) { const footer = page.querySelector('.preparation-footer, .training-navigation'); if (footer) dock.prepend(footer); }
     window.Ergonomie.bind();
     const focus = focusSelector && (page.querySelector(focusSelector) || dock?.querySelector(focusSelector));
@@ -284,6 +287,14 @@ window.Parcours = {
 document.querySelector('#landing-navigation').addEventListener('click', event => {
   const button = event.target.closest('[data-page]');
   if (button) window.Parcours.route(button.dataset.page);
+});
+
+// Focus the content without adding a fragment to the application's route history.
+document.querySelector('.skip-link')?.addEventListener('click', event => {
+  event.preventDefault();
+  const page = document.querySelector('#landing-page');
+  page.focus();
+  page.scrollIntoView({block:'start'});
 });
 
 window.Parcours.state = window.Parcours.defaults();

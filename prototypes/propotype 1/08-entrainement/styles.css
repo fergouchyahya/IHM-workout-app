@@ -16,3 +16,30 @@
 .training-navigation { display:flex; gap:10px; margin-top:24px; }
 .training-navigation button { flex:1; min-width:0; font-size:12px; }
 .training-navigation button:disabled { opacity:.45; }
+
+/* Training is used with one hand between sets: keep the current context visible
+   and make the two values easy to hit on a phone. */
+.training-progress-row { position:sticky; top:0; z-index:4; padding:10px 0; background:color-mix(in srgb,#f6f5f1 94%,transparent); backdrop-filter:blur(8px); border-bottom:1px solid #dce0da; }
+.training-progress-row p { margin:0; }
+.training-active-tools { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:40px; }
+.training-set.is-current { border-color:var(--primary,#a51f32); box-shadow:0 0 0 2px color-mix(in srgb,var(--primary,#a51f32) 14%,transparent); }
+.training-set input, .training-set select { min-height:48px; font-size:18px; padding:10px 12px; }
+.training-set label { font-size:13px; }
+.training-set .set-status { min-height:1.5em; }
+.training-stepper { display:flex; align-items:stretch; gap:4px; margin-top:6px; }
+.training-number-field { min-width:0; }
+.training-number-field > label { display:block; }
+.training-stepper input { flex:1; min-width:0; margin-top:0 !important; }
+.stepper-button { width:42px; border:1px solid #c9d0ca; border-radius:9px; background:#fff; color:var(--ink,#242a2b); font-size:21px; line-height:1; }
+.stepper-button:active { background:#edf3f7; }
+.training-set[data-outcome="completed"] { border-left:4px solid #2e7d5a; }
+.training-set[data-outcome="interrupted"] { border-left:4px solid #bd7b20; }
+.training-set[data-outcome="skipped"] { border-left:4px solid #7b8580; background:#fafbf9; }
+.training-navigation { padding:10px 0; }
+.training-navigation button { min-height:48px; font-size:14px; }
+@media (max-width:600px) {
+  .training-result-fields { grid-template-columns:1fr 1fr; gap:8px; }
+  .training-set { padding:12px 10px; }
+  .training-set input, .training-set select { width:100%; }
+  .training-progress-row { margin-inline:-8px; padding-inline:8px; }
+}

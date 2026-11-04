@@ -13,6 +13,18 @@ window.QuestionsRapides = (() => {
   let returnToLogin;
   let onComplete;
   let nextTimer;
+  const descriptions = {
+    'Débutant':'Je découvre ou je reprends. Des repères simples, une série à la fois.',
+    'Intermédiaire':'Je connais mes exercices. Je veux ajuster mes séances et suivre mon effort.',
+    'Avancé':'Je construis mes cycles et je règle précisément mes cibles et mon suivi.',
+    'Gagner en force':'Travailler ma capacité à soulever plus lourd.',
+    'Développer mes muscles':'M’entraîner pour développer ma masse musculaire.',
+    'Rester actif':'Bouger régulièrement et retrouver de bonnes habitudes.',
+    'Salle équipée':'Machines, barres et haltères à disposition.',
+    'Haltères à la maison':'Des séances avec des haltères et peu de matériel.',
+    'Sans matériel':'Des exercices au poids du corps.'
+  };
+  const continueButton = document.querySelector('#question-continue');
   let editing = false;
   let editingField = null;
   let owner;
@@ -34,7 +46,10 @@ window.QuestionsRapides = (() => {
     document.querySelector('#skip-questions').textContent = editing ? 'Conserver mes réponses' : 'Passer le reste';
     document.querySelector('#skip-one-question').hidden = editing;
     const question = window.questionsDefinitions[current];
-    document.title = `Question ${current + 1} sur 3 — Propotype 1`;
+    document.title = `Question ${current + 1} sur 3 — Mon entraînement`;
+    continueButton.disabled = !answers[question.field];
+    continueButton.textContent = editing ? 'Enregistrer ce choix' : current === 2 ? 'Découvrir mes entraînements' : 'Continuer';
+    document.querySelector('#question-help').textContent = current === 0 ? 'Ce choix adapte les outils affichés. Tu peux le modifier à tout moment.' : 'Tu pourras modifier ce choix dans tes préférences.';
     document.querySelector('#question-number').textContent = `Question ${current + 1} sur 3`;
     document.querySelector('#question-progress').setAttribute('aria-valuenow', String(current + 1));
     document.querySelectorAll('#question-progress span').forEach((segment, index) => segment.classList.toggle('active', index <= current));
@@ -54,7 +69,9 @@ window.QuestionsRapides = (() => {
       button.dataset.choice = choice;
       button.setAttribute('aria-pressed', String(answers[question.field] === choice));
       const label = document.createElement('span');
-      label.textContent = choice;
+      const heading = document.createElement('strong'); heading.textContent = choice;
+      const description = document.createElement('small'); description.textContent = descriptions[choice] || '';
+      label.append(heading,description);
       const mark = document.createElement('span');
       mark.className = 'answer-mark';
       mark.setAttribute('aria-hidden', 'true');
@@ -87,11 +104,13 @@ window.QuestionsRapides = (() => {
       option.setAttribute('aria-pressed', String(selected));
       option.querySelector('.answer-mark').textContent = selected ? '✓' : '';
     });
-    nextTimer = setTimeout(() => {
-      nextTimer = null;
-      if (editing || current === 2) finish();
-      else { current++; render(); }
-    }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 120);
+    continueButton.disabled = false;
+  });
+
+  continueButton.addEventListener('click', () => {
+    if (!answers[window.questionsDefinitions[current].field] || window.Parcours.state.identity !== owner) return;
+    if (editing || current === 2) finish();
+    else { current++; render(); }
   });
 
   back.addEventListener('click', () => {

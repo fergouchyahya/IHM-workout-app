@@ -46,3 +46,19 @@ test('one shared rest action replaces repeated row buttons without changing the 
  const {t,draft:d,p}=app();p.state.profile.level='Avancé';const before=JSON.stringify(d.results),html=t.render();
  assert.equal((html.match(/data-rest-set=/g)||[]).length,1);assert.equal(JSON.stringify(d.results),before);
 });
+
+test('trailing and repeated spaces preserve matches in discovery, personal workouts and history',()=>{
+ const {p,w,b}=app();
+ const name='Haut du corps';
+ p.state.saved=[{id:'personal',name,organization:'Séance seule',exercises:[]}];
+ p.state.completedSessions=[{id:'finished',session:{name},date:'2026-11-04'}];
+ const source=w.catalogueSeances[0];p.state.source=source.source;p.state.filters={};
+ for(const suffix of ['', ' ', '   ']){
+  p.state.search=source.name+suffix;
+  assert.equal(w.Decouverte.filtered().some(item=>item.id===source.id),true);
+  p.state.ui.savedSearch='  Haut   du corps'+suffix;
+  assert.match(w.Entrainements.libraryResults(),/data-personal="personal"/);
+  p.state.ui.historySearch='  Haut   du corps'+suffix;
+  assert.equal(b.filteredHistory()[0]?.id,'finished');
+ }
+});

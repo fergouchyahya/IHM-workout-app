@@ -137,6 +137,7 @@ function returnToLogin(identifier = '') {
   selectMode(tabs[0]);
   clearFormErrors(loginForm);
   document.querySelector('#access-page').hidden = false;
+  document.querySelector('.access-account').open = true;
   document.title = 'Connexion — Propotype 1';
   document.querySelector('#demo-screen').textContent = 'Prototype · Connexion';
   loginForm.elements.identifier.value = identifier;
@@ -200,5 +201,6 @@ if (/^(username|email):/.test(window.Parcours.state.identity)) loginForm.element
 document.querySelector('#try-demo').addEventListener('click',() => {
   clearPasswords(); window.Parcours.switchIdentity('demo:local');
   document.querySelector('#access-page').hidden = true;
-  window.Parcours.start({name:'Profil démo',answers:window.Parcours.state.profile,reset:false});
+  if (window.Parcours.state.onboardingComplete) window.Parcours.start({name:'Profil démo',answers:window.Parcours.state.profile,reset:false});
+  else window.QuestionsRapides.start({name:'',reset:true,returnToLogin});
 });

@@ -1,6 +1,21 @@
 # Prototype 1 — entraînements
 
-## État actuel — 2 novembre 2026
+## Revamp ergonomique — 4 novembre 2026
+
+Branche locale : `revamp/ergonomie-interface`. La présentation commune est définie dans `commun/revamp.css`, chargée après les styles des écrans. L’interface s’intitule **Mon entraînement**.
+
+- Navigation stable : Calendrier, Mes entraînements, Découvrir, Partages, Bilans ; le bilan détaillé conserve Bilans comme repère actif.
+- Créer ma séance et Ajouter sont accessibles dans l’en-tête du calendrier ; bonjour et préférences sur une seule ligne. Découvrir privilégie la recherche avec une création compacte à côté du titre.
+- Connexion en deux colonnes sur grand écran, en une colonne sur téléphone ; Essayer sans compte précède le formulaire dans l’ordre de lecture.
+- Fonds neutres, surfaces blanches, textes secondaires renforcés, champs de résultats agrandis, sélection bleue distincte des marqueurs de séance rouges et du repos vert. Les états gardent leurs libellés.
+- Cartes en deux colonnes dès 760 px pour découvrir et retrouver ses entraînements ; saisie concentrée dans une colonne. Actions fixes et espace réservé utilisent toujours la hauteur réelle du dock.
+- Accès clavier Aller au contenu sans changement de route, focus visible, aide clavier du calendrier révélée à la navigation, effets limités aux préférences autorisant le mouvement.
+
+Retour utilisateur : la sortie d’entraînement se nomme **Vérifier et terminer…**. La vérification explique que la séance reste en cours jusqu’à confirmation ; un repère distingue « Vérifier et enregistrer » de « Bilan conservé ». Les protections existantes contre la molette et les espaces en recherche sont conservées.
+
+Les justifications et limites figurent dans la [décision de conception](../../docs/05-decisions-conception/DR-001-revamp-ergonomie.md). Les règles métier ci-dessous restent la référence.
+
+## État fonctionnel — 2 novembre 2026
 
 Ce prototype cliquable couvre **T1 : préparer et organiser**, puis **T2 : réaliser, documenter et conserver une séance** et **T3 : analyser les résultats**. Le parcours principal est Découvrir → copie personnelle → préparation → entraînement → vérification → bilan conservé. Le calendrier est l’espace de planification ; **Mes entraînements est une page distincte**, accessible dans la navigation, pour rechercher, créer, préparer, planifier ou supprimer une séance ou un programme. Les autres espaces sont Découvrir, Partages et Bilans.
 
@@ -36,8 +51,21 @@ Ouvrir `http://127.0.0.1:8765/prototypes/propotype%201/01-connexion/index.html`.
 - **Conserver les absences.** Vide = non renseigné ; **0 kg = sans charge ajoutée**. Une série n’est déclarée Non faite que par une action explicite. Faite, Interrompue, Non faite, Partielle et Non renseignée restent distinctes. Une valeur invalide garde la dernière valeur valide séparée de la saisie brute et bloque l’archivage jusqu’à correction. Une omission autorisée peut être conservée après avertissement.
 - **Corriger et enrichir.** Saisie autosauvegardée sans validation par série ; recopie explicite d’un résultat précédent complet et valide, annulable ; charge seule également disponible sans inventer d’autres valeurs. État/effort initial facultatifs ; un seul contexte général, raisons par série, notes, accès direct au réglage utilisé et médias disponibles sans obligation de les remplir. L’avancement distingue les statuts ; Série suivante sélectionne sans déclarer de réalisation. Les médias affichent leurs opérations et proposent un réessai par fichier ; une annulation asynchrone échouée reste réessayable. Les préférences de suivi changent leur visibilité prioritaire, sans supprimer de données. Le RPE est masqué au débutant en préparation, entraînement, adaptation, bilan et aperçu public ; le ressenti global reste facultatif.
 - **Terminer délibérément.** Quitter garde l’exécution en cours. Vérifier le bilan permet les corrections ciblées, omissions, ressenti final et rappels. La revue propose une correction réelle sur place, sans modifier les cibles ; son accès avancé retrouve la ligne au retour. La confirmation crée un seul bilan en lecture seule avec notes/médias, puis protège l’occurrence terminée. Bilans propose recherche par nom, regroupement par date et tri, conservés au retour. Un bilan peut servir de référence ou de source pour une nouvelle occurrence indépendante.
-- **Revenir au contexte utile.** Les messages et les actions fixes partagent une zone basse ; son espace est réservé selon sa hauteur réelle, sans masquer les champs. Retour/Suivant restaure l’écran, son objet et le défilement, sans étape par frappe. Le même profil retrouve un écran encore disponible après rechargement. Les préférences sont accessibles depuis les espaces principaux et reviennent à l’origine avec les critères actifs ; un objet supprimé replie vers Calendrier. Les dialogues et l’accès/questionnaire ne sont pas des entrées de cet historique ; le questionnaire conserve séparément réponses et position par profil. Essayer sans compte ouvre un profil démo isolé, sans mot de passe à saisir. Dans les questions, Précédente et Passer cette question sont alignés sous l’aide ; la première question n’a aucun retour vers la connexion.
+- **Revenir au contexte utile.** Les messages et les actions fixes partagent une zone basse ; son espace est réservé selon sa hauteur réelle, sans masquer les champs. Retour/Suivant restaure l’écran, son objet et le défilement, sans étape par frappe. Le même profil retrouve un écran encore disponible après rechargement. Les préférences sont accessibles depuis les espaces principaux et reviennent à l’origine avec les critères actifs ; un objet supprimé replie vers Calendrier. Les dialogues et l’accès/questionnaire ne sont pas des entrées de cet historique ; le questionnaire conserve séparément réponses et position par profil. Essayer sans compte ouvre un profil démo isolé, sans mot de passe à saisir. Au premier lancement, trois questions facultatives expliquent les choix ; Continuer confirme chaque réponse. Les accès simulés par compte restent dépliables depuis l’accueil. Dans les questions, Précédente et Passer cette question sont alignés sous l’aide ; la première question n’a aucun retour vers la connexion.
 - **Présenter les critères réels.** Découvrir filtre par bibliothèque, nom, niveau, matériel, zone et durée ; compte séances et programmes ensemble. L’objectif sportif ne produit pas une personnalisation non implémentée. Mes favoris filtre les séances des deux bibliothèques, avec les critères explicites conservés. Le budget temps ne modifie pas les résultats tant qu’aucun filtre de durée n’est choisi ; les textes explicatifs de tri, de provenance initiale et de suggestion demandés ont été retirés. Les longs programmes se consultent par semaines dépliables avant import/partage.
+
+## Simplification des saisies
+
+Le niveau conserve les trois modes existants : débutant (champs essentiels), intermédiaire (suivi de l’effort et outils groupés), avancé (cycles et échéances). Changer de niveau masque les outils concernés sans effacer leurs valeurs.
+
+- Création : suggestions de noms et préréglages explicites de séries/répétitions dans la préparation. Les charges restent à renseigner.
+- Organisation : Aujourd’hui/Demain dans le placement et durées courantes dans les disponibilités.
+- Réalisation : réglages de charge par 0,5 kg et répétitions par une unité, uniquement sur une valeur déjà renseignée ; les champs vides restent vides. Les valeurs françaises avec virgule sont acceptées.
+- Partage : description et commentaires dépliables, compteurs de caractères et aperçu avant confirmation.
+
+Les parcours ont aussi été vérifiés dans Chromium en fin de passe : premier lancement, recherche transversale, placement demain, saisie mobile avec virgule, bilan, préréglages, changement de niveau et reprise après rechargement. Les captures `output/playwright/seamless-*.png` montrent les écrans contrôlés.
+
+Les principes de formulaire s’appuient sur les [recommandations W3C](https://www.w3.org/WAI/tutorials/forms/) et la [révélation progressive](https://www.nngroup.com/articles/progressive-disclosure/). Ils restent à évaluer auprès d’utilisateurs réels.
 
 ## Écrans et modules
 
@@ -53,7 +81,7 @@ Ouvrir `http://127.0.0.1:8765/prototypes/propotype%201/01-connexion/index.html`.
 | [08-entrainement](08-entrainement/README.md) | T2.1–T2.4 : préparation de l’effort, saisie, enrichissements, clôture et bilan |
 | [09-analyse](09-analyse/README.md) | T3 dans les bilans : comparaisons, records explicites, contexte et point à revoir en T1 |
 
-`commun/parcours.js` porte navigation, identité et sauvegarde ; `commun/ergonomie.js` porte nombres français, validation et clavier ; `commun/disponibilites.js` porte durée/jours disponibles. Aucun framework ni compilation n’est requis.
+`commun/recherche.js` propose un accès local aux rubriques, entraînements enregistrés et bilans depuis Trouver ou Ctrl/Cmd + K. `commun/parcours.js` porte navigation, identité et sauvegarde ; `commun/ergonomie.js` porte nombres français, validation et clavier ; `commun/disponibilites.js` porte durée/jours disponibles. Aucun framework ni compilation n’est requis.
 
 ## Conservation et limites
 
@@ -86,7 +114,7 @@ node tests/profile-library.test.cjs
 node tests/repeated-session-history.test.cjs
 ```
 
-**146 tests ciblés réussis** sur seize suites : T1/T2, analyse T3, intégration communautaire, régressions des passes précédentes et trois régressions liées au retour utilisateur (espaces en recherche, contexte de création et molette). Les optimisations du 23 octobre sont consignées en section 19 de l’audit : brouillons par exercice, Undo protégé, références utilisables, résultats avant détails, périodes rapides, points modifiables/résolus, contexte ciblé, planification vers préparation, recopie réelle précédente, outils de série regroupés, recherche stable et zone basse mesurée. Les 49 propositions de l’audit initial sont implémentées. Une itération supplémentaire répond au retour qualitatif fourni le 2 novembre ; son efficacité reste à évaluer. Les évaluations complémentaires restent à réaliser, notamment pour comparer sélection de date et confirmation de partage. Les ajustements de navigation/niveau et les références de séances répétées sont consignés en sections 16 et 17 de l’[audit ergonomique](../../docs/07-evaluation/audit-ergonomie-cours5-6.md). Les tests vérifient des comportements ; ils ne remplacent pas l’évaluation de l’ergonomie auprès d’utilisateurs.
+**Seize fichiers de tests réussis** avec `node --test tests/*.test.cjs` : T1/T2, analyse T3, intégration communautaire, régressions des passes précédentes et trois régressions liées au retour utilisateur (espaces en recherche, contexte de création et molette). Les optimisations du 23 octobre sont consignées en section 19 de l’audit : brouillons par exercice, Undo protégé, références utilisables, résultats avant détails, périodes rapides, points modifiables/résolus, contexte ciblé, planification vers préparation, recopie réelle précédente, outils de série regroupés, recherche stable et zone basse mesurée. Les 49 propositions de l’audit initial sont implémentées. Une itération supplémentaire répond au retour qualitatif fourni le 2 novembre ; son efficacité reste à évaluer. Les évaluations complémentaires restent à réaliser, notamment pour comparer sélection de date et confirmation de partage. Les ajustements de navigation/niveau et les références de séances répétées sont consignés en sections 16 et 17 de l’[audit ergonomique](../../docs/07-evaluation/audit-ergonomie-cours5-6.md). Les tests vérifient des comportements ; ils ne remplacent pas l’évaluation de l’ergonomie auprès d’utilisateurs.
 
 ## Références de conception
 
