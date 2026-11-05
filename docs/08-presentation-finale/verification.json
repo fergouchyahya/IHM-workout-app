@@ -1,0 +1,83 @@
+{
+  "structure": {
+    "count": 44,
+    "main": 17,
+    "seconds": 815,
+    "brokenImages": [],
+    "missingLinks": [],
+    "externalLinks": [],
+    "sourceFooters": 0,
+    "bulletNotes": 44,
+    "personaPrivacy": true,
+    "klm": "13 · KEYSTROKE · TEMPS DE SAISIE MODÉLISÉTrois façons de noter 20 kg et 10 répétitions\n    Le parcours de Thomas : charge et répétitions, sans champ RPE.A · Chaque champ à la souris6,35 sM + 2P + 6K + 4HB · Passer au suivant avec Entrée4,45 sM + P + 6K + 2HC · Recopier une série identique2,65 sM + P + KEntrée évite un pointage ; la recopie évite une nouvelle saisie lorsque les résultats sont identiques.Détail des calculs ↗Opérateurs et extension ↗14 / G6",
+    "humanEvidence": "09 · TESTS UTILISATEURSDes retours convergents sur quatre difficultés\n    Test filméUne participante réalise T1 et T2 et accepte l’enregistrement.Test sans vidéoUne autre personne réalise le parcours complet et formule les mêmes retours.\n    01 · NavigationCréer sa propre séance est difficile à trouver.02 · InteractionLa molette modifie des répétitions pendant le défilement.03 · RechercheUn espace final perturbe les résultats.04 · Fin de séanceLa clôture et l’enregistrement ne sont pas assez clairs.\n    L’intérêt du suivi doit aussi être clair face aux notes déjà utilisées sur téléphone.Voir le test filmé T1 / T2 ↗Synthèse des retours ↗10 / G6"
+  },
+  "layout": [],
+  "browserErrors": [],
+  "externalRequests": [],
+  "failures": [],
+  "pdf": "output/pdf/G6.pdf",
+  "humanEvidenceSource": "Team account of iterations and filmed T1/T2 plus unfilmed full test",
+  "lastVersionRetested": false,
+  "passed": true,
+  "dateParis": "2026-11-05",
+  "baseline": "703a06e",
+  "pdfPageCount": 44,
+  "pdfTitleReadback": "44/44 slide titles match",
+  "firstPageMembers": "4/4 match",
+  "pdfTextChecks": {
+    "pageCount": 44,
+    "titlesMatched": 44,
+    "missingTitles": [],
+    "firstPageMembers": {
+      "Marie YU-BARREAU": true,
+      "Matthieu MULLER": true,
+      "Sami ZEFIZEF": true,
+      "Yahya FERGOUCH": true
+    },
+    "forbiddenFound": [],
+    "gregPages": [
+      3,
+      20
+    ],
+    "klmMainValues": {
+      "6,35": true,
+      "4,45": true,
+      "2,65": true
+    },
+    "klmExtension": {
+      "39,40": true,
+      "28,00": true,
+      "20,80": true
+    }
+  },
+  "klmRecomputedSeconds": {
+    "A": 6.35,
+    "B": 4.45,
+    "C": 2.65
+  },
+  "klmSixSeriesSeconds": {
+    "A": 39.4,
+    "B": 28.0,
+    "C": 20.8
+  },
+  "prototypeJourneys": "P1 skeleton captured; P2/P3 Thomas beginner: two fields without RPE, Enter, recopy, correction, protected undo, leave/resume/reload, one completed archive passed",
+  "applicationCodeChanged": false,
+  "applicationTests": "Not rerun in this presentation-only revision; no application or test files changed",
+  "javascriptSyntax": "node --check passed for slides, presentation, capture and verification scripts",
+  "localVideoControls": "Temporary generated 1-second WebM: local blob playback readyState 4, pause on dialog close passed; fixture not included in deliverable",
+  "participantVideo": "Not supplied: path received is the T2 PNG; local file chooser ready, recording content not inspected",
+  "humanEvidence": "Iterations, filmed T1/T2 and full unfilmed test reported by the group; see retours-et-participants.md",
+  "rehearsal": "Not performed; 815-second content budget plus 85-second reserve",
+  "emailSubmission": "Not sent; draft and confirmation checklist in meeting document",
+  "pdfSha256": "9ccd537faf09f1d1463f60f226da835cc9af895759e9018f179a64ef24cbca73",
+  "pdfVisualReview": "44/44 regenerated PDF pages rendered and inspected; red marker spacing reviewed in prototype, persona, test and search slides",
+  "mainPreview": "output/pdf/G6-apercu.png",
+  "sourceAndAssetReferences": "20 source hashes, 5 presentation/guide hashes, 38 capture hashes, 11 derived asset hashes and local Markdown links resolved",
+  "redMarkers": {
+    "checked": 41,
+    "issues": []
+  },
+  "speakingGuide": "script-oral.md: 17 main-slide cue sections, 27 appendix cue sections, appendix mapping and criterion-by-criterion assessment; bullet notes available through N on every slide",
+  "speakingNotesDisplay": "Browser checked: bullet rendering visible, scrollable panel remains inside viewport, hidden on PDF export"
+}

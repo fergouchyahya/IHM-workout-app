@@ -1,0 +1,668 @@
+{
+  "baseline": "703a06e",
+  "group": 6,
+  "prepared": "2026-11-05",
+  "revision": "Thomas · retours du groupe",
+  "humanEvidenceSource": "retours-et-participants.md",
+  "sources": {
+    "rubric": {
+      "label": "Grille et consignes fournies",
+      "detail": "Images fournies par le groupe : 20 points ; 15 min + 5 min de questions ; envoi le 5 novembre avant 20 h ; soutenance le 6 novembre, F316, 8 h–12 h."
+    },
+    "starter": {
+      "label": "Training App.pdf",
+      "detail": "PDF Canva fourni, 17 pages, export du 5 novembre 2026. P. 13 : une utilisatrice ; p. 15 : corrections encore annoncées comme envisagées."
+    },
+    "problem": {
+      "label": "Problème et périmètre",
+      "file": "docs/01-probleme/probleme-v1.md"
+    },
+    "research": {
+      "label": "Synthèse de concurrence",
+      "file": "research/analyse-concurrence/synthese-concurrence.md"
+    },
+    "personas": {
+      "label": "Personas : statut et index",
+      "file": "docs/02-utilisateurs-personas/README.md"
+    },
+    "greg": {
+      "label": "Persona Greg",
+      "file": "docs/02-utilisateurs-personas/persona-greg.md"
+    },
+    "thomas": {
+      "label": "Persona Thomas",
+      "file": "docs/02-utilisateurs-personas/persona-thomas.md"
+    },
+    "camille": {
+      "label": "Persona Camille",
+      "file": "docs/02-utilisateurs-personas/persona-camille.md"
+    },
+    "mireille": {
+      "label": "Persona Mireille",
+      "file": "docs/02-utilisateurs-personas/persona-mireille.md"
+    },
+    "scenario": {
+      "label": "Scénario Thomas",
+      "file": "docs/03-scenarios/scenario-thomas.md"
+    },
+    "tasks": {
+      "label": "Arbre commun T0–T5",
+      "file": "docs/04-analyse-taches/tache.md"
+    },
+    "t2": {
+      "label": "Synthèse T2",
+      "file": "docs/04-analyse-taches/T2/T2-finalized.md"
+    },
+    "p1": {
+      "label": "Squelette historique · ec84a28",
+      "file": "prototypes/squelette-global.md",
+      "revision": "ec84a28"
+    },
+    "prototype": {
+      "label": "Contrats du prototype",
+      "file": "prototypes/propotype 1/README.md"
+    },
+    "audit": {
+      "label": "Audit de la grille",
+      "file": "docs/07-evaluation/audit-final-grille.md"
+    },
+    "history": {
+      "label": "Audit historique · §20",
+      "file": "docs/07-evaluation/audit-ergonomie-cours5-6.md"
+    },
+    "decision": {
+      "label": "DR-001 · 4 novembre",
+      "file": "docs/05-decisions-conception/DR-001-revamp-ergonomie.md"
+    },
+    "klm": {
+      "label": "KLM · une série",
+      "file": "docs/07-evaluation/keystroke.md"
+    },
+    "uan": {
+      "label": "UAN · saisie d’une série",
+      "file": "docs/07-evaluation/uan-saisie-serie.md"
+    },
+    "uanFull": {
+      "label": "UAN · séance complète",
+      "file": "docs/07-evaluation/uan-remplir-seance.md"
+    },
+    "protocol": {
+      "label": "Protocole complet · non exécuté",
+      "file": "docs/07-evaluation/protocole-utilisateur.md"
+    },
+    "course3": {
+      "label": "Cours 3 · personas / tâches",
+      "detail": "Support local CM/Cours3.pdf : personas, scénarios et analyse des tâches."
+    },
+    "course5": {
+      "label": "Cours 5 · huit critères",
+      "detail": "Support local CM/Cours5.pdf : guidage, charge, contrôle, adaptabilité, erreurs, homogénéité, signifiance, compatibilité."
+    },
+    "course6": {
+      "label": "Cours 6 · KLM / UAN",
+      "detail": "Support local CM/Cours6.pdf : diapos 28–38 (KLM), 39–49 (UAN). Deux diapositives par page : citer les numéros imprimés, pas une pagination extrapolée."
+    },
+    "team": {
+      "label": "Précisions du groupe · 5 novembre",
+      "file": "docs/08-presentation-finale/retours-et-participants.md"
+    },
+    "wireframe": {
+      "label": "Fil de fer fourni",
+      "local": "visuels/fil-de-fer.png"
+    },
+    "versions": {
+      "label": "Historique et captures",
+      "local": "visuels/provenance.json",
+      "detail": "P1 ec84a28 ; P2 647c6ec ; P3 703a06e. Scénarios et données de capture synthétiques."
+    }
+  },
+  "sourceHashes": {
+    "docs/01-probleme/probleme-v1.md": "ac55d058683623bc8b1481ac2ef4596d12202da22a7cd272948962caec2a4a25",
+    "research/analyse-concurrence/synthese-concurrence.md": "2bfe6e797f6c5534b00f82108771c760d54108be54ae63a63c67cc06e3f4d132",
+    "docs/02-utilisateurs-personas/README.md": "aa55d25726d0a1413cf672ddb59c4198a8c2c1179645707132814b062eb3dd4d",
+    "docs/02-utilisateurs-personas/persona-greg.md": "d5d89a589f1db6d2967396704395f9dbb9941f65405288c455215d03a8f5c2e7",
+    "docs/02-utilisateurs-personas/persona-thomas.md": "9a1e6b5e3c484eb4bd232947a9576d0065c1245c3eb012cefef7f1f7d1cc2e9e",
+    "docs/02-utilisateurs-personas/persona-camille.md": "61f35980337619abac920af7a6760772cd759e75be0399064e5296c5a9c19c96",
+    "docs/02-utilisateurs-personas/persona-mireille.md": "94757ddabedbbce7d3cfa22ae45f2f7907d26a45ebaf281bbe8751812f2ee6ed",
+    "docs/03-scenarios/scenario-thomas.md": "e590eec57bf9fd27e60b3dbbebd5f705e12499787390dfbe8cf71f27dae62e2d",
+    "docs/04-analyse-taches/tache.md": "93bbfcf3a14b0331bc34201a9eee4db44aa489eb49d1afa9c6c08622e9dcd8b0",
+    "docs/04-analyse-taches/T2/T2-finalized.md": "8407f577f1e86a13cc410cdbf888557086d805ce0d625463fc855a3c447a48d4",
+    "prototypes/squelette-global.md": "03327506432f4eba2a00fa5add99bcaf8b47c2ac8aee322c9e52430b9eeddac7",
+    "prototypes/propotype 1/README.md": "19237f9e8ab1a44db4cb005abc65899439eb248e9d34dd3e32f291f49fd769e8",
+    "docs/07-evaluation/audit-final-grille.md": "f395461033268834d14e8ac12031141e4e3462a62dc29cf9f3d8dcaba66ac6fd",
+    "docs/07-evaluation/audit-ergonomie-cours5-6.md": "166493a11b3b3a588ec725c8382809d4246230842d7a5fe87c57ae0d189521b0",
+    "docs/05-decisions-conception/DR-001-revamp-ergonomie.md": "626357b855a4d565b2579e7b06d9bb44513573c31b76b186ccdee5aa14136e0b",
+    "docs/07-evaluation/keystroke.md": "91a4bc5f86b39a5a244734af6b74663529ab97b15a8d0d1b37fef344ff6b3203",
+    "docs/07-evaluation/uan-saisie-serie.md": "149ca1971efd0998016f2e6686966540c15ad71b1b237c0081a5f2ef0064766f",
+    "docs/07-evaluation/uan-remplir-seance.md": "346fa166298d011fcafc8868340821d366b62f7e42ba72ba94e4e9c8870fbee6",
+    "docs/07-evaluation/protocole-utilisateur.md": "0db60d6b28bc62e6c2c4c56de32486a48683b70aac03d62f7fba648cd6ceba4b",
+    "docs/08-presentation-finale/retours-et-participants.md": "d4356eef9ac6d1655121888358f41dea84b93d19ef5fafbae5090838739ac625"
+  },
+  "presentationHashes": {
+    "index.html": "941e64e85f67cfd9ab3e0e64525923ca2b65fac0bfdc08ce28df3d95c32d132e",
+    "slides.js": "ea00869ccd56bd0e6d683b2101fdd7dbc33c1b163338aaae3016c9f25ea70fb4",
+    "presentation.css": "8cf2d6212ec14de527958546abbddaab06aed576a198ec2736abefc1daf9ab78",
+    "presentation.js": "72487e7a83a902b6c427093f098b21f85b706e1d8b612e82fc5fb19376a8dfb3",
+    "script-oral.md": "efe57ffc1174b608580d7f4e88304ee43e72a504ff90e8c75b37f5a7dbf7338a"
+  },
+  "slides": [
+    {
+      "id": "s01",
+      "kicker": "GROUPE 6 · PROJET IHM",
+      "title": "Training App",
+      "sources": [
+        "team",
+        "prototype"
+      ],
+      "time": 20,
+      "notes": "<ul><li><strong>À dire</strong> : « Nous sommes le groupe 6 ; notre projet est un carnet d'entraînement. »</li><li><strong>À dire</strong> : « Préparer, consigner le réel et retrouver ses repères : nous suivons le parcours de Thomas. »</li><li><strong>Annexe A21</strong> : carte de couverture des méthodes et des livrables ; utile si le jury demande où se trouve un élément.</li><li><strong>Couverture</strong> : sujet / présentation <strong>très bien</strong> ; groupe, objectif et fil conducteur immédiatement visibles.</li></ul>",
+      "appendix": false
+    },
+    {
+      "id": "s02",
+      "kicker": "01 · PROBLÈME ET RECHERCHE",
+      "title": "Un suivi fragmenté, trois moments à relier",
+      "sources": [
+        "problem",
+        "research"
+      ],
+      "time": 45,
+      "notes": "<ul><li><strong>À dire</strong> : « Le suivi se répartit entre avant, pendant et après la séance. »</li><li><strong>À dire</strong> : « Notre recherche sur quatre applications a orienté l'accès simple, la correction et la reprise. »</li><li><strong>À montrer</strong> : la distinction permanente entre <strong>cible prévue</strong> et <strong>résultat réalisé</strong>.</li><li><strong>Annexes A15-A16</strong> : traduction des besoins en huit critères ergonomiques ; <strong>A22</strong> : lien activité, interface et utilisateurs.</li><li><strong>Couverture</strong> : sujet / présentation <strong>très bien</strong> ; recherche présente, résultats concrets ; comparaison concurrentielle volontairement synthétique.</li></ul>",
+      "appendix": false
+    },
+    {
+      "id": "s03",
+      "kicker": "02 · PERSONAS",
+      "title": "Quatre profils, un parcours détaillé",
+      "sources": [
+        "team",
+        "thomas",
+        "personas"
+      ],
+      "time": 40,
+      "notes": "<ul><li><strong>À dire</strong> : « Thomas débute ; Camille cherche la régularité ; Greg suit un entraînement avancé ; Mireille veut rester autonome. »</li><li><strong>À dire</strong> : « Nous détaillons Thomas : être guidé et noter simplement ; les noms ont été modifiés pour préserver l'anonymat. »</li><li><strong>Annexes A01-A02</strong> : Thomas, séances guidées et champs essentiels ; Camille, calendrier, correction et reprise.</li><li><strong>Annexes A03-A04</strong> : Greg, précision et suivi avancé ; Mireille, consignes accessibles et autonomie.</li><li><strong>Couverture</strong> : personas <strong>très bien</strong> ; quatre profils visibles, besoins reliés aux choix de l'interface.</li></ul>",
+      "appendix": false
+    },
+    {
+      "id": "s04",
+      "kicker": "03 · SCÉNARIO DE THOMAS",
+      "title": "Reprendre sa séance malgré une interruption",
+      "sources": [
+        "scenario",
+        "thomas"
+      ],
+      "time": 45,
+      "notes": "<ul><li><strong>À dire</strong> : « Thomas prépare sa séance, commence à saisir puis doit quitter l'écran. »</li><li><strong>À dire</strong> : « Il reprend, corrige la seconde série de 25 à 22,5 kg pour 8 répétitions, puis conserve son bilan. »</li><li><strong>À montrer</strong> : première série <strong>20 kg × 10</strong> ; correction du résultat sans changer la cible.</li><li><strong>Annexe A01</strong> : besoins qui motivent le scénario ; <strong>A14</strong> : interruption, reprise, correction et archivage.</li><li><strong>Couverture</strong> : scénario <strong>très bien</strong> ; situation, événement et résultat attendu observables ; la démo le concrétise en slide 12.</li></ul>",
+      "appendix": false
+    },
+    {
+      "id": "s05",
+      "kicker": "04 · ANALYSE DES TÂCHES",
+      "title": "Arbre des tâches : la vue globale",
+      "sources": [
+        "tasks"
+      ],
+      "time": 35,
+      "notes": "<ul><li><strong>À dire</strong> : « T1 prépare, T2 documente, T3 analyse, T4 partage et T5 permet d'accéder aux informations et de préserver les données. »</li><li><strong>À dire</strong> : « Le parcours principal relie préparation, réalisation et analyse ; nous détaillons maintenant T2. »</li><li><strong>Annexes A05-A07</strong> : arbres complets T1, T2 et T3 ; <strong>A08-A09</strong> : partage T4 et accès / conservation T5.</li><li><strong>Couverture</strong> : arbre des tâches <strong>bien</strong> ; périmètre complet visible ; agrandir pour lire les petits nœuds à l'oral.</li></ul>",
+      "appendix": false
+    },
+    {
+      "id": "s06",
+      "kicker": "05 · ZOOM SUR T2",
+      "title": "Thomas réalise et documente sa séance",
+      "sources": [
+        "tasks",
+        "t2"
+      ],
+      "time": 45,
+      "notes": "<ul><li><strong>À dire</strong> : « Thomas prépare l'effort, réalise et consigne ses séries, enrichit si utile, puis termine. »</li><li><strong>À montrer</strong> : corrections et adaptations conservent la cible initiale ; les enrichissements restent facultatifs.</li><li><strong>Annexes A24-A25</strong> : T2.1, repérer exercice / cible / consigne ; T2.2, réaliser, saisir, corriger et conserver.</li><li><strong>Annexes A26-A27</strong> : T2.3, notes / contexte / médias facultatifs ; T2.4, vérifier les séries et conserver le bilan.</li><li><strong>Annexe A06</strong> : branche T2 complète ; <strong>A12</strong> : passage de cette décomposition à l'UAN.</li><li><strong>Couverture</strong> : arbre des tâches <strong>très bien avec les gros plans</strong> ; expliquer les relations et les rôles U / S, sans lire chaque feuille.</li></ul>",
+      "appendix": false
+    },
+    {
+      "id": "s07w",
+      "kicker": "06 · PREMIÈRE EXPLORATION",
+      "title": "Le fil de fer pose les premières interactions",
+      "sources": [
+        "team",
+        "wireframe"
+      ],
+      "time": 30,
+      "notes": "<ul><li><strong>À dire</strong> : « Nous avons d'abord posé les écrans d'accueil, de préparation et de séance. »</li><li><strong>À dire</strong> : « Ce fil de fer a servi aux premiers échanges avant le développement. »</li><li><strong>Annexe A19</strong> : place du fil de fer dans la succession des échanges et prototypes.</li><li><strong>Couverture</strong> : prototype et processus <strong>bien</strong> ; première proposition visible et reliée à la suite.</li></ul>",
+      "appendix": false
+    },
+    {
+      "id": "s07",
+      "kicker": "07 · PROTOTYPE 1",
+      "title": "Un premier cadre de navigation",
+      "sources": [
+        "team",
+        "p1"
+      ],
+      "time": 35,
+      "notes": "<ul><li><strong>À dire</strong> : « Cette première version structure la navigation et une proposition de partage. »</li><li><strong>À dire</strong> : « Le parcours reste incomplet ; nous abandonnons cette proposition pour construire l'ensemble du parcours. »</li><li><strong>Annexe A08</strong> : branche de partage T4 ; <strong>A19</strong> : premier prototype et nouveaux échanges.</li><li><strong>Couverture</strong> : prototype / itération <strong>bien</strong> ; montrer la portée limitée de l'écran et la décision de poursuivre autrement.</li></ul>",
+      "appendix": false
+    },
+    {
+      "id": "s08",
+      "kicker": "08 · PROTOTYPE 2",
+      "title": "Le parcours devient manipulable de bout en bout",
+      "sources": [
+        "team",
+        "prototype"
+      ],
+      "time": 40,
+      "notes": "<ul><li><strong>À dire</strong> : « Nous pouvons maintenant préparer, saisir, corriger, reprendre et retrouver le bilan. »</li><li><strong>À dire</strong> : « Un parcours manipulable permet de confronter nos choix aux pratiques des utilisateurs. »</li><li><strong>Annexes A20 et A23</strong> : anciens écrans comparés à la version finale pour la saisie et la recherche.</li><li><strong>Annexe A19</strong> : position du prototype 2 dans le processus.</li><li><strong>Couverture</strong> : prototype <strong>très bien</strong> ; version fonctionnelle montrée ; les problèmes et corrections suivent immédiatement.</li></ul>",
+      "appendix": false
+    },
+    {
+      "id": "s09",
+      "kicker": "09 · TESTS UTILISATEURS",
+      "title": "Des retours convergents sur quatre difficultés",
+      "sources": [
+        "team",
+        "history",
+        "starter"
+      ],
+      "time": 60,
+      "notes": "<ul><li><strong>À dire</strong> : « Une participante a été filmée sur T1/T2 ; une autre personne a fait le parcours complet sans film. »</li><li><strong>À dire</strong> : « Les retours convergent : création difficile à trouver, molette, recherche avec espace et fin de séance ambiguë. »</li><li><strong>À ajouter</strong> : « La valeur du carnet doit aussi être claire face aux notes du téléphone. »</li><li><strong>Annexe A17</strong> : couverture des deux modalités ; <strong>A18</strong> : difficulté → conséquence → correction retenue.</li><li><strong>Couverture</strong> : évaluation expérimentale <strong>à renforcer</strong> ; retours qualitatifs clairs, mais conditions précises, relevés et mesures peu documentés.</li><li><strong>Préparation</strong> : sélectionner le véritable fichier vidéo avant l'oral ; aucun temps mesuré ni taux de réussite à annoncer.</li></ul>",
+      "appendix": false
+    },
+    {
+      "id": "s10",
+      "kicker": "10 · PROTOTYPE FINAL · GUIDAGE",
+      "title": "Rendre la création et la recherche accessibles",
+      "sources": [
+        "history",
+        "decision",
+        "versions"
+      ],
+      "time": 65,
+      "notes": "<ul><li><strong>À dire</strong> : « Nous rendons la création directement visible dans trois espaces. »</li><li><strong>À dire</strong> : « La recherche tolère les espaces superflus, les différences de casse et les accents. »</li><li><strong>À montrer</strong> : emplacement de « Créer ma séance » ; relier problème et correction aux critères de guidage et de protection.</li><li><strong>Annexe A23</strong> : même recherche avec espace final, avant / après ; <strong>A15-A16</strong> : huit critères et réponses de l'interface.</li><li><strong>Couverture</strong> : ergonomie et prototype <strong>très bien</strong> ; corrections visibles ; A23 apporte la comparaison de recherche la plus probante.</li></ul>",
+      "appendix": false
+    },
+    {
+      "id": "s11",
+      "kicker": "11 · DÉMONSTRATION DU PARCOURS DE THOMAS",
+      "title": "Saisir, corriger, reprendre puis retrouver son bilan",
+      "sources": [
+        "team",
+        "prototype",
+        "versions"
+      ],
+      "time": 90,
+      "notes": "<ul><li><strong>À faire</strong> : séance de Thomas en niveau Débutant ; saisir <strong>20 / 10</strong>, puis corriger la seconde à <strong>22,5 / 8</strong>.</li><li><strong>À faire</strong> : montrer la recopie ou la correction, quitter / reprendre, vérifier puis enregistrer le bilan.</li><li><strong>À dire</strong> : « Nous conservons le réel sans modifier la cible prévue. »</li><li><strong>Annexes A14 et A20</strong> : états de reprise / archivage et comparaison des deux champs de saisie ; <strong>A13</strong> : recopie annulable.</li><li><strong>Couverture</strong> : prototype <strong>très bien si le parcours est fluide</strong> ; choisir démo ou extrait vidéo, tenir les 90 secondes.</li></ul>",
+      "appendix": false
+    },
+    {
+      "id": "s12",
+      "kicker": "12 · PROTOTYPE FINAL · CONTRÔLE ET SIGNIFIANCE",
+      "title": "Rendre la fin de séance explicite",
+      "sources": [
+        "history",
+        "decision",
+        "prototype"
+      ],
+      "time": 65,
+      "notes": "<ul><li><strong>À dire</strong> : « Vérifier et terminer ouvre une revue ; Terminer et enregistrer mon bilan confirme la clôture. »</li><li><strong>À dire</strong> : « Le défilement ne modifie plus les nombres ; la correction et l'annulation restent possibles. »</li><li><strong>Annexe A20</strong> : saisie avant / après ; <strong>A15-A16</strong> : contrôle explicite, signifiance, erreurs, charge et adaptabilité.</li><li><strong>Annexe A14</strong> : différence entre quitter, reprendre et terminer réellement.</li><li><strong>Couverture</strong> : ergonomie <strong>très bien</strong> ; libellés et conséquences visibles ; montrer aussi le comportement pendant la démo.</li></ul>",
+      "appendix": false
+    },
+    {
+      "id": "s13",
+      "kicker": "13 · KEYSTROKE · TEMPS DE SAISIE MODÉLISÉ",
+      "title": "Trois façons de noter 20 kg et 10 répétitions",
+      "sources": [
+        "klm",
+        "thomas"
+      ],
+      "time": 60,
+      "notes": "<ul><li><strong>À dire</strong> : « Même série, mêmes valeurs, deux champs sans RPE : souris 6,35 s, Entrée 4,45 s, recopie 2,65 s. »</li><li><strong>À dire</strong> : « Entrée réduit les changements de dispositif ; la recopie évite de ressaisir un résultat identique. »</li><li><strong>Annexe A10</strong> : séquences A / B / C, comptage des six K et calcul du gain de <strong>1,90 s</strong> entre A et B.</li><li><strong>Annexe A11</strong> : K / P / H / M / R et extension à six séries : <strong>39,40 / 28,00 / 20,80 s</strong>.</li><li><strong>Couverture</strong> : keystroke <strong>bien</strong> ; calculs comparables et vérifiés ; préciser oralement : prédictions sur ordinateur, pas chronométrage humain.</li><li><strong>Si question</strong> : recopie seulement si série précédente complète et résultat identique ; état de départ et retour à la souris identiques entre méthodes.</li></ul>",
+      "appendix": false
+    },
+    {
+      "id": "s14",
+      "kicker": "14 · UAN · RECOPIER PUIS ANNULER",
+      "title": "Thomas garde le contrôle de la recopie",
+      "sources": [
+        "uan",
+        "prototype"
+      ],
+      "time": 60,
+      "notes": "<ul><li><strong>À dire</strong> : « Thomas recopie la première série ; l'interface affiche les valeurs, confirme la recopie et propose Annuler. »</li><li><strong>À dire</strong> : « Annuler restaure l'état précédent ; une correction faite entre-temps reste protégée. »</li><li><strong>Annexe A12</strong> : hiérarchie et notation tactile ; <strong>A13</strong> : séquence formelle recopie / annulation et précondition.</li><li><strong>Annexe A14</strong> : erreurs, correction, série non faite, reprise et bilan unique.</li><li><strong>Couverture</strong> : UAN <strong>bien</strong> ; action, retour et état explicites ; ouvrir A13 si le jury attend les symboles formels.</li><li><strong>Si question</strong> : l'UAN décrit ici le tactile ; le KLM précédent compare des interactions sur ordinateur.</li></ul>",
+      "appendix": false
+    },
+    {
+      "id": "s15",
+      "kicker": "15 · PROCESSUS ET ITÉRATION",
+      "title": "Les retours ont accompagné chaque étape",
+      "sources": [
+        "team",
+        "history"
+      ],
+      "time": 45,
+      "notes": "<ul><li><strong>À dire</strong> : « Fil de fer, prototype 1, prototype 2 : chaque étape a été suivie d'échanges. »</li><li><strong>À dire</strong> : « Les retours ont conduit à la version finale ; nous n'avons pas eu le temps de la retester avec les utilisateurs. »</li><li><strong>Annexe A19</strong> : étape → travail réalisé → place des utilisateurs ; <strong>A18</strong> : quatre problèmes et décisions associées.</li><li><strong>Couverture</strong> : processus / itération <strong>bien</strong> ; chaîne claire et changements concrets ; boucle finale de vérification humaine encore ouverte.</li></ul>",
+      "appendix": false
+    },
+    {
+      "id": "s16",
+      "kicker": "16 · BILAN ET QUESTIONS",
+      "title": "Concevoir avec les utilisateurs change les priorités",
+      "sources": [
+        "team"
+      ],
+      "time": 35,
+      "notes": "<ul><li><strong>À dire</strong> : « Organiser les échanges et obtenir l'accord pour filmer a été exigeant. »</li><li><strong>À dire</strong> : « Les retours nous ont permis de voir les obstacles et de mieux prioriser nos corrections. »</li><li><strong>À conclure</strong> : « Notre prochaine étape serait de vérifier ces corrections avec les utilisateurs. Merci, nous sommes prêts pour vos questions. »</li><li><strong>Annexe A22</strong> : observer, échanger, itérer ; <strong>A21</strong> : retrouver rapidement une méthode ; <strong>A19</strong> : limite du dernier cycle.</li><li><strong>Couverture</strong> : présentation et processus <strong>bien</strong> ; bilan humain clair, amélioration démontrée et prochaine vérification identifiable.</li></ul>",
+      "appendix": false
+    },
+    {
+      "id": "a01",
+      "kicker": "ANNEXE A01 · PERSONA RETENU",
+      "title": "Thomas : commencer avec des repères simples",
+      "sources": [
+        "team",
+        "thomas"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : séances guidées, compréhension des mouvements, charge et répétitions, reprise et bilan.</li><li><strong>Reliée aux slides 3-4</strong> ; personas / scénario <strong>très bien</strong> : le fil conducteur reste cohérent.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a02",
+      "kicker": "ANNEXE A02 · PERSONA",
+      "title": "Camille : retrouver et corriger rapidement",
+      "sources": [
+        "team",
+        "camille"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : agenda variable, consultation rapide, calendrier et correction sans perdre les autres résultats.</li><li><strong>Reliée à la slide 3</strong> ; personas <strong>bien</strong> : besoins distincts de ceux de Thomas.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a03",
+      "kicker": "ANNEXE A03 · PERSONA",
+      "title": "Greg : précision, contexte et adaptation",
+      "sources": [
+        "team",
+        "greg"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : suivi avancé, charges / répétitions / RPE, contexte et portée des adaptations.</li><li><strong>Reliée à la slide 3</strong> ; personas <strong>bien</strong> : justifie les fonctions avancées sans les imposer à Thomas.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a04",
+      "kicker": "ANNEXE A04 · PERSONA",
+      "title": "Mireille : comprendre et rester autonome",
+      "sources": [
+        "team",
+        "mireille"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : autonomie, consignes accessibles, repères précédents et série non faite identifiable.</li><li><strong>Reliée à la slide 3</strong> ; personas <strong>bien</strong> : met en évidence les besoins de compréhension.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a05",
+      "kicker": "ANNEXE A05 · ARBRE DES TÂCHES",
+      "title": "T1 : préparer et organiser",
+      "sources": [
+        "tasks"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : créer ou choisir le programme, organiser le calendrier, préparer les exercices et les cibles.</li><li><strong>Reliée à la slide 5</strong> ; arbre <strong>bien</strong> : branche complète, à agrandir pour lire les feuilles.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a06",
+      "kicker": "ANNEXE A06 · ARBRE DES TÂCHES",
+      "title": "T2 : réaliser et documenter",
+      "sources": [
+        "tasks"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : situer préparation de l'effort, réalisation / saisie, enrichissements et fin de séance.</li><li><strong>Reliée aux slides 5-6</strong> ; arbre <strong>bien</strong> : structure complète ; A24-A27 facilitent la lecture.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a07",
+      "kicker": "ANNEXE A07 · ARBRE DES TÂCHES",
+      "title": "T3 : analyser et évaluer",
+      "sources": [
+        "tasks"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : consulter le passé, évaluer la progression, puis conclure la revue pour la suite.</li><li><strong>Reliée à la slide 5</strong> ; arbre <strong>bien</strong> : relie les résultats à la préparation suivante.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a08",
+      "kicker": "ANNEXE A08 · ARBRE DES TÂCHES",
+      "title": "T4 : partager un programme",
+      "sources": [
+        "tasks"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : choisir le contenu, préparer le partage, confirmer et suivre les retours.</li><li><strong>Reliée aux slides 5 et 8</strong> ; arbre / prototype <strong>bien</strong> : explique la place initiale du partage.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a09",
+      "kicker": "ANNEXE A09 · ARBRE DES TÂCHES",
+      "title": "T5 : accéder et préserver",
+      "sources": [
+        "tasks"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : distinguer recherche d'information et préservation des données ; conservation locale et synchronisation si disponible sont des tâches du modèle.</li><li><strong>Reliée à la slide 5</strong> ; arbre <strong>bien</strong> : dimension transversale visible ; l'arbre ne prouve pas à lui seul une synchronisation implémentée.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a10",
+      "kicker": "ANNEXE A10 · KLM · CALCULS",
+      "title": "Même série, mêmes valeurs, trois méthodes",
+      "sources": [
+        "klm"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : A compte deux clics + quatre chiffres ; B, un clic + quatre chiffres + Entrée ; C, un clic de recopie.</li><li><strong>À défendre</strong> : mêmes valeurs et résultat final ; <strong>6,35 / 4,45 / 2,65 s</strong>, gain A-B de <strong>1,90 s</strong>.</li><li><strong>Reliée à la slide 14</strong> ; keystroke <strong>bien</strong> : détail calculable, hypothèses à expliquer oralement.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a11",
+      "kicker": "ANNEXE A11 · KLM · OPÉRATEURS",
+      "title": "Les opérateurs et l’extension à six séries",
+      "sources": [
+        "klm"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : K touche / clic, P pointage, H changement de dispositif, M préparation mentale ; R supposé nul.</li><li><strong>À préciser</strong> : six séries + un changement d'exercice ; <strong>39,40 / 28,00 / 20,80 s</strong>, hors effort et clôture.</li><li><strong>Reliée à la slide 14</strong> ; keystroke <strong>bien</strong> : extension cohérente ; quatre recopies supposent des résultats identiques.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a12",
+      "kicker": "ANNEXE A12 · UAN · HIÉRARCHIE",
+      "title": "De la séance à la recopie d’une série",
+      "sources": [
+        "uan",
+        "uanFull"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : passer de RemplirSeance à ConsignerSerie ; saisie ou recopie, correction et annulation facultatives.</li><li><strong>À montrer</strong> : geste tactile, alternative OR, répétition et interruption possible.</li><li><strong>Reliée aux slides 6 et 15</strong> ; UAN <strong>bien</strong> : sous-tâche replacée dans la séance complète.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a13",
+      "kicker": "ANNEXE A13 · UAN · RECOPIE ET ANNULATION",
+      "title": "Une recopie réversible, sans perdre une correction",
+      "sources": [
+        "uan"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : série précédente complète → toucher Recopier → feedback → Annuler ; cible et série source inchangées.</li><li><strong>À montrer</strong> : une correction ultérieure à 22,5 est conservée lors de l'annulation.</li><li><strong>Reliée aux slides 12 et 15</strong> ; UAN <strong>très bien</strong> : tâche délimitée, retours et états explicites.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a14",
+      "kicker": "ANNEXE A14 · UAN · ERREURS ET REPRISE",
+      "title": "Corriger et reprendre sans perdre les autres séries",
+      "sources": [
+        "uan",
+        "prototype"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : erreur proche du champ, correction sans perte, statut révisable, brouillon repris puis bilan unique.</li><li><strong>À distinguer</strong> : quitter conserve un brouillon ; terminer et enregistrer crée le bilan.</li><li><strong>Reliée aux slides 4, 12-13 et 15</strong> ; UAN / contrôle <strong>bien</strong> : cas de récupération concrets.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a15",
+      "kicker": "ANNEXE A15 · ERGONOMIE · 1–4",
+      "title": "Guidage, charge, contrôle et adaptabilité",
+      "sources": [
+        "audit",
+        "decision",
+        "team"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : guidage par création visible ; charge réduite par recopie ; contrôle par confirmation ; adaptation des champs au niveau.</li><li><strong>Reliée aux slides 2, 11 et 13</strong> ; ergonomie <strong>très bien</strong> : risques et réponses associés.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a16",
+      "kicker": "ANNEXE A16 · ERGONOMIE · 5–8",
+      "title": "Erreurs, cohérence, signifiance et compatibilité",
+      "sources": [
+        "audit",
+        "decision",
+        "team"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : protéger des erreurs, garder des repères cohérents, nommer clairement les actions, respecter les pratiques.</li><li><strong>Reliée aux slides 2, 11 et 13</strong> ; ergonomie <strong>bien à très bien</strong> : exemples précis ; cohérence et compatibilité demandent une explication orale.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a17",
+      "kicker": "ANNEXE A17 · DÉROULEMENT DES TESTS",
+      "title": "Deux modalités, une même recherche de difficultés",
+      "sources": [
+        "team"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : une participante filmée sur T1/T2 ; autre parcours complet sans enregistrement ; le film ne couvre pas tous les échanges.</li><li><strong>Reliée à la slide 10</strong> ; expérimentation <strong>à renforcer</strong> : modalités identifiées, conditions et relevés encore peu détaillés.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a18",
+      "kicker": "ANNEXE A18 · RÉSULTATS QUALITATIFS",
+      "title": "Les retours conduisent à quatre corrections",
+      "sources": [
+        "team",
+        "history"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : création → entrée visible ; molette → saisie protégée ; espace → normalisation ; clôture → revue et confirmation.</li><li><strong>À rappeler</strong> : valeur face aux notes du téléphone encore à approfondir.</li><li><strong>Reliée aux slides 10 et 16</strong> ; expérimentation <strong>bien pour les résultats qualitatifs</strong>, sans preuve chiffrée de gain.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a19",
+      "kicker": "ANNEXE A19 · PROCESSUS",
+      "title": "Des échanges entre le fil de fer et la version finale",
+      "sources": [
+        "team"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : fil de fer → échanges → prototype 1 → échanges → prototype 2 → tests → corrections finales.</li><li><strong>À rappeler</strong> : pas de nouvelle vérification humaine du dernier état.</li><li><strong>Reliée aux slides 7-9 et 16-17</strong> ; processus <strong>bien</strong> : étapes traçables, dernière boucle ouverte.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a20",
+      "kicker": "ANNEXE A20 · AVANT / APRÈS · SAISIE",
+      "title": "La série reste lisible et corrigible",
+      "sources": [
+        "prototype",
+        "versions"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : deux valeurs essentielles pour Thomas ; saisie directe, boutons +/− et recopie volontaire ; correction conservée.</li><li><strong>Reliée aux slides 9 et 12-13</strong> ; prototype / ergonomie <strong>bien</strong> : comparaison lisible ; la protection de la molette se démontre en interaction.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a21",
+      "kicker": "ANNEXE A21 · COUVERTURE DE LA PRÉSENTATION",
+      "title": "Conception, évaluation et démarche",
+      "sources": [
+        "rubric"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À utiliser</strong> : retrouver le détail d'une méthode ou le bon groupe d'annexes pendant les questions.</li><li><strong>Reliée aux slides 1 et 17</strong> ; présentation <strong>bien</strong> : repérage facilité ; cette carte ne remplace pas les preuves.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a22",
+      "kicker": "ANNEXE A22 · SYNTHÈSE",
+      "title": "Ce que nous avons appris à concevoir",
+      "sources": [
+        "team"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : partir de l'activité, accepter les retours, corriger les obstacles concrets.</li><li><strong>Reliée aux slides 2 et 17</strong> ; bilan / processus <strong>bien</strong> : apprentissages lisibles et reliés au projet.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a23",
+      "kicker": "ANNEXE A23 · AVANT / APRÈS · RECHERCHE",
+      "title": "Un espace final ne doit pas cacher les résultats",
+      "sources": [
+        "history",
+        "versions"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À montrer</strong> : même requête « Full Body » avec espace final ; résultats absents avant, retrouvés après.</li><li><strong>Reliée aux slides 9 et 11</strong> ; ergonomie / prototype <strong>très bien</strong> : comparaison directe pour la protection contre les erreurs.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a24",
+      "kicker": "ANNEXE A24 · GROS PLAN T2",
+      "title": "T2.1 : comprendre et préparer l’effort",
+      "sources": [
+        "tasks"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : repérer exercice et cible, consulter les consignes, apprécier son état, adapter si nécessaire sans perdre la cible.</li><li><strong>Reliée à la slide 6</strong> ; arbre <strong>très bien</strong> : branche et rôles lisibles.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a25",
+      "kicker": "ANNEXE A25 · GROS PLAN T2",
+      "title": "T2.2 : réaliser, consigner et corriger",
+      "sources": [
+        "tasks"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : réaliser, noter charge / répétitions / ressenti selon le suivi, indiquer le statut, corriger et conserver.</li><li><strong>Reliée à la slide 6</strong> ; arbre <strong>très bien</strong> : relie activité réelle, saisie et rôle du système.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a26",
+      "kicker": "ANNEXE A26 · GROS PLAN T2",
+      "title": "T2.3 : enrichir la séance si utile",
+      "sources": [
+        "tasks"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : contexte, remarque technique, photo ou vidéo ; tous ces enrichissements sont facultatifs.</li><li><strong>Reliée à la slide 6</strong> ; arbre <strong>très bien</strong> : ne pas présenter ces options comme obligatoires pour Thomas.</li></ul>",
+      "appendix": true
+    },
+    {
+      "id": "a27",
+      "kicker": "ANNEXE A27 · GROS PLAN T2",
+      "title": "T2.4 : vérifier et terminer la séance",
+      "sources": [
+        "tasks"
+      ],
+      "time": 0,
+      "notes": "<ul><li><strong>À dire</strong> : vérifier résultats et séries non faites ; ressenti / rappel éventuels ; conserver le bilan pour T3.</li><li><strong>Reliée à la slide 6</strong> ; arbre <strong>très bien</strong> : clôture reliée à l'analyse suivante.</li></ul>",
+      "appendix": true
+    }
+  ],
+  "speakingGuide": "script-oral.md"
+}

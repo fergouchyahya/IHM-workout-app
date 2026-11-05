@@ -1,0 +1,637 @@
+{
+  "baseline": "703a06e",
+  "snapshots": [
+    {
+      "prototype": "p1",
+      "revision": "ec84a28e647388a32f5fa5c065f67c737d5a95c6",
+      "date": "2026-10-01T11:36:27+01:00"
+    },
+    {
+      "prototype": "p2",
+      "revision": "647c6ecbf7d09e5d7dd02f61d8fac3c6bf978057",
+      "date": "2026-10-23T20:38:20+02:00"
+    },
+    {
+      "prototype": "p3",
+      "revision": "703a06e71f926fc0e64415333040d02acaf32e51",
+      "date": "2026-11-05T10:34:45+01:00"
+    }
+  ],
+  "captures": [
+    {
+      "file": "p1-squelette.png",
+      "revision": "ec84a28",
+      "version": "p1",
+      "scenario": "squelette",
+      "synthetic": true,
+      "viewport": {
+        "width": 1100,
+        "height": 1100
+      },
+      "sha256": "ddac20d0c9793b2207faf550c5d2eeb703a32cd1e29ce2a0836170545e3ce00b",
+      "deviceScaleFactor": 2,
+      "profile": "Thomas"
+    },
+    {
+      "file": "p1-t2-reserve.png",
+      "revision": "ec84a28",
+      "version": "p1",
+      "scenario": "t2-reserve",
+      "synthetic": true,
+      "viewport": {
+        "width": 1100,
+        "height": 1100
+      },
+      "sha256": "f1dbc636a01daa7f8834ced4cc0c88c190d1b5cceac3ea6c864d87145bfa0d0f",
+      "deviceScaleFactor": 2,
+      "profile": "Thomas"
+    },
+    {
+      "file": "p2-decouverte.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "decouverte",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "daa494df750ed300f9ec7f785f70f5b90307ac02c0d868777a1ef3c4c99fbf5e",
+      "deviceScaleFactor": 2
+    },
+    {
+      "file": "p2-preparation.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "preparation",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "d5b26916bafa0a24f73046ba0ceead347bbbcbf5a02d58293b663d46a94f85e5",
+      "deviceScaleFactor": 2
+    },
+    {
+      "file": "p2-entrainement.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "entrainement",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "51b18e1e91af41e71d3986f04057c1ba91565dd9fff91abf85bf6775f345b892",
+      "deviceScaleFactor": 2
+    },
+    {
+      "file": "p2-serie.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "serie",
+      "synthetic": true,
+      "viewport": {
+        "width": 600,
+        "height": 1800
+      },
+      "sha256": "23cdcd77d106339ddfca12b227d8c698ce9991e8bf346a7cf22386b0fb62455a",
+      "deviceScaleFactor": 2
+    },
+    {
+      "file": "p2-recopie.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "recopie",
+      "synthetic": true,
+      "viewport": {
+        "width": 600,
+        "height": 1800
+      },
+      "sha256": "84b0a32ffbc2668e64e35a28b1d70634c8652c9d073e085d10d80ce7999ccc29",
+      "deviceScaleFactor": 2
+    },
+    {
+      "file": "p2-correction.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "correction",
+      "synthetic": true,
+      "viewport": {
+        "width": 600,
+        "height": 1800
+      },
+      "sha256": "f0556bd441b95d2ecacecc22299e28ae89a576974ce6dc1d6b39b8824a46a7af",
+      "deviceScaleFactor": 2
+    },
+    {
+      "file": "p2-verification.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "verification",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "efaed2e79c70eb40b558ca898a164370d55f9a1cf996cd0a244d8b336379cf36",
+      "deviceScaleFactor": 2
+    },
+    {
+      "file": "p2-bilan.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "bilan",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "98aca36cbf935f46c2fd3f68d7d8cef1e6c17a0b259bc5b2863b306199344582",
+      "deviceScaleFactor": 2
+    },
+    {
+      "file": "p3-decouverte.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "decouverte",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "8a93ae05f95f1fd523efe5fcfc456382a5097d7d7630cacb3835d4da5bec2ff4",
+      "deviceScaleFactor": 2
+    },
+    {
+      "file": "p3-preparation.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "preparation",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "69f02f30030cb1dd8ab7a5a2db3a9d0f56ba4bc239327844da4fdedadce9b475",
+      "deviceScaleFactor": 2
+    },
+    {
+      "file": "p3-entrainement.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "entrainement",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "e610c9ef941777d82eddcbd14519cdfcfff53840c9ee6a828d260e779829acd0",
+      "deviceScaleFactor": 2
+    },
+    {
+      "file": "p3-serie.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "serie",
+      "synthetic": true,
+      "viewport": {
+        "width": 600,
+        "height": 1800
+      },
+      "sha256": "710bc873bd2b00d858e24db34842284fd1ca7ca39dc6e0001d257c0aee3a31d3",
+      "deviceScaleFactor": 2
+    },
+    {
+      "file": "p3-recopie.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "recopie",
+      "synthetic": true,
+      "viewport": {
+        "width": 600,
+        "height": 1800
+      },
+      "sha256": "e467e855939f2e725c47fcb51bd67d6c0fc6782f00bb6c3fbcef99560a19a091",
+      "deviceScaleFactor": 2
+    },
+    {
+      "file": "p3-correction.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "correction",
+      "synthetic": true,
+      "viewport": {
+        "width": 600,
+        "height": 1800
+      },
+      "sha256": "97770c793c12fa48aae8cbefce6f18980ecb403e300c3bf80a8169c886bf07c3",
+      "deviceScaleFactor": 2
+    },
+    {
+      "file": "p3-verification.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "verification",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "aac3b7ecc641efa008e229f8c94e85af6b73ea4ca4f686be22c27bd5248489fc",
+      "deviceScaleFactor": 2
+    },
+    {
+      "file": "p3-bilan.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "bilan",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "cb3696e289a8d2ec98eb15ebc9d4c9ec4947018b633b644287403ee5fa6c8499",
+      "deviceScaleFactor": 2
+    },
+    {
+      "file": "thomas-p2-decouverte.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "decouverte",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "0a5b30b5b364b9973a40d2b914491eec7b3ad398c50f76f3b1e5b09a54793e59",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p2-recherche.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "recherche",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "37bf7d07d4847f5bbb75abdf3ddbb0ec7aa09c4e2cc67e1b71c9628d3c864ee8",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p2-preparation.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "preparation",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "9c8b8d888b4e827ca12b2cdabb7839a195c96439e7496fb05362d20ecb324530",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p2-entrainement.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "entrainement",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "332f0e19d48a0797f2da78fbbb99a4a1bdaa2f9ee01002c1cbf15135c0baa52f",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p2-serie.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "serie",
+      "synthetic": true,
+      "viewport": {
+        "width": 600,
+        "height": 1800
+      },
+      "sha256": "8c1eefb42972f5aec03a47b0404f7595c1ad00ed54d436761cc7a40f06f3d7c4",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p2-recopie.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "recopie",
+      "synthetic": true,
+      "viewport": {
+        "width": 600,
+        "height": 1800
+      },
+      "sha256": "656914036542b66331dc92560c689d0adc31126db213a91cbddb68b39509cc9c",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p2-correction.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "correction",
+      "synthetic": true,
+      "viewport": {
+        "width": 600,
+        "height": 1800
+      },
+      "sha256": "6521bb99f0a8ab5096a5efdf88865387a7ab4e86af1dcec8501184ac860c7b70",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p2-annulation.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "annulation",
+      "synthetic": true,
+      "viewport": {
+        "width": 600,
+        "height": 1800
+      },
+      "sha256": "6521bb99f0a8ab5096a5efdf88865387a7ab4e86af1dcec8501184ac860c7b70",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p2-verification.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "verification",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "68ff1a64c88a49dfe0b410f2fed4e0694fbdc45b7838701887802a7e51d100c9",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p2-bilan.png",
+      "revision": "647c6ec",
+      "version": "p2",
+      "scenario": "bilan",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "7fea286101395cca5805a82d43050c4f2ba575ed9116dc5fe032306ece8efa4b",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p3-decouverte.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "decouverte",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "c7ce4b28d7b7884869d0f59484e35c192c9cbed3a32092faede6d4ed3ef82572",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p3-recherche.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "recherche",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "df28129055b4b95119b012144f15876e84b3d3f7e709dfa1c813fc60f8b8ab3f",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p3-preparation.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "preparation",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "7aba2be991f44aa49591591f398358dabaf0264260f3a8b1911f571037d0079c",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p3-entrainement.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "entrainement",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "fc230b4986dd6c5992e52d92e34c03a125d797ce461c10542d2d57657602aa5c",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p3-serie.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "serie",
+      "synthetic": true,
+      "viewport": {
+        "width": 600,
+        "height": 1800
+      },
+      "sha256": "505977d1356563cd1a121632b69ad26b93cdb9d008bf9df137a9206eb7de9812",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p3-recopie.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "recopie",
+      "synthetic": true,
+      "viewport": {
+        "width": 600,
+        "height": 1800
+      },
+      "sha256": "a6bb780a18eeb84d4c523f51679b14a72bd11b88509a5fe73ee2a9a65c820126",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p3-correction.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "correction",
+      "synthetic": true,
+      "viewport": {
+        "width": 600,
+        "height": 1800
+      },
+      "sha256": "05636bcc4c0e14ef5c4c61a40f122bd7b2199e58795382b73b4a815934d55f83",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p3-annulation.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "annulation",
+      "synthetic": true,
+      "viewport": {
+        "width": 600,
+        "height": 1800
+      },
+      "sha256": "05636bcc4c0e14ef5c4c61a40f122bd7b2199e58795382b73b4a815934d55f83",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p3-verification.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "verification",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "327414d04362f7ef5b49253ab81dd1a149c0d6e575deee9437709547a54b0651",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    },
+    {
+      "file": "thomas-p3-bilan.png",
+      "revision": "703a06e",
+      "version": "p3",
+      "scenario": "bilan",
+      "synthetic": true,
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "sha256": "8f660bd34cbc9ddf1b67ef5e92df26783899408ceea09f416dfa0db5f156bb88",
+      "deviceScaleFactor": 2,
+      "profile": "Débutant"
+    }
+  ],
+  "prepared": "2026-11-05",
+  "synthetic": true,
+  "p1Fonts": "local fallback; external font requests blocked",
+  "captureVerification": "Thomas beginner: charge/repetitions, no RPE, Enter, recopy, protected undo, correction, resume/reload and one archive on P2/P3",
+  "currentPresentationPersona": "Thomas",
+  "derivedAssets": [
+    {
+      "file": "fil-de-fer.png",
+      "source": "Training App-1.pdf",
+      "page": 8,
+      "crop": [
+        112,
+        234,
+        1892,
+        930
+      ],
+      "sha256": "9a412217a2fdd4f4ed55dd5853b80421198f5e2cad8920cf65bafb83f7e30fe3"
+    },
+    {
+      "file": "arbre-global.png",
+      "source": "assets/diagrammes/arbre-taches-global.png",
+      "change": "Footer removed; global/T2 title margin cropped",
+      "sha256": "120651f102c298dfe24950f89445e17e0d10ec699b89323cf7f4d2f542b18d99"
+    },
+    {
+      "file": "arbre-t1.png",
+      "source": "assets/diagrammes/arbre-taches-t1.png",
+      "change": "Footer removed; global/T2 title margin cropped",
+      "sha256": "9828cec1d0d22cc18555081ba21708a6ef52dfeb0d5c117b113c5b1f55751e90"
+    },
+    {
+      "file": "arbre-t2.png",
+      "source": "assets/diagrammes/arbre-taches-t2.png",
+      "change": "Footer removed; global/T2 title margin cropped",
+      "sha256": "9641e2e04997c43ca40b04c43a285078ab929d7d91900b7dbf796ef2a952e054"
+    },
+    {
+      "file": "arbre-t3.png",
+      "source": "assets/diagrammes/arbre-taches-t3.png",
+      "change": "Footer removed; global/T2 title margin cropped",
+      "sha256": "80ad46d32b75a48f6953c303a012970b858a75438a1cb092914387915c40d9fb"
+    },
+    {
+      "file": "arbre-t4.png",
+      "source": "assets/diagrammes/arbre-taches-t4.png",
+      "change": "Footer removed; global/T2 title margin cropped",
+      "sha256": "393a7beaf6312353cb7cbbadf4cbddbc8425b816604ca2f0e4f0e97f0c4962bf"
+    },
+    {
+      "file": "arbre-t5.png",
+      "source": "assets/diagrammes/arbre-taches-t5.png",
+      "change": "Original PNG preserved in full; no course footer present",
+      "sha256": "21379e8fccfdbd427f0ad467addbe432578e6dd8ddaec6b335a9766a84c0be95"
+    },
+    {
+      "file": "t2-preparer.png",
+      "source": "assets/diagrammes/arbre-taches-t2.png",
+      "crop": [
+        70,
+        1280,
+        1610,
+        1920
+      ],
+      "sha256": "63052930e87c4d7b3f00f9c7b7173055e09e1ddca2dc672fd61f6253830fc207"
+    },
+    {
+      "file": "t2-consigner.png",
+      "source": "assets/diagrammes/arbre-taches-t2.png",
+      "crop": [
+        1610,
+        1280,
+        3540,
+        1920
+      ],
+      "sha256": "e692c82a2fd2f9b10548dd77c8ea263bd62cc704c1cd0fd61eb7d023748755df"
+    },
+    {
+      "file": "t2-enrichir.png",
+      "source": "assets/diagrammes/arbre-taches-t2.png",
+      "crop": [
+        3540,
+        920,
+        4695,
+        1560
+      ],
+      "sha256": "566d023d05d1de4dce09eb4eca1f39292c6c548430f1be34be44a3aff3e5887f"
+    },
+    {
+      "file": "t2-terminer.png",
+      "source": "assets/diagrammes/arbre-taches-t2.png",
+      "crop": [
+        4695,
+        560,
+        5850,
+        1140
+      ],
+      "sha256": "daaac9085493809bac4a814dc25067d713fa6afe4bfda1b55907c711ebfba012"
+    }
+  ]
+}

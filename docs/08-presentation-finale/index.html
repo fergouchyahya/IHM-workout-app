@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fffbea">
+  <title>G6 · Training App · Soutenance IHM</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="presentation.css">
+  <script defer src="slides.js"></script>
+  <script defer src="presentation.js"></script>
+</head>
+<body>
+  <a href="#presentation" class="skip">Aller à la présentation</a>
+  <main id="presentation" tabindex="-1" aria-label="Présentation du groupe 6">
+    <div id="canvas"></div>
+  </main>
+  <nav class="controls" aria-label="Commandes de présentation">
+    <button id="previous" aria-label="Slide précédente">←</button>
+    <span id="counter" aria-live="polite"></span>
+    <button id="next" aria-label="Slide suivante">→</button>
+    <span class="control-separator"></span>
+    <button id="overview">Sommaire <kbd>O</kbd></button>
+    <button id="appendices">Annexes <kbd>A</kbd></button>
+    <button id="notes">Notes <kbd>N</kbd></button>
+    <button id="fullscreen">Plein écran <kbd>F</kbd></button>
+    <button id="print">PDF / imprimer</button>
+  </nav>
+  <aside id="speaker-notes" hidden aria-label="Notes de présentation"></aside>
+  <dialog id="overview-dialog" aria-labelledby="overview-title"><header><h2 id="overview-title">Sommaire</h2><button data-close aria-label="Fermer le sommaire">×</button></header><div id="overview-content"></div></dialog>
+  <dialog id="visual-dialog" aria-labelledby="visual-title"><header><h2 id="visual-title">Détail visuel</h2><button id="zoom-visual">Zoom / ajuster</button><button data-close aria-label="Fermer le détail">×</button></header><div id="visual-content"></div></dialog>
+  <input id="video-file" type="file" accept="video/*" hidden>
+  <dialog id="video-dialog" aria-labelledby="video-title"><header><h2 id="video-title">Test filmé · préparation T1 et séance T2</h2><button data-close aria-label="Fermer la vidéo">×</button></header><video id="test-video" controls playsinline preload="metadata"></video></dialog>
+  <noscript>Activez JavaScript pour parcourir cette présentation, ou ouvrez ../../output/pdf/G6.pdf.</noscript>
+</body>
+</html>
