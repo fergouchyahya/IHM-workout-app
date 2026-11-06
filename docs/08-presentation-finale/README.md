@@ -7,6 +7,9 @@ Présentation française en HTML/CSS/JavaScript : **17 slides principales et 27 
 - [Registre et audit](preuves-et-sources.md) · [Précisions du groupe sur les personnes et tests](retours-et-participants.md).
 - [Démonstration de Thomas](demonstration.md) · [Aperçu](../../output/pdf/G6-apercu.png) · [Vérification](verification.json).
 - [Script oral en points clés](script-oral.md) : chaque slide, annexes associées et appréciation de la couverture de la grille. Les mêmes repères s'affichent avec **N** dans la présentation.
+- [Pack pour l'enseignante](../../output/envoi/G6-envoi.zip) : PDF, catalogue de 69 vues d'interface et 10 diagrammes, prototype local. [Pack complet](../../output/envoi/G6.zip) : ajoute les 123 PNG et la présentation interactive sans notes privées. [Brouillon d'email](../../output/envoi/email-envoi-G6.txt).
+
+Pour régénérer les packs : exécuter `capturer-complements.browser.js` avec le navigateur local sur le port 8877, conserver son résultat JSON dans `output/playwright/envoi-g6/captures.json`, puis lancer `python3 docs/08-presentation-finale/preparer-envoi.py`. Prérequis : Node, Pillow, ReportLab, Poppler et MuPDF. Le script contrôle le PDF source, rend les slides, crée le catalogue et les deux ZIP ; aucun email n'est envoyé.
 
 ## Ouvrir et présenter
 

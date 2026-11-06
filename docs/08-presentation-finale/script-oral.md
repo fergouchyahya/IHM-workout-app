@@ -134,11 +134,11 @@
 - **Annexe A19** : étape → travail réalisé → place des utilisateurs ; **A18** : quatre problèmes et décisions associées.
 - **Couverture** : processus / itération **bien** ; chaîne claire et changements concrets ; boucle finale de vérification humaine encore ouverte.
 
-## Slide 17 - Bilan et questions - 30 s
+## Slide 17 - Bilan et questions - 35 s
 
 - **À dire** : « Organiser les échanges et obtenir l'accord pour filmer a été exigeant. »
 - **À dire** : « Les retours nous ont permis de voir les obstacles et de mieux prioriser nos corrections. »
-- **À conclure** : « Notre prochaine étape serait de vérifier ces corrections avec les utilisateurs. Merci, nous sommes prêts pour vos questions. »
+- **À conclure** : « Notre prochaine étape serait de vérifier ces corrections avec les utilisateurs. Merci, nous sommes prêts pour vos questions. » Le bouton **Ouvrir l’application** donne accès au prototype.
 - **Annexe A22** : observer, échanger, itérer ; **A21** : retrouver rapidement une méthode ; **A19** : limite du dernier cycle.
 - **Couverture** : présentation et processus **bien** ; bilan humain clair, amélioration démontrée et prochaine vérification identifiable.
 

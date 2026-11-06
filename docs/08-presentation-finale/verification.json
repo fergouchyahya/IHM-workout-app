@@ -70,8 +70,8 @@
   "humanEvidence": "Iterations, filmed T1/T2 and full unfilmed test reported by the group; see retours-et-participants.md",
   "rehearsal": "Not performed; 815-second content budget plus 85-second reserve",
   "emailSubmission": "Not sent; draft and confirmation checklist in meeting document",
-  "pdfSha256": "9ccd537faf09f1d1463f60f226da835cc9af895759e9018f179a64ef24cbca73",
-  "pdfVisualReview": "44/44 regenerated PDF pages rendered and inspected; red marker spacing reviewed in prototype, persona, test and search slides",
+  "pdfSha256": "94b3d075a258e6cb43942b9b89d94b5e3fcdc7ed411365c7bba1e7a5f24c0d61",
+  "pdfVisualReview": "Prior 44-page review retained; changed closing slide regenerated and inspected at 1400px; all-slide layout check passed",
   "mainPreview": "output/pdf/G6-apercu.png",
   "sourceAndAssetReferences": "20 source hashes, 5 presentation/guide hashes, 38 capture hashes, 11 derived asset hashes and local Markdown links resolved",
   "redMarkers": {
@@ -79,5 +79,6 @@
     "issues": []
   },
   "speakingGuide": "script-oral.md: 17 main-slide cue sections, 27 appendix cue sections, appendix mapping and criterion-by-criterion assessment; bullet notes available through N on every slide",
-  "speakingNotesDisplay": "Browser checked: bullet rendering visible, scrollable panel remains inside viewport, hidden on PDF export"
+  "speakingNotesDisplay": "Browser checked: bullet rendering visible, scrollable panel remains inside viewport, hidden on PDF export",
+  "closingApplicationLink": "Visible on main closing slide and PDF; resolves to the same local application as the demonstration, HTTP 200"
 }

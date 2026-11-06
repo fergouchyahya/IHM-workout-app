@@ -51,6 +51,11 @@ async (page) => {
   check(await page.locator('[data-video]').count()===2,'Local video launchers');
   check(await page.locator('#video-file').getAttribute('accept')==='video/*','Video file types');
   await go('s16');check(await page.locator('#next').isDisabled(),'Main talk stops at conclusion');
+  const appLink=page.locator('#s16 .app-link');
+  check(await appLink.isVisible(),'Closing application link visible');
+  check(await appLink.getAttribute('href')===await page.locator('.demo-launch').getAttribute('href'),'Closing link opens the demonstrated application');
+  const application=await page.request.get(await appLink.evaluate(link=>link.href));
+  check(application.ok(),'Closing application link resolves');
   const layout=[],markerIssues=[];
   let markerCount=0;
   for(let i=0;i<44;i++){
